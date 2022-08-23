@@ -1,0 +1,25 @@
+.button_loading {
+  column-gap: 8px;
+
+  &.button {
+    padding: 0 10px;
+  }
+
+  &.button_color-primary {
+    border-color: var(--color-hover);
+    background-color: var(--color-hover);
+
+    & .button__loader {
+      --color: var(--color-secondary);
+    }
+  }
+
+  &.button_color-secondary {
+    color: var(--color-hover);
+    border-color: var(--color-hover);
+
+    & .button__loader {
+      --color: var(--color-hover);
+    }
+  }
+}

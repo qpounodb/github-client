@@ -40,7 +40,13 @@
     "babel-plugin-named-exports-order": "^0.0.2",
     "prop-types": "^15.8.1",
     "sass": "^1.54.5",
+    "tsconfig-paths-webpack-plugin": "^4.0.0",
     "webpack": "^5.74.0"
+  },
+  "jest": {
+    "moduleNameMapper": {
+      "^~/(.+)": "<rootDir>/src/$1"
+    }
   },
   "eslintConfig": {
     "extends": [
@@ -48,6 +54,19 @@
       "react-app/jest"
     ],
     "overrides": [
+      {
+        "files": [
+          "**/*.test.*"
+        ],
+        "rules": {
+          "testing-library/no-node-access": [
+            "error",
+            {
+              "allowContainerFirstChild": true
+            }
+          ]
+        }
+      },
       {
         "files": [
           "**/*.stories.*"
