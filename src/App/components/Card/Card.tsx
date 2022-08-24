@@ -1,6 +1,6 @@
 import React from 'react';
 import { classname } from '~/shared/utils';
-import './Card.scss';
+import styles from './Card.module.scss';
 
 export type CardProps = {
   image: string;
@@ -12,6 +12,7 @@ export type CardProps = {
   className?: string;
 };
 
+const DEFAULT_AVATAR_ALT = 'avatar';
 const DEFAULT_PLACEHOLDER = '🍥';
 
 export const Card: React.FC<CardProps> = ({
@@ -28,28 +29,28 @@ export const Card: React.FC<CardProps> = ({
   React.useEffect(() => {
     if (!imgRef.current) return;
     const img = imgRef.current;
-    const onLoad = () => img.classList.remove('card__avatar_hidden');
+    const onLoad = () => img.classList.remove(styles.avatar_hidden);
     img.addEventListener('load', onLoad);
     return () => img.removeEventListener('load', onLoad);
   }, []);
 
   return (
-    <div className={classname('card', className)} onClick={onClick}>
-      <div className="card__side">
-        <div className="card__placeholder">
+    <div className={classname(styles.card, className)} onClick={onClick}>
+      <div className={styles.side}>
+        <div className={styles.placeholder}>
           {placeholder.at(0)?.toUpperCase() || DEFAULT_PLACEHOLDER}
         </div>
         <img
           ref={imgRef}
-          className="card__avatar card__avatar_hidden"
+          className={classname(styles.avatar, styles.avatar_hidden)}
           src={image}
-          alt="avatar"
+          alt={DEFAULT_AVATAR_ALT}
         />
       </div>
-      <div className="card__main">
-        <div className="card__item card__title">{title}</div>
-        <div className="card__item card__subtitle">{subtitle}</div>
-        <div className="card__item card__content">{content}</div>
+      <div className={styles.main}>
+        <div className={classname(styles.item, styles.title)}>{title}</div>
+        <div className={styles.item}>{subtitle}</div>
+        <div className={styles.item}>{content}</div>
       </div>
     </div>
   );

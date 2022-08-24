@@ -1,0 +1,22 @@
+.button {
+  width: var(--height);
+  overflow: hidden;
+
+  justify-content: center;
+  padding: 0;
+}
+
+.button.primary {
+  fill: var(--color-background);
+}
+
+.button.secondary {
+  fill: var(--color-accent);
+
+  &:hover {
+    fill: var(--color-accent-hover);
+  }
+  &:disabled {
+    fill: var(--color-border);
+  }
+}

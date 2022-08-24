@@ -1,7 +1,7 @@
 import React from 'react';
 import { classname, PropsWithClassName } from '~/shared/utils';
 import { Locators } from '~/__test__/constants';
-import './Loader.scss';
+import styles from './Loader.module.scss';
 
 export enum LoaderSize {
   s = 's',
@@ -20,6 +20,6 @@ export const Loader: React.FC<LoaderProps> = ({
   className,
 }) => {
   if (!loading) return null;
-  const cls = classname('loader', `loader_size-${size}`, className);
+  const cls = classname(styles.loader, styles[`size_${size}`], className);
   return <div className={cls} data-testid={Locators.LOADER}></div>;
 };

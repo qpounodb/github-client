@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
 import { Input } from '~/App/components/Input/Input';
 import { useHide } from '~/shared/hooks';
-import { classname } from '~/shared/utils';
-import './MultiDropdown.scss';
+import styles from './MultiDropdown.module.scss';
 import { MultiDropdownList } from './MultiDropdownList';
 import { MultiDropdownProps } from './types';
 
@@ -23,17 +22,12 @@ export const MultiDropdown: React.FC<MultiDropdownProps> = ({
 
   useHide(ref, hide);
 
-  const cls = classname({
-    'multi-dropdown': true,
-    'multi-dropdown_disabled': disabled,
-  });
-
   const handleDropdown = () => disabled || setHide((state) => !state);
 
   return (
-    <div className={cls} ref={ref}>
+    <div className={styles.main} ref={ref}>
       <Input
-        className="multi-dropdown__input"
+        className={styles.input}
         value={title}
         placeholder={placeholder}
         onClick={handleDropdown}

@@ -1,6 +1,6 @@
 import React from 'react';
 import { classname } from '~/shared/utils';
-import './Input.scss';
+import styles from './Input.module.scss';
 
 type InputHTMLProps = React.InputHTMLAttributes<HTMLInputElement>;
 type InputChangeHandler = React.ChangeEventHandler<HTMLInputElement>;
@@ -10,16 +10,8 @@ export type InputProps = Omit<InputHTMLProps, 'value' | 'onChange'> & {
   onChange: (value: string) => void;
 };
 
-export const Input: React.FC<InputProps> = ({
-  onChange,
-  className = '',
-  ...rest
-}) => {
-  const cls = classname({
-    input: true,
-    input_disabled: rest.disabled,
-    [className]: className.length > 0,
-  });
+export const Input: React.FC<InputProps> = ({ onChange, ...rest }) => {
+  const cls = classname(styles.input, rest.className);
 
   const handler: InputChangeHandler = (e) => onChange(e.target.value);
 

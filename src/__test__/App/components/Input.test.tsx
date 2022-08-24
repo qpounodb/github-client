@@ -65,27 +65,6 @@ describe('Тестирование компонента Input', () => {
     expect(inputElement).toHaveAttribute('type', 'text');
   });
 
-  test('При disabled=true добавляется класс input_disabled', () => {
-    const { rerender } = render(
-      <Input
-        value=""
-        onChange={() => {}}
-        data-testid={Locators.INPUT}
-        disabled
-      />
-    );
-
-    const inputElement = screen.getByTestId(Locators.INPUT);
-
-    expect(inputElement).toHaveClass('input_disabled');
-
-    rerender(
-      <Input value="" onChange={() => {}} data-testid={Locators.INPUT} />
-    );
-
-    expect(inputElement).not.toHaveClass('input_disabled');
-  });
-
   test('При disabled=true добавляется аттрибут disabled', () => {
     const { rerender } = render(
       <Input
@@ -137,7 +116,7 @@ describe('Тестирование компонента Input', () => {
 
     const inputElement = screen.getByTestId(Locators.INPUT);
 
-    expect(inputElement).toHaveClass(testClassName, 'input_disabled');
+    expect(inputElement).toHaveClass(testClassName);
   });
 
   test('При disabled=true атрибут value передается корректно', () => {

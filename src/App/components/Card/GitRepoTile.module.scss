@@ -1,0 +1,24 @@
+.card {
+  background: var(--color-background);
+}
+
+.link {
+  color: var(--color-hint);
+  text-decoration: none;
+
+  &:hover {
+    color: var(--color-link-hower);
+  }
+}
+
+.content {
+  display: flex;
+  column-gap: 20px;
+}
+
+.stars {
+  display: flex;
+  align-items: center;
+  column-gap: 4px;
+  fill: var(--color-star-accent);
+}

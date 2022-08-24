@@ -1,5 +1,6 @@
 import React from 'react';
 import { not } from '~/shared/utils';
+import styles from './MultiDropdown.module.scss';
 import { MultiDropdownItem } from './MultiDropdownItem';
 import { MultiDropdownListProps, Option } from './types';
 
@@ -25,7 +26,7 @@ export const MultiDropdownList: React.FC<MultiDropdownListProps> = ({
   };
 
   return (
-    <div className={'multi-dropdown__list'}>
+    <div className={styles.list}>
       {options.map((option) => (
         <MultiDropdownItem
           key={option.key}

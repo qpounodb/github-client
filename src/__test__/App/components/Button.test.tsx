@@ -78,7 +78,7 @@ describe('Тестирование компонента Button', () => {
     expect(mockOnClick).not.toBeCalled();
   });
 
-  test('При передаче loading=true добавляется класс button_disabled', () => {
+  test('При передаче loading=true добавляется аттрибут disabled', () => {
     const { rerender } = render(
       <Button data-testid={Locators.BUTTON} loading>
         {BUTTON_TEXT}
@@ -87,11 +87,11 @@ describe('Тестирование компонента Button', () => {
 
     const buttonElement = screen.getByTestId(Locators.BUTTON);
 
-    expect(buttonElement).toHaveClass('button_disabled');
+    expect(buttonElement).toHaveAttribute('disabled');
 
     rerender(<Button data-testid={Locators.BUTTON}>{BUTTON_TEXT}</Button>);
 
-    expect(buttonElement).not.toHaveClass('button_disabled');
+    expect(buttonElement).not.toHaveAttribute('disabled');
   });
 
   test('Переданный onClick вызывается при клике', () => {
@@ -117,7 +117,8 @@ describe('Тестирование компонента Button', () => {
 
     const buttonElement = screen.getByTestId(Locators.BUTTON);
 
-    expect(buttonElement).toHaveClass('button_color-primary');
+    expect(buttonElement.className).toContain(ButtonColor.primary);
+    expect(buttonElement.className).not.toContain(ButtonColor.secondary);
 
     rerender(
       <Button color={ButtonColor.secondary} data-testid={Locators.BUTTON}>
@@ -125,7 +126,8 @@ describe('Тестирование компонента Button', () => {
       </Button>
     );
 
-    expect(buttonElement).toHaveClass('button_color-secondary');
+    expect(buttonElement.className).toContain(ButtonColor.secondary);
+    expect(buttonElement.className).not.toContain(ButtonColor.primary);
   });
 
   test('Цвет кнопки по умолчанию - ButtonColor.primary', () => {
@@ -133,7 +135,8 @@ describe('Тестирование компонента Button', () => {
 
     const buttonElement = screen.getByTestId(Locators.BUTTON);
 
-    expect(buttonElement).toHaveClass('button_color-primary');
+    expect(buttonElement.className).toContain(ButtonColor.primary);
+    expect(buttonElement.className).not.toContain(ButtonColor.secondary);
   });
 
   test('При disabled=true не вызывается onClick', () => {
@@ -157,22 +160,6 @@ describe('Тестирование компонента Button', () => {
     userEvent.click(buttonElement);
 
     expect(mockOnClick).toBeCalledTimes(1);
-  });
-
-  test('При disabled=true добавляется класс button_disabled', () => {
-    const { rerender } = render(
-      <Button data-testid={Locators.BUTTON} disabled>
-        {BUTTON_TEXT}
-      </Button>
-    );
-
-    const buttonElement = screen.getByTestId(Locators.BUTTON);
-
-    expect(buttonElement).toHaveClass('button_disabled');
-
-    rerender(<Button data-testid={Locators.BUTTON}>{BUTTON_TEXT}</Button>);
-
-    expect(buttonElement).not.toHaveClass('button_disabled');
   });
 
   test('При disabled=true проставляется атрибут disabled=true у кнопки', () => {
@@ -201,7 +188,7 @@ describe('Тестирование компонента Button', () => {
 
     const buttonElement = screen.getByTestId(Locators.BUTTON);
 
-    expect(buttonElement).toHaveClass(testClassName, 'button_disabled');
+    expect(buttonElement).toHaveClass(testClassName);
   });
 
   test('Пробрасываются все пропсы, которые принимает нативная кнопка', () => {

@@ -1,0 +1,43 @@
+.main {
+  --height: 50px;
+  position: relative;
+}
+
+.input {
+  display: block;
+}
+
+.list {
+  position: absolute;
+  top: calc(100% + 8px);
+
+  width: 295px;
+  display: flex;
+  flex-direction: column;
+  row-gap: 1px;
+
+  border-radius: 6px;
+  border: 1px solid var(--color-border);
+  background-color: var(--color-border);
+  color: var(--color-text);
+  overflow: hidden;
+
+  &:focus {
+    border-color: var(--color-accent);
+  }
+}
+
+.item {
+  height: var(--height);
+
+  display: flex;
+  align-items: center;
+  padding: 0 12px;
+
+  background-color: var(--color-background);
+  user-select: none;
+
+  &_selected {
+    background-color: var(--color-background-selected);
+  }
+}

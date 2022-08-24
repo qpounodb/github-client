@@ -3,7 +3,7 @@ import { SvgStar } from '~/App/components/Svg';
 import { MONTHS } from '~/shared/constants';
 import { GithubAPI } from '~/shared/GithubAPI';
 import { Card } from './Card';
-import './GitRepoTile.scss';
+import styles from './GitRepoTile.module.scss';
 
 type ApiData = Pick<
   GithubAPI.Repository,
@@ -32,7 +32,7 @@ export const GitRepoTile: React.FC<GitRepoTileProps> = ({
 
   const link = (
     <a
-      className="git-repo-tile__org-link"
+      className={styles.link}
       href={apiData.owner.html_url}
       target="_blank"
       rel="noopener noreferrer"
@@ -42,8 +42,8 @@ export const GitRepoTile: React.FC<GitRepoTileProps> = ({
   );
 
   const content = (
-    <div className="git-repo-tile__content">
-      <span className="git-repo-tile__stars">
+    <div className={styles.content}>
+      <span className={styles.stars}>
         <SvgStar />
         <span>{apiData.stargazers_count}</span>
       </span>
@@ -53,7 +53,7 @@ export const GitRepoTile: React.FC<GitRepoTileProps> = ({
 
   return (
     <Card
-      className="git-repo-tile"
+      className={styles.card}
       onClick={onClick}
       image={apiData.owner.avatar_url}
       placeholder={placeholder || apiData.owner.login}

@@ -1,0 +1,27 @@
+.input {
+  --height: 50px;
+
+  height: var(--height);
+  width: 295px;
+  padding: 0 12px;
+  outline: none;
+  border-radius: 6px;
+  border: 1px solid var(--color-border);
+  background-color: var(--color-background);
+  color: var(--color-text);
+  font-size: 14px;
+
+  &:focus {
+    border-color: var(--color-accent);
+  }
+
+  &:disabled {
+    background-color: var(--color-background-disabled);
+    color: var(--color-hint);
+    cursor: not-allowed;
+  }
+
+  &::placeholder {
+    color: var(--color-hint);
+  }
+}

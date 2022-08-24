@@ -1,7 +1,7 @@
 import React from 'react';
 import { Loader } from '~/App/components/Loader/Loader';
 import { classname, PropsWithClassName } from '~/shared/utils';
-import './WithLoader.scss';
+import styles from './WithLoader.module.scss';
 
 export type WithLoaderProps = React.PropsWithChildren<
   PropsWithClassName<{
@@ -14,11 +14,11 @@ export const WithLoader: React.FC<WithLoaderProps> = ({
   children,
   className,
 }) => (
-  <div className={classname('with-loader', className)}>
+  <div className={classname(styles.container, className)}>
     {children}
     {loading && (
-      <div className={'with-loader__cover'}>
-        <Loader className={'with-loader__loader'} />
+      <div className={styles.cover}>
+        <Loader />
       </div>
     )}
   </div>
