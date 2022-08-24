@@ -17,6 +17,7 @@
 ## Стек технологий:
 
 - [React](https://reactjs.org/docs/getting-started.html)
+- [Create React App](https://create-react-app.dev/docs/getting-started)
 - [React-router](https://reactrouter.com/docs/en/v6)
 - [Axios](https://axios-http.com/docs/intro)
 - [MobX](https://mobx.js.org/README.html)
