@@ -17,10 +17,19 @@
 ## Стек технологий:
 
 - [React](https://reactjs.org/docs/getting-started.html)
-- [Create React App](https://create-react-app.dev/docs/getting-started)
 - [React-router](https://reactrouter.com/docs/en/v6)
 - [Axios](https://axios-http.com/docs/intro)
 - [MobX](https://mobx.js.org/README.html)
 - [ClassNames](https://github.com/JedWatson/classnames)
+
+## Инструменты для разработки:
+
+- [Typescript](https://www.typescriptlang.org/docs/)
+- [Nodejs](https://nodejs.org/en/)
+- [Yarn](https://yarnpkg.com/getting-started)
+- [Create React App](https://create-react-app.dev/docs/getting-started)
+- [Storybook](https://storybook.js.org/docs/react/get-started/introduction)
 - [SCSS](https://sass-lang.com/documentation/)
 - [CSS Modules](https://github.com/css-modules/css-modules)
+- [Typed-SCSS-Modules](https://github.com/skovy/typed-scss-modules)
+- [Concurrently](https://github.com/open-cli-tools/concurrently)
