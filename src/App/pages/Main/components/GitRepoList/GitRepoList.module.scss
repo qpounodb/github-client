@@ -1,0 +1,11 @@
+.main {
+  display: flex;
+  flex-direction: column;
+  row-gap: 20px;
+}
+
+.list {
+  display: grid;
+  grid-template-rows: auto;
+  row-gap: 16px;
+}
