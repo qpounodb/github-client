@@ -24,20 +24,24 @@ export const Card: React.FC<CardProps> = ({
   onClick,
   className,
 }) => {
+  const placeholderRef = React.useRef<HTMLDivElement | null>(null);
   const imgRef = React.useRef<HTMLImageElement | null>(null);
 
   React.useEffect(() => {
-    if (!imgRef.current) return;
     const img = imgRef.current;
-    const onLoad = () => img.classList.remove(styles.avatar_hidden);
-    img.addEventListener('load', onLoad);
-    return () => img.removeEventListener('load', onLoad);
+    const placeholder = placeholderRef.current;
+    const onLoad = () => {
+      placeholder?.classList.add(styles.avatar_hidden);
+      img?.classList.remove(styles.avatar_hidden);
+    };
+    img?.addEventListener('load', onLoad);
+    return () => img?.removeEventListener('load', onLoad);
   }, []);
 
   return (
     <div className={classname(styles.card, className)} onClick={onClick}>
       <div className={styles.side}>
-        <div className={styles.placeholder}>
+        <div ref={placeholderRef} className={styles.placeholder}>
           {placeholder.at(0)?.toUpperCase() || DEFAULT_PLACEHOLDER}
         </div>
         <img
