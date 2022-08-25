@@ -10,9 +10,11 @@
 | ------------------------ | -------------------------------------- |
 | `/orgs/{org}/repos`      | [List organization repositories][list] |
 | `/repos/{owner}/{repo}`  | [Get a repository][repo]               |
+| `/search/repositories`   | [Search repositories][search]          |
 
 [list]: https://docs.github.com/en/rest/repos/repos#list-organization-repositories
 [repo]: https://docs.github.com/en/rest/repos/repos#get-a-repository
+[search]: https://docs.github.com/en/rest/search#search-repositories
 
 ## Стек технологий:
 
