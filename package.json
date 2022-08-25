@@ -6,7 +6,7 @@
     "start": "concurrently 'yarn:start:*' -p name -k",
     "start:cra": "craco start",
     "build:cra": "craco build",
-    "start:sb": "start-storybook -p 6006 -s public",
+    "start:sb": "start-storybook -p 6006 --quiet --disable-telemetry",
     "build:sb": "build-storybook -s public",
     "start:tsm": "typed-scss-modules 'src/**/*.module.{css,scss}' --watch",
     "test": "react-scripts test --watchAll=false",
