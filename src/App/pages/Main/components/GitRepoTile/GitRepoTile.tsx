@@ -1,16 +1,16 @@
 import React from 'react';
+import { Card } from '~/App/components/Card';
 import { SvgStar } from '~/App/components/Svg';
 import { MONTHS } from '~/shared/constants';
-import { GithubAPI } from '~/shared/GithubAPI';
-import { Card } from './Card';
+import { Owner, Repository } from '~/shared/GithubAPI';
 import styles from './GitRepoTile.module.scss';
 
-type ApiData = Pick<
-  GithubAPI.Repository,
-  'name' | 'html_url' | 'updated_at' | 'stargazers_count'
-> & { owner: Owner };
-
-type Owner = Pick<GithubAPI.Owner, 'login' | 'html_url' | 'avatar_url'>;
+export type ApiData = Pick<
+  Repository,
+  'id' | 'name' | 'html_url' | 'updated_at' | 'stargazers_count'
+> & {
+  owner: Pick<Owner, 'login' | 'html_url' | 'avatar_url'>;
+};
 
 export type GitRepoTileProps = {
   apiData: ApiData;
