@@ -15,7 +15,7 @@ export const Button: React.FC<ButtonProps> = ({
 }) => {
   const disabled = rest.disabled || loading;
 
-  const cls = classname(styles[color], loading && [styles.loading], className);
+  const cls = classname(styles[color], loading && styles.loading, className);
 
   return (
     <BaseButton {...rest} color={color} disabled={disabled} className={cls}>

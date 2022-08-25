@@ -1,21 +1,15 @@
 import React from 'react';
-import { SvgFind } from '~/App/components/Svg';
-import { classname } from '~/shared/utils';
-import { BaseButton, BaseButtonProps, ButtonColor } from './BaseButton';
-import styles from './SearchButton.module.scss';
+import { SvgFind } from '../Svg';
+import { SquareButton, SquareButtonProps } from './SquareButton';
 
-export type SearchButtonProps = Omit<BaseButtonProps, 'children'>;
+export type SearchButtonProps = Omit<SquareButtonProps, 'children'> & {
+  loading?: boolean;
+};
 
-export const SearchButton: React.FC<SearchButtonProps> = ({
-  className = '',
-  color = ButtonColor.primary,
-  ...rest
-}) => {
-  const cls = classname(styles.button, styles[color], className);
-
+export const SearchButton: React.FC<SearchButtonProps> = ({ ...rest }) => {
   return (
-    <BaseButton {...rest} color={color} className={cls}>
+    <SquareButton {...rest}>
       <SvgFind />
-    </BaseButton>
+    </SquareButton>
   );
 };

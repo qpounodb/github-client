@@ -1,7 +1,13 @@
 export type Styles = {
   button: string;
+  loader: string;
+  loading: string;
+  main: string;
   primary: string;
   secondary: string;
+  size_l: string;
+  size_m: string;
+  size_s: string;
 };
 
 export type ClassNames = keyof Styles;

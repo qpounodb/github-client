@@ -20,4 +20,5 @@ export const SearchButton: Story = (args) => (
 SearchButton.args = {
   color: ButtonColor.primary,
   disabled: false,
+  loading: false,
 };

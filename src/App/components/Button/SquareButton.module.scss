@@ -1,0 +1,57 @@
+.main {
+  width: var(--size);
+  height: var(--size);
+  min-width: var(--size);
+  max-width: var(--size);
+  overflow: hidden;
+  justify-content: center;
+  padding: 0;
+}
+
+.size {
+  &_l {
+    --size: 50px;
+  }
+
+  &_m {
+    --size: 40px;
+  }
+
+  &_s {
+    --size: 30px;
+  }
+}
+
+.main.primary {
+  fill: var(--color-background);
+}
+
+.main.secondary {
+  fill: var(--color-accent);
+
+  &:hover {
+    fill: var(--color-accent-hover);
+  }
+  &:disabled {
+    fill: var(--color-border);
+  }
+}
+
+.loading.primary {
+  border-color: var(--color-accent-hover);
+  background-color: var(--color-accent-hover);
+
+  .loader {
+    --color: var(--color-background);
+  }
+}
+
+.loading.secondary {
+  color: var(--color-accent-hover);
+  border-color: var(--color-accent-hover);
+  --color-shadow: var(--color-accent-hover);
+
+  .loader {
+    --color: var(--color-accent-hover);
+  }
+}
