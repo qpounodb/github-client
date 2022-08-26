@@ -57,7 +57,7 @@ class GithubAPI {
     const { data } = await this.fetch.get<SearchReposResult>(
       `/search/repositories`,
       {
-        params: { q: `org:${orgName}`, per_page: 0 },
+        params: { q: `org:${orgName}`, per_page: 1 },
       }
     );
     return data.total_count;
