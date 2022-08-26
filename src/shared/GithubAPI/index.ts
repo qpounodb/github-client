@@ -1,5 +1,6 @@
-export { githubAPI } from './rest-api';
-export type { RequestReposParams } from './rest-api';
+export { GithubAPI } from './GithubAPI';
+export type { RequestReposParams } from './GithubAPI';
+export { GithubRepoAPI } from './GithubRepoAPI';
 export type {
   Branch,
   Commit,

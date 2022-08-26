@@ -1,5 +1,5 @@
 import { createCtx } from '~/shared/context';
-import { githubAPI, Repository, RequestReposParams } from '~/shared/GithubAPI';
+import { GithubAPI, Repository, RequestReposParams } from '~/shared/GithubAPI';
 
 type ReposState = RequestReposParams & {
   loading: boolean;
@@ -30,6 +30,7 @@ const { useCtx, Provider } = createCtx<ReposState>(initState);
 export const GithubReposProvider = Provider;
 
 export const useGithubReposCtx = () => {
+  const githubAPI = new GithubAPI();
   const { state, update } = useCtx();
 
   const fetch = async (orgName: string, page: number): Promise<void> => {

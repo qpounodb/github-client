@@ -13,3 +13,10 @@ export const not =
 
 export const isNode = (e: Event['target']): e is Node =>
   e !== null && 'nodeType' in e;
+
+// Workaround typing: https://github.com/microsoft/TypeScript/pull/33622#issuecomment-575301357
+export const assertNotEmpty: (str: string) => asserts str = (str) => {
+  if (!str) {
+    throw new Error('Empty string');
+  }
+};
