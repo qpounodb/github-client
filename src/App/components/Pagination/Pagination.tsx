@@ -1,34 +1,48 @@
 import React from 'react';
 import { ButtonColor, ButtonSize, SquareButton } from '../Button';
+import { InputNumber } from '../Input';
 import styles from './Pagination.module.scss';
 
 export type PaginationProps = {
-  onChange: (page: number) => void;
+  onSubmit: (page: number) => void;
   page: number;
   count: number;
   loading?: boolean;
 };
 
 export const Pagination: React.FC<PaginationProps> = ({
-  onChange,
+  onSubmit,
   page,
   count,
   loading = false,
 }) => {
+  const [input, setInput] = React.useState(page);
+
+  React.useEffect(() => {
+    setInput(page);
+  }, [page]);
+
+  if (count < 1) return null;
+
   const decor = {
     color: ButtonColor.secondary,
     size: ButtonSize.m,
     loading,
   };
 
+  const onInput = (value: number) => {
+    if (loading) return;
+    setInput(value);
+  };
+
   const onPrev = () => {
     if (loading || page < 2) return;
-    onChange(page - 1);
+    onSubmit(page - 1);
   };
 
   const onNext = () => {
     if (loading || page >= count) return;
-    onChange(page + 1);
+    onSubmit(page + 1);
   };
 
   return (
@@ -36,7 +50,19 @@ export const Pagination: React.FC<PaginationProps> = ({
       <SquareButton {...decor} onClick={onPrev} disabled={page < 2}>
         {'<'}
       </SquareButton>
-      <div className={styles.counter}>{`${page} / ${count}`}</div>
+      <div className={styles.counter}>
+        <InputNumber
+          value={input}
+          min={1}
+          max={count}
+          step={1}
+          onChange={onInput}
+          onSubmit={onSubmit}
+          className={styles.input}
+        />
+        {' / '}
+        {count}
+      </div>
       <SquareButton {...decor} onClick={onNext} disabled={page >= count}>
         {'>'}
       </SquareButton>

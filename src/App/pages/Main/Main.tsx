@@ -8,11 +8,11 @@ export const Main: React.FC = () => {
   const { loading, orgName, setOrgName, repos, fetch, page, pages_count } =
     useGithubReposCtx();
 
-  const submitHandler = () => {
+  const submitOrgNameHandler = () => {
     fetch(1);
   };
 
-  const changePageHandler = (page: number) => {
+  const submitPageHandler = (page: number) => {
     fetch(page);
   };
 
@@ -21,13 +21,13 @@ export const Main: React.FC = () => {
       <GitRepoList
         orgName={orgName}
         onChange={setOrgName}
-        onSubmit={submitHandler}
+        onSubmit={submitOrgNameHandler}
         dataList={repos}
         loading={loading}
       />
       <div className={styles.pagination}>
         <Pagination
-          onChange={changePageHandler}
+          onSubmit={submitPageHandler}
           page={page}
           count={pages_count}
           loading={loading}

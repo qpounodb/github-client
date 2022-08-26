@@ -1,5 +1,6 @@
 export type Styles = {
   counter: string;
+  input: string;
   main: string;
 };
 
