@@ -56,7 +56,7 @@ export const useGithubReposCtx = () => {
         loading: false,
       }));
     } catch (error) {
-      update(() => initState);
+      update(({ orgName }) => ({ ...initState, orgName }));
       throw error;
     }
   };
