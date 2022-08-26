@@ -3,16 +3,14 @@ import { ButtonColor, ButtonSize, SquareButton } from '../Button';
 import styles from './Pagination.module.scss';
 
 export type PaginationProps = {
-  onPrev: () => void;
-  onNext: () => void;
+  onChange: (page: number) => void;
   page: number;
   count: number;
   loading?: boolean;
 };
 
 export const Pagination: React.FC<PaginationProps> = ({
-  onPrev,
-  onNext,
+  onChange,
   page,
   count,
   loading = false,
@@ -21,6 +19,16 @@ export const Pagination: React.FC<PaginationProps> = ({
     color: ButtonColor.secondary,
     size: ButtonSize.m,
     loading,
+  };
+
+  const onPrev = () => {
+    if (loading || page < 2) return;
+    onChange(page - 1);
+  };
+
+  const onNext = () => {
+    if (loading || page >= count) return;
+    onChange(page + 1);
   };
 
   return (
