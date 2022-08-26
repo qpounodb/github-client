@@ -1,5 +1,8 @@
 export type Styles = {
-  input: string;
+  main: string;
+  size_l: string;
+  size_m: string;
+  size_s: string;
 };
 
 export type ClassNames = keyof Styles;
