@@ -18,5 +18,7 @@ const DATA_LIST_EXAMPLE = Array.from({ length: 5 }, (_, id) => ({
   id,
 }));
 
-export const GitRepoList: Story = (args) => <GitRepoListComponent {...args} />;
+export const GitRepoList: Story = (args) => (
+  <GitRepoListComponent {...args} getCardClickHandler={() => () => {}} />
+);
 GitRepoList.args = { dataList: DATA_LIST_EXAMPLE };

@@ -8,6 +8,7 @@ export type GitRepoListProps = {
   onSubmit: (value: string) => void;
   loading?: boolean;
   dataList: ApiData[];
+  getCardClickHandler: (data: ApiData) => () => void;
 };
 
 export const GIT_REPO_LIST_PLACEHOLDER = 'Введите название организации';
@@ -17,6 +18,7 @@ export const GitRepoList: React.FC<GitRepoListProps> = ({
   onSubmit,
   loading = false,
   dataList,
+  getCardClickHandler,
 }) => {
   const [input, setInput] = React.useState(orgName);
 
@@ -35,7 +37,11 @@ export const GitRepoList: React.FC<GitRepoListProps> = ({
       />
       <div className={styles.list}>
         {dataList.map((data) => (
-          <GitRepoTile key={data.id} apiData={data} />
+          <GitRepoTile
+            key={data.id}
+            apiData={data}
+            onClick={getCardClickHandler(data)}
+          />
         ))}
       </div>
     </div>
