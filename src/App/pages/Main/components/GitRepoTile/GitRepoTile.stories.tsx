@@ -1,4 +1,5 @@
 import { ComponentMeta, ComponentStory } from '@storybook/react';
+import { API_DATA_EXAMPLE } from './API_DATA_EXAMPLE';
 
 import { GitRepoTile as GitRepoTileComponent } from './GitRepoTile';
 
@@ -12,19 +13,6 @@ const meta: Meta = {
 };
 
 export default meta;
-
-export const API_DATA_EXAMPLE = {
-  id: 123,
-  name: 'kts-school-frontend',
-  html_url: 'https://github.com/ktsstudio/kts-school-frontend',
-  updated_at: '2021-06-21T19:14:43Z',
-  stargazers_count: 123,
-  owner: {
-    login: 'ktsstudio',
-    html_url: 'https://github.com/ktsstudio',
-    avatar_url: 'https://picsum.photos/150/150',
-  },
-};
 
 export const GitRepoTile: Story = (args) => <GitRepoTileComponent {...args} />;
 GitRepoTile.args = {

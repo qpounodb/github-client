@@ -1,5 +1,5 @@
 import { ComponentMeta, ComponentStory } from '@storybook/react';
-import { API_DATA_EXAMPLE } from '../GitRepoTile/GitRepoTile.stories';
+import { API_DATA_EXAMPLE } from '../GitRepoTile/API_DATA_EXAMPLE';
 
 import { GitRepoList as GitRepoListComponent } from './GitRepoList';
 
