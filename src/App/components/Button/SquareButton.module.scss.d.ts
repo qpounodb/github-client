@@ -1,5 +1,4 @@
 export type Styles = {
-  button: string;
   loader: string;
   loading: string;
   main: string;
