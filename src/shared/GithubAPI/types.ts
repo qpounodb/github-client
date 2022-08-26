@@ -57,3 +57,67 @@ export interface SearchReposResult {
   incomplete_results: boolean;
   items: Repository[];
 }
+
+export type Languages = Record<string, number>;
+
+export interface Topics {
+  names: string[];
+}
+
+export interface Branch {
+  name: string;
+  commit: {
+    sha: string;
+    url: string;
+  };
+  protected: boolean;
+}
+
+export interface Commit {
+  sha: string;
+  commit: {
+    author: Committer;
+    committer: Committer;
+    message: string;
+    tree: {
+      sha: string;
+      url: string;
+    };
+    url: string;
+  };
+  author: Owner;
+  committer: Owner;
+  stats: CommitStats;
+  files: CommitFile[];
+}
+
+export interface Committer {
+  name: string;
+  email: string;
+  date: string;
+}
+
+export interface CommitStats {
+  additions: number;
+  deletions: number;
+  total: number;
+}
+
+export interface CommitFile {
+  sha: string;
+  filename: string;
+  status: string;
+  additions: number;
+  deletions: number;
+  changes: number;
+}
+
+export interface Readme {
+  type: 'file';
+  name: string;
+  path: string;
+  encoding: string;
+  content: string;
+  html_url: string;
+  download_url: string;
+}

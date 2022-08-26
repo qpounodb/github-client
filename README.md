@@ -6,15 +6,25 @@
 
 ## API endpoints:
 
-| `https://api.github.com` | Documentation                          |
-| ------------------------ | -------------------------------------- |
-| `/orgs/{org}/repos`      | [List organization repositories][list] |
-| `/repos/{owner}/{repo}`  | [Get a repository][repo]               |
-| `/search/repositories`   | [Search repositories][search]          |
+| `https://api.github.com`              | Documentation                                |
+| ------------------------------------- | -------------------------------------------- |
+| `/orgs/{org}/repos`                   | [List organization repositories][list]       |
+| `/search/repositories`                | [Search repositories][search]                |
+| `/repos/{owner}/{repo}`               | [Get a repository][repo]                     |
+| `/repos/{owner}/{repo}/branches`      | [List branches][branches]                    |
+| `/repos/{owner}/{repo}/commits/{ref}` | [Get a commit][commit]                       |
+| `/repos/{owner}/{repo}/contributors`  | [List repository contributors][contributors] |
+| `/repos/{owner}/{repo}/languages`     | [List repository languages][languages]       |
+| `/repos/{owner}/{repo}/topics`        | [Get all repository topics][topics]          |
 
 [list]: https://docs.github.com/en/rest/repos/repos#list-organization-repositories
-[repo]: https://docs.github.com/en/rest/repos/repos#get-a-repository
 [search]: https://docs.github.com/en/rest/search#search-repositories
+[repo]: https://docs.github.com/en/rest/repos/repos#get-a-repository
+[branches]: https://docs.github.com/en/rest/branches/branches#list-branches
+[commit]: https://docs.github.com/en/rest/commits/commits#get-a-commit
+[contributors]: https://docs.github.com/en/rest/repos/repos#list-repository-contributors
+[languages]: https://docs.github.com/en/rest/repos/repos#list-repository-languages
+[topics]: https://docs.github.com/en/rest/repos/repos#get-all-repository-topics
 
 ## Стек технологий:
 
