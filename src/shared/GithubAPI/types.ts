@@ -47,7 +47,7 @@ export interface Repository {
   owner: Owner;
   forks_count: number;
   stargazers_count: number;
-  watchers_count: number;
+  subscribers_count: number;
   open_issues_count: number;
   size: number;
   language: string | null;

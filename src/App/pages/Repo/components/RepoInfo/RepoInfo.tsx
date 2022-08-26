@@ -20,7 +20,7 @@ const getLangLogo = (name: string) => {
 };
 
 const formatCount = (count: number): string => {
-  return count < 1000 ? String(count) : `${Math.round(count / 1000)}k`;
+  return count < 1000 ? String(count) : `${Math.round(count / 100) / 10}k`;
 };
 
 export const RepoInfo: React.FC<{ info: Repository }> = ({ info }) => {
@@ -44,7 +44,7 @@ export const RepoInfo: React.FC<{ info: Repository }> = ({ info }) => {
               <IconStar /> {formatCount(info.stargazers_count)}
             </div>
             <div title="Watchers">
-              <IconEye /> {formatCount(info.watchers_count)}
+              <IconEye /> {formatCount(info.subscribers_count)}
             </div>
             <div title="Forks">
               <IconFork /> {formatCount(info.forks_count)}
