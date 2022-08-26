@@ -32,16 +32,7 @@ export const GithubReposProvider = Provider;
 export const useGithubReposCtx = () => {
   const { state, update } = useCtx();
 
-  const setOrgName = (orgName: string) => {
-    update((state) => (orgName.length > 0 ? { ...state, orgName } : initState));
-  };
-
-  const setPage = (page: number) => {
-    update((state) => ({ ...state, page }));
-  };
-
-  const fetch = async (page: number): Promise<void> => {
-    const { orgName } = state;
+  const fetch = async (orgName: string, page: number): Promise<void> => {
     const params = getRequestReposParams({ ...state, page });
     update((state) => ({ ...state, loading: true }));
     try {
@@ -50,6 +41,7 @@ export const useGithubReposCtx = () => {
       const repos = await githubAPI.getRepos(orgName, params);
       update((state) => ({
         ...state,
+        orgName,
         repos,
         page,
         pages_count,
@@ -64,7 +56,5 @@ export const useGithubReposCtx = () => {
   return {
     ...state,
     fetch,
-    setOrgName,
-    setPage,
   };
 };

@@ -5,7 +5,6 @@ import styles from './GitRepoList.module.scss';
 
 export type GitRepoListProps = {
   orgName: string;
-  onChange: (value: string) => void;
   onSubmit: (value: string) => void;
   loading?: boolean;
   dataList: ApiData[];
@@ -15,17 +14,22 @@ export const GIT_REPO_LIST_PLACEHOLDER = 'Введите название орг
 
 export const GitRepoList: React.FC<GitRepoListProps> = ({
   orgName,
-  onChange,
   onSubmit,
   loading = false,
   dataList,
 }) => {
+  const [input, setInput] = React.useState(orgName);
+
+  React.useEffect(() => {
+    setInput(orgName);
+  }, [orgName]);
+
   return (
     <div className={styles.main}>
       <Search
-        value={orgName}
+        value={input}
         placeholder={GIT_REPO_LIST_PLACEHOLDER}
-        onChange={onChange}
+        onChange={setInput}
         onSubmit={onSubmit}
         loading={loading}
       />
