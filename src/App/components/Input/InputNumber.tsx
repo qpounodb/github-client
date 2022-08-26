@@ -13,6 +13,7 @@ export type InputNumberProps = Omit<
 };
 
 export const InputNumber: React.FC<InputNumberProps> = ({
+  value,
   onChange,
   onSubmit,
   size = InputSize.l,
@@ -20,7 +21,21 @@ export const InputNumber: React.FC<InputNumberProps> = ({
 }) => {
   const cls = classname(styles.main, styles[`size_${size}`], rest.className);
 
-  const handler = (value: string) => onChange(Number(value));
+  const handler = (value: string) => {
+    const x = Number(value);
+    const min = Number(rest.min);
+    const max = Number(rest.max);
+
+    if (!isNaN(min) && min > x) {
+      onChange(min);
+      return;
+    }
+    if (!isNaN(max) && max < x) {
+      onChange(max);
+      return;
+    }
+    onChange(x);
+  };
 
   return (
     <Input
@@ -28,9 +43,9 @@ export const InputNumber: React.FC<InputNumberProps> = ({
       size={size}
       className={cls}
       type="number"
-      value={''}
+      value={String(value)}
       onChange={handler}
-      onSubmit={handler}
+      onSubmit={(x) => onSubmit?.(Number(x))}
     />
   );
 };
