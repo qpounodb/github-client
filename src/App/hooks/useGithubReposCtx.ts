@@ -31,12 +31,12 @@ export const useGithubReposCtx = () => {
   const { state, update } = useCtx();
 
   const setOrgName = (orgName: string) => {
-    update(orgName.length > 0 ? { ...state, orgName } : initState);
+    update((state) => (orgName.length > 0 ? { ...state, orgName } : initState));
   };
 
   const setPage = (page: number) => {
     console.log(page);
-    update({ ...state, page });
+    update((state) => ({ ...state, page }));
     console.log(state.page);
   };
 
@@ -47,9 +47,9 @@ export const useGithubReposCtx = () => {
       const count = await githubAPI.getReposCount(orgName);
       const pages_count = Math.ceil(count / state.per_page);
       const repos = await githubAPI.getRepos(orgName, params);
-      update({ ...state, repos, pages_count });
+      update((state) => ({ ...state, repos, pages_count }));
     } catch (error) {
-      update(initState);
+      update(() => initState);
       throw error;
     }
   };
