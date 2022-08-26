@@ -19,6 +19,7 @@
 }
 
 .repo {
+  min-width: 50%;
   display: flex;
   flex-direction: column;
   row-gap: 20px;
@@ -26,9 +27,13 @@
   .name {
     margin: 0;
     font-size: 30px;
+    overflow-wrap: break-word;
 
-    sup {
-      font-size: 50%;
+    svg {
+      width: 30px;
+      margin-right: 5px;
+      vertical-align: middle;
+      fill: var(--color-hint);
     }
   }
 
@@ -37,6 +42,8 @@
     padding: 10px;
     border-radius: 6px;
     background-color: var(--color-background);
+    color: var(--color-hint);
+    font-size: 16px;
   }
 }
 
@@ -48,6 +55,7 @@
   padding: 5px;
   border: 1px solid var(--color-border);
   border-radius: 6px;
+  background-color: var(--color-background);
 
   img {
     display: block;
@@ -116,12 +124,19 @@
   display: flex;
   flex-wrap: wrap;
   gap: 5px 10px;
+  font-family: monospace;
+  font-size: 16px;
+  color: var(--color-background);
 
   div {
     padding: 5px 10px;
-    background-color: var(--color-background);
+    background-color: var(--color-star-accent);
     border-radius: 12px;
-    font-family: monospace;
+  }
+
+  svg {
+    width: 16px;
+    fill: var(--color-background);
   }
 }
 

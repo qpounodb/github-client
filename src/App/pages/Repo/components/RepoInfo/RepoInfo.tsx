@@ -1,13 +1,26 @@
 import React from 'react';
 import { Repository } from '~/shared/GithubAPI';
+import { ReactComponent as IconEye } from './icons/eye.svg';
+import { ReactComponent as IconFork } from './icons/fork.svg';
+import { ReactComponent as IconIssue } from './icons/open-issue.svg';
+import { ReactComponent as IconRepo } from './icons/repo.svg';
+import { ReactComponent as IconStar } from './icons/star.svg';
 import styles from './RepoInfo.module.scss';
 
+/**
+ * @param name https://devicon.dev/
+ * @returns
+ */
 const getLangLogo = (name: string) => {
   const lang = name
     .toLocaleLowerCase()
     .replaceAll('+', 'plus')
     .replaceAll('#', 'sharp');
   return `https://cdn.jsdelivr.net/gh/devicons/devicon/icons/${lang}/${lang}-original.svg`;
+};
+
+const formatCount = (count: number): string => {
+  return count < 1000 ? String(count) : `${Math.round(count / 1000)}k`;
 };
 
 export const RepoInfo: React.FC<{ info: Repository }> = ({ info }) => {
@@ -18,15 +31,27 @@ export const RepoInfo: React.FC<{ info: Repository }> = ({ info }) => {
       <div className={styles.about}>
         <div className={styles.repo}>
           <h1 className={styles.name}>
+            {info.fork ? (
+              <IconFork title="Forked repo" />
+            ) : (
+              <IconRepo title="Source repo" />
+            )}
             {info.name}
-            <sup>{info.fork ? '🔱' : '🗿'}</sup>
           </h1>
           {info.description && <p>{info.description}</p>}
           <div className={styles.stats}>
-            <div>🌟 {info.stargazers_count}</div>
-            <div>👁️ {info.watchers_count}</div>
-            <div>🔱 {info.forks_count}</div>
-            <div>❓ {info.open_issues_count}</div>
+            <div title="Stars">
+              <IconStar /> {formatCount(info.stargazers_count)}
+            </div>
+            <div title="Watchers">
+              <IconEye /> {formatCount(info.watchers_count)}
+            </div>
+            <div title="Forks">
+              <IconFork /> {formatCount(info.forks_count)}
+            </div>
+            <div title="Open issues">
+              <IconIssue /> {formatCount(info.open_issues_count)}
+            </div>
           </div>
           <div className={styles.date}>
             <div>Created</div>
@@ -39,6 +64,7 @@ export const RepoInfo: React.FC<{ info: Repository }> = ({ info }) => {
               <div>
                 Main language:
                 <img src={langLogo} alt={info.language} title={info.language} />
+                {info.language}
               </div>
             </div>
           )}
