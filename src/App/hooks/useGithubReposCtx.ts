@@ -2,12 +2,14 @@ import { createCtx } from '~/shared/context';
 import { githubAPI, Repository, RequestReposParams } from '~/shared/GithubAPI';
 
 type ReposState = RequestReposParams & {
+  loading: boolean;
   orgName: string;
   repos: Repository[];
   pages_count: number;
 };
 
 const initState: ReposState = {
+  loading: false,
   orgName: '',
   repos: [],
   pages_count: 0,
@@ -35,19 +37,24 @@ export const useGithubReposCtx = () => {
   };
 
   const setPage = (page: number) => {
-    console.log(page);
     update((state) => ({ ...state, page }));
-    console.log(state.page);
   };
 
-  const fetch = async (): Promise<void> => {
+  const fetch = async (page: number): Promise<void> => {
     const { orgName } = state;
-    const params = getRequestReposParams(state);
+    const params = getRequestReposParams({ ...state, page });
+    update((state) => ({ ...state, loading: true }));
     try {
       const count = await githubAPI.getReposCount(orgName);
       const pages_count = Math.ceil(count / state.per_page);
       const repos = await githubAPI.getRepos(orgName, params);
-      update((state) => ({ ...state, repos, pages_count }));
+      update((state) => ({
+        ...state,
+        repos,
+        page,
+        pages_count,
+        loading: false,
+      }));
     } catch (error) {
       update(() => initState);
       throw error;
