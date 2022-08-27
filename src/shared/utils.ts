@@ -26,6 +26,8 @@ export const isNone = <T>(x: Nullable<T>): x is None =>
 
 export const isSome = <T>(x: Nullable<T>): x is T => !isNone(x);
 
+export type Remap<T, V> = { [P in keyof T]: V };
+
 // Workaround typing: https://github.com/microsoft/TypeScript/pull/33622#issuecomment-575301357
 export const assertNotEmpty: (str: string) => asserts str = (str) => {
   if (!str) {
