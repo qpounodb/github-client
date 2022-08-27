@@ -10,22 +10,6 @@ import { Repository } from '~/shared/GithubAPI';
 import { formatCount, getLangLogo } from '~/shared/utils';
 import styles from './RepoInfo.module.scss';
 
-/**
- * @param name https://devicon.dev/
- * @returns
- */
-const getLangLogo = (name: string) => {
-  const lang = name
-    .toLocaleLowerCase()
-    .replaceAll('+', 'plus')
-    .replaceAll('#', 'sharp');
-  return `https://cdn.jsdelivr.net/gh/devicons/devicon/icons/${lang}/${lang}-original.svg`;
-};
-
-const formatCount = (count: number): string => {
-  return count < 1000 ? String(count) : `${Math.round(count / 100) / 10}k`;
-};
-
 export const RepoInfo: React.FC<{ info: Repository }> = ({ info }) => {
   const langLogo = info.language && getLangLogo(info.language);
 

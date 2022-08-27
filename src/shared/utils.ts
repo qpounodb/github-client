@@ -20,3 +20,19 @@ export const assertNotEmpty: (str: string) => asserts str = (str) => {
     throw new Error('Empty string');
   }
 };
+
+/**
+ * @param name https://devicon.dev/
+ * @returns
+ */
+export const getLangLogo = (name: string) => {
+  const lang = name
+    .toLocaleLowerCase()
+    .replaceAll('+', 'plus')
+    .replaceAll('#', 'sharp');
+  return `https://cdn.jsdelivr.net/gh/devicons/devicon/icons/${lang}/${lang}-original.svg`;
+};
+
+export const formatCount = (count: number): string => {
+  return count < 1000 ? String(count) : `${Math.round(count / 100) / 10}k`;
+};
