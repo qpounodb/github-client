@@ -1,5 +1,5 @@
 import { ComponentMeta, ComponentStory } from '@storybook/react';
-import langs from '~/App/assets/data-examples/repo-languages.json';
+import data from '~/App/assets/data-examples/repo-languages.json';
 import { RepoLangs as RepoLangsComponent } from './RepoLangs';
 
 type Meta = ComponentMeta<typeof RepoLangsComponent>;
@@ -13,4 +13,4 @@ const meta: Meta = {
 export default meta;
 
 export const RepoLangs: Story = (args) => <RepoLangsComponent {...args} />;
-RepoLangs.args = { langs };
+RepoLangs.args = { data };

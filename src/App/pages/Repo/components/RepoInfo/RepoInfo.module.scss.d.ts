@@ -1,6 +1,7 @@
 export type Styles = {
   about: string;
   date: string;
+  info: string;
   lang: string;
   link: string;
   main: string;
