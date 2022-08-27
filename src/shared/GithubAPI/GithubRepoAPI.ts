@@ -42,10 +42,8 @@ export class GithubRepoAPI {
   }
 
   async getContributors(): Promise<Contributor[]> {
-    const { data } = await this.fetch.get<Contributor[]>(
-      '/contributors',
-      this.cfg
-    );
+    const cfg = { params: { per_page: 10 } };
+    const { data } = await this.fetch.get<Contributor[]>('/contributors', cfg);
     return data;
   }
 
