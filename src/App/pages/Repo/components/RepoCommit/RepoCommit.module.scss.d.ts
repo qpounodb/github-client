@@ -3,6 +3,7 @@ export type Styles = {
   avatar: string;
   changes: string;
   commit: string;
+  filename: string;
   list: string;
   sign: string;
   title: string;

@@ -48,4 +48,9 @@
     font-family: monospace;
     color: var(--color-hint);
   }
+
+  .filename {
+    overflow-wrap: break-word;
+    min-width: 30%;
+  }
 }

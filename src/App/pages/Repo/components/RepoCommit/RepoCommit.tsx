@@ -31,13 +31,15 @@ export const RepoCommit = withRepoBlock<Commit>('', ({ data }) => (
 
     <div className={styles.changes}>
       <h3>Changes</h3>
-      {data.files.map((file) => (
-        <div className={styles.list}>
-          <StatusIcon file={file} />
-          <Stats stats={file} />
-          {file.filename}
-        </div>
-      ))}
+      <div className={styles.list}>
+        {data.files.map((file) => (
+          <>
+            <StatusIcon file={file} />
+            <Stats stats={file} />
+            <span className={styles.filename}>{file.filename}</span>
+          </>
+        ))}
+      </div>
     </div>
   </>
 ));
