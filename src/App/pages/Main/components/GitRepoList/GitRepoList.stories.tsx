@@ -1,5 +1,5 @@
 import { ComponentMeta, ComponentStory } from '@storybook/react';
-import { API_DATA_EXAMPLE } from '../GitRepoTile/API_DATA_EXAMPLE';
+import info from '~/App/assets/data-examples/repo-info.json';
 
 import { GitRepoList as GitRepoListComponent } from './GitRepoList';
 
@@ -14,7 +14,7 @@ const meta: Meta = {
 export default meta;
 
 const DATA_LIST_EXAMPLE = Array.from({ length: 5 }, (_, id) => ({
-  ...API_DATA_EXAMPLE,
+  ...info,
   id,
 }));
 
