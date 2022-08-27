@@ -1,7 +1,7 @@
 import { Route, Routes } from 'react-router-dom';
 import styles from './App.module.scss';
-import { GithubReposProvider } from './hooks/useGithubReposCtx';
 import { Main } from './pages/Main';
+import { GithubReposProvider } from './pages/Main/hooks/useGithubReposCtx';
 import { Repo } from './pages/Repo';
 
 export const App: React.FC = () => {

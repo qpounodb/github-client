@@ -1,7 +1,7 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Pagination } from '~/App/components/Pagination';
-import { useGithubReposCtx } from '~/App/hooks/useGithubReposCtx';
+import { useGithubReposCtx } from '~/App/pages/Main/hooks/useGithubReposCtx';
 import { GitRepoList } from './components/GitRepoList';
 import type { ApiData } from './components/GitRepoTile';
 import styles from './Main.module.scss';
