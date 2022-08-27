@@ -14,6 +14,15 @@ export const not =
 export const isNode = (e: Event['target']): e is Node =>
   e !== null && 'nodeType' in e;
 
+export type None = null | undefined;
+
+export type Nullable<T> = T | None;
+
+export const isNone = <T>(x: Nullable<T>): x is None =>
+  x === null && x === undefined;
+
+export const isSome = <T>(x: Nullable<T>): x is T => !isNone(x);
+
 // Workaround typing: https://github.com/microsoft/TypeScript/pull/33622#issuecomment-575301357
 export const assertNotEmpty: (str: string) => asserts str = (str) => {
   if (!str) {

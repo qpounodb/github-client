@@ -7,10 +7,16 @@ import {
   IconStar,
 } from '~/App/assets/icons';
 import { Repository } from '~/shared/GithubAPI';
-import { formatCount, getLangLogo } from '~/shared/utils';
+import { formatCount, getLangLogo, isNone, Nullable } from '~/shared/utils';
 import styles from './RepoInfo.module.scss';
 
-export const RepoInfo: React.FC<{ info: Repository }> = ({ info }) => {
+export type RepoInfoProps = {
+  info: Nullable<Repository>;
+};
+
+export const RepoInfo: React.FC<RepoInfoProps> = ({ info }) => {
+  if (isNone(info)) return null;
+
   const langLogo = info.language && getLangLogo(info.language);
 
   return (

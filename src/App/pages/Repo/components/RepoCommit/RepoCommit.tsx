@@ -1,14 +1,17 @@
 import React from 'react';
 import { Commit } from '~/shared/GithubAPI';
+import { isNone, Nullable } from '~/shared/utils';
 import styles from './RepoCommit.module.scss';
 import { Stats } from './Stats';
 import { StatusIcon } from './StatusIcon';
 
 export type RepoCommitProps = {
-  data: Commit;
+  data: Nullable<Commit>;
 };
 
 export const RepoCommit: React.FC<RepoCommitProps> = ({ data }) => {
+  if (isNone(data)) return null;
+
   return (
     <div className={styles.main}>
       <h2 className={styles.title}>

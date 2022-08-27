@@ -1,10 +1,11 @@
 import React from 'react';
 import { Converter } from 'showdown';
 import { Readme } from '~/shared/GithubAPI';
+import { isNone, Nullable } from '~/shared/utils';
 import styles from './RepoReadme.module.scss';
 
 export type RepoReadmeProps = {
-  file: Readme;
+  file: Nullable<Readme>;
 };
 
 const converter = new Converter();
@@ -14,18 +15,14 @@ const base64MarkdownToHTML = (str: string) => {
 };
 
 export const RepoReadme: React.FC<RepoReadmeProps> = ({ file }) => {
-  const content = React.useMemo(
-    () => base64MarkdownToHTML(file.content),
-    [file.content]
-  );
+  if (isNone(file)) return null;
+
+  const __html = base64MarkdownToHTML(file.content);
 
   return (
     <div className={styles.main}>
       <h2>README</h2>
-      <div
-        className={styles.content}
-        dangerouslySetInnerHTML={{ __html: content }}
-      />
+      <div className={styles.content} dangerouslySetInnerHTML={{ __html }} />
     </div>
   );
 };
