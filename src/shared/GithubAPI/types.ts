@@ -1,10 +1,11 @@
 // GitHub REST API: https://docs.github.com/en/rest
 
 export interface Owner {
-  type: 'User' | 'Organization';
+  /** 'User' | 'Organization' */
+  type: string;
   id: number;
   login: string;
-  name: string | null;
+  name?: string | null;
   avatar_url: string;
   html_url: string;
   url: string;
@@ -13,17 +14,17 @@ export interface Owner {
 
 export interface User extends Omit<Owner, 'type'> {
   type: 'User';
-  name: string | null;
-  bio: string | null;
-  blog: string | null;
-  email: string | null;
-  location: string | null;
+  name?: string | null;
+  bio?: string | null;
+  blog?: string | null;
+  email?: string | null;
+  location?: string | null;
 }
 
 export interface Organization extends Omit<Owner, 'type'> {
   type: 'Organization';
   name: string;
-  description: string | null;
+  description?: string | null;
   blog: string;
   email: string;
   location: string;
@@ -36,7 +37,7 @@ export interface Repository {
   name: string;
   html_url: string;
   url: string;
-  description: string | null;
+  description?: string | null;
   topics: string[];
   created_at: string;
   updated_at: string;
@@ -50,7 +51,7 @@ export interface Repository {
   subscribers_count: number;
   open_issues_count: number;
   size: number;
-  language: string | null;
+  language?: string | null;
 }
 
 export interface SearchReposResult {
