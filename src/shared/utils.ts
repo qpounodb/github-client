@@ -19,7 +19,7 @@ export type None = null | undefined;
 export type Nullable<T> = T | None;
 
 export const isNone = <T>(x: Nullable<T>): x is None =>
-  x === null && x === undefined;
+  x === null || x === undefined;
 
 export const isSome = <T>(x: Nullable<T>): x is T => !isNone(x);
 
