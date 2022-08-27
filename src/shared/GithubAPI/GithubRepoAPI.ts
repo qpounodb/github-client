@@ -1,6 +1,13 @@
 import axios, { AxiosInstance } from 'axios';
 import { assertNotEmpty } from '../utils';
-import { Branch, Commit, Languages, Owner, Repository, Topics } from './types';
+import {
+  Branch,
+  Commit,
+  Contributor,
+  Languages,
+  Readme,
+  Repository,
+} from './types';
 
 export class GithubRepoAPI {
   private fetch: AxiosInstance;
@@ -34,8 +41,11 @@ export class GithubRepoAPI {
     return data;
   }
 
-  async getContributors(): Promise<Owner[]> {
-    const { data } = await this.fetch.get<Owner[]>('/contributors', this.cfg);
+  async getContributors(): Promise<Contributor[]> {
+    const { data } = await this.fetch.get<Contributor[]>(
+      '/contributors',
+      this.cfg
+    );
     return data;
   }
 
@@ -44,8 +54,8 @@ export class GithubRepoAPI {
     return data;
   }
 
-  async getTopics(): Promise<Topics> {
-    const { data } = await this.fetch.get<Topics>('/topics', this.cfg);
+  async getReadme(): Promise<Readme> {
+    const { data } = await this.fetch.get<Readme>('/readme');
     return data;
   }
 }

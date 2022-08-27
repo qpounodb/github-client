@@ -12,6 +12,10 @@ export interface Owner {
   repos_url: string;
 }
 
+export interface Contributor extends Owner {
+  contributions: number;
+}
+
 export interface User extends Omit<Owner, 'type'> {
   type: 'User';
   name?: string | null;
@@ -61,10 +65,6 @@ export interface SearchReposResult {
 }
 
 export type Languages = Record<string, number>;
-
-export interface Topics {
-  names: string[];
-}
 
 export interface Branch {
   name: string;

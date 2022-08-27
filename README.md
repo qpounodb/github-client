@@ -15,7 +15,7 @@
 | `/repos/{owner}/{repo}/commits/{ref}` | [Get a commit][commit]                       |
 | `/repos/{owner}/{repo}/contributors`  | [List repository contributors][contributors] |
 | `/repos/{owner}/{repo}/languages`     | [List repository languages][languages]       |
-| `/repos/{owner}/{repo}/topics`        | [Get all repository topics][topics]          |
+| `/repos/{owner}/{repo}/readme`        | [Get a repository README][readme]            |
 
 [list]: https://docs.github.com/en/rest/repos/repos#list-organization-repositories
 [search]: https://docs.github.com/en/rest/search#search-repositories
@@ -24,7 +24,7 @@
 [commit]: https://docs.github.com/en/rest/commits/commits#get-a-commit
 [contributors]: https://docs.github.com/en/rest/repos/repos#list-repository-contributors
 [languages]: https://docs.github.com/en/rest/repos/repos#list-repository-languages
-[topics]: https://docs.github.com/en/rest/repos/repos#get-all-repository-topics
+[readme]: https://docs.github.com/en/rest/repos/contents#get-a-repository-readme
 
 ## Стек технологий:
 
