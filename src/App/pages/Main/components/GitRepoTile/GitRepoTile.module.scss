@@ -20,5 +20,9 @@
   display: flex;
   align-items: center;
   column-gap: 4px;
-  fill: var(--color-star-accent);
+
+  svg {
+    width: 16px;
+    fill: var(--color-star-accent);
+  }
 }

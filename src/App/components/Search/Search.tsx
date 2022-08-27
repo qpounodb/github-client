@@ -1,5 +1,6 @@
 import React from 'react';
-import { SearchButton } from '../Button';
+import { IconSearch } from '~/App/assets/icons';
+import { SquareButton } from '../Button';
 import { Input } from '../Input';
 import styles from './Search.module.scss';
 
@@ -29,7 +30,9 @@ export const Search: React.FC<SearchProps> = ({
         onChange={onChange}
         onSubmit={handleSubmit}
       />
-      <SearchButton onClick={handleSubmit} loading={loading} />
+      <SquareButton onClick={handleSubmit} loading={loading}>
+        <IconSearch className={styles.icon} />
+      </SquareButton>
     </div>
   );
 };

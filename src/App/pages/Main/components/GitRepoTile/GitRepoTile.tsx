@@ -1,6 +1,6 @@
 import React from 'react';
+import { IconStar } from '~/App/assets/icons';
 import { Card } from '~/App/components/Card';
-import { SvgStar } from '~/App/components/Svg';
 import { MONTHS } from '~/shared/constants';
 import { Owner, Repository } from '~/shared/GithubAPI';
 import styles from './GitRepoTile.module.scss';
@@ -44,7 +44,7 @@ export const GitRepoTile: React.FC<GitRepoTileProps> = ({
   const content = (
     <div className={styles.content}>
       <span className={styles.stars}>
-        <SvgStar />
+        <IconStar />
         <span>{apiData.stargazers_count}</span>
       </span>
       <span>Updated {updatedAt}</span>

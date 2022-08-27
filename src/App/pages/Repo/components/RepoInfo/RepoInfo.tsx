@@ -1,10 +1,13 @@
 import React from 'react';
+import {
+  IconEye,
+  IconFork,
+  IconIssue,
+  IconRepo,
+  IconStar,
+} from '~/App/assets/icons';
 import { Repository } from '~/shared/GithubAPI';
-import { ReactComponent as IconEye } from './icons/eye.svg';
-import { ReactComponent as IconFork } from './icons/fork.svg';
-import { ReactComponent as IconIssue } from './icons/open-issue.svg';
-import { ReactComponent as IconRepo } from './icons/repo.svg';
-import { ReactComponent as IconStar } from './icons/star.svg';
+import { formatCount, getLangLogo } from '~/shared/utils';
 import styles from './RepoInfo.module.scss';
 
 /**
