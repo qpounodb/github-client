@@ -9,6 +9,14 @@ export type RequestReposParams = {
   page: number;
 };
 
+export const defaultRequestReposParams: RequestReposParams = {
+  type: 'all',
+  sort: 'updated',
+  direction: 'desc',
+  per_page: 10,
+  page: 1,
+};
+
 export class GithubAPI {
   private fetch: AxiosInstance;
 
@@ -30,7 +38,8 @@ export class GithubAPI {
       return [];
     }
     const url = `/orgs/${orgName}/repos`;
-    const config = { params };
+    const config = { params: { ...defaultRequestReposParams, ...params } };
+    console.log(config);
     const { data } = await this.fetch.get<Repository[]>(url, config);
     return data;
   }

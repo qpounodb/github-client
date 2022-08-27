@@ -1,5 +1,6 @@
 import { createCtx } from '~/shared/context';
 import { GithubAPI, Repository, RequestReposParams } from '~/shared/GithubAPI';
+import { defaultRequestReposParams } from '~/shared/GithubAPI/GithubAPI';
 
 type ReposState = RequestReposParams & {
   loading: boolean;
@@ -18,11 +19,11 @@ const initState: ReposState = {
 };
 
 const getRequestReposParams = (state: ReposState): RequestReposParams => ({
-  type: state.type,
-  sort: state.sort,
-  direction: state.direction,
-  per_page: state.per_page,
-  page: state.page,
+  type: state.type ?? defaultRequestReposParams.type,
+  sort: state.sort ?? defaultRequestReposParams.sort,
+  direction: state.direction ?? defaultRequestReposParams.direction,
+  per_page: state.per_page ?? defaultRequestReposParams.per_page,
+  page: state.page ?? defaultRequestReposParams.page,
 });
 
 const { useCtx, Provider } = createCtx<ReposState>(initState);
