@@ -115,7 +115,8 @@ export interface CommitFile {
 }
 
 export interface Readme {
-  type: 'file';
+  /** 'file' */
+  type: string;
   name: string;
   path: string;
   encoding: string;
