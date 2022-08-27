@@ -1,5 +1,9 @@
 export { ReactComponent as IconBranch } from './branch.svg';
 export { ReactComponent as IconEye } from './eye.svg';
+export { ReactComponent as IconAdded } from './file-added.svg';
+export { ReactComponent as IconModified } from './file-modified.svg';
+export { ReactComponent as IconRemoved } from './file-removed.svg';
+export { ReactComponent as IconRenamed } from './file-renamed.svg';
 export { ReactComponent as IconFork } from './fork.svg';
 export { ReactComponent as IconIssue } from './open-issue.svg';
 export { ReactComponent as IconRepo } from './repo.svg';

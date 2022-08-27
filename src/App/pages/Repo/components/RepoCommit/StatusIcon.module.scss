@@ -1,0 +1,24 @@
+.icon {
+  width: 16px;
+  vertical-align: middle;
+}
+
+.added {
+  fill: var(--color-star-accent);
+}
+
+.modified {
+  fill: var(--color-link-hover);
+}
+
+.removed {
+  fill: var(--color-accent);
+}
+
+.renamed {
+  fill: var(--color-accent-hover);
+}
+
+.unknown {
+  fill: var(--color-accent-selected);
+}
