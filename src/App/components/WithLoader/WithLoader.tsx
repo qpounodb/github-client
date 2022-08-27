@@ -1,25 +1,31 @@
 import React from 'react';
 import { Loader } from '~/App/components/Loader/Loader';
-import { classname, PropsWithClassName } from '~/shared/utils';
+import { classname, PropsWithChildrenAndClassname } from '~/shared/utils';
 import styles from './WithLoader.module.scss';
 
-export type WithLoaderProps = React.PropsWithChildren<
-  PropsWithClassName<{
-    loading?: boolean;
-  }>
->;
+export type WithLoaderProps = PropsWithChildrenAndClassname<{
+  loading?: boolean;
+  message?: string;
+}>;
 
 export const WithLoader: React.FC<WithLoaderProps> = ({
   loading,
+  message,
   children,
   className,
-}) => (
-  <div className={classname(styles.container, className)}>
-    {children}
-    {loading && (
-      <div className={styles.cover}>
-        <Loader />
-      </div>
-    )}
-  </div>
-);
+}) => {
+  const info = message ? `Loading ${message}...` : 'Loading...';
+
+  return (
+    <div className={classname(styles.container, className)}>
+      {children}
+      {loading && (
+        <div className={styles.cover}>
+          <div className={styles.message}>
+            <Loader /> {info}
+          </div>
+        </div>
+      )}
+    </div>
+  );
+};

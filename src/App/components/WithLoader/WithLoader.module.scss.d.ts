@@ -1,6 +1,7 @@
 export type Styles = {
   container: string;
   cover: string;
+  message: string;
 };
 
 export type ClassNames = keyof Styles;

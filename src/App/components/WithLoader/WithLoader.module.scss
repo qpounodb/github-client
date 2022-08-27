@@ -1,5 +1,7 @@
 .container {
   position: relative;
+  min-height: 100px;
+  min-width: 300px;
 }
 
 .cover {
@@ -16,4 +18,12 @@
 
   background: var(--color-background-opacity);
   backdrop-filter: blur(4px);
+}
+
+.message {
+  display: flex;
+  gap: 20px;
+  align-items: center;
+  color: var(--color-hint);
+  font-size: 20px;
 }

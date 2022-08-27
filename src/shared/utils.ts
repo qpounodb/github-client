@@ -2,6 +2,9 @@ import builder from 'classnames';
 
 export type PropsWithClassName<P = unknown> = { className?: string } & P;
 
+export type PropsWithChildrenAndClassname<P = unknown> =
+  React.PropsWithChildren<PropsWithClassName<P>>;
+
 export const classname = builder;
 
 export type Predicat<P extends any[]> = (...args: P) => boolean;
