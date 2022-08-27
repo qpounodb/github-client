@@ -1,3 +1,4 @@
+export { ReactComponent as IconBranch } from './branch.svg';
 export { ReactComponent as IconEye } from './eye.svg';
 export { ReactComponent as IconFork } from './fork.svg';
 export { ReactComponent as IconIssue } from './open-issue.svg';

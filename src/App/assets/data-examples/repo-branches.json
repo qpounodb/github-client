@@ -238,5 +238,565 @@
       "url": "https://api.github.com/repos/flutter/flutter/commits/a849daf2836d653ef80e01f428531b3f787671cb"
     },
     "protected": true
+  },
+  {
+    "name": "flutter-1.19-candidate.0",
+    "commit": {
+      "sha": "a849daf2836d653ef80e01f428531b3f787671cb",
+      "url": "https://api.github.com/repos/flutter/flutter/commits/a849daf2836d653ef80e01f428531b3f787671cb"
+    },
+    "protected": true
+  },
+  {
+    "name": "flutter-1.19-candidate.1",
+    "commit": {
+      "sha": "456d80b9ddd74b4b5ca3b77bbfb70ab0e05d3fa8",
+      "url": "https://api.github.com/repos/flutter/flutter/commits/456d80b9ddd74b4b5ca3b77bbfb70ab0e05d3fa8"
+    },
+    "protected": true
+  },
+  {
+    "name": "flutter-1.19-candidate.2",
+    "commit": {
+      "sha": "1d395c5e187370f2838bb043d3b438029b484bfc",
+      "url": "https://api.github.com/repos/flutter/flutter/commits/1d395c5e187370f2838bb043d3b438029b484bfc"
+    },
+    "protected": true
+  },
+  {
+    "name": "flutter-1.19-candidate.3",
+    "commit": {
+      "sha": "6135091de9f8f6befc2ec7f8835d28d43a21cd05",
+      "url": "https://api.github.com/repos/flutter/flutter/commits/6135091de9f8f6befc2ec7f8835d28d43a21cd05"
+    },
+    "protected": true
+  },
+  {
+    "name": "flutter-1.19-candidate.4",
+    "commit": {
+      "sha": "8fe7655ed20ffd1395f68e30539a847a01a30351",
+      "url": "https://api.github.com/repos/flutter/flutter/commits/8fe7655ed20ffd1395f68e30539a847a01a30351"
+    },
+    "protected": true
+  },
+  {
+    "name": "flutter-1.19-candidate.5",
+    "commit": {
+      "sha": "c264b70ec3b0cf9cd568eba5d65d0ce47fe57e1d",
+      "url": "https://api.github.com/repos/flutter/flutter/commits/c264b70ec3b0cf9cd568eba5d65d0ce47fe57e1d"
+    },
+    "protected": true
+  },
+  {
+    "name": "flutter-1.20-candidate.0",
+    "commit": {
+      "sha": "d9653445f4d1257b5f5adb4b271d1316469e8cf1",
+      "url": "https://api.github.com/repos/flutter/flutter/commits/d9653445f4d1257b5f5adb4b271d1316469e8cf1"
+    },
+    "protected": true
+  },
+  {
+    "name": "flutter-1.20-candidate.1",
+    "commit": {
+      "sha": "f73f498da1fe4224e29cf9692161575a3d994f8f",
+      "url": "https://api.github.com/repos/flutter/flutter/commits/f73f498da1fe4224e29cf9692161575a3d994f8f"
+    },
+    "protected": true
+  },
+  {
+    "name": "flutter-1.20-candidate.2",
+    "commit": {
+      "sha": "15a28159bcf4b3db13411cbc8d9b5fc51adc0a93",
+      "url": "https://api.github.com/repos/flutter/flutter/commits/15a28159bcf4b3db13411cbc8d9b5fc51adc0a93"
+    },
+    "protected": true
+  },
+  {
+    "name": "flutter-1.20-candidate.3.renyou_experiment",
+    "commit": {
+      "sha": "275d1d425f78dca81abeebd2cb6bcd1b97a7eadb",
+      "url": "https://api.github.com/repos/flutter/flutter/commits/275d1d425f78dca81abeebd2cb6bcd1b97a7eadb"
+    },
+    "protected": true
+  },
+  {
+    "name": "flutter-1.20-candidate.3",
+    "commit": {
+      "sha": "0af027f80543302c65f99e1c1a2f3b3cbb8d04f3",
+      "url": "https://api.github.com/repos/flutter/flutter/commits/0af027f80543302c65f99e1c1a2f3b3cbb8d04f3"
+    },
+    "protected": true
+  },
+  {
+    "name": "flutter-1.20-candidate.4",
+    "commit": {
+      "sha": "a4446b2d2fd02b28b217f70902039269d874f7ea",
+      "url": "https://api.github.com/repos/flutter/flutter/commits/a4446b2d2fd02b28b217f70902039269d874f7ea"
+    },
+    "protected": true
+  },
+  {
+    "name": "flutter-1.20-candidate.5",
+    "commit": {
+      "sha": "cfc0082db7e4cb1ec9da9cbf29fb7ecc5788ca13",
+      "url": "https://api.github.com/repos/flutter/flutter/commits/cfc0082db7e4cb1ec9da9cbf29fb7ecc5788ca13"
+    },
+    "protected": true
+  },
+  {
+    "name": "flutter-1.20-candidate.6",
+    "commit": {
+      "sha": "8ed8b06ac5a1028e689d87592543880882a516da",
+      "url": "https://api.github.com/repos/flutter/flutter/commits/8ed8b06ac5a1028e689d87592543880882a516da"
+    },
+    "protected": true
+  },
+  {
+    "name": "flutter-1.20-candidate.7",
+    "commit": {
+      "sha": "fba99f6cf9a14512e461e3122c8ddfaa25394e89",
+      "url": "https://api.github.com/repos/flutter/flutter/commits/fba99f6cf9a14512e461e3122c8ddfaa25394e89"
+    },
+    "protected": true
+  },
+  {
+    "name": "flutter-1.20-candidate.8",
+    "commit": {
+      "sha": "61a04b1551a8f63b3081267dc7a0bbc16a1b4bf5",
+      "url": "https://api.github.com/repos/flutter/flutter/commits/61a04b1551a8f63b3081267dc7a0bbc16a1b4bf5"
+    },
+    "protected": true
+  },
+  {
+    "name": "flutter-1.21-candidate.0",
+    "commit": {
+      "sha": "fd80503fd33ae2552763a85328a5dba8e8e9e0c5",
+      "url": "https://api.github.com/repos/flutter/flutter/commits/fd80503fd33ae2552763a85328a5dba8e8e9e0c5"
+    },
+    "protected": true
+  },
+  {
+    "name": "flutter-1.21-candidate.1",
+    "commit": {
+      "sha": "f25bd9c55c48c139524139b477d04b13e9f36b2c",
+      "url": "https://api.github.com/repos/flutter/flutter/commits/f25bd9c55c48c139524139b477d04b13e9f36b2c"
+    },
+    "protected": true
+  },
+  {
+    "name": "flutter-1.21-candidate.2",
+    "commit": {
+      "sha": "cb7770b3a52288d10fe6d5c78a7fa878dc39acce",
+      "url": "https://api.github.com/repos/flutter/flutter/commits/cb7770b3a52288d10fe6d5c78a7fa878dc39acce"
+    },
+    "protected": true
+  },
+  {
+    "name": "flutter-1.21-candidate.3",
+    "commit": {
+      "sha": "5e1635b186fad4df125b272ecca3bff7e59b3018",
+      "url": "https://api.github.com/repos/flutter/flutter/commits/5e1635b186fad4df125b272ecca3bff7e59b3018"
+    },
+    "protected": true
+  },
+  {
+    "name": "flutter-1.21-candidate.4",
+    "commit": {
+      "sha": "3577da53ff4d96bf7825fe32d8f6f1bf1399ca45",
+      "url": "https://api.github.com/repos/flutter/flutter/commits/3577da53ff4d96bf7825fe32d8f6f1bf1399ca45"
+    },
+    "protected": true
+  },
+  {
+    "name": "flutter-1.21-candidate.5",
+    "commit": {
+      "sha": "a19fd72db549ddc5d07998d38671a6843dcad6f9",
+      "url": "https://api.github.com/repos/flutter/flutter/commits/a19fd72db549ddc5d07998d38671a6843dcad6f9"
+    },
+    "protected": true
+  },
+  {
+    "name": "flutter-1.21-candidate.6",
+    "commit": {
+      "sha": "8e0eee9008157df879353d92b394c788d5a7b361",
+      "url": "https://api.github.com/repos/flutter/flutter/commits/8e0eee9008157df879353d92b394c788d5a7b361"
+    },
+    "protected": true
+  },
+  {
+    "name": "flutter-1.21-candidate.7",
+    "commit": {
+      "sha": "5a6dfa35caaf7bccb35488dc03677c150ebf2d97",
+      "url": "https://api.github.com/repos/flutter/flutter/commits/5a6dfa35caaf7bccb35488dc03677c150ebf2d97"
+    },
+    "protected": true
+  },
+  {
+    "name": "flutter-1.21-candidate.8",
+    "commit": {
+      "sha": "836edde740293806568ad8cb429550f828140c71",
+      "url": "https://api.github.com/repos/flutter/flutter/commits/836edde740293806568ad8cb429550f828140c71"
+    },
+    "protected": true
+  },
+  {
+    "name": "flutter-1.21-candidate.9",
+    "commit": {
+      "sha": "81a45ec2e5f80fa71d5135f1702ce540558b416d",
+      "url": "https://api.github.com/repos/flutter/flutter/commits/81a45ec2e5f80fa71d5135f1702ce540558b416d"
+    },
+    "protected": true
+  },
+  {
+    "name": "flutter-1.21-candidate.10",
+    "commit": {
+      "sha": "7a50c0fcc506dc018ee53ee84770259dc7a97f8c",
+      "url": "https://api.github.com/repos/flutter/flutter/commits/7a50c0fcc506dc018ee53ee84770259dc7a97f8c"
+    },
+    "protected": true
+  },
+  {
+    "name": "flutter-1.22-candidate.0",
+    "commit": {
+      "sha": "3c9f68bc7ecee5b901999d20805352defdd44a45",
+      "url": "https://api.github.com/repos/flutter/flutter/commits/3c9f68bc7ecee5b901999d20805352defdd44a45"
+    },
+    "protected": true
+  },
+  {
+    "name": "flutter-1.22-candidate.1",
+    "commit": {
+      "sha": "ce40de69b7b4f89c66d19c8dbd3bd86ae30f1bc6",
+      "url": "https://api.github.com/repos/flutter/flutter/commits/ce40de69b7b4f89c66d19c8dbd3bd86ae30f1bc6"
+    },
+    "protected": true
+  },
+  {
+    "name": "flutter-1.22-candidate.2",
+    "commit": {
+      "sha": "a2e5e074ab4318aa07758c875811f4170f0c60d4",
+      "url": "https://api.github.com/repos/flutter/flutter/commits/a2e5e074ab4318aa07758c875811f4170f0c60d4"
+    },
+    "protected": true
+  },
+  {
+    "name": "flutter-1.22-candidate.3",
+    "commit": {
+      "sha": "eef4220a878fd5dfe1551f76a78168347d6aa9eb",
+      "url": "https://api.github.com/repos/flutter/flutter/commits/eef4220a878fd5dfe1551f76a78168347d6aa9eb"
+    },
+    "protected": true
+  },
+  {
+    "name": "flutter-1.22-candidate.4",
+    "commit": {
+      "sha": "35c95a2fcedd53e133d9de0e29f97e7672929614",
+      "url": "https://api.github.com/repos/flutter/flutter/commits/35c95a2fcedd53e133d9de0e29f97e7672929614"
+    },
+    "protected": true
+  },
+  {
+    "name": "flutter-1.22-candidate.5",
+    "commit": {
+      "sha": "5c407c4be413d094662e5dfefb2044e8d0db53a6",
+      "url": "https://api.github.com/repos/flutter/flutter/commits/5c407c4be413d094662e5dfefb2044e8d0db53a6"
+    },
+    "protected": true
+  },
+  {
+    "name": "flutter-1.22-candidate.6",
+    "commit": {
+      "sha": "e960d773eeecb211e23318796bdb9f81cc4d4c48",
+      "url": "https://api.github.com/repos/flutter/flutter/commits/e960d773eeecb211e23318796bdb9f81cc4d4c48"
+    },
+    "protected": true
+  },
+  {
+    "name": "flutter-1.22-candidate.7",
+    "commit": {
+      "sha": "b4005006d9692be5b896ed2c43783209428f5129",
+      "url": "https://api.github.com/repos/flutter/flutter/commits/b4005006d9692be5b896ed2c43783209428f5129"
+    },
+    "protected": true
+  },
+  {
+    "name": "flutter-1.22-candidate.8",
+    "commit": {
+      "sha": "36dc3e18edec3ff2c4d58f4297798ad9f40b0a2d",
+      "url": "https://api.github.com/repos/flutter/flutter/commits/36dc3e18edec3ff2c4d58f4297798ad9f40b0a2d"
+    },
+    "protected": true
+  },
+  {
+    "name": "flutter-1.22-candidate.9",
+    "commit": {
+      "sha": "7a4317519865146acda84702bba8775610598c0c",
+      "url": "https://api.github.com/repos/flutter/flutter/commits/7a4317519865146acda84702bba8775610598c0c"
+    },
+    "protected": true
+  },
+  {
+    "name": "flutter-1.22-candidate.10",
+    "commit": {
+      "sha": "dd18ed079729941be0074abba9e6fb88609ca1ea",
+      "url": "https://api.github.com/repos/flutter/flutter/commits/dd18ed079729941be0074abba9e6fb88609ca1ea"
+    },
+    "protected": true
+  },
+  {
+    "name": "flutter-1.22-candidate.11",
+    "commit": {
+      "sha": "4f1bd2bed74233c8bb700fb32f8b1d42c13458f9",
+      "url": "https://api.github.com/repos/flutter/flutter/commits/4f1bd2bed74233c8bb700fb32f8b1d42c13458f9"
+    },
+    "protected": true
+  },
+  {
+    "name": "flutter-1.22-candidate.12",
+    "commit": {
+      "sha": "9b2d32b605630f28625709ebd9d78ab3016b2bf6",
+      "url": "https://api.github.com/repos/flutter/flutter/commits/9b2d32b605630f28625709ebd9d78ab3016b2bf6"
+    },
+    "protected": true
+  },
+  {
+    "name": "flutter-1.22-candidate.13",
+    "commit": {
+      "sha": "5a0e097838cea762cae5ca795cd6f6a7dbccc581",
+      "url": "https://api.github.com/repos/flutter/flutter/commits/5a0e097838cea762cae5ca795cd6f6a7dbccc581"
+    },
+    "protected": true
+  },
+  {
+    "name": "flutter-1.23-candidate.0",
+    "commit": {
+      "sha": "1c2df7df07b6cd1a9b3be9312862d831e1c8b42b",
+      "url": "https://api.github.com/repos/flutter/flutter/commits/1c2df7df07b6cd1a9b3be9312862d831e1c8b42b"
+    },
+    "protected": true
+  },
+  {
+    "name": "flutter-1.23-candidate.1",
+    "commit": {
+      "sha": "24b2b55c2025a9338be2862f1b45054a05b4d639",
+      "url": "https://api.github.com/repos/flutter/flutter/commits/24b2b55c2025a9338be2862f1b45054a05b4d639"
+    },
+    "protected": true
+  },
+  {
+    "name": "flutter-1.23-candidate.2",
+    "commit": {
+      "sha": "fb08acf10c63c6eaeb6f32931a965f18cbf28eb9",
+      "url": "https://api.github.com/repos/flutter/flutter/commits/fb08acf10c63c6eaeb6f32931a965f18cbf28eb9"
+    },
+    "protected": true
+  },
+  {
+    "name": "flutter-1.23-candidate.3",
+    "commit": {
+      "sha": "0cf1b407f2edeb16edcfb5b032140bb39a5e46c6",
+      "url": "https://api.github.com/repos/flutter/flutter/commits/0cf1b407f2edeb16edcfb5b032140bb39a5e46c6"
+    },
+    "protected": true
+  },
+  {
+    "name": "flutter-1.23-candidate.4",
+    "commit": {
+      "sha": "83dd176777cd04bd2aaca050f6bb6cb9edbf56a1",
+      "url": "https://api.github.com/repos/flutter/flutter/commits/83dd176777cd04bd2aaca050f6bb6cb9edbf56a1"
+    },
+    "protected": true
+  },
+  {
+    "name": "flutter-1.23-candidate.5",
+    "commit": {
+      "sha": "2102bb0364e8f3d738f29e88d2c3991058430fa3",
+      "url": "https://api.github.com/repos/flutter/flutter/commits/2102bb0364e8f3d738f29e88d2c3991058430fa3"
+    },
+    "protected": true
+  },
+  {
+    "name": "flutter-1.23-candidate.6",
+    "commit": {
+      "sha": "90d83e37a6278cf4ae5dbcb1636630e66343be00",
+      "url": "https://api.github.com/repos/flutter/flutter/commits/90d83e37a6278cf4ae5dbcb1636630e66343be00"
+    },
+    "protected": true
+  },
+  {
+    "name": "flutter-1.23-candidate.7",
+    "commit": {
+      "sha": "db6e2d8aa5bb9a0bd3e75fc7470268b5a56fd0b0",
+      "url": "https://api.github.com/repos/flutter/flutter/commits/db6e2d8aa5bb9a0bd3e75fc7470268b5a56fd0b0"
+    },
+    "protected": true
+  },
+  {
+    "name": "flutter-1.23-candidate.8",
+    "commit": {
+      "sha": "6de1283007f1ce186b1d365697ed00a5c5b7964e",
+      "url": "https://api.github.com/repos/flutter/flutter/commits/6de1283007f1ce186b1d365697ed00a5c5b7964e"
+    },
+    "protected": true
+  },
+  {
+    "name": "flutter-1.23-candidate.9",
+    "commit": {
+      "sha": "473358d93dd9522970afa82512a4d05685345b3b",
+      "url": "https://api.github.com/repos/flutter/flutter/commits/473358d93dd9522970afa82512a4d05685345b3b"
+    },
+    "protected": true
+  },
+  {
+    "name": "flutter-1.23-candidate.10",
+    "commit": {
+      "sha": "63852d2073c776d6d849e306b2e36274f2143eb3",
+      "url": "https://api.github.com/repos/flutter/flutter/commits/63852d2073c776d6d849e306b2e36274f2143eb3"
+    },
+    "protected": true
+  },
+  {
+    "name": "flutter-1.23-candidate.11",
+    "commit": {
+      "sha": "3a00c4e73cd2d706204e612aa4adf36420f130ca",
+      "url": "https://api.github.com/repos/flutter/flutter/commits/3a00c4e73cd2d706204e612aa4adf36420f130ca"
+    },
+    "protected": true
+  },
+  {
+    "name": "flutter-1.23-candidate.12",
+    "commit": {
+      "sha": "fdd1bf2944c6451ca0be490aaf2061dba434d218",
+      "url": "https://api.github.com/repos/flutter/flutter/commits/fdd1bf2944c6451ca0be490aaf2061dba434d218"
+    },
+    "protected": true
+  },
+  {
+    "name": "flutter-1.23-candidate.13",
+    "commit": {
+      "sha": "4fa4f91d5cc65a5a98c7ccd91bb7d47814048a57",
+      "url": "https://api.github.com/repos/flutter/flutter/commits/4fa4f91d5cc65a5a98c7ccd91bb7d47814048a57"
+    },
+    "protected": true
+  },
+  {
+    "name": "flutter-1.23-candidate.14",
+    "commit": {
+      "sha": "b79e3462a3b0a796f4b3c2b686ac64fdaccee504",
+      "url": "https://api.github.com/repos/flutter/flutter/commits/b79e3462a3b0a796f4b3c2b686ac64fdaccee504"
+    },
+    "protected": true
+  },
+  {
+    "name": "flutter-1.23-candidate.15",
+    "commit": {
+      "sha": "0cd380f5d261ab6fc49b7fe85edd7e14ad5cfc57",
+      "url": "https://api.github.com/repos/flutter/flutter/commits/0cd380f5d261ab6fc49b7fe85edd7e14ad5cfc57"
+    },
+    "protected": true
+  },
+  {
+    "name": "flutter-1.23-candidate.16",
+    "commit": {
+      "sha": "98aeef2d9824c7953ce9bd4a7472066b97a7ee4c",
+      "url": "https://api.github.com/repos/flutter/flutter/commits/98aeef2d9824c7953ce9bd4a7472066b97a7ee4c"
+    },
+    "protected": true
+  },
+  {
+    "name": "flutter-1.23-candidate.17",
+    "commit": {
+      "sha": "8538b4f546c9975f70de1e473eb4d8db8e52475e",
+      "url": "https://api.github.com/repos/flutter/flutter/commits/8538b4f546c9975f70de1e473eb4d8db8e52475e"
+    },
+    "protected": true
+  },
+  {
+    "name": "flutter-1.23-candidate.18",
+    "commit": {
+      "sha": "198df796aa80073ef22bdf249e614e2ff33c6895",
+      "url": "https://api.github.com/repos/flutter/flutter/commits/198df796aa80073ef22bdf249e614e2ff33c6895"
+    },
+    "protected": true
+  },
+  {
+    "name": "flutter-1.24-candidate.0",
+    "commit": {
+      "sha": "7eeab2666b1ee1b4fac8604835f7ba903e0cded1",
+      "url": "https://api.github.com/repos/flutter/flutter/commits/7eeab2666b1ee1b4fac8604835f7ba903e0cded1"
+    },
+    "protected": true
+  },
+  {
+    "name": "flutter-1.24-candidate.1",
+    "commit": {
+      "sha": "12bea61c2902784fec73b7f5f2ff3415f873fead",
+      "url": "https://api.github.com/repos/flutter/flutter/commits/12bea61c2902784fec73b7f5f2ff3415f873fead"
+    },
+    "protected": true
+  },
+  {
+    "name": "flutter-1.24-candidate.2",
+    "commit": {
+      "sha": "38ebc5588b3d80b5bcce1a0a8114f96813de593f",
+      "url": "https://api.github.com/repos/flutter/flutter/commits/38ebc5588b3d80b5bcce1a0a8114f96813de593f"
+    },
+    "protected": true
+  },
+  {
+    "name": "flutter-1.24-candidate.3",
+    "commit": {
+      "sha": "2783f8e2e14efec8b7e08f668dde61c40d128c24",
+      "url": "https://api.github.com/repos/flutter/flutter/commits/2783f8e2e14efec8b7e08f668dde61c40d128c24"
+    },
+    "protected": true
+  },
+  {
+    "name": "flutter-1.24-candidate.4",
+    "commit": {
+      "sha": "b9195d807c6e77183b6a0f964e3961599d747bfa",
+      "url": "https://api.github.com/repos/flutter/flutter/commits/b9195d807c6e77183b6a0f964e3961599d747bfa"
+    },
+    "protected": true
+  },
+  {
+    "name": "flutter-1.24-candidate.5",
+    "commit": {
+      "sha": "e7b66ac7ad45728d19e67034255fb9c303430c0e",
+      "url": "https://api.github.com/repos/flutter/flutter/commits/e7b66ac7ad45728d19e67034255fb9c303430c0e"
+    },
+    "protected": true
+  },
+  {
+    "name": "flutter-1.24-candidate.6",
+    "commit": {
+      "sha": "13896b3bd1858687a06b1639d60c877206170df8",
+      "url": "https://api.github.com/repos/flutter/flutter/commits/13896b3bd1858687a06b1639d60c877206170df8"
+    },
+    "protected": true
+  },
+  {
+    "name": "flutter-1.24-candidate.7",
+    "commit": {
+      "sha": "a0860f6e87ba4f9031bee4d6f56c08b970606bee",
+      "url": "https://api.github.com/repos/flutter/flutter/commits/a0860f6e87ba4f9031bee4d6f56c08b970606bee"
+    },
+    "protected": true
+  },
+  {
+    "name": "flutter-1.24-candidate.8",
+    "commit": {
+      "sha": "bf94fa072d4eca3e9ebcecde044874384b157f0c",
+      "url": "https://api.github.com/repos/flutter/flutter/commits/bf94fa072d4eca3e9ebcecde044874384b157f0c"
+    },
+    "protected": true
+  },
+  {
+    "name": "flutter-1.24-candidate.9",
+    "commit": {
+      "sha": "2f3cccc4f51849f3d2c6333071991b3c610d6052",
+      "url": "https://api.github.com/repos/flutter/flutter/commits/2f3cccc4f51849f3d2c6333071991b3c610d6052"
+    },
+    "protected": true
   }
 ]
