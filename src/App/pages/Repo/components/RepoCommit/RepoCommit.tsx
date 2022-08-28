@@ -1,3 +1,4 @@
+import React from 'react';
 import { Commit } from '~/shared/GithubAPI';
 import { withRepoBlock } from '../withRepoBlock';
 import styles from './RepoCommit.module.scss';
@@ -33,11 +34,11 @@ export const RepoCommit = withRepoBlock<Commit>('', ({ data }) => (
       <h3>Changes</h3>
       <div className={styles.list}>
         {data.files.map((file) => (
-          <>
+          <React.Fragment key={file.sha}>
             <StatusIcon file={file} />
             <Stats stats={file} />
             <span className={styles.filename}>{file.filename}</span>
-          </>
+          </React.Fragment>
         ))}
       </div>
     </div>
