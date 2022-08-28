@@ -1,9 +1,11 @@
 import { createCtx } from '~/shared/context';
 import { GithubAPI, Repository, RequestReposParams } from '~/shared/GithubAPI';
 import { defaultRequestReposParams } from '~/shared/GithubAPI/GithubAPI';
+import { Nullable } from '~/shared/utils';
 
 type ReposState = RequestReposParams & {
   loading: boolean;
+  error: Nullable<Error>;
   orgName: string;
   repos: Repository[];
   pages_count: number;
@@ -11,6 +13,7 @@ type ReposState = RequestReposParams & {
 
 const initState: ReposState = {
   loading: false,
+  error: null,
   orgName: '',
   repos: [],
   pages_count: 0,
@@ -49,9 +52,11 @@ export const useGithubReposCtx = () => {
         pages_count,
         loading: false,
       }));
-    } catch (error) {
-      update(({ orgName }) => ({ ...initState, orgName }));
-      throw error;
+    } catch (err) {
+      const error = err instanceof Error ? err : new Error('Unknown error');
+      update((state) => ({ ...state, error }));
+    } finally {
+      update((state) => ({ ...state, loading: false }));
     }
   };
 

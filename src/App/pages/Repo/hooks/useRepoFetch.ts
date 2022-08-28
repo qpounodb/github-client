@@ -69,20 +69,22 @@ export const useRepoFetch = (
     if (isNone(orgName) || isNone(repoName)) return;
     const githubRepoApi = new GithubRepoAPI(orgName, repoName);
 
-    // The Github API has a rate limit, so slow down requests
+    // NOTE: The Github API has a rate limit, so slow down requests
+    const delay = 1000;
+
     (async () => {
       await handleFetch('info', () => githubRepoApi.getInfo());
-      await sleep(500);
+      await sleep(delay);
       await handleFetch('branches', () => githubRepoApi.getBranches());
-      await sleep(500);
+      await sleep(delay);
       await handleFetch('langs', () => githubRepoApi.getLanguages());
-      await sleep(500);
+      await sleep(delay);
       await handleFetch('contributors', () => githubRepoApi.getContributors());
-      await sleep(500);
+      await sleep(delay);
       await handleFetch('commit', () => githubRepoApi.getCommit());
-      await sleep(500);
+      await sleep(delay);
       await handleFetch('readme', () => githubRepoApi.getReadme());
-      await sleep(500);
+      await sleep(delay);
     })();
 
     // NOTE: Run effect once on component mount

@@ -8,13 +8,12 @@ import styles from './Main.module.scss';
 
 export const Main: React.FC = () => {
   const navigate = useNavigate();
-  const { loading, orgName, repos, fetch, page, pages_count } =
+  const { loading, error, orgName, repos, fetch, page, pages_count } =
     useGithubReposCtx();
 
   const getCardClickHandler = (data: ApiData) => () => {
     navigate(`/repo/${data.owner.login}/${data.name}`);
   };
-
   return (
     <div className={styles.main}>
       <GitRepoList
@@ -22,6 +21,7 @@ export const Main: React.FC = () => {
         onSubmit={(name) => fetch(name, 1)}
         dataList={repos}
         loading={loading}
+        error={error}
         getCardClickHandler={getCardClickHandler}
       />
       <div className={styles.pagination}>

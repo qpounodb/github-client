@@ -1,12 +1,14 @@
+import axios from 'axios';
 import React from 'react';
 import { Search } from '~/App/components/Search';
+import { formatCode, isSome, Nullable } from '~/shared/utils';
 import { ApiData, GitRepoTile } from '../GitRepoTile';
 import styles from './GitRepoList.module.scss';
-
 export type GitRepoListProps = {
   orgName: string;
   onSubmit: (value: string) => void;
-  loading?: boolean;
+  loading: boolean;
+  error: Nullable<Error>;
   dataList: ApiData[];
   getCardClickHandler: (data: ApiData) => () => void;
 };
@@ -16,7 +18,8 @@ export const GIT_REPO_LIST_PLACEHOLDER = 'Введите название орг
 export const GitRepoList: React.FC<GitRepoListProps> = ({
   orgName,
   onSubmit,
-  loading = false,
+  loading,
+  error,
   dataList,
   getCardClickHandler,
 }) => {
@@ -25,6 +28,32 @@ export const GitRepoList: React.FC<GitRepoListProps> = ({
   React.useEffect(() => {
     setInput(orgName);
   }, [orgName]);
+
+  const content = isSome(error) ? (
+    <div>
+      <p>{error.message}</p>
+      {axios.isAxiosError(error) && error.response && (
+        <div>
+          <code>
+            <pre className={styles.code}>{formatCode(error.response.data)}</pre>
+            <pre className={styles.code}>
+              {formatCode(error.response.headers)}
+            </pre>
+          </code>
+        </div>
+      )}
+    </div>
+  ) : (
+    <div className={styles.list}>
+      {dataList.map((data) => (
+        <GitRepoTile
+          key={data.id}
+          apiData={data}
+          onClick={getCardClickHandler(data)}
+        />
+      ))}
+    </div>
+  );
 
   return (
     <div className={styles.main}>
@@ -35,15 +64,7 @@ export const GitRepoList: React.FC<GitRepoListProps> = ({
         onSubmit={onSubmit}
         loading={loading}
       />
-      <div className={styles.list}>
-        {dataList.map((data) => (
-          <GitRepoTile
-            key={data.id}
-            apiData={data}
-            onClick={getCardClickHandler(data)}
-          />
-        ))}
-      </div>
+      {content}
     </div>
   );
 };

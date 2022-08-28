@@ -1,14 +1,15 @@
+import axios from 'axios';
 import React from 'react';
 import { WithLoader } from '~/App/components/WithLoader';
 import { DataState } from '~/shared/data-state';
 import {
   classname,
+  formatCode,
   isNone,
   isSome,
   PropsWithChildrenAndClassname,
 } from '~/shared/utils';
 import styles from './withRepoBlock.module.scss';
-
 export type ComponentProps<T> = React.PropsWithChildren<{
   data: T;
 }>;
@@ -47,10 +48,23 @@ export const withRepoBlock = <T extends object>(
     }
 
     if (isSome(state.error)) {
+      const error = state.error;
       return (
         <div className={cls}>
           <h2>{titles.error}</h2>
-          <p>{state.error.message}</p>
+          <p>{error.message}</p>
+          {axios.isAxiosError(error) && error.response && (
+            <div>
+              <code>
+                <pre className={styles.code}>
+                  {formatCode(error.response.data)}
+                </pre>
+                <pre className={styles.code}>
+                  {formatCode(error.response.headers)}
+                </pre>
+              </code>
+            </div>
+          )}
         </div>
       );
     }

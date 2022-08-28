@@ -57,3 +57,5 @@ export const formatCount = (count: number): string => {
 
 export const sleep = (timeout: number = 1000): Promise<void> =>
   new Promise((resolve) => setTimeout(resolve, timeout));
+
+export const formatCode = (x: unknown) => JSON.stringify(x, null, 4);

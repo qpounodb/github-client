@@ -1,4 +1,5 @@
 export type Styles = {
+  code: string;
   main: string;
 };
 
