@@ -1,4 +1,4 @@
-import axios, { AxiosInstance } from 'axios';
+import { AxiosCacheInstance, createAxios } from '../axios-config';
 import { Repository, SearchReposResult } from './types';
 
 export type RequestReposParams = {
@@ -18,10 +18,10 @@ export const defaultRequestReposParams: Required<RequestReposParams> = {
 };
 
 export class GithubAPI {
-  private fetch: AxiosInstance;
+  private fetch: AxiosCacheInstance;
 
-  constructor() {
-    this.fetch = axios.create({
+  constructor(signal?: AbortSignal) {
+    this.fetch = createAxios({
       baseURL: 'https://api.github.com',
       headers: {
         Accept: 'application/vnd.github+json',
@@ -32,24 +32,30 @@ export class GithubAPI {
 
   async getRepos(
     orgName: string,
-    params: RequestReposParams
+    params: RequestReposParams,
+    signal?: AbortSignal
   ): Promise<Repository[]> {
     if (orgName.length === 0) {
       return [];
     }
     const url = `/orgs/${orgName}/repos`;
-    const config = { params: { ...defaultRequestReposParams, ...params } };
-    console.log(config);
+    const config = {
+      params: { ...defaultRequestReposParams, ...params },
+      signal,
+    };
     const { data } = await this.fetch.get<Repository[]>(url, config);
     return data;
   }
 
-  async getReposCount(orgName: string): Promise<number> {
+  async getReposCount(orgName: string, signal?: AbortSignal): Promise<number> {
     if (orgName.length === 0) {
       return 0;
     }
     const url = `/search/repositories`;
-    const config = { params: { q: `org:${orgName}`, per_page: 1 } };
+    const config = {
+      params: { q: `org:${orgName}`, per_page: 1 },
+      signal,
+    };
     const { data } = await this.fetch.get<SearchReposResult>(url, config);
     return data.total_count;
   }

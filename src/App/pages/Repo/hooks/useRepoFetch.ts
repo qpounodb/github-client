@@ -9,7 +9,7 @@ import {
   Repository,
 } from '~/shared/GithubAPI';
 import { Contributor } from '~/shared/GithubAPI/types';
-import { isNone, sleep } from '~/shared/utils';
+import { isNone, toError } from '~/shared/utils';
 
 export type RepoDataState = {
   info: DataState<Repository>;
@@ -42,19 +42,31 @@ const updateRepoDataState =
   };
 
 const handleStateFetch =
-  (setState: React.Dispatch<React.SetStateAction<RepoDataState>>) =>
+  (
+    setState: React.Dispatch<React.SetStateAction<RepoDataState>>,
+    delay: number,
+    controller: AbortController
+  ) =>
   async <K extends keyof RepoDataState>(
     prop: K,
     fetch: () => Promise<RepoDataState[K]['data']>
   ): Promise<void> => {
+    if (controller.signal.aborted) {
+      setState(updateRepoDataState(prop, false));
+      return;
+    }
     try {
       const data = await fetch();
-      return setState(updateRepoDataState(prop, data));
+      setState(updateRepoDataState(prop, data));
+      // NOTE: The Github API has a rate limit, so slow down next requests
+      // await sleep(delay);
     } catch (error) {
-      const err = error instanceof Error ? error : new Error('Unknown error');
-      return setState(updateRepoDataState(prop, err));
+      if (!controller.signal.aborted) {
+        setState(updateRepoDataState(prop, toError(error)));
+        controller.abort();
+      }
     } finally {
-      return setState(updateRepoDataState(prop, false));
+      setState(updateRepoDataState(prop, false));
     }
   };
 
@@ -63,30 +75,32 @@ export const useRepoFetch = (
   repoName?: string
 ): RepoDataState => {
   const [state, setState] = React.useState<RepoDataState>(initialRepoDataState);
-  const handleFetch = handleStateFetch(setState);
 
   React.useEffect(() => {
     if (isNone(orgName) || isNone(repoName)) return;
-    const githubRepoApi = new GithubRepoAPI(orgName, repoName);
+    setState(() => initialRepoDataState);
 
-    // NOTE: The Github API has a rate limit, so slow down requests
-    const delay = 1000;
+    const controller = new AbortController();
+    const handleFetch = handleStateFetch(setState, 1000, controller);
+
+    const githubRepoApi = new GithubRepoAPI(
+      orgName,
+      repoName,
+      controller.signal
+    );
 
     (async () => {
       await handleFetch('info', () => githubRepoApi.getInfo());
-      await sleep(delay);
-      await handleFetch('branches', () => githubRepoApi.getBranches());
-      await sleep(delay);
+      // await handleFetch('branches', () => githubRepoApi.getBranches());
       await handleFetch('langs', () => githubRepoApi.getLanguages());
-      await sleep(delay);
       await handleFetch('contributors', () => githubRepoApi.getContributors());
-      await sleep(delay);
       await handleFetch('commit', () => githubRepoApi.getCommit());
-      await sleep(delay);
-      await handleFetch('readme', () => githubRepoApi.getReadme());
-      await sleep(delay);
+      // await handleFetch('readme', () => githubRepoApi.getReadme());
     })();
 
+    return () => {
+      controller.abort();
+    };
     // NOTE: Run effect once on component mount
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);

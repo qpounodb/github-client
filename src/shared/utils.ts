@@ -59,3 +59,10 @@ export const sleep = (timeout: number = 1000): Promise<void> =>
   new Promise((resolve) => setTimeout(resolve, timeout));
 
 export const formatCode = (x: unknown) => JSON.stringify(x, null, 4);
+
+export const fail = (reason?: string): never => {
+  throw new Error(reason);
+};
+
+export const toError = (err: unknown): Error =>
+  err instanceof Error ? err : new Error('Unknown error');

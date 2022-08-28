@@ -31,24 +31,22 @@ export const withRepoBlock = <T extends object>(
   Component: React.FC<ComponentProps<T>>
 ) => {
   const RepoBlock: React.FC<RepoBlockProps<T>> = ({
-    state,
+    state: { loading, error, data },
     title,
     children,
   }) => {
     const cls = classname(styles.main, className);
     const titles = getTitles(title);
 
-    if (state.loading) {
+    if (loading) {
       return (
-        <WithLoader
-          loading={state.loading}
-          message={titles.loading}
-        ></WithLoader>
+        <div className={cls}>
+          <WithLoader loading={loading} message={titles.loading}></WithLoader>
+        </div>
       );
     }
 
-    if (isSome(state.error)) {
-      const error = state.error;
+    if (isSome(error)) {
       return (
         <div className={cls}>
           <h2>{titles.error}</h2>
@@ -69,7 +67,7 @@ export const withRepoBlock = <T extends object>(
       );
     }
 
-    if (isNone(state.data)) {
+    if (isNone(data)) {
       return (
         <div className={cls}>
           <h2>{titles.noData}</h2>
@@ -79,7 +77,7 @@ export const withRepoBlock = <T extends object>(
 
     return (
       <div className={cls}>
-        <Component data={state.data} children={children} />
+        <Component data={data} children={children} />
       </div>
     );
   };

@@ -6,7 +6,7 @@ import {
   Repository,
   RequestReposParams,
 } from '~/shared/GithubAPI';
-import { Nullable } from '~/shared/utils';
+import { Nullable, toError } from '~/shared/utils';
 
 type ReposDataState = {
   orgName: string;
@@ -40,16 +40,24 @@ export const useGithubReposCtx = () => {
   const githubAPI = new GithubAPI();
   const { state, setState } = useCtx();
 
-  const fetch = async (orgName: string, page: number): Promise<void> => {
+  const fetch = async (
+    orgName: string,
+    page: number,
+    signal?: AbortSignal
+  ): Promise<void> => {
+    if (signal?.aborted) {
+      setState(updateRepos(false));
+      return;
+    }
     const params = { ...defaultRequestReposParams, ...state.params, page };
     const per_page = params.per_page ?? defaultRequestReposParams.per_page;
     setState(updateRepos(true));
 
     try {
-      const count = await githubAPI.getReposCount(orgName);
+      const count = await githubAPI.getReposCount(orgName, signal);
       const pages_count = Math.ceil(count / per_page);
 
-      const data = await githubAPI.getRepos(orgName, params);
+      const data = await githubAPI.getRepos(orgName, params, signal);
       setState((state) => ({
         ...state,
         orgName,
@@ -57,9 +65,10 @@ export const useGithubReposCtx = () => {
         repos: { ...state.repos, data },
         params: { ...state.params, page },
       }));
-    } catch (err) {
-      const error = err instanceof Error ? err : new Error('Unknown error');
-      setState(updateRepos(error));
+    } catch (error) {
+      if (!signal?.aborted) {
+        setState(updateRepos(toError(error)));
+      }
     } finally {
       setState(updateRepos(false));
     }

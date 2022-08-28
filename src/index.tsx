@@ -1,9 +1,11 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import { BrowserRouter } from 'react-router-dom';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import '~/styles/index.css';
 import '~/styles/variables.css';
 import { App } from './App';
+import { Main } from './App/pages/Main';
+import { Repo } from './App/pages/Repo';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
@@ -11,7 +13,13 @@ const root = ReactDOM.createRoot(
 root.render(
   <React.StrictMode>
     <BrowserRouter>
-      <App />
+      <Routes>
+        <Route path="/" element={<App />}>
+          <Route index element={<Main />} />
+          <Route path="repo/:orgName/:repoName" element={<Repo />} />
+          <Route path="*" element={<h1>There's nothing here!</h1>} />
+        </Route>
+      </Routes>
     </BrowserRouter>
   </React.StrictMode>
 );

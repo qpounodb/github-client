@@ -1,12 +1,12 @@
 import React from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { Button } from '~/App/components/Button';
-import { RepoBranches } from './components/RepoBranches';
+// import { RepoBranches } from './components/RepoBranches';
 import { RepoCommit } from './components/RepoCommit';
 import { RepoContributors } from './components/RepoContributors';
 import { RepoInfo } from './components/RepoInfo';
 import { RepoLangs } from './components/RepoLangs';
-import { RepoReadme } from './components/RepoReadme';
+// import { RepoReadme } from './components/RepoReadme';
 import { useRepoFetch } from './hooks/useRepoFetch';
 import styles from './Repo.module.scss';
 
@@ -24,11 +24,11 @@ export const Repo: React.FC = () => {
         <Button onClick={() => navigate('/')}>Back</Button>
       </nav>
       <RepoInfo title="Info" state={state.info} />
-      <RepoBranches title="Branches" state={state.branches} />
+      {/* <RepoBranches title="Branches" state={state.branches} /> */}
       <RepoLangs title="Languages" state={state.langs} />
       <RepoContributors title="Contributors" state={state.contributors} />
       <RepoCommit title="Last Commit" state={state.commit} />
-      <RepoReadme title="README.md" state={state.readme} />
+      {/* <RepoReadme title="README.md" state={state.readme} /> */}
     </div>
   );
 };
