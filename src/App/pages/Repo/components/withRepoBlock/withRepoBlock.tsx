@@ -1,9 +1,10 @@
 import React from 'react';
 import { WithLoader } from '~/App/components/WithLoader';
+import { DataState } from '~/shared/data-state';
 import {
   classname,
   isNone,
-  Nullable,
+  isSome,
   PropsWithChildrenAndClassname,
 } from '~/shared/utils';
 import styles from './withRepoBlock.module.scss';
@@ -12,10 +13,9 @@ export type ComponentProps<T> = React.PropsWithChildren<{
   data: T;
 }>;
 
-export type RepoBlockProps<T extends unknown = unknown> =
+export type RepoBlockProps<T extends object = {}> =
   PropsWithChildrenAndClassname<{
-    data: Nullable<T> | Error;
-    loading: boolean;
+    state: DataState<T>;
     loadingMessage: string;
     noDataTitle: string;
     errorTitle: string;
@@ -26,8 +26,7 @@ export const withRepoBlock = <T extends object>(
   Component: React.FC<ComponentProps<T>>
 ) => {
   const RepoBlock: React.FC<RepoBlockProps<T>> = ({
-    data,
-    loading,
+    state,
     loadingMessage,
     noDataTitle,
     errorTitle,
@@ -35,13 +34,25 @@ export const withRepoBlock = <T extends object>(
   }) => {
     const cls = classname(styles.main, className);
 
-    if (loading) {
+    if (state.loading) {
       return (
-        <WithLoader loading={loading} message={loadingMessage}></WithLoader>
+        <WithLoader
+          loading={state.loading}
+          message={loadingMessage}
+        ></WithLoader>
       );
     }
 
-    if (isNone(data)) {
+    if (isSome(state.error)) {
+      return (
+        <div className={cls}>
+          <h2>{errorTitle}</h2>
+          <p>{state.error.message}</p>
+        </div>
+      );
+    }
+
+    if (isNone(state.data)) {
       return (
         <div className={cls}>
           <h2>{noDataTitle}</h2>
@@ -49,18 +60,9 @@ export const withRepoBlock = <T extends object>(
       );
     }
 
-    if (data instanceof Error) {
-      return (
-        <div className={cls}>
-          <h2>{errorTitle}</h2>
-          <p>{data.message}</p>
-        </div>
-      );
-    }
-
     return (
       <div className={cls}>
-        <Component data={data} children={children} />
+        <Component data={state.data} children={children} />
       </div>
     );
   };

@@ -54,3 +54,6 @@ export const getLangLogo = (name: string) => {
 export const formatCount = (count: number): string => {
   return count < 1000 ? String(count) : `${Math.round(count / 100) / 10}k`;
 };
+
+export const sleep = (timeout: number = 1000): Promise<void> =>
+  new Promise((resolve) => setTimeout(resolve, timeout));

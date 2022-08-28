@@ -1,4 +1,5 @@
 import React from 'react';
+import { DataState, getDataState, updateDataState } from '~/shared/data-state';
 import {
   Branch,
   Commit,
@@ -8,86 +9,85 @@ import {
   Repository,
 } from '~/shared/GithubAPI';
 import { Contributor } from '~/shared/GithubAPI/types';
-import { isNone, Remap } from '~/shared/utils';
+import { isNone, sleep } from '~/shared/utils';
 
 export type RepoDataState = {
-  info: Repository | Error | null;
-  branches: Branch[] | Error | null;
-  contributors: Contributor[] | Error | null;
-  commit: Commit | Error | null;
-  langs: Languages | Error | null;
-  readme: Readme | Error | null;
+  info: DataState<Repository>;
+  branches: DataState<Branch[]>;
+  contributors: DataState<Contributor[]>;
+  commit: DataState<Commit>;
+  langs: DataState<Languages>;
+  readme: DataState<Readme>;
 };
 
-export type RepoLoadingState = Remap<RepoDataState, boolean>;
+export const getInitialDataState = <T extends object>(): DataState<T> =>
+  getDataState<T>(true);
 
-const initialDataState: RepoDataState = {
-  info: null,
-  branches: null,
-  contributors: null,
-  commit: null,
-  langs: null,
-  readme: null,
+const initialRepoDataState: RepoDataState = {
+  info: getInitialDataState(),
+  branches: getInitialDataState(),
+  contributors: getInitialDataState(),
+  commit: getInitialDataState(),
+  langs: getInitialDataState(),
+  readme: getInitialDataState(),
 };
 
-const initialLoadingState: RepoLoadingState = {
-  info: true,
-  branches: true,
-  contributors: true,
-  commit: true,
-  langs: true,
-  readme: true,
-};
+const updateRepoDataState =
+  <K extends keyof RepoDataState>(
+    prop: K,
+    value: boolean | Error | RepoDataState[K]['data']
+  ) =>
+  (state: RepoDataState): RepoDataState => {
+    return { ...state, [prop]: updateDataState(value)(state[prop]) };
+  };
 
-export const useRepoFetch = (orgName?: string, repoName?: string) => {
-  const [loading, setLoading] = React.useState(initialLoadingState);
-  const [data, setData] = React.useState<RepoDataState>(initialDataState);
+const handleStateFetch =
+  (setState: React.Dispatch<React.SetStateAction<RepoDataState>>) =>
+  async <K extends keyof RepoDataState>(
+    prop: K,
+    fetch: () => Promise<RepoDataState[K]['data']>
+  ): Promise<void> => {
+    try {
+      const data = await fetch();
+      return setState(updateRepoDataState(prop, data));
+    } catch (error) {
+      const err = error instanceof Error ? error : new Error('Unknown error');
+      return setState(updateRepoDataState(prop, err));
+    } finally {
+      return setState(updateRepoDataState(prop, false));
+    }
+  };
+
+export const useRepoFetch = (
+  orgName?: string,
+  repoName?: string
+): RepoDataState => {
+  const [state, setState] = React.useState<RepoDataState>(initialRepoDataState);
+  const handleFetch = handleStateFetch(setState);
 
   React.useEffect(() => {
     if (isNone(orgName) || isNone(repoName)) return;
     const githubRepoApi = new GithubRepoAPI(orgName, repoName);
 
-    const step1 = githubRepoApi
-      .getInfo()
-      .then((info) => setData((state) => ({ ...state, info })))
-      .catch((error) => setData((state) => ({ ...state, info: error })))
-      .finally(() => setLoading((state) => ({ ...state, info: false })));
-
-    const step2 = step1
-      .then(() => githubRepoApi.getBranches())
-      .then((branches) => setData((state) => ({ ...state, branches })))
-      .catch((error) => setData((state) => ({ ...state, branches: error })))
-      .finally(() => setLoading((state) => ({ ...state, branches: false })));
-
-    const step3 = step2
-      .then(() => githubRepoApi.getLanguages())
-      .then((langs) => setData((state) => ({ ...state, langs })))
-      .catch((error) => setData((state) => ({ ...state, langs: error })))
-      .finally(() => setLoading((state) => ({ ...state, langs: false })));
-
-    const step4 = step3
-      .then(() => githubRepoApi.getContributors())
-      .then((contributors) => setData((state) => ({ ...state, contributors })))
-      .catch((error) => setData((state) => ({ ...state, contributors: error })))
-      .finally(() =>
-        setLoading((state) => ({ ...state, contributors: false }))
-      );
-
-    const step5 = step4
-      .then(() => githubRepoApi.getCommit())
-      .then((commit) => setData((state) => ({ ...state, commit })))
-      .catch((error) => setData((state) => ({ ...state, commit: error })))
-      .finally(() => setLoading((state) => ({ ...state, commit: false })));
-
-    step5
-      .then(() => githubRepoApi.getReadme())
-      .then((readme) => setData((state) => ({ ...state, readme })))
-      .catch((error) => setData((state) => ({ ...state, readme: error })))
-      .finally(() => setLoading((state) => ({ ...state, readme: false })));
+    // The Github API has a rate limit, so slow down requests
+    (async () => {
+      await handleFetch('info', () => githubRepoApi.getInfo());
+      await sleep(500);
+      await handleFetch('branches', () => githubRepoApi.getBranches());
+      await sleep(500);
+      await handleFetch('langs', () => githubRepoApi.getLanguages());
+      await sleep(500);
+      await handleFetch('contributors', () => githubRepoApi.getContributors());
+      await sleep(500);
+      await handleFetch('commit', () => githubRepoApi.getCommit());
+      await sleep(500);
+      await handleFetch('readme', () => githubRepoApi.getReadme());
+      await sleep(500);
+    })();
 
     // NOTE: Run effect once on component mount
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  return { loading, data };
+  return state;
 };
