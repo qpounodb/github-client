@@ -16,22 +16,19 @@ export const Repo: React.FC = () => {
   const navigate = useNavigate();
   const { orgName, repoName } = useParams<PathParams>();
 
-  const repoDataState = useRepoFetch(orgName, repoName);
+  const state = useRepoFetch(orgName, repoName);
 
   return (
     <div className={styles.main}>
       <nav>
         <Button onClick={() => navigate('/')}>Back</Button>
       </nav>
-      <RepoInfo title="Info" state={repoDataState.info} />
-      <RepoBranches title="Branches" state={repoDataState.branches} />
-      <RepoLangs title="Languages" state={repoDataState.langs} />
-      <RepoContributors
-        title="Contributors"
-        state={repoDataState.contributors}
-      />
-      <RepoCommit title="Last Commit" state={repoDataState.commit} />
-      <RepoReadme title="README.md" state={repoDataState.readme} />
+      <RepoInfo title="Info" state={state.info} />
+      <RepoBranches title="Branches" state={state.branches} />
+      <RepoLangs title="Languages" state={state.langs} />
+      <RepoContributors title="Contributors" state={state.contributors} />
+      <RepoCommit title="Last Commit" state={state.commit} />
+      <RepoReadme title="README.md" state={state.readme} />
     </div>
   );
 };
