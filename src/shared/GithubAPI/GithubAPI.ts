@@ -5,11 +5,11 @@ export type RequestReposParams = {
   type?: 'all' | 'public' | 'private' | 'forks' | 'sources' | 'member';
   sort?: 'created' | 'updated' | 'pushed' | 'full_name';
   direction?: 'asc' | 'desc';
-  per_page: number;
+  per_page?: number;
   page: number;
 };
 
-export const defaultRequestReposParams: RequestReposParams = {
+export const defaultRequestReposParams: Required<RequestReposParams> = {
   type: 'all',
   sort: 'updated',
   direction: 'desc',

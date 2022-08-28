@@ -1,5 +1,5 @@
 import { ComponentMeta, ComponentStory } from '@storybook/react';
-import info from '~/App/assets/data-examples/repo-info.json';
+import data from '~/App/assets/data-examples/repo-info.json';
 
 import { GitRepoTile as GitRepoTileComponent } from './GitRepoTile';
 
@@ -15,5 +15,5 @@ export default meta;
 
 export const GitRepoTile: Story = (args) => <GitRepoTileComponent {...args} />;
 GitRepoTile.args = {
-  apiData: info,
+  data,
 };

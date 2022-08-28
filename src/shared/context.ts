@@ -2,7 +2,7 @@ import React from 'react';
 
 export type StateCtx<T> = {
   state: T;
-  update: React.Dispatch<React.SetStateAction<T>>;
+  setState: React.Dispatch<React.SetStateAction<T>>;
 };
 
 /**
@@ -12,15 +12,15 @@ export type StateCtx<T> = {
 export const createCtx = <T>(defaultValue: T) => {
   const ctx = React.createContext<StateCtx<T>>({
     state: defaultValue,
-    update: () => defaultValue,
+    setState: () => defaultValue,
   });
 
   const useCtx = () => React.useContext(ctx);
 
   const Provider = (props: React.PropsWithChildren) => {
-    const [state, update] = React.useState(defaultValue);
+    const [state, setState] = React.useState(defaultValue);
     return React.createElement(ctx.Provider, {
-      value: { state, update },
+      value: { state, setState },
       ...props,
     });
   };

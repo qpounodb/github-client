@@ -7,7 +7,7 @@ export type DataState<T extends object> = {
 };
 
 export const getDataState = <T extends object>(
-  value: boolean | Error | Nullable<T>
+  value?: boolean | Error | Nullable<T>
 ): DataState<T> => {
   if (typeof value === 'boolean') {
     return { data: null, error: null, loading: value };

@@ -1,67 +1,69 @@
 import { createCtx } from '~/shared/context';
-import { GithubAPI, Repository, RequestReposParams } from '~/shared/GithubAPI';
-import { defaultRequestReposParams } from '~/shared/GithubAPI/GithubAPI';
+import { DataState, getDataState, updateDataState } from '~/shared/data-state';
+import {
+  defaultRequestReposParams,
+  GithubAPI,
+  Repository,
+  RequestReposParams,
+} from '~/shared/GithubAPI';
 import { Nullable } from '~/shared/utils';
 
-type ReposState = RequestReposParams & {
-  loading: boolean;
-  error: Nullable<Error>;
+type ReposDataState = {
   orgName: string;
-  repos: Repository[];
   pages_count: number;
+  params: RequestReposParams;
+  repos: DataState<Repository[]>;
 };
 
-const initState: ReposState = {
-  loading: false,
-  error: null,
+const initReposDataState: ReposDataState = {
   orgName: '',
-  repos: [],
   pages_count: 0,
-  page: 1,
-  per_page: 5,
+  params: {
+    page: 1,
+    per_page: 5,
+  },
+  repos: getDataState<Repository[]>(),
 };
 
-const getRequestReposParams = (state: ReposState): RequestReposParams => ({
-  type: state.type ?? defaultRequestReposParams.type,
-  sort: state.sort ?? defaultRequestReposParams.sort,
-  direction: state.direction ?? defaultRequestReposParams.direction,
-  per_page: state.per_page ?? defaultRequestReposParams.per_page,
-  page: state.page ?? defaultRequestReposParams.page,
-});
+const updateRepos =
+  (value: boolean | Error | Nullable<Repository[]>) =>
+  (state: ReposDataState): ReposDataState => ({
+    ...state,
+    repos: updateDataState(value)(state.repos),
+  });
 
-const { useCtx, Provider } = createCtx<ReposState>(initState);
+const { useCtx, Provider } = createCtx<ReposDataState>(initReposDataState);
 
 export const GithubReposProvider = Provider;
 
 export const useGithubReposCtx = () => {
   const githubAPI = new GithubAPI();
-  const { state, update } = useCtx();
+  const { state, setState } = useCtx();
 
   const fetch = async (orgName: string, page: number): Promise<void> => {
-    const params = getRequestReposParams({ ...state, page });
-    update((state) => ({ ...state, loading: true }));
+    const params = { ...defaultRequestReposParams, ...state.params, page };
+    const per_page = params.per_page ?? defaultRequestReposParams.per_page;
+    setState(updateRepos(true));
+
     try {
       const count = await githubAPI.getReposCount(orgName);
-      const pages_count = Math.ceil(count / state.per_page);
-      const repos = await githubAPI.getRepos(orgName, params);
-      update((state) => ({
+      const pages_count = Math.ceil(count / per_page);
+
+      const data = await githubAPI.getRepos(orgName, params);
+      setState((state) => ({
         ...state,
         orgName,
-        repos,
-        page,
         pages_count,
-        loading: false,
+        repos: { ...state.repos, data },
+        params: { ...state.params, page },
       }));
     } catch (err) {
       const error = err instanceof Error ? err : new Error('Unknown error');
-      update((state) => ({ ...state, error }));
+      setState(updateRepos(error));
     } finally {
-      update((state) => ({ ...state, loading: false }));
+      setState(updateRepos(false));
     }
   };
 
-  return {
-    ...state,
-    fetch,
-  };
+  return { state, fetch };
 };

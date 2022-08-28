@@ -2,34 +2,33 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Pagination } from '~/App/components/Pagination';
 import { useGithubReposCtx } from '~/App/pages/Main/hooks/useGithubReposCtx';
+import { Repository } from '~/shared/GithubAPI';
 import { GitRepoList } from './components/GitRepoList';
-import type { ApiData } from './components/GitRepoTile';
 import styles from './Main.module.scss';
 
 export const Main: React.FC = () => {
   const navigate = useNavigate();
-  const { loading, error, orgName, repos, fetch, page, pages_count } =
-    useGithubReposCtx();
+  const { state, fetch } = useGithubReposCtx();
 
-  const getCardClickHandler = (data: ApiData) => () => {
-    navigate(`/repo/${data.owner.login}/${data.name}`);
-  };
+  const getCardClickHandler =
+    ({ name, owner }: Repository) =>
+    () =>
+      navigate(`/repo/${owner.login}/${name}`);
+
   return (
     <div className={styles.main}>
       <GitRepoList
-        orgName={orgName}
+        state={state.repos}
+        orgName={state.orgName}
         onSubmit={(name) => fetch(name, 1)}
-        dataList={repos}
-        loading={loading}
-        error={error}
         getCardClickHandler={getCardClickHandler}
       />
       <div className={styles.pagination}>
         <Pagination
-          onSubmit={(num) => fetch(orgName, num)}
-          page={page}
-          count={pages_count}
-          loading={loading}
+          onSubmit={(num) => fetch(state.orgName, num)}
+          page={state.params.page}
+          count={state.pages_count}
+          loading={state.repos.loading}
         />
       </div>
     </div>

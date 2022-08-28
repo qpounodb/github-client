@@ -1,2 +1,2 @@
 export { GitRepoTile } from './GitRepoTile';
-export type { ApiData, GitRepoTileProps } from './GitRepoTile';
+export type { GitRepoTileProps } from './GitRepoTile';
