@@ -7,17 +7,10 @@ import { RepoContributors } from './components/RepoContributors';
 import { RepoInfo } from './components/RepoInfo';
 import { RepoLangs } from './components/RepoLangs';
 import { RepoReadme } from './components/RepoReadme';
-import { RepoBlockProps } from './components/withRepoBlock';
 import { useRepoFetch } from './hooks/useRepoFetch';
 import styles from './Repo.module.scss';
 
 type PathParams = { orgName: string; repoName: string };
-
-const getProps = (name: string): Omit<RepoBlockProps, 'state'> => ({
-  loadingMessage: `${name} 👾`,
-  noDataTitle: `No ${name} 😿`,
-  errorTitle: `Error on fetching ${name} 🙀`,
-});
 
 export const Repo: React.FC = () => {
   const navigate = useNavigate();
@@ -30,15 +23,15 @@ export const Repo: React.FC = () => {
       <nav>
         <Button onClick={() => navigate('/')}>Back</Button>
       </nav>
-      <RepoInfo {...getProps('Info')} state={repoDataState.info} />
-      <RepoBranches {...getProps('Branches')} state={repoDataState.branches} />
-      <RepoLangs {...getProps('Languages')} state={repoDataState.langs} />
+      <RepoInfo title="Info" state={repoDataState.info} />
+      <RepoBranches title="Branches" state={repoDataState.branches} />
+      <RepoLangs title="Languages" state={repoDataState.langs} />
       <RepoContributors
-        {...getProps('Contributors')}
+        title="Contributors"
         state={repoDataState.contributors}
       />
-      <RepoCommit {...getProps('Last Commit')} state={repoDataState.commit} />
-      <RepoReadme {...getProps('README.md')} state={repoDataState.readme} />
+      <RepoCommit title="Last Commit" state={repoDataState.commit} />
+      <RepoReadme title="README.md" state={repoDataState.readme} />
     </div>
   );
 };

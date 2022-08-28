@@ -16,10 +16,14 @@ export type ComponentProps<T> = React.PropsWithChildren<{
 export type RepoBlockProps<T extends object = {}> =
   PropsWithChildrenAndClassname<{
     state: DataState<T>;
-    loadingMessage: string;
-    noDataTitle: string;
-    errorTitle: string;
+    title: string;
   }>;
+
+const getTitles = (title: string) => ({
+  loading: `${title} 👾`,
+  noData: `No ${title} 😿`,
+  error: `Error on fetching ${title} 🙀`,
+});
 
 export const withRepoBlock = <T extends object>(
   className: string,
@@ -27,18 +31,17 @@ export const withRepoBlock = <T extends object>(
 ) => {
   const RepoBlock: React.FC<RepoBlockProps<T>> = ({
     state,
-    loadingMessage,
-    noDataTitle,
-    errorTitle,
+    title,
     children,
   }) => {
     const cls = classname(styles.main, className);
+    const titles = getTitles(title);
 
     if (state.loading) {
       return (
         <WithLoader
           loading={state.loading}
-          message={loadingMessage}
+          message={titles.loading}
         ></WithLoader>
       );
     }
@@ -46,7 +49,7 @@ export const withRepoBlock = <T extends object>(
     if (isSome(state.error)) {
       return (
         <div className={cls}>
-          <h2>{errorTitle}</h2>
+          <h2>{titles.error}</h2>
           <p>{state.error.message}</p>
         </div>
       );
@@ -55,7 +58,7 @@ export const withRepoBlock = <T extends object>(
     if (isNone(state.data)) {
       return (
         <div className={cls}>
-          <h2>{noDataTitle}</h2>
+          <h2>{titles.noData}</h2>
         </div>
       );
     }
