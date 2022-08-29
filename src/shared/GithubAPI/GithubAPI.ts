@@ -1,5 +1,5 @@
 import { AxiosCacheInstance, createAxios } from '../axios-config';
-import { Repository, SearchReposResult } from './types';
+import { Repository, SearchReposResult, SearchUsersResult } from './types';
 
 export type RequestReposParams = {
   type?: 'all' | 'public' | 'private' | 'forks' | 'sources' | 'member';
@@ -57,6 +57,18 @@ export class GithubAPI {
       signal,
     };
     const { data } = await this.fetch.get<SearchReposResult>(url, config);
+    return data.total_count;
+  }
+
+  async checkOrg(orgName: string, signal?: AbortSignal): Promise<number> {
+    if (orgName.length === 0) {
+      return 0;
+    }
+    const url = `/search/users?q=org:${orgName}+type:org`;
+    const config = {
+      signal,
+    };
+    const { data } = await this.fetch.get<SearchUsersResult>(url, config);
     return data.total_count;
   }
 }

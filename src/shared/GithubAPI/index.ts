@@ -13,5 +13,6 @@ export type {
   Readme,
   Repository,
   SearchReposResult,
+  SearchUsersResult,
   User,
 } from './types';

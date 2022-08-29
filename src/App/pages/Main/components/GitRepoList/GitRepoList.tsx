@@ -49,7 +49,11 @@ export const GitRepoList: React.FC<GitRepoListProps> = ({
       </div>
     );
   } else if (isNone(data)) {
-    content = null;
+    content = orgName ? (
+      <p className={styles.note}>
+        🙈 No repositories or organisation <b>{orgName}</b> not found
+      </p>
+    ) : null;
   } else {
     content = (
       <div className={styles.list}>

@@ -64,6 +64,12 @@ export interface SearchReposResult {
   items: Repository[];
 }
 
+export interface SearchUsersResult {
+  total_count: number;
+  incomplete_results: boolean;
+  items: Owner[];
+}
+
 export type Languages = Record<string, number>;
 
 export interface Branch {

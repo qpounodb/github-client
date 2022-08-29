@@ -54,12 +54,27 @@ export const useGithubReposCtx = () => {
     setState(updateRepos(true));
 
     try {
-      const count = await githubAPI.getReposCount(orgName, signal);
-      const pages_count = Math.ceil(count / per_page);
+      let pages_count = state.pages_count;
+
+      if (page === 1) {
+        const num = await githubAPI.checkOrg(orgName, signal);
+
+        if (num === 0) {
+          setState((state) => ({
+            ...state,
+            orgName,
+            pages_count: 0,
+            repos: getDataState<Repository[]>(),
+          }));
+          return;
+        }
+
+        const count = await githubAPI.getReposCount(orgName, signal);
+        pages_count = Math.ceil(count / per_page);
+      }
 
       const data = await githubAPI.getRepos(orgName, params, signal);
       setState((state) => ({
-        ...state,
         orgName,
         pages_count,
         repos: { ...state.repos, data },
