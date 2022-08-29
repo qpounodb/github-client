@@ -1,0 +1,4 @@
+[[redirects]]
+  from = "/github-client/*"
+  to = "/index.html"
+  status = 200
