@@ -22,7 +22,7 @@ export const updateDataState =
   <T extends object>(value: boolean | Error | Nullable<T>) =>
   (state: DataState<T>): DataState<T> => {
     if (typeof value === 'boolean') {
-      return { ...state, loading: value };
+      return value ? getDataState<T>(true) : { ...state, loading: false };
     }
     if (value instanceof Error) {
       return { ...state, error: value };
