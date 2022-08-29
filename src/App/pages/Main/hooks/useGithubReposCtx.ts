@@ -68,10 +68,10 @@ export const useGithubReposCtx = () => {
           }));
           return;
         }
-
-        const count = await githubAPI.getReposCount(orgName, signal);
-        pages_count = Math.ceil(count / per_page);
       }
+
+      const count = await githubAPI.getReposCount(orgName, signal);
+      pages_count = Math.ceil(count / per_page);
 
       const data = await githubAPI.getRepos(orgName, params, signal);
       setState((state) => ({

@@ -16,6 +16,8 @@ root.render(
       <Routes>
         <Route path="/" element={<App />}>
           <Route index element={<Main />} />
+          <Route path="org/:orgName" element={<Main />} />
+          <Route path="org/:orgName/:pageNum" element={<Main />} />
           <Route path="repo/:orgName/:repoName" element={<Repo />} />
           <Route path="*" element={<h1>There's nothing here!</h1>} />
         </Route>
