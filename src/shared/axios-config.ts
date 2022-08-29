@@ -11,13 +11,6 @@ export type { AxiosCacheInstance } from 'axios-cache-interceptor';
 
 const axiosCacheStorage = buildWebStorage(sessionStorage, 'axios-cache:');
 
-setupCache(axios, {
-  storage: axiosCacheStorage,
-  methods: ['get', 'post'],
-  interpretHeader: false,
-  ttl: 1000 * 60 * 60,
-});
-
 export const createAxios = (config: AxiosRequestConfig): AxiosCacheInstance => {
   const instance = axios.create(config);
 
