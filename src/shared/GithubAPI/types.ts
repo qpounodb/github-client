@@ -84,8 +84,8 @@ export interface Branch {
 export interface Commit {
   sha: string;
   commit: {
-    author: Committer;
-    committer: Committer;
+    author: Committer | null;
+    committer: Committer | null;
     message: string;
     tree: {
       sha: string;
@@ -93,8 +93,8 @@ export interface Commit {
     };
     url: string;
   };
-  author: Owner;
-  committer: Owner;
+  author: Owner | null;
+  committer: Owner | null;
   stats: CommitStats;
   files: CommitFile[];
 }

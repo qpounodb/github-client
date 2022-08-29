@@ -5,42 +5,51 @@ import styles from './RepoCommit.module.scss';
 import { Stats } from './Stats';
 import { StatusIcon } from './StatusIcon';
 
-export const RepoCommit = withRepoBlock<Commit>('', ({ data }) => (
-  <>
-    <h2 className={styles.title}>
-      Last Commit
-      <sup>
-        <Stats stats={data.stats} />
-      </sup>
-    </h2>
+export const RepoCommit = withRepoBlock<Commit>('', ({ data }) => {
+  const user = data.commit.author ?? data.commit.committer;
+  const owner = data.author ?? data.committer;
 
-    <div className={styles.commit}>
-      <p>{data.commit.message}</p>
-    </div>
+  return (
+    <>
+      <h2 className={styles.title}>
+        Last Commit
+        <sup>
+          <Stats stats={data.stats} />
+        </sup>
+      </h2>
 
-    <div className={styles.autor}>
-      <div className={styles.sign}>
-        <span>{new Date(data.commit.author.date).toDateString()}</span>
-        <span>{data.commit.author.name}</span>
-        <span>{data.commit.author.email}</span>
+      <div className={styles.commit}>
+        <p>{data.commit.message}</p>
       </div>
-      <div className={styles.avatar}>
-        <img src={data.author.avatar_url} alt="avatar" />
-        <div>{data.author.login}</div>
-      </div>
-    </div>
 
-    <div className={styles.changes}>
-      <h3>Changes</h3>
-      <div className={styles.list}>
-        {data.files.map((file) => (
-          <React.Fragment key={file.sha}>
-            <StatusIcon file={file} />
-            <Stats stats={file} />
-            <span className={styles.filename}>{file.filename}</span>
-          </React.Fragment>
-        ))}
+      {user && (
+        <div className={styles.autor}>
+          <div className={styles.sign}>
+            <span>{new Date(user.date).toDateString()}</span>
+            <span>{user.name}</span>
+            <span>{user.email}</span>
+          </div>
+          {owner && (
+            <div className={styles.avatar}>
+              <img src={owner.avatar_url} alt="avatar" />
+              <div>{owner.login}</div>
+            </div>
+          )}
+        </div>
+      )}
+
+      <div className={styles.changes}>
+        <h3>Changes</h3>
+        <div className={styles.list}>
+          {data.files.map((file) => (
+            <React.Fragment key={file.sha}>
+              <StatusIcon file={file} />
+              <Stats stats={file} />
+              <span className={styles.filename}>{file.filename}</span>
+            </React.Fragment>
+          ))}
+        </div>
       </div>
-    </div>
-  </>
-));
+    </>
+  );
+});
