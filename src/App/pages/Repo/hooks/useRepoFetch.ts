@@ -32,41 +32,45 @@ const initialRepoDataState: RepoDataState = {
   readme: getInitialDataState(),
 };
 
-const updateRepoDataState =
-  <K extends keyof RepoDataState>(
-    prop: K,
-    value: boolean | Error | RepoDataState[K]['data']
-  ) =>
-  (state: RepoDataState): RepoDataState => {
-    return { ...state, [prop]: updateDataState(value)(state[prop]) };
-  };
+type Action<K extends keyof RepoDataState> =
+  | {
+      type: K;
+      payload: boolean | Error | RepoDataState[K]['data'];
+    }
+  | { type: 'reset'; payload?: never };
 
-const handleStateFetch =
+const reducer = <K extends keyof RepoDataState>(
+  state: RepoDataState,
+  { type, payload }: Action<K>
+) => {
+  if (type === 'reset') return initialRepoDataState;
+  return { ...state, [type]: updateDataState(payload)(state[type]) };
+};
+
+const handleDispatchFetch =
   (
-    setState: React.Dispatch<React.SetStateAction<RepoDataState>>,
-    delay: number,
+    dispatch: React.Dispatch<Action<keyof RepoDataState>>,
     controller: AbortController
   ) =>
   async <K extends keyof RepoDataState>(
-    prop: K,
+    type: K,
     fetch: () => Promise<RepoDataState[K]['data']>
   ): Promise<void> => {
     if (controller.signal.aborted) {
-      setState(updateRepoDataState(prop, false));
+      dispatch({ type, payload: false });
       return;
     }
     try {
+      dispatch({ type, payload: true });
       const data = await fetch();
-      setState(updateRepoDataState(prop, data));
-      // NOTE: The Github API has a rate limit, so slow down next requests
-      // await sleep(delay);
+      dispatch({ type, payload: data });
     } catch (error) {
       if (!controller.signal.aborted) {
-        setState(updateRepoDataState(prop, toError(error)));
+        dispatch({ type, payload: toError(error) });
         controller.abort();
       }
     } finally {
-      setState(updateRepoDataState(prop, false));
+      dispatch({ type, payload: false });
     }
   };
 
@@ -74,14 +78,14 @@ export const useRepoFetch = (
   orgName?: string,
   repoName?: string
 ): RepoDataState => {
-  const [state, setState] = React.useState<RepoDataState>(initialRepoDataState);
+  const [state, dispatch] = React.useReducer(reducer, initialRepoDataState);
 
   React.useEffect(() => {
     if (isNone(orgName) || isNone(repoName)) return;
-    setState(() => initialRepoDataState);
+    dispatch({ type: 'reset' });
 
     const controller = new AbortController();
-    const handleFetch = handleStateFetch(setState, 1000, controller);
+    const handleFetch = handleDispatchFetch(dispatch, controller);
 
     const githubRepoApi = new GithubRepoAPI(
       orgName,
