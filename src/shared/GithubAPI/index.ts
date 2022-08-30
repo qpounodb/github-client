@@ -1,6 +1,6 @@
-export { defaultRequestReposParams, GithubAPI } from './GithubAPI';
-export type { RequestReposParams } from './GithubAPI';
 export { GithubRepoAPI } from './GithubRepoAPI';
+export { defaultRequestReposParams, GithubReposAPI } from './GithubReposAPI';
+export type { RequestReposParams } from './GithubReposAPI';
 export type {
   Branch,
   Commit,

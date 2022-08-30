@@ -1,4 +1,5 @@
 import { AxiosCacheInstance, createAxios } from '../axios-config';
+import { getGithubAPIConfig } from './GithubAPI.config';
 import { Repository, SearchReposResult, SearchUsersResult } from './types';
 
 export type RequestReposParams = {
@@ -17,17 +18,11 @@ export const defaultRequestReposParams: Required<RequestReposParams> = {
   page: 1,
 };
 
-export class GithubAPI {
+export class GithubReposAPI {
   private fetch: AxiosCacheInstance;
 
   constructor(signal?: AbortSignal) {
-    this.fetch = createAxios({
-      baseURL: 'https://api.github.com',
-      headers: {
-        Accept: 'application/vnd.github+json',
-      },
-      timeout: 5000,
-    });
+    this.fetch = createAxios(getGithubAPIConfig());
   }
 
   async getRepos(

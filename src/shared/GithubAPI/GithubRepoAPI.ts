@@ -1,5 +1,6 @@
 import { AxiosCacheInstance, createAxios } from '../axios-config';
 import { assertNotEmpty } from '../utils';
+import { getGithubAPIConfig } from './GithubAPI.config';
 import {
   Branch,
   Commit,
@@ -17,14 +18,9 @@ export class GithubRepoAPI {
     assertNotEmpty(orgName);
     assertNotEmpty(repoName);
     this.signal = signal;
-
-    this.fetch = createAxios({
-      baseURL: `https://api.github.com/repos/${orgName}/${repoName}`,
-      headers: {
-        Accept: 'application/vnd.github+json',
-      },
-      timeout: 5000,
-    });
+    this.fetch = createAxios(
+      getGithubAPIConfig(`/repos/${orgName}/${repoName}`)
+    );
   }
 
   private getCfg(params?: Record<string, number | string>) {

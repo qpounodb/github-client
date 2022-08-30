@@ -2,7 +2,7 @@ import { createCtx } from '~/shared/context';
 import { DataState, getDataState, updateDataState } from '~/shared/data-state';
 import {
   defaultRequestReposParams,
-  GithubAPI,
+  GithubReposAPI,
   Repository,
   RequestReposParams,
 } from '~/shared/GithubAPI';
@@ -37,7 +37,7 @@ const { useCtx, Provider } = createCtx<ReposDataState>(initReposDataState);
 export const GithubReposProvider = Provider;
 
 export const useGithubReposCtx = () => {
-  const githubAPI = new GithubAPI();
+  const githubReposAPI = new GithubReposAPI();
   const { state, setState } = useCtx();
 
   const fetch = async (
@@ -57,7 +57,7 @@ export const useGithubReposCtx = () => {
       let pages_count = state.pages_count;
 
       if (page === 1) {
-        const num = await githubAPI.checkOrg(orgName, signal);
+        const num = await githubReposAPI.checkOrg(orgName, signal);
 
         if (num === 0) {
           setState((state) => ({
@@ -70,10 +70,10 @@ export const useGithubReposCtx = () => {
         }
       }
 
-      const count = await githubAPI.getReposCount(orgName, signal);
+      const count = await githubReposAPI.getReposCount(orgName, signal);
       pages_count = Math.ceil(count / per_page);
 
-      const data = await githubAPI.getRepos(orgName, params, signal);
+      const data = await githubReposAPI.getRepos(orgName, params, signal);
       setState((state) => ({
         orgName,
         pages_count,
