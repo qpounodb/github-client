@@ -1,8 +1,8 @@
 import axios from 'axios';
 import React from 'react';
 import { Search } from '~/App/components/Search';
-import { DataState } from '~/shared/data-state';
 import { Repository } from '~/shared/GithubAPI';
+import { DataState } from '~/shared/types';
 import { formatCode, isNone, isSome } from '~/shared/utils';
 import { GitRepoTile } from '../GitRepoTile';
 import styles from './GitRepoList.module.scss';

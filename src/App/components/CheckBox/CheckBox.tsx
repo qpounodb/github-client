@@ -1,5 +1,5 @@
 import React from 'react';
-import { classname } from '~/shared/utils';
+import { joinClassName } from '~/shared/utils';
 import style from './CheckBox.module.scss';
 
 type InputHTMLProps = React.InputHTMLAttributes<HTMLInputElement>;
@@ -10,7 +10,7 @@ export type CheckBoxProps = Omit<InputHTMLProps, 'onChange'> & {
 };
 
 export const CheckBox: React.FC<CheckBoxProps> = ({ onChange, ...rest }) => {
-  const cls = classname(style.checkbox, rest.className);
+  const cls = joinClassName(style.checkbox, rest.className);
 
   const handler: InputChangeHandler = (e) => onChange(e.currentTarget.checked);
 

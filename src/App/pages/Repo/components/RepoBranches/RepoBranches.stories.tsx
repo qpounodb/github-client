@@ -1,6 +1,6 @@
 import { ComponentMeta, ComponentStory } from '@storybook/react';
 import data from '~/App/assets/data-examples/repo-branches.json';
-import { getDataState } from '~/shared/data-state';
+import { getDataState } from '~/shared/utils';
 import { RepoBranches as RepoBranchesComponent } from './RepoBranches';
 
 type Meta = ComponentMeta<typeof RepoBranchesComponent>;

@@ -1,15 +1,10 @@
 import axios from 'axios';
 import React from 'react';
 import { WithLoader } from '~/App/components/WithLoader';
-import { DataState } from '~/shared/data-state';
-import {
-  classname,
-  formatCode,
-  isNone,
-  isSome,
-  PropsWithChildrenAndClassname,
-} from '~/shared/utils';
+import { DataState, PropsWithChildrenAndClassname } from '~/shared/types';
+import { formatCode, isNone, isSome, joinClassName } from '~/shared/utils';
 import styles from './withRepoBlock.module.scss';
+
 export type ComponentProps<T> = React.PropsWithChildren<{
   data: T;
 }>;
@@ -35,7 +30,7 @@ export const withRepoBlock = <T extends object>(
     title,
     children,
   }) => {
-    const cls = classname(styles.main, className);
+    const cls = joinClassName(styles.main, className);
     const titles = getTitles(title);
 
     if (loading) {

@@ -7,13 +7,13 @@ import {
   IconRenamed,
 } from '~/App/assets/icons';
 import { CommitFile } from '~/shared/GithubAPI';
-import { classname } from '~/shared/utils';
+import { joinClassName } from '~/shared/utils';
 import styles from './StatusIcon.module.scss';
 
 type Icon = React.FC<React.SVGProps<SVGSVGElement> & { title?: string }>;
 
 const getIcon = (Icon: Icon, className: string, title: string) => {
-  const cls = classname(styles.icon, className);
+  const cls = joinClassName(styles.icon, className);
   return <Icon className={cls} title={title} />;
 };
 

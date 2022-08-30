@@ -1,5 +1,5 @@
 import React from 'react';
-import { classname } from '~/shared/utils';
+import { joinClassName } from '~/shared/utils';
 import styles from './Input.module.scss';
 
 type InputHTMLProps = React.InputHTMLAttributes<HTMLInputElement>;
@@ -28,7 +28,11 @@ export const Input: React.FC<InputProps> = ({
   size = InputSize.l,
   ...rest
 }) => {
-  const cls = classname(styles.main, styles[`size_${size}`], rest.className);
+  const cls = joinClassName(
+    styles.main,
+    styles[`size_${size}`],
+    rest.className
+  );
 
   const handler: InputChangeHandler = (e) => onChange(e.target.value);
 

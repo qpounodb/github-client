@@ -1,6 +1,6 @@
 import { ComponentMeta, ComponentStory } from '@storybook/react';
 import data from '~/App/assets/data-examples/repo-commit.json';
-import { getDataState } from '~/shared/data-state';
+import { getDataState } from '~/shared/utils';
 import { RepoCommit as RepoCommitComponent } from './RepoCommit';
 
 type Meta = ComponentMeta<typeof RepoCommitComponent>;

@@ -1,6 +1,7 @@
 import React from 'react';
 import { Loader } from '~/App/components/Loader/Loader';
-import { classname, PropsWithChildrenAndClassname } from '~/shared/utils';
+import { PropsWithChildrenAndClassname } from '~/shared/types';
+import { joinClassName } from '~/shared/utils';
 import styles from './WithLoader.module.scss';
 
 export type WithLoaderProps = PropsWithChildrenAndClassname<{
@@ -17,7 +18,7 @@ export const WithLoader: React.FC<WithLoaderProps> = ({
   const info = message ? `Loading ${message}...` : 'Loading...';
 
   return (
-    <div className={classname(styles.container, className)}>
+    <div className={joinClassName(styles.container, className)}>
       {children}
       {loading && (
         <div className={styles.cover}>

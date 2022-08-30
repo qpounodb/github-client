@@ -1,6 +1,6 @@
 import React from 'react';
 import { Loader, LoaderSize } from '~/App/components/Loader';
-import { classname } from '~/shared/utils';
+import { joinClassName } from '~/shared/utils';
 import { BaseButton, BaseButtonProps, ButtonColor } from './BaseButton';
 import styles from './Button.module.scss';
 
@@ -15,7 +15,11 @@ export const Button: React.FC<ButtonProps> = ({
 }) => {
   const disabled = rest.disabled || loading;
 
-  const cls = classname(styles[color], loading && styles.loading, className);
+  const cls = joinClassName(
+    styles[color],
+    loading && styles.loading,
+    className
+  );
 
   return (
     <BaseButton {...rest} color={color} disabled={disabled} className={cls}>

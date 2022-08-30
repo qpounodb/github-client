@@ -1,12 +1,12 @@
-import { createCtx } from '~/shared/context';
-import { DataState, getDataState, updateDataState } from '~/shared/data-state';
 import {
   defaultRequestReposParams,
   GithubReposAPI,
   Repository,
   RequestReposParams,
 } from '~/shared/GithubAPI';
-import { Nullable, toError } from '~/shared/utils';
+import { createCtx } from '~/shared/hooks';
+import { DataState, Nullable } from '~/shared/types';
+import { getDataState, toError, updateDataState } from '~/shared/utils';
 
 type ReposDataState = {
   orgName: string;

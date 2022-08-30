@@ -1,10 +1,4 @@
-import { Nullable } from './utils';
-
-export type DataState<T extends object> = {
-  data: Nullable<T>;
-  error: Nullable<Error>;
-  loading: boolean;
-};
+import { DataState, Nullable } from '../types';
 
 export const getDataState = <T extends object>(
   value?: boolean | Error | Nullable<T>

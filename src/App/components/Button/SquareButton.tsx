@@ -1,5 +1,5 @@
 import React from 'react';
-import { classname } from '~/shared/utils';
+import { joinClassName } from '~/shared/utils';
 import { Loader, LoaderSize } from '../Loader';
 import { BaseButton, BaseButtonProps, ButtonColor } from './BaseButton';
 import styles from './SquareButton.module.scss';
@@ -25,7 +25,7 @@ export const SquareButton: React.FC<SquareButtonProps> = ({
 }) => {
   const disabled = rest.disabled || loading;
 
-  const cls = classname(
+  const cls = joinClassName(
     styles.main,
     styles[color],
     styles[`size_${size}`],

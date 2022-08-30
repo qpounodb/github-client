@@ -1,5 +1,6 @@
 import React from 'react';
-import { classname, PropsWithClassName } from '~/shared/utils';
+import { PropsWithClassName } from '~/shared/types';
+import { joinClassName } from '~/shared/utils';
 import { Locators } from '~/__test__/constants';
 import styles from './Loader.module.scss';
 
@@ -20,6 +21,6 @@ export const Loader: React.FC<LoaderProps> = ({
   className,
 }) => {
   if (!loading) return null;
-  const cls = classname(styles.loader, styles[`size_${size}`], className);
+  const cls = joinClassName(styles.loader, styles[`size_${size}`], className);
   return <div className={cls} data-testid={Locators.LOADER}></div>;
 };

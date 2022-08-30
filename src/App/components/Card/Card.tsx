@@ -1,5 +1,5 @@
 import React from 'react';
-import { classname } from '~/shared/utils';
+import { joinClassName } from '~/shared/utils';
 import styles from './Card.module.scss';
 
 export type CardProps = {
@@ -39,20 +39,20 @@ export const Card: React.FC<CardProps> = ({
   }, []);
 
   return (
-    <div className={classname(styles.card, className)} onClick={onClick}>
+    <div className={joinClassName(styles.card, className)} onClick={onClick}>
       <div className={styles.side}>
         <div ref={placeholderRef} className={styles.placeholder}>
           {placeholder.at(0)?.toUpperCase() || DEFAULT_PLACEHOLDER}
         </div>
         <img
           ref={imgRef}
-          className={classname(styles.avatar, styles.avatar_hidden)}
+          className={joinClassName(styles.avatar, styles.avatar_hidden)}
           src={image}
           alt={DEFAULT_AVATAR_ALT}
         />
       </div>
       <div className={styles.main}>
-        <div className={classname(styles.item, styles.title)}>{title}</div>
+        <div className={joinClassName(styles.item, styles.title)}>{title}</div>
         <div className={styles.item}>{subtitle}</div>
         <div className={styles.item}>{content}</div>
       </div>

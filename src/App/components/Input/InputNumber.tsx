@@ -1,5 +1,5 @@
 import React from 'react';
-import { classname } from '~/shared/utils';
+import { joinClassName } from '~/shared/utils';
 import { Input, InputProps, InputSize } from './Input';
 import styles from './InputNumber.module.scss';
 
@@ -19,7 +19,11 @@ export const InputNumber: React.FC<InputNumberProps> = ({
   size = InputSize.l,
   ...rest
 }) => {
-  const cls = classname(styles.main, styles[`size_${size}`], rest.className);
+  const cls = joinClassName(
+    styles.main,
+    styles[`size_${size}`],
+    rest.className
+  );
 
   const handler = (value: string) => {
     const x = Number(value);

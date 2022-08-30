@@ -1,5 +1,5 @@
 import React from 'react';
-import { classname } from '~/shared/utils';
+import { joinClassName } from '~/shared/utils';
 import styles from './BaseButton.module.scss';
 
 export enum ButtonColor {
@@ -18,7 +18,7 @@ export const BaseButton: React.FC<BaseButtonProps> = ({
   children,
   ...rest
 }) => {
-  const cls = classname(styles.button, styles[color], className);
+  const cls = joinClassName(styles.button, styles[color], className);
 
   return (
     <button {...rest} className={cls}>

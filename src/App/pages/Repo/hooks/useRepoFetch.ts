@@ -1,5 +1,4 @@
 import React from 'react';
-import { DataState, getDataState, updateDataState } from '~/shared/data-state';
 import {
   Branch,
   Commit,
@@ -9,7 +8,8 @@ import {
   Repository,
 } from '~/shared/GithubAPI';
 import { Contributor } from '~/shared/GithubAPI/types';
-import { isNone, toError } from '~/shared/utils';
+import { DataState } from '~/shared/types';
+import { getDataState, isNone, toError, updateDataState } from '~/shared/utils';
 
 export type RepoDataState = {
   info: DataState<Repository>;
