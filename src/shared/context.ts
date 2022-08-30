@@ -1,5 +1,5 @@
 import React from 'react';
-import { useLocalStorage } from './hooks';
+import { useLocalStorage } from './hooks/useLocalStorage';
 
 export type StateCtx<T> = {
   state: T;

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Input } from '~/App/components/Input/Input';
-import { useHide } from '~/shared/hooks';
+import { useHide } from '~/shared/hooks/useHide';
 import styles from './MultiDropdown.module.scss';
 import { MultiDropdownList } from './MultiDropdownList';
 import { MultiDropdownProps } from './types';
