@@ -1,5 +1,5 @@
 import React from 'react';
-import { Loader } from '~/App/components/Loader/Loader';
+import { Loader } from '~/App/components/Loader';
 import { classname, PropsWithChildrenAndClassname } from '~/shared/utils';
 import styles from './WithLoader.module.scss';
 

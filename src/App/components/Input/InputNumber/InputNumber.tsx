@@ -1,6 +1,6 @@
 import React from 'react';
 import { classname } from '~/shared/utils';
-import { Input, InputProps, InputSize } from './Input';
+import { Input, InputProps, InputSize } from '../Input';
 import styles from './InputNumber.module.scss';
 
 export type InputNumberProps = Omit<

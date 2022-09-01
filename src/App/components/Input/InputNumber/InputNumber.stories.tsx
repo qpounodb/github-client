@@ -1,5 +1,5 @@
 import { ComponentMeta, ComponentStory } from '@storybook/react';
-import { InputSize } from './Input';
+import { InputSize } from '../Input';
 import { InputNumber as InputNumberComponent } from './InputNumber';
 
 type Meta = ComponentMeta<typeof InputNumberComponent>;

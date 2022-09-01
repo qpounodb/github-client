@@ -1,1 +1,1 @@
-export { RepoCommit } from './RepoCommit';
+export * from './RepoCommit';

@@ -1,15 +1,18 @@
-import { Contributor } from '~/shared/GithubAPI/types';
+import { Contributor as ContributorModel } from '~/shared/GithubAPI/types';
 import { withRepoBlock } from '../withRepoBlock';
-import { RepoContributor } from './RepoContributor';
+import { Contributor } from './Contributor';
 import styles from './RepoContributors.module.scss';
 
-export const RepoContributors = withRepoBlock<Contributor[]>('', ({ data }) => (
-  <>
-    <h2>Top 10 Contributors</h2>
-    <div className={styles.list}>
-      {data.map((c) => (
-        <RepoContributor key={c.id} contributor={c} />
-      ))}
-    </div>
-  </>
-));
+export const RepoContributors = withRepoBlock<ContributorModel[]>(
+  '',
+  ({ data }) => (
+    <>
+      <h2>Top 10 Contributors</h2>
+      <div className={styles.list}>
+        {data.map((c) => (
+          <Contributor key={c.id} contributor={c} />
+        ))}
+      </div>
+    </>
+  )
+);

@@ -1,6 +1,6 @@
 import { ComponentMeta, ComponentStory } from '@storybook/react';
 
-import { ButtonColor } from './BaseButton';
+import { ButtonColor } from '../BaseButton';
 import { Button as ButtonComponent } from './Button';
 
 type Meta = ComponentMeta<typeof ButtonComponent>;

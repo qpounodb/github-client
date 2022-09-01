@@ -10,6 +10,7 @@ import {
   PropsWithChildrenAndClassname,
 } from '~/shared/utils';
 import styles from './withRepoBlock.module.scss';
+
 export type ComponentProps<T> = React.PropsWithChildren<{
   data: T;
 }>;

@@ -1,14 +1,12 @@
 import React from 'react';
-import { Contributor } from '~/shared/GithubAPI/types';
-import styles from './RepoContributor.module.scss';
+import { Contributor as ContributorModel } from '~/shared/GithubAPI/types';
+import styles from './Contributor.module.scss';
 
-export type RepoContributorProps = {
-  contributor: Contributor;
+export type ContributorProps = {
+  contributor: ContributorModel;
 };
 
-export const RepoContributor: React.FC<RepoContributorProps> = ({
-  contributor,
-}) => {
+export const Contributor: React.FC<ContributorProps> = ({ contributor }) => {
   return (
     <div className={styles.main}>
       <img

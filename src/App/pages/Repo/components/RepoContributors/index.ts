@@ -1,1 +1,1 @@
-export { RepoContributors } from './RepoContributors';
+export * from './RepoContributors';

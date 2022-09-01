@@ -1,1 +1,1 @@
-export { RepoLangs } from './RepoLangs';
+export * from './RepoLangs';

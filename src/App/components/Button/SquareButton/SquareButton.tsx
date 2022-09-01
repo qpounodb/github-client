@@ -1,7 +1,7 @@
 import React from 'react';
+import { Loader, LoaderSize } from '~/App/components/Loader';
 import { classname } from '~/shared/utils';
-import { Loader, LoaderSize } from '../Loader';
-import { BaseButton, BaseButtonProps, ButtonColor } from './BaseButton';
+import { BaseButton, BaseButtonProps, ButtonColor } from '../BaseButton';
 import styles from './SquareButton.module.scss';
 
 export enum ButtonSize {

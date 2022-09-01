@@ -1,7 +1,7 @@
 import React from 'react';
 import { Loader, LoaderSize } from '~/App/components/Loader';
 import { classname } from '~/shared/utils';
-import { BaseButton, BaseButtonProps, ButtonColor } from './BaseButton';
+import { BaseButton, BaseButtonProps, ButtonColor } from '../BaseButton';
 import styles from './Button.module.scss';
 
 export type ButtonProps = { loading?: boolean } & BaseButtonProps;
