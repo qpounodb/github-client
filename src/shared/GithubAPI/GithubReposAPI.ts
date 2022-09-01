@@ -1,6 +1,6 @@
+import { RepoApi, SearchReposApi, SearchUsersApi } from '~/App/models/GitHub';
 import { AxiosCacheInstance, createAxios } from '../axios-config';
 import { getGithubAPIConfig } from './GithubAPI.config';
-import { Repository, SearchReposResult, SearchUsersResult } from './types';
 
 export type RequestReposParams = {
   type?: 'all' | 'public' | 'private' | 'forks' | 'sources' | 'member';
@@ -29,7 +29,7 @@ export class GithubReposAPI {
     orgName: string,
     params: RequestReposParams,
     signal?: AbortSignal
-  ): Promise<Repository[]> {
+  ): Promise<RepoApi[]> {
     if (orgName.length === 0) {
       return [];
     }
@@ -38,7 +38,7 @@ export class GithubReposAPI {
       params: { ...defaultRequestReposParams, ...params },
       signal,
     };
-    const { data } = await this.fetch.get<Repository[]>(url, config);
+    const { data } = await this.fetch.get<RepoApi[]>(url, config);
     return data;
   }
 
@@ -51,7 +51,7 @@ export class GithubReposAPI {
       params: { q: `org:${orgName}`, per_page: 1 },
       signal,
     };
-    const { data } = await this.fetch.get<SearchReposResult>(url, config);
+    const { data } = await this.fetch.get<SearchReposApi>(url, config);
     return data.total_count;
   }
 
@@ -63,7 +63,7 @@ export class GithubReposAPI {
     const config = {
       signal,
     };
-    const { data } = await this.fetch.get<SearchUsersResult>(url, config);
+    const { data } = await this.fetch.get<SearchUsersApi>(url, config);
     return data.total_count;
   }
 }

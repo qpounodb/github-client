@@ -1,8 +1,8 @@
 import React from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { Pagination } from '~/App/components/Pagination';
+import { RepoModel } from '~/App/models/GitHub';
 import { useGithubReposCtx } from '~/App/pages/Main/hooks/useGithubReposCtx';
-import { Repository } from '~/shared/GithubAPI';
 import { isNone, isSome } from '~/shared/utils';
 import { GitRepoList } from './components/GitRepoList';
 import styles from './Main.module.scss';
@@ -27,7 +27,7 @@ export const Main: React.FC = () => {
   }, [orgName, pageNum]);
 
   const getCardClickHandler =
-    ({ name, owner }: Repository) =>
+    ({ name, owner }: RepoModel) =>
     () => {
       controller.abort();
       navigate(`/repo/${owner.login}/${name}`);
@@ -45,7 +45,7 @@ export const Main: React.FC = () => {
         <Pagination
           onSubmit={(page) => navigate(`/org/${state.orgName}/${page}`)}
           page={state.params.page}
-          count={state.pages_count}
+          count={state.pagesCount}
           loading={state.repos.loading}
         />
       </div>

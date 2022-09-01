@@ -6,7 +6,7 @@ import {
   IconRemoved,
   IconRenamed,
 } from '~/App/assets/icons';
-import { CommitFile } from '~/shared/GithubAPI';
+import { CommitFileModel } from '~/App/models/GitHub';
 import { joinClassName } from '~/shared/utils';
 import styles from './StatusIcon.module.scss';
 
@@ -17,7 +17,7 @@ const getIcon = (Icon: Icon, className: string, title: string) => {
   return <Icon className={cls} title={title} />;
 };
 
-export const StatusIcon: React.FC<{ file: CommitFile }> = ({
+export const StatusIcon: React.FC<{ file: CommitFileModel }> = ({
   file: { status },
 }) => {
   switch (status) {

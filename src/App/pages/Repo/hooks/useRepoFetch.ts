@@ -1,23 +1,29 @@
 import React from 'react';
 import {
-  Branch,
-  Commit,
-  GithubRepoAPI,
-  Languages,
-  Readme,
-  Repository,
-} from '~/shared/GithubAPI';
-import { Contributor } from '~/shared/GithubAPI/types';
+  CommitModel,
+  normalizeCommit,
+  normalizeRepo,
+  normalizeRepoBranchCollection,
+  normalizeRepoContributorCollection,
+  normalizeRepoLangs,
+  normalizeRepoReadme,
+  RepoBranchModelCollection,
+  RepoContributorModelCollection,
+  RepoLangsModel,
+  RepoModel,
+  RepoReadmeModel,
+} from '~/App/models/GitHub';
+import { GithubRepoAPI } from '~/shared/GithubAPI';
 import { DataState } from '~/shared/types';
 import { getDataState, isNone, toError, updateDataState } from '~/shared/utils';
 
 export type RepoDataState = {
-  info: DataState<Repository>;
-  branches: DataState<Branch[]>;
-  contributors: DataState<Contributor[]>;
-  commit: DataState<Commit>;
-  langs: DataState<Languages>;
-  readme: DataState<Readme>;
+  info: DataState<RepoModel>;
+  branches: DataState<RepoBranchModelCollection>;
+  contributors: DataState<RepoContributorModelCollection>;
+  commit: DataState<CommitModel>;
+  langs: DataState<RepoLangsModel>;
+  readme: DataState<RepoReadmeModel>;
 };
 
 export const getInitialDataState = <T extends object>(): DataState<T> =>
@@ -52,9 +58,10 @@ const handleDispatchFetch =
     dispatch: React.Dispatch<Action<keyof RepoDataState>>,
     controller: AbortController
   ) =>
-  async <K extends keyof RepoDataState>(
+  async <T, K extends keyof RepoDataState>(
     type: K,
-    fetch: () => Promise<RepoDataState[K]['data']>
+    fetch: () => Promise<T>,
+    normalize: (data: T) => RepoDataState[K]['data']
   ): Promise<void> => {
     if (controller.signal.aborted) {
       dispatch({ type, payload: false });
@@ -63,7 +70,7 @@ const handleDispatchFetch =
     try {
       dispatch({ type, payload: true });
       const data = await fetch();
-      dispatch({ type, payload: data });
+      dispatch({ type, payload: normalize(data) });
     } catch (error) {
       if (!controller.signal.aborted) {
         dispatch({ type, payload: toError(error) });
@@ -73,6 +80,8 @@ const handleDispatchFetch =
       dispatch({ type, payload: false });
     }
   };
+
+const DO_FETCH = false;
 
 export const useRepoFetch = (
   orgName?: string,
@@ -94,12 +103,34 @@ export const useRepoFetch = (
     );
 
     (async () => {
-      await handleFetch('info', () => githubRepoApi.getInfo());
-      // await handleFetch('branches', () => githubRepoApi.getBranches());
-      await handleFetch('langs', () => githubRepoApi.getLanguages());
-      await handleFetch('contributors', () => githubRepoApi.getContributors());
-      await handleFetch('commit', () => githubRepoApi.getCommit());
-      // await handleFetch('readme', () => githubRepoApi.getReadme());
+      await handleFetch('info', () => githubRepoApi.getInfo(), normalizeRepo);
+      DO_FETCH &&
+        (await handleFetch(
+          'branches',
+          () => githubRepoApi.getBranches(),
+          normalizeRepoBranchCollection
+        ));
+      await handleFetch(
+        'langs',
+        () => githubRepoApi.getLanguages(),
+        normalizeRepoLangs
+      );
+      await handleFetch(
+        'contributors',
+        () => githubRepoApi.getContributors(),
+        normalizeRepoContributorCollection
+      );
+      await handleFetch(
+        'commit',
+        () => githubRepoApi.getCommit(),
+        normalizeCommit
+      );
+      DO_FETCH &&
+        (await handleFetch(
+          'readme',
+          () => githubRepoApi.getReadme(),
+          normalizeRepoReadme
+        ));
     })();
 
     return () => {

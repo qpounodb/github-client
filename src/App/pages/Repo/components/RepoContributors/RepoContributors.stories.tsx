@@ -1,5 +1,6 @@
 import { ComponentMeta, ComponentStory } from '@storybook/react';
 import data from '~/App/assets/data-examples/repo-contributors.json';
+import { normalizeRepoContributorCollection } from '~/App/models/GitHub';
 import { getDataState } from '~/shared/utils';
 import { RepoContributors as RepoContributorsComponent } from './RepoContributors';
 
@@ -16,4 +17,6 @@ export default meta;
 export const RepoContributors: Story = (args) => (
   <RepoContributorsComponent {...args} />
 );
-RepoContributors.args = { state: getDataState(data) };
+RepoContributors.args = {
+  state: getDataState(normalizeRepoContributorCollection(data)),
+};

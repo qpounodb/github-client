@@ -1,7 +1,10 @@
 import {
+  normalizeRepoCollection,
+  RepoModelCollection,
+} from '~/App/models/GitHub';
+import {
   defaultRequestReposParams,
   GithubReposAPI,
-  Repository,
   RequestReposParams,
 } from '~/shared/GithubAPI';
 import { createCtx } from '~/shared/hooks';
@@ -10,23 +13,23 @@ import { getDataState, toError, updateDataState } from '~/shared/utils';
 
 type ReposDataState = {
   orgName: string;
-  pages_count: number;
+  pagesCount: number;
   params: RequestReposParams;
-  repos: DataState<Repository[]>;
+  repos: DataState<RepoModelCollection>;
 };
 
 const initReposDataState: ReposDataState = {
   orgName: '',
-  pages_count: 0,
+  pagesCount: 0,
   params: {
     page: 1,
     per_page: 5,
   },
-  repos: getDataState<Repository[]>(),
+  repos: getDataState<RepoModelCollection>(),
 };
 
 const updateRepos =
-  (value: boolean | Error | Nullable<Repository[]>) =>
+  (value: boolean | Error | Nullable<RepoModelCollection>) =>
   (state: ReposDataState): ReposDataState => ({
     ...state,
     repos: updateDataState(value)(state.repos),
@@ -54,7 +57,7 @@ export const useGithubReposCtx = () => {
     setState(updateRepos(true));
 
     try {
-      let pages_count = state.pages_count;
+      let pages_count = state.pagesCount;
 
       if (page === 1) {
         const num = await githubReposAPI.checkOrg(orgName, signal);
@@ -63,8 +66,8 @@ export const useGithubReposCtx = () => {
           setState((state) => ({
             ...state,
             orgName,
-            pages_count: 0,
-            repos: getDataState<Repository[]>(),
+            pagesCount: 0,
+            repos: getDataState<RepoModelCollection>(),
           }));
           return;
         }
@@ -74,10 +77,12 @@ export const useGithubReposCtx = () => {
       pages_count = Math.ceil(count / per_page);
 
       const data = await githubReposAPI.getRepos(orgName, params, signal);
+      const collection = normalizeRepoCollection(data);
+
       setState((state) => ({
         orgName,
-        pages_count,
-        repos: { ...state.repos, data },
+        pagesCount: pages_count,
+        repos: { ...state.repos, data: collection },
         params: { ...state.params, page },
       }));
     } catch (error) {

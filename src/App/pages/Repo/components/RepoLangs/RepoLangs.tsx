@@ -1,13 +1,13 @@
-import { Languages } from '~/shared/GithubAPI';
+import { RepoLangsModel } from '~/App/models/GitHub';
 import { withRepoBlock } from '../withRepoBlock';
 import { RepoLang } from './RepoLang';
 import styles from './RepoLangs.module.scss';
 
-const getTotal = (langs: Languages) => {
+const getTotal = (langs: RepoLangsModel) => {
   return Object.values(langs).reduce((acc, x) => acc + x, 0);
 };
 
-export const RepoLangs = withRepoBlock<Languages>('', ({ data }) => {
+export const RepoLangs = withRepoBlock<RepoLangsModel>('', ({ data }) => {
   const total = getTotal(data);
   return (
     <>

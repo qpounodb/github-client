@@ -1,5 +1,6 @@
 import { ComponentMeta, ComponentStory } from '@storybook/react';
 import data from '~/App/assets/data-examples/repo-commit.json';
+import { normalizeCommit } from '~/App/models/GitHub';
 import { getDataState } from '~/shared/utils';
 import { RepoCommit as RepoCommitComponent } from './RepoCommit';
 
@@ -14,4 +15,4 @@ const meta: Meta = {
 export default meta;
 
 export const RepoCommit: Story = (args) => <RepoCommitComponent {...args} />;
-RepoCommit.args = { state: getDataState(data) };
+RepoCommit.args = { state: getDataState(normalizeCommit(data)) };

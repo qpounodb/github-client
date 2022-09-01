@@ -1,17 +1,18 @@
 import axios from 'axios';
 import React from 'react';
 import { Search } from '~/App/components/Search';
-import { Repository } from '~/shared/GithubAPI';
+import { RepoModel, RepoModelCollection } from '~/App/models/GitHub';
+import { linerizeCollection } from '~/App/models/shared';
 import { DataState } from '~/shared/types';
 import { formatCode, isNone, isSome } from '~/shared/utils';
 import { GitRepoTile } from '../GitRepoTile';
 import styles from './GitRepoList.module.scss';
 
 export type GitRepoListProps = {
-  state: DataState<Repository[]>;
+  state: DataState<RepoModelCollection>;
   orgName: string;
   onSubmit: (value: string) => void;
-  getCardClickHandler: (data: Repository) => () => void;
+  getCardClickHandler: (data: RepoModel) => () => void;
 };
 
 export const GIT_REPO_LIST_PLACEHOLDER = 'Введите название организации';
@@ -57,7 +58,7 @@ export const GitRepoList: React.FC<GitRepoListProps> = ({
   } else {
     content = (
       <div className={styles.list}>
-        {data.map((data) => (
+        {linerizeCollection(data).map((data) => (
           <GitRepoTile
             key={data.id}
             data={data}

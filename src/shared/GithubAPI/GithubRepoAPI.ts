@@ -1,14 +1,14 @@
+import {
+  CommitApi,
+  RepoApi,
+  RepoBranchApi,
+  RepoContributorApi,
+  RepoLangsApi,
+  RepoReadmeApi,
+} from '~/App/models/GitHub';
 import { AxiosCacheInstance, createAxios } from '../axios-config';
 import { assertNotEmpty } from '../utils';
 import { getGithubAPIConfig } from './GithubAPI.config';
-import {
-  Branch,
-  Commit,
-  Contributor,
-  Languages,
-  Readme,
-  Repository,
-} from './types';
 
 export class GithubRepoAPI {
   private fetch: AxiosCacheInstance;
@@ -30,39 +30,42 @@ export class GithubRepoAPI {
     };
   }
 
-  async getInfo(): Promise<Repository> {
+  async getInfo(): Promise<RepoApi> {
     const cfg = this.getCfg();
-    const { data } = await this.fetch.get<Repository>('', cfg);
+    const { data } = await this.fetch.get<RepoApi>('', cfg);
     return data;
   }
 
-  async getBranches(): Promise<Branch[]> {
+  async getBranches(): Promise<RepoBranchApi[]> {
     const cfg = this.getCfg({ per_page: 100 });
-    const { data } = await this.fetch.get<Branch[]>('/branches', cfg);
+    const { data } = await this.fetch.get<RepoBranchApi[]>('/branches', cfg);
     return data;
   }
 
-  async getCommit(ref = 'HEAD'): Promise<Commit> {
+  async getCommit(ref = 'HEAD'): Promise<CommitApi> {
     const cfg = this.getCfg({ per_page: 100 });
-    const { data } = await this.fetch.get<Commit>(`/commits/${ref}`, cfg);
+    const { data } = await this.fetch.get<CommitApi>(`/commits/${ref}`, cfg);
     return data;
   }
 
-  async getContributors(): Promise<Contributor[]> {
+  async getContributors(): Promise<RepoContributorApi[]> {
     const cfg = this.getCfg({ per_page: 10 });
-    const { data } = await this.fetch.get<Contributor[]>('/contributors', cfg);
+    const { data } = await this.fetch.get<RepoContributorApi[]>(
+      '/contributors',
+      cfg
+    );
     return data;
   }
 
-  async getLanguages(): Promise<Languages> {
+  async getLanguages(): Promise<RepoLangsApi> {
     const cfg = this.getCfg();
-    const { data } = await this.fetch.get<Languages>('/languages', cfg);
+    const { data } = await this.fetch.get<RepoLangsApi>('/languages', cfg);
     return data;
   }
 
-  async getReadme(): Promise<Readme> {
+  async getReadme(): Promise<RepoReadmeApi> {
     const cfg = this.getCfg();
-    const { data } = await this.fetch.get<Readme>('/readme', cfg);
+    const { data } = await this.fetch.get<RepoReadmeApi>('/readme', cfg);
     return data;
   }
 }

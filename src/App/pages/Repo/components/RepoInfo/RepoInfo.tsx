@@ -5,12 +5,12 @@ import {
   IconRepo,
   IconStar,
 } from '~/App/assets/icons';
-import { Repository } from '~/shared/GithubAPI';
+import { RepoModel } from '~/App/models/GitHub';
 import { formatCount, getLangLogo } from '~/shared/utils';
 import { withRepoBlock } from '../withRepoBlock';
 import styles from './RepoInfo.module.scss';
 
-export const RepoInfo = withRepoBlock<Repository>(styles.main, ({ data }) => {
+export const RepoInfo = withRepoBlock<RepoModel>(styles.main, ({ data }) => {
   const langLogo = data.language && getLangLogo(data.language);
 
   return (
@@ -28,23 +28,23 @@ export const RepoInfo = withRepoBlock<Repository>(styles.main, ({ data }) => {
           {data.description && <p>{data.description}</p>}
           <div className={styles.stats}>
             <div title="Stars">
-              <IconStar /> {formatCount(data.stargazers_count)}
+              <IconStar /> {formatCount(data.stargazersCount)}
             </div>
             <div title="Watchers">
-              <IconEye /> {formatCount(data.subscribers_count)}
+              <IconEye /> {formatCount(data.subscribersCount)}
             </div>
             <div title="Forks">
-              <IconFork /> {formatCount(data.forks_count)}
+              <IconFork /> {formatCount(data.forksCount)}
             </div>
             <div title="Open issues">
-              <IconIssue /> {formatCount(data.open_issues_count)}
+              <IconIssue /> {formatCount(data.openIssuesCount)}
             </div>
           </div>
           <div className={styles.date}>
             <div>Created</div>
-            <div>{new Date(data.created_at).toDateString()}</div>
+            <div>{data.createdAt.toDateString()}</div>
             <div>Updated</div>
-            <div>{new Date(data.updated_at).toDateString()}</div>
+            <div>{data.updatedAt.toDateString()}</div>
           </div>
           {data.language && langLogo && (
             <div className={styles.lang}>
@@ -58,10 +58,10 @@ export const RepoInfo = withRepoBlock<Repository>(styles.main, ({ data }) => {
         </div>
         <div>
           <div className={styles.owner}>
-            <img src={data.owner.avatar_url} alt="avatar" />
+            <img src={data.owner.avatarUrl} alt="avatar" />
             <a
               className={styles.link}
-              href={data.owner.html_url}
+              href={data.owner.htmlUrl}
               target="_blank"
               rel="noopener noreferrer"
             >

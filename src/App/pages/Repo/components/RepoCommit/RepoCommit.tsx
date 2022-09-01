@@ -1,11 +1,12 @@
 import React from 'react';
-import { Commit } from '~/shared/GithubAPI';
+import { CommitModel } from '~/App/models/GitHub';
+import { linerizeCollection } from '~/App/models/shared/Collection';
 import { withRepoBlock } from '../withRepoBlock';
 import styles from './RepoCommit.module.scss';
 import { Stats } from './Stats';
 import { StatusIcon } from './StatusIcon';
 
-export const RepoCommit = withRepoBlock<Commit>('', ({ data }) => {
+export const RepoCommit = withRepoBlock<CommitModel>('', ({ data }) => {
   const user = data.commit.author ?? data.commit.committer;
   const owner = data.author ?? data.committer;
 
@@ -25,13 +26,13 @@ export const RepoCommit = withRepoBlock<Commit>('', ({ data }) => {
       {user && (
         <div className={styles.autor}>
           <div className={styles.sign}>
-            <span>{new Date(user.date).toDateString()}</span>
+            <span>{user.date.toDateString()}</span>
             <span>{user.name}</span>
             <span>{user.email}</span>
           </div>
           {owner && (
             <div className={styles.avatar}>
-              <img src={owner.avatar_url} alt="avatar" />
+              <img src={owner.avatarUrl} alt="avatar" />
               <div>{owner.login}</div>
             </div>
           )}
@@ -41,7 +42,7 @@ export const RepoCommit = withRepoBlock<Commit>('', ({ data }) => {
       <div className={styles.changes}>
         <h3>Changes</h3>
         <div className={styles.list}>
-          {data.files.map((file) => (
+          {linerizeCollection(data.files).map((file) => (
             <React.Fragment key={file.sha}>
               <StatusIcon file={file} />
               <Stats stats={file} />

@@ -1,19 +1,28 @@
 import { IconBranch } from '~/App/assets/icons';
-import { Branch } from '~/shared/GithubAPI';
+import {
+  RepoBranchModel,
+  RepoBranchModelCollection,
+} from '~/App/models/GitHub';
+import { linerizeCollection } from '~/App/models/shared';
 import { withRepoBlock } from '../withRepoBlock';
 import styles from './RepoBranches.module.scss';
 
-const noVersionNum = ({ name }: Branch): boolean => !/\d/.test(name);
+const noVersionNum = ({ name }: RepoBranchModel): boolean => !/\d/.test(name);
 
-export const RepoBranches = withRepoBlock<Branch[]>('', ({ data }) => (
-  <>
-    <h2>Branches</h2>
-    <div className={styles.list}>
-      {data.filter(noVersionNum).map(({ name }) => (
-        <div className={styles.item} key={name}>
-          <IconBranch /> {name}
-        </div>
-      ))}
-    </div>
-  </>
-));
+export const RepoBranches = withRepoBlock<RepoBranchModelCollection>(
+  '',
+  ({ data }) => (
+    <>
+      <h2>Branches</h2>
+      <div className={styles.list}>
+        {linerizeCollection(data)
+          .filter(noVersionNum)
+          .map(({ name }) => (
+            <div className={styles.item} key={name}>
+              <IconBranch /> {name}
+            </div>
+          ))}
+      </div>
+    </>
+  )
+);
