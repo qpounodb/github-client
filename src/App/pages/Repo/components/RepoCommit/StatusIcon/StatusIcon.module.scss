@@ -1,24 +1,26 @@
+@use '~/App/styles/color';
+
 .icon {
   width: 16px;
   vertical-align: middle;
 }
 
 .added {
-  fill: var(--color-star-accent);
+  fill: color.$star-accent;
 }
 
 .modified {
-  fill: var(--color-link-hover);
+  fill: color.$link-hover;
 }
 
 .removed {
-  fill: var(--color-accent);
+  fill: color.$accent;
 }
 
 .renamed {
-  fill: var(--color-accent-hover);
+  fill: color.$accent-hover;
 }
 
 .unknown {
-  fill: var(--color-accent-selected);
+  fill: color.$background-selected;
 }

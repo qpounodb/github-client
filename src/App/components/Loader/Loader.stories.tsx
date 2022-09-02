@@ -1,6 +1,7 @@
 import { ComponentMeta, ComponentStory } from '@storybook/react';
+import { Size } from '~/App/constants';
 
-import { Loader as LoaderComponent, LoaderSize } from './Loader';
+import { Loader as LoaderComponent } from './Loader';
 
 type Meta = ComponentMeta<typeof LoaderComponent>;
 type Story = ComponentStory<typeof LoaderComponent>;
@@ -12,5 +13,5 @@ export default {
 
 export const Loader: Story = (args) => <LoaderComponent {...args} />;
 Loader.args = {
-  size: LoaderSize.m,
+  size: Size.m,
 };

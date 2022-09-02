@@ -10,12 +10,13 @@ export type ItemProps = {
 };
 
 export const Item: React.FC<ItemProps> = ({ option, isSelected, onChange }) => {
-  const cls = classname(styles.main, isSelected && styles.main_selected);
-
   const handleClick = () => onChange(option, isSelected);
 
   return (
-    <div className={cls} onClick={handleClick}>
+    <div
+      className={classname(styles.root, isSelected && styles.root_selected)}
+      onClick={handleClick}
+    >
       {option.value}
     </div>
   );

@@ -1,6 +1,7 @@
 import React from 'react';
+import { Size } from '~/App/constants';
 import { classname } from '~/shared/utils';
-import { Input, InputProps, InputSize } from '../Input';
+import { Input, InputProps } from '../Input';
 import styles from './InputNumber.module.scss';
 
 export type InputNumberProps = Omit<
@@ -16,36 +17,43 @@ export const InputNumber: React.FC<InputNumberProps> = ({
   value,
   onChange,
   onSubmit,
-  size = InputSize.l,
+  size = Size.l,
   ...rest
 }) => {
-  const cls = classname(styles.main, styles[`size_${size}`], rest.className);
+  const handlerChange = (value: string) => {
+    onChange(Number(value));
+  };
 
-  const handler = (value: string) => {
+  const handlerSubmit = (value: string) => {
+    if (!onSubmit) return;
     const x = Number(value);
     const min = Number(rest.min);
     const max = Number(rest.max);
 
     if (!isNaN(min) && min > x) {
-      onChange(min);
+      onSubmit(min);
       return;
     }
     if (!isNaN(max) && max < x) {
-      onChange(max);
+      onSubmit(max);
       return;
     }
-    onChange(x);
+    onSubmit(x);
   };
 
   return (
     <Input
       {...rest}
       size={size}
-      className={cls}
+      className={classname(
+        styles.root,
+        styles[`root_size-${size}`],
+        rest.className
+      )}
       type="number"
       value={String(value)}
-      onChange={handler}
-      onSubmit={(x) => onSubmit?.(Number(x))}
+      onChange={handlerChange}
+      onSubmit={handlerSubmit}
     />
   );
 };

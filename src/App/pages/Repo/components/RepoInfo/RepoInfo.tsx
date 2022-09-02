@@ -10,7 +10,7 @@ import { formatCount, getLangLogo } from '~/shared/utils';
 import { withRepoBlock } from '../withRepoBlock';
 import styles from './RepoInfo.module.scss';
 
-export const RepoInfo = withRepoBlock<Repository>(styles.main, ({ data }) => {
+export const RepoInfo = withRepoBlock<Repository>(styles.root, ({ data }) => {
   const langLogo = data.language && getLangLogo(data.language);
 
   return (

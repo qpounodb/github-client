@@ -1,9 +1,11 @@
 export type Styles = {
-  loader: string;
+  root: string;
+  root_primary: string;
+  root_secondary: string;
+  'root_size-l': string;
+  'root_size-m': string;
+  'root_size-s': string;
   rotate: string;
-  size_l: string;
-  size_m: string;
-  size_s: string;
 };
 
 export type ClassNames = keyof Styles;

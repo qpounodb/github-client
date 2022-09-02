@@ -1,6 +1,5 @@
 import { ComponentMeta, ComponentStory } from '@storybook/react';
-
-import { ButtonColor } from '../BaseButton';
+import { Color } from '~/App/constants';
 import { Button as ButtonComponent } from './Button';
 
 type Meta = ComponentMeta<typeof ButtonComponent>;
@@ -18,7 +17,7 @@ export const Button: Story = (args) => (
   <ButtonComponent {...args}>Отправить</ButtonComponent>
 );
 Button.args = {
-  color: ButtonColor.primary,
+  color: Color.primary,
   disabled: false,
   loading: false,
 };

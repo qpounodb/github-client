@@ -33,7 +33,7 @@ export const List: React.FC<ListProps> = ({
   };
 
   return (
-    <div className={classname(styles.main, className)}>
+    <div className={classname(styles.root, className)}>
       {options.map((option) => (
         <Item
           key={option.key}

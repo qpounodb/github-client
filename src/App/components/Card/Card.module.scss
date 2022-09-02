@@ -1,11 +1,13 @@
-.card {
-  --avatar-size: 80px;
+@use '~/App/styles/color';
+@use '~/App/styles/size';
+@use '~/App/styles/mixin';
 
-  width: 357px;
-  height: 104px;
-  border: 1px solid var(--color-border);
-  border-radius: 6px;
-  background: var(--color-background);
+.root {
+  max-width: 360px;
+  width: 100%;
+  height: calc(size.$height * 2);
+  @include mixin.border;
+  background: color.$background;
 
   display: flex;
   align-items: center;
@@ -13,68 +15,65 @@
   padding: 0 12px;
 
   &:hover {
-    box-shadow: 0px 2px 6px var(--color-card-hover);
+    box-shadow: 0px 2px 6px color.$card-hover;
+  }
+
+  &__side,
+  &__placeholder,
+  &__avatar {
+    @include mixin.square(size.$card-avatar);
+  }
+
+  &__side {
+    position: relative;
+    flex-shrink: 0;
+    @include mixin.circle;
+    color: color.$background;
+    overflow: hidden;
+  }
+
+  &__placeholder {
+    z-index: 0;
+    @include mixin.inset;
+    display: grid;
+    place-content: center;
+    font-size: calc(size.$card-avatar / 2);
+    font-weight: bold;
+    color: color.$background;
+    background-color: color.$accent;
+  }
+
+  &__avatar {
+    position: relative;
+    z-index: 1;
+    display: block;
+    object-fit: cover;
+    object-position: 50% 50%;
+    font-size: 0;
+    transition: opacity 500ms ease;
+  }
+
+  &__main {
+    display: flex;
+    flex-direction: column;
+    row-gap: 4px;
+    overflow: hidden;
+    color: color.$hint;
+  }
+
+  &__item {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+  }
+
+  &__title {
+    font-size: 16px;
+    font-weight: bold;
+    color: color.$text;
   }
 }
 
-.side {
-  position: relative;
-  width: var(--avatar-size);
-  height: var(--avatar-size);
-  flex-shrink: 0;
-  border-radius: 50%;
-  color: var(--color-background);
-  overflow: hidden;
-}
-
-.placeholder {
-  z-index: 0;
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: var(--avatar-size);
-  height: var(--avatar-size);
-  display: grid;
-  place-content: center;
-  font-size: calc(var(--avatar-size) * 0.5);
-  font-weight: bold;
-  color: var(--color-background);
-  background-color: var(--color-accent);
-}
-
-.avatar {
-  position: relative;
-  z-index: 1;
-  display: block;
-  width: var(--avatar-size);
-  height: var(--avatar-size);
-  object-fit: cover;
-  object-position: 50% 50%;
-  font-size: 0;
-  transition: opacity 500ms ease;
-
-  &_hidden {
-    opacity: 0;
-  }
-}
-
-.main {
-  display: flex;
-  flex-direction: column;
-  row-gap: 4px;
-  overflow: hidden;
-
-  color: var(--color-hint);
-}
-
-.item {
-  overflow: hidden;
-  white-space: nowrap;
-  text-overflow: ellipsis;
-}
-
-.title {
-  font-size: 16px;
-  font-weight: bold;
-  color: var(--color-text);
+.hidden {
+  opacity: 0;
 }

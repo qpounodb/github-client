@@ -17,11 +17,11 @@ export const WithLoader: React.FC<WithLoaderProps> = ({
   const info = message ? `Loading ${message}...` : 'Loading...';
 
   return (
-    <div className={classname(styles.container, className)}>
+    <div className={classname(styles.root, className)}>
       {children}
       {loading && (
-        <div className={styles.cover}>
-          <div className={styles.message}>
+        <div className={styles.root__cover}>
+          <div className={styles.root__message}>
             <Loader /> {info}
           </div>
         </div>

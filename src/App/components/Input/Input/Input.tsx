@@ -1,22 +1,17 @@
 import React from 'react';
+import { Size } from '~/App/constants';
 import { classname } from '~/shared/utils';
 import styles from './Input.module.scss';
 
 type InputHTMLProps = React.InputHTMLAttributes<HTMLInputElement>;
 type InputChangeHandler = React.ChangeEventHandler<HTMLInputElement>;
 
-export enum InputSize {
-  s = 's',
-  m = 'm',
-  l = 'l',
-}
-
 export type InputProps = Omit<
   InputHTMLProps,
   'value' | 'onChange' | 'onSubmit' | 'size'
 > & {
   value: string;
-  size?: InputSize;
+  size?: Size;
   onChange: (value: string) => void;
   onSubmit?: (value: string) => void;
 };
@@ -25,11 +20,9 @@ export const Input: React.FC<InputProps> = ({
   onChange,
   onSubmit,
   type = 'text',
-  size = InputSize.l,
+  size = Size.l,
   ...rest
 }) => {
-  const cls = classname(styles.main, styles[`size_${size}`], rest.className);
-
   const handler: InputChangeHandler = (e) => onChange(e.target.value);
 
   const handleEnter: React.KeyboardEventHandler = (e) => {
@@ -40,7 +33,11 @@ export const Input: React.FC<InputProps> = ({
   return (
     <input
       {...rest}
-      className={cls}
+      className={classname(
+        styles.root,
+        styles[`root_size-${size}`],
+        rest.className
+      )}
       type={type}
       onChange={handler}
       onKeyDown={handleEnter}

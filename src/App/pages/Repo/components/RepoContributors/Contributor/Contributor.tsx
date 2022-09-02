@@ -8,7 +8,7 @@ export type ContributorProps = {
 
 export const Contributor: React.FC<ContributorProps> = ({ contributor }) => {
   return (
-    <div className={styles.main}>
+    <div className={styles.root}>
       <img
         className={styles.avatar}
         src={contributor.avatar_url}

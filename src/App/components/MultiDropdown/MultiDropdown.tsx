@@ -40,9 +40,9 @@ export const MultiDropdown: React.FC<MultiDropdownProps> = ({
   const handleDropdown = () => disabled || setHide((state) => !state);
 
   return (
-    <div className={styles.main} ref={ref}>
+    <div className={styles.root} ref={ref}>
       <Input
-        className={styles.input}
+        className={styles.root__input}
         value={title}
         placeholder={placeholder}
         onClick={handleDropdown}
@@ -51,7 +51,7 @@ export const MultiDropdown: React.FC<MultiDropdownProps> = ({
         disabled={disabled}
       />
       {disabled || isHidden ? null : (
-        <List {...rest} selected={selected} className={styles.list} />
+        <List {...rest} selected={selected} className={styles.root__list} />
       )}
     </div>
   );

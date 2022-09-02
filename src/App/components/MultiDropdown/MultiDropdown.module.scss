@@ -1,12 +1,12 @@
-.main {
+.root {
   position: relative;
-}
 
-.input {
-  display: block;
-}
+  &__input {
+    display: block;
+  }
 
-.list {
-  position: absolute;
-  top: calc(100% + 8px);
+  &__list {
+    position: absolute;
+    top: calc(100% + 8px);
+  }
 }

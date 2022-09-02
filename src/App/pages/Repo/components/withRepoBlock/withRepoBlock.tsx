@@ -36,7 +36,7 @@ export const withRepoBlock = <T extends object>(
     title,
     children,
   }) => {
-    const cls = classname(styles.main, className);
+    const cls = classname(styles.root, className);
     const titles = getTitles(title);
 
     if (loading) {

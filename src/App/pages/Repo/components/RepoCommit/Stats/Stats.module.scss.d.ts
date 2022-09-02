@@ -1,7 +1,7 @@
 export type Styles = {
-  main: string;
   minus: string;
   plus: string;
+  root: string;
 };
 
 export type ClassNames = keyof Styles;

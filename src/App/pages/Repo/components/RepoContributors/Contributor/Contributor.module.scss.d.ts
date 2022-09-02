@@ -3,8 +3,8 @@ export type Styles = {
   avatar: string;
   commits: string;
   login: string;
-  main: string;
   name: string;
+  root: string;
 };
 
 export type ClassNames = keyof Styles;

@@ -1,5 +1,5 @@
 export type Styles = {
-  checkbox: string;
+  root: string;
 };
 
 export type ClassNames = keyof Styles;

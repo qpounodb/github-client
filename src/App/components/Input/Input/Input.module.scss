@@ -1,48 +1,46 @@
-.main {
-  height: var(--height);
-  width: var(--width);
-  padding: var(--padding);
+@use '~/App/styles/color';
+@use '~/App/styles/size';
+@use '~/App/styles/mixin';
+
+@mixin size($h, $w, $p, $f) {
+  height: calc(size.$height - $h);
+  max-width: calc(size.$input-width - $w);
+  padding: $p;
+  font-size: $f;
+}
+
+.root {
+  width: 100%;
+  @include mixin.border;
   outline: none;
-  border-radius: 6px;
-  border: 1px solid var(--color-border);
-  background-color: var(--color-background);
-  color: var(--color-text);
-  font-size: var(--font-size);
+  background-color: color.$background;
+  color: color.$text;
 
   &:focus {
-    border-color: var(--color-accent);
+    border-color: color.$accent;
   }
 
   &:disabled {
-    background-color: var(--color-background-disabled);
-    color: var(--color-hint);
+    background-color: color.$background-disabled;
+    color: color.$hint;
     cursor: not-allowed;
   }
 
   &::placeholder {
-    color: var(--color-hint);
-  }
-}
-
-.size {
-  &_l {
-    --height: 50px;
-    --width: 295px;
-    --padding: 0 12px;
-    --font-size: 14px;
+    color: color.$hint;
   }
 
-  &_m {
-    --height: 40px;
-    --width: 250px;
-    --padding: 0 10px;
-    --font-size: 13px;
-  }
+  &_size {
+    &-l {
+      @include size(0px, 0px, 12px, 14px);
+    }
 
-  &_s {
-    --height: 30px;
-    --width: 200px;
-    --padding: 0 8px;
-    --font-size: 12px;
+    &-m {
+      @include size(10px, 45px, 10px, 13px);
+    }
+
+    &-s {
+      @include size(20px, 90px, 8px, 12px);
+    }
   }
 }

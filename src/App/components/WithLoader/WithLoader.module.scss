@@ -1,29 +1,31 @@
-.container {
+@use '~/App/styles/color';
+
+.root {
   position: relative;
   min-height: 100px;
   min-width: 300px;
-}
 
-.cover {
-  position: absolute;
-  z-index: 1;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
+  &__cover {
+    position: absolute;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
 
-  display: flex;
-  justify-content: center;
-  align-items: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 
-  background: var(--color-background-opacity);
-  backdrop-filter: blur(4px);
-}
+    background: color.$background-opacity;
+    backdrop-filter: blur(4px);
+  }
 
-.message {
-  display: flex;
-  gap: 20px;
-  align-items: center;
-  color: var(--color-hint);
-  font-size: 20px;
+  &__message {
+    display: flex;
+    gap: 20px;
+    align-items: center;
+    color: color.$hint;
+    font-size: 20px;
+  }
 }

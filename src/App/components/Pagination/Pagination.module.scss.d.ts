@@ -1,7 +1,7 @@
 export type Styles = {
-  counter: string;
-  input: string;
-  main: string;
+  root: string;
+  root__counter: string;
+  root__input: string;
 };
 
 export type ClassNames = keyof Styles;

@@ -34,7 +34,7 @@ export const Main: React.FC = () => {
     };
 
   return (
-    <div className={styles.main}>
+    <div className={styles.root}>
       <GitRepoList
         state={state.repos}
         orgName={state.orgName}

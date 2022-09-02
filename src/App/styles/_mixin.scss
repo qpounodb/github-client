@@ -1,0 +1,39 @@
+@use "sass:list";
+@use './color';
+
+@mixin square($size) {
+  width: $size;
+  height: $size;
+}
+
+@mixin rounded($radius: 6px) {
+  border-radius: $radius;
+}
+
+@mixin circle {
+  @include rounded(50%);
+}
+
+@mixin border($rounded: true) {
+  border: 1px solid color.$border;
+
+  @if $rounded {
+    @include rounded;
+  }
+}
+
+@mixin no-border($rounded: true) {
+  border: none;
+
+  @if $rounded {
+    @include rounded;
+  }
+}
+
+@mixin inset($p1: 0 0, $p2: 0 0) {
+  position: absolute;
+  left: list.nth($p1, 1);
+  top: list.nth($p1, 2);
+  right: list.nth($p2, 1);
+  bottom: list.nth($p2, 2);
+}

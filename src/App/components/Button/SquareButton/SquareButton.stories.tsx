@@ -1,6 +1,5 @@
 import { ComponentMeta, ComponentStory } from '@storybook/react';
-
-import { ButtonColor } from '../BaseButton';
+import { Color } from '~/App/constants';
 import { SquareButton as SquareButtonComponent } from './SquareButton';
 
 type Meta = ComponentMeta<typeof SquareButtonComponent>;
@@ -18,7 +17,7 @@ export const SquareButton: Story = (args) => (
   <SquareButtonComponent {...args}>🙂</SquareButtonComponent>
 );
 SquareButton.args = {
-  color: ButtonColor.primary,
+  color: Color.primary,
   disabled: false,
   loading: false,
 };

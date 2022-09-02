@@ -1,30 +1,19 @@
-import React from 'react';
-import { Loader, LoaderSize } from '~/App/components/Loader';
 import { classname } from '~/shared/utils';
-import { BaseButton, BaseButtonProps, ButtonColor } from '../BaseButton';
+import { withButton } from '../withButton';
 import styles from './Button.module.scss';
 
-export type ButtonProps = { loading?: boolean } & BaseButtonProps;
-
-export const Button: React.FC<ButtonProps> = ({
-  className = '',
-  loading = false,
-  color = ButtonColor.primary,
-  children,
-  ...rest
-}) => {
-  const disabled = rest.disabled || loading;
-
-  const cls = classname(styles[color], loading && styles.loading, className);
-
-  return (
-    <BaseButton {...rest} color={color} disabled={disabled} className={cls}>
-      {loading && (
-        <div>
-          <Loader size={LoaderSize.s} className={styles.loader} />
-        </div>
-      )}
-      <div>{children}</div>
-    </BaseButton>
-  );
-};
+export const Button = withButton(
+  ({ loading, size }) =>
+    classname(
+      size && styles[`root_size-${size}`],
+      loading && styles.root_loading
+    ),
+  ({ loading, loader, children }) => {
+    return (
+      <>
+        {loading && loader}
+        {children}
+      </>
+    );
+  }
+);

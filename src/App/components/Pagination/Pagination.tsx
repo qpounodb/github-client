@@ -1,5 +1,6 @@
 import React from 'react';
-import { ButtonColor, ButtonSize, SquareButton } from '../Button';
+import { Color, Size } from '~/App/constants';
+import { SquareButton } from '../Button';
 import { InputNumber } from '../Input';
 import styles from './Pagination.module.scss';
 
@@ -24,9 +25,12 @@ export const Pagination: React.FC<PaginationProps> = ({
 
   if (count < 1) return null;
 
+  const isFirst = page < 2;
+  const isLast = page >= count;
+
   const decor = {
-    color: ButtonColor.secondary,
-    size: ButtonSize.m,
+    color: Color.secondary,
+    size: Size.m,
     loading,
   };
 
@@ -46,25 +50,24 @@ export const Pagination: React.FC<PaginationProps> = ({
   };
 
   return (
-    <div className={styles.main}>
-      <SquareButton {...decor} onClick={onPrev} disabled={page < 2}>
-        {'<'}
+    <div className={styles.root}>
+      <SquareButton {...decor} onClick={onPrev} disabled={isFirst}>
+        {isFirst ? '#' : '<'}
       </SquareButton>
-      <div className={styles.counter}>
+      <div className={styles.root__counter}>
         <InputNumber
           value={input}
           min={1}
           max={count}
-          step={1}
           onChange={onInput}
           onSubmit={onSubmit}
-          className={styles.input}
+          className={styles.root__input}
         />
         {' / '}
         {count}
       </div>
-      <SquareButton {...decor} onClick={onNext} disabled={page >= count}>
-        {'>'}
+      <SquareButton {...decor} onClick={onNext} disabled={isLast}>
+        {isLast ? '#' : '>'}
       </SquareButton>
     </div>
   );

@@ -1,4 +1,4 @@
-.main {
+.root {
   -moz-appearance: textfield;
 
   &::-webkit-outer-spin-button,
@@ -8,18 +8,18 @@
   }
 
   text-align: center;
-}
 
-.size {
-  &_l {
-    --width: 200px;
-  }
+  &_size {
+    &-l {
+      max-width: 200px;
+    }
 
-  &_m {
-    --width: 150px;
-  }
+    &-m {
+      max-width: 150px;
+    }
 
-  &_s {
-    --width: 100px;
+    &-s {
+      max-width: 100px;
+    }
   }
 }

@@ -1,6 +1,7 @@
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { Button, ButtonColor } from '~/App/components/Button';
+import { Button } from '~/App/components/Button';
+import { Color } from '~/App/constants';
 import { BUTTON_TEXT, Locators } from '~/__test__/constants';
 
 describe('Тестирование компонента Button', () => {
@@ -110,33 +111,33 @@ describe('Тестирование компонента Button', () => {
 
   test('Пропс color участвует в формировании класса на кнопке', () => {
     const { rerender } = render(
-      <Button color={ButtonColor.primary} data-testid={Locators.BUTTON}>
+      <Button color={Color.primary} data-testid={Locators.BUTTON}>
         {BUTTON_TEXT}
       </Button>
     );
 
     const buttonElement = screen.getByTestId(Locators.BUTTON);
 
-    expect(buttonElement.className).toContain(ButtonColor.primary);
-    expect(buttonElement.className).not.toContain(ButtonColor.secondary);
+    expect(buttonElement.className).toContain(Color.primary);
+    expect(buttonElement.className).not.toContain(Color.secondary);
 
     rerender(
-      <Button color={ButtonColor.secondary} data-testid={Locators.BUTTON}>
+      <Button color={Color.secondary} data-testid={Locators.BUTTON}>
         {BUTTON_TEXT}
       </Button>
     );
 
-    expect(buttonElement.className).toContain(ButtonColor.secondary);
-    expect(buttonElement.className).not.toContain(ButtonColor.primary);
+    expect(buttonElement.className).toContain(Color.secondary);
+    expect(buttonElement.className).not.toContain(Color.primary);
   });
 
-  test('Цвет кнопки по умолчанию - ButtonColor.primary', () => {
+  test('Цвет кнопки по умолчанию - Color.primary', () => {
     render(<Button data-testid={Locators.BUTTON}>{BUTTON_TEXT}</Button>);
 
     const buttonElement = screen.getByTestId(Locators.BUTTON);
 
-    expect(buttonElement.className).toContain(ButtonColor.primary);
-    expect(buttonElement.className).not.toContain(ButtonColor.secondary);
+    expect(buttonElement.className).toContain(Color.primary);
+    expect(buttonElement.className).not.toContain(Color.secondary);
   });
 
   test('При disabled=true не вызывается onClick', () => {

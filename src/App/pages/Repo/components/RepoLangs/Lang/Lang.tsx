@@ -11,7 +11,7 @@ export type LangPrpos = {
 export const Lang: React.FC<LangPrpos> = ({ lang, count, total }) => {
   const fraction = Math.round((count / total) * 10000) / 100;
   return (
-    <div className={styles.main}>
+    <div className={styles.root}>
       <img src={getLangLogo(lang)} alt={lang} />
       <span className={styles.lang}>{lang}</span> {fraction}%
     </div>

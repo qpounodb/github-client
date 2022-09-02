@@ -1,6 +1,6 @@
 export type Styles = {
-  main: string;
   pagination: string;
+  root: string;
 };
 
 export type ClassNames = keyof Styles;

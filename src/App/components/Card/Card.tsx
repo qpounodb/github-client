@@ -31,30 +31,32 @@ export const Card: React.FC<CardProps> = ({
     const img = imgRef.current;
     const placeholder = placeholderRef.current;
     const onLoad = () => {
-      placeholder?.classList.add(styles.avatar_hidden);
-      img?.classList.remove(styles.avatar_hidden);
+      placeholder?.classList.add(styles.hidden);
+      img?.classList.remove(styles.hidden);
     };
     img?.addEventListener('load', onLoad);
     return () => img?.removeEventListener('load', onLoad);
   }, []);
 
   return (
-    <div className={classname(styles.card, className)} onClick={onClick}>
-      <div className={styles.side}>
-        <div ref={placeholderRef} className={styles.placeholder}>
+    <div className={classname(styles.root, className)} onClick={onClick}>
+      <div className={styles.root__side}>
+        <div ref={placeholderRef} className={styles.root__placeholder}>
           {placeholder.at(0)?.toUpperCase() || DEFAULT_PLACEHOLDER}
         </div>
         <img
           ref={imgRef}
-          className={classname(styles.avatar, styles.avatar_hidden)}
+          className={classname(styles.root__avatar, styles.hidden)}
           src={image}
           alt={DEFAULT_AVATAR_ALT}
         />
       </div>
-      <div className={styles.main}>
-        <div className={classname(styles.item, styles.title)}>{title}</div>
-        <div className={styles.item}>{subtitle}</div>
-        <div className={styles.item}>{content}</div>
+      <div className={styles.root__main}>
+        <div className={classname(styles.root__item, styles.root__title)}>
+          {title}
+        </div>
+        <div className={styles.root__item}>{subtitle}</div>
+        <div className={styles.root__item}>{content}</div>
       </div>
     </div>
   );

@@ -1,23 +1,22 @@
-.loading {
-  column-gap: 8px;
-  padding: 0 10px;
+@use '~/App/styles/color';
+
+@mixin size($size) {
+  column-gap: $size;
+  padding: 0 calc($size * 2);
 }
 
-.loading.primary {
-  border-color: var(--color-accent-hover);
-  background-color: var(--color-accent-hover);
+.root_loading {
+  &.root_size {
+    &-l {
+      @include size(6px);
+    }
 
-  .loader {
-    --color: var(--color-background);
-  }
-}
+    &-m {
+      @include size(4px);
+    }
 
-.loading.secondary {
-  color: var(--color-accent-hover);
-  border-color: var(--color-accent-hover);
-  --color-shadow: var(--color-accent-hover);
-
-  .loader {
-    --color: var(--color-accent-hover);
+    &-s {
+      @include size(2px);
+    }
   }
 }

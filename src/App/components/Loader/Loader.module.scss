@@ -1,30 +1,39 @@
-.loader {
-  --size: 100px;
-  --border: 10px;
-  --color: var(--color-accent);
+@use '~/App/styles/color';
+@use '~/App/styles/mixin';
 
-  width: var(--size);
-  height: var(--size);
-  border: var(--border) solid var(--color);
+@mixin size($size, $stroke) {
+  @include mixin.square($size);
+  border-width: $stroke;
+}
+
+.root {
+  border-color: currentColor;
   border-top-color: transparent;
+
+  border-style: solid;
   border-radius: 50%;
   transform: rotate(35deg);
-  animation: rotate 1s linear infinite;
-}
+  animation: rotate 3s linear infinite;
 
-.size_l {
-  --size: 60px;
-  --border: 6px;
-}
+  &_primary {
+    color: color.$accent;
+  }
 
-.size_m {
-  --size: 40px;
-  --border: 4.5px;
-}
+  &_secondary {
+    color: color.$background;
+  }
 
-.size_s {
-  --size: 20px;
-  --border: 3px;
+  &_size-l {
+    @include size(60px, 6px);
+  }
+
+  &_size-m {
+    @include size(40px, 5px);
+  }
+
+  &_size-s {
+    @include size(20px, 3px);
+  }
 }
 
 @keyframes rotate {

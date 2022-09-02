@@ -1,13 +1,15 @@
-.main {
+@use '~/App/styles/color';
+
+.root {
   display: inline-flex;
   gap: 5px;
   font-family: monospace;
 }
 
 .plus {
-  color: var(--color-star-accent);
+  color: color.$star-accent;
 }
 
 .minus {
-  color: var(--color-accent);
+  color: color.$accent;
 }

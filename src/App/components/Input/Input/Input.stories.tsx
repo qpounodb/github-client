@@ -12,6 +12,7 @@ const meta: Meta = {
 export default meta;
 
 export const Input: Story = (args) => <InputComponent {...args} />;
+
 Input.args = {
   disabled: false,
   placeholder: 'Введите название организации',
