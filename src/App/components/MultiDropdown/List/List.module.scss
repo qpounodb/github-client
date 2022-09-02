@@ -1,0 +1,15 @@
+@use '~/App/styles/sizes' as s;
+@use '~/App/styles/corners' as c;
+
+.main {
+  width: s.$input-width;
+  display: flex;
+  flex-direction: column;
+  row-gap: 1px;
+
+  @include c.rounded;
+  border: 1px solid var(--color-border);
+  background-color: var(--color-border);
+  color: var(--color-text);
+  overflow: hidden;
+}

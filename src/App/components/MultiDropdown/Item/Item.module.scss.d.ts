@@ -1,7 +1,6 @@
 export type Styles = {
-  input: string;
-  list: string;
   main: string;
+  main_selected: string;
 };
 
 export type ClassNames = keyof Styles;

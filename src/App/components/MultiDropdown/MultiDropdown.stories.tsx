@@ -13,10 +13,14 @@ const meta: Meta = {
 
 export default meta;
 
-export const MultiDropdown: Story = ({ value, onChange, ...rest }) => {
-  const [selected, setSelected] = React.useState(value);
+export const MultiDropdown: Story = ({
+  selected: initialSelected,
+  onChange,
+  ...rest
+}) => {
+  const [selected, setSelected] = React.useState(initialSelected);
 
-  React.useEffect(() => setSelected(value), [value]);
+  React.useEffect(() => setSelected(initialSelected), [initialSelected]);
 
   const handleChange: typeof onChange = (selected) => {
     setSelected(selected);
@@ -26,7 +30,7 @@ export const MultiDropdown: Story = ({ value, onChange, ...rest }) => {
   return (
     <MultiDropdownComponent
       {...rest}
-      value={selected}
+      selected={selected}
       onChange={handleChange}
     />
   );
@@ -41,7 +45,7 @@ const options: Option[] = [
 
 MultiDropdown.args = {
   options,
-  value: [],
+  selected: [],
   placeholder: 'Выберите организации',
   pluralizeOptions: (opts: Option[]) =>
     opts.map(({ value }) => value).join(', '),

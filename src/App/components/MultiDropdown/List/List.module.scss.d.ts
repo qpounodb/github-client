@@ -1,6 +1,4 @@
 export type Styles = {
-  input: string;
-  list: string;
   main: string;
 };
 

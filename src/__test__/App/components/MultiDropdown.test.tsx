@@ -20,10 +20,12 @@ const defaultPluralizeOptions = (elements: Option[]) =>
 const defaultTitle = defaultPluralizeOptions(defaultOptions);
 
 const WrappedDropdown: React.FC<
-  Omit<MultiDropdownProps, 'value' | 'onChange'>
+  Omit<MultiDropdownProps, 'selected' | 'onChange'>
 > = (props) => {
-  const [value, setValue] = React.useState<Option[]>([]);
-  return <MultiDropdown {...props} value={value} onChange={setValue} />;
+  const [selected, setSelected] = React.useState<Option[]>([]);
+  return (
+    <MultiDropdown {...props} selected={selected} onChange={setSelected} />
+  );
 };
 
 describe('Тестирование компонента MultiDropdown', () => {
@@ -34,7 +36,7 @@ describe('Тестирование компонента MultiDropdown', () => {
     const { rerender } = render(
       <MultiDropdown
         onChange={() => {}}
-        value={defaultOptions}
+        selected={defaultOptions}
         options={defaultOptions}
         pluralizeOptions={pluralizeOptions}
       />
@@ -48,7 +50,7 @@ describe('Тестирование компонента MultiDropdown', () => {
     rerender(
       <MultiDropdown
         onChange={() => {}}
-        value={[]}
+        selected={[]}
         options={defaultOptions}
         pluralizeOptions={pluralizeOptions}
       />
@@ -62,7 +64,7 @@ describe('Тестирование компонента MultiDropdown', () => {
     const { rerender } = render(
       <MultiDropdown
         onChange={mockOnChange}
-        value={defaultOptions}
+        selected={defaultOptions}
         options={defaultOptions}
         pluralizeOptions={defaultPluralizeOptions}
       />
@@ -79,7 +81,7 @@ describe('Тестирование компонента MultiDropdown', () => {
     rerender(
       <MultiDropdown
         onChange={mockOnChange}
-        value={[]}
+        selected={[]}
         options={defaultOptions}
         pluralizeOptions={defaultPluralizeOptions}
       />
@@ -166,7 +168,7 @@ describe('Тестирование компонента MultiDropdown', () => {
     render(
       <MultiDropdown
         onChange={mockOnChange}
-        value={[]}
+        selected={[]}
         options={defaultOptions}
         pluralizeOptions={() => TEST_TITLE}
       />
@@ -189,7 +191,7 @@ describe('Тестирование компонента MultiDropdown', () => {
     render(
       <MultiDropdown
         onChange={mockOnChange}
-        value={defaultOptions}
+        selected={defaultOptions}
         options={defaultOptions}
         pluralizeOptions={defaultPluralizeOptions}
       />
@@ -208,7 +210,7 @@ describe('Тестирование компонента MultiDropdown', () => {
     const { rerender } = render(
       <MultiDropdown
         onChange={() => {}}
-        value={[]}
+        selected={[]}
         options={defaultOptions}
         pluralizeOptions={() => TEST_TITLE}
       />
@@ -228,7 +230,7 @@ describe('Тестирование компонента MultiDropdown', () => {
     rerender(
       <MultiDropdown
         onChange={() => {}}
-        value={[]}
+        selected={[]}
         options={[defaultOptions[0], defaultOptions[2]]}
         pluralizeOptions={() => TEST_TITLE}
       />
