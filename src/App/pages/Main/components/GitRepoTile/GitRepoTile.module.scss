@@ -1,0 +1,31 @@
+@use '~/App/styles/color';
+
+.card {
+  background: color.$background;
+  cursor: pointer;
+}
+
+.link {
+  color: color.$hint;
+  text-decoration: none;
+
+  &:hover {
+    color: color.$link-hover;
+  }
+}
+
+.content {
+  display: flex;
+  column-gap: 20px;
+}
+
+.stars {
+  display: flex;
+  align-items: center;
+  column-gap: 4px;
+
+  svg {
+    width: 16px;
+    fill: color.$star-accent;
+  }
+}

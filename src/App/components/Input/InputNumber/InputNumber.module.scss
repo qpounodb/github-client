@@ -1,0 +1,25 @@
+.root {
+  -moz-appearance: textfield;
+
+  &::-webkit-outer-spin-button,
+  &::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+
+  text-align: center;
+
+  &_size {
+    &-l {
+      max-width: 200px;
+    }
+
+    &-m {
+      max-width: 150px;
+    }
+
+    &-s {
+      max-width: 100px;
+    }
+  }
+}

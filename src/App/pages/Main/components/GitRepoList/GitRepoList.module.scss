@@ -1,0 +1,20 @@
+.root {
+  display: flex;
+  flex-direction: column;
+  row-gap: 20px;
+}
+
+.list {
+  display: grid;
+  grid-template-rows: auto;
+  row-gap: 16px;
+}
+
+.code {
+  white-space: pre-wrap;
+  word-break: keep-all;
+}
+
+.note {
+  text-align: center;
+}

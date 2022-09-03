@@ -1,0 +1,79 @@
+@use '~/App/styles/color';
+@use '~/App/styles/size';
+@use '~/App/styles/mixin';
+
+.root {
+  max-width: 360px;
+  width: 100%;
+  height: calc(size.$height * 2);
+  @include mixin.border;
+  background: color.$background;
+
+  display: flex;
+  align-items: center;
+  column-gap: 12px;
+  padding: 0 12px;
+
+  &:hover {
+    box-shadow: 0px 2px 6px color.$card-hover;
+  }
+
+  &__side,
+  &__placeholder,
+  &__avatar {
+    @include mixin.square(size.$card-avatar);
+  }
+
+  &__side {
+    position: relative;
+    flex-shrink: 0;
+    @include mixin.circle;
+    color: color.$background;
+    overflow: hidden;
+  }
+
+  &__placeholder {
+    z-index: 0;
+    @include mixin.inset;
+    display: grid;
+    place-content: center;
+    font-size: calc(size.$card-avatar / 2);
+    font-weight: bold;
+    color: color.$background;
+    background-color: color.$accent;
+  }
+
+  &__avatar {
+    position: relative;
+    z-index: 1;
+    display: block;
+    object-fit: cover;
+    object-position: 50% 50%;
+    font-size: 0;
+    transition: opacity 500ms ease;
+  }
+
+  &__main {
+    display: flex;
+    flex-direction: column;
+    row-gap: 4px;
+    overflow: hidden;
+    color: color.$hint;
+  }
+
+  &__item {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+  }
+
+  &__title {
+    font-size: 16px;
+    font-weight: bold;
+    color: color.$text;
+  }
+}
+
+.hidden {
+  opacity: 0;
+}

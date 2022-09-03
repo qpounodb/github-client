@@ -1,0 +1,90 @@
+@use '~/App/styles/color';
+@use '~/App/styles/size';
+@use '~/App/styles/mixin';
+
+@mixin color($color) {
+  fill: $color;
+  color: $color;
+}
+
+@mixin size($size) {
+  height: $size;
+  min-width: $size;
+  max-width: calc($size * 5);
+  padding: 0 calc($size / 2);
+  font-size: calc($size / 2);
+}
+
+@mixin frame($color) {
+  box-shadow: inset 0 0 0 4px $color;
+}
+
+.root {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+
+  display: flex;
+  align-items: center;
+
+  @include mixin.no-border;
+
+  cursor: pointer;
+  transition-property: color, fill, border-color, background-color, box-shadow;
+  transition-duration: 200ms;
+
+  &:disabled {
+    cursor: not-allowed;
+  }
+
+  &_size {
+    &-l {
+      @include size(size.$height);
+    }
+
+    &-m {
+      @include size(size.$height - 10px);
+    }
+
+    &-s {
+      @include size(size.$height - 20px);
+    }
+  }
+
+  &_primary {
+    @include color(color.$background);
+    background-color: color.$accent;
+
+    &:hover {
+      background-color: color.$accent-hover;
+    }
+    &:disabled {
+      background-color: color.$border;
+    }
+    &.root_loading {
+      background-color: color.$accent-hover;
+    }
+  }
+
+  &_secondary {
+    @include color(color.$accent);
+    @include frame(color.$accent);
+    background-color: color.$background;
+
+    &:hover {
+      @include color(color.$accent-hover);
+      @include frame(color.$accent-hover);
+    }
+    &:disabled {
+      @include color(color.$border);
+      @include frame(color.$border);
+    }
+    &.root_loading {
+      @include color(color.$accent-hover);
+      @include frame(color.$accent-hover);
+      .root__loader {
+        color: color.$accent-hover;
+      }
+    }
+  }
+}
