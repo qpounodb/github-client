@@ -6,7 +6,7 @@ export type RequestReposParams = {
   type?: 'all' | 'public' | 'private' | 'forks' | 'sources' | 'member';
   sort?: 'created' | 'updated' | 'pushed' | 'full_name';
   direction?: 'asc' | 'desc';
-  per_page?: number;
+  per_page: number;
   page: number;
 };
 
@@ -14,15 +14,15 @@ export const defaultRequestReposParams: Required<RequestReposParams> = {
   type: 'all',
   sort: 'updated',
   direction: 'desc',
-  per_page: 10,
+  per_page: 5,
   page: 1,
 };
 
 export class GithubReposAPI {
-  private fetch: AxiosCacheInstance;
+  private _api: AxiosCacheInstance;
 
-  constructor(signal?: AbortSignal) {
-    this.fetch = createAxios(getGithubAPIConfig());
+  constructor() {
+    this._api = createAxios(getGithubAPIConfig());
   }
 
   async getRepos(
@@ -38,7 +38,7 @@ export class GithubReposAPI {
       params: { ...defaultRequestReposParams, ...params },
       signal,
     };
-    const { data } = await this.fetch.get<RepoApi[]>(url, config);
+    const { data } = await this._api.get<RepoApi[]>(url, config);
     return data;
   }
 
@@ -51,7 +51,7 @@ export class GithubReposAPI {
       params: { q: `org:${orgName}`, per_page: 1 },
       signal,
     };
-    const { data } = await this.fetch.get<SearchReposApi>(url, config);
+    const { data } = await this._api.get<SearchReposApi>(url, config);
     return data.total_count;
   }
 
@@ -63,7 +63,7 @@ export class GithubReposAPI {
     const config = {
       signal,
     };
-    const { data } = await this.fetch.get<SearchUsersApi>(url, config);
+    const { data } = await this._api.get<SearchUsersApi>(url, config);
     return data.total_count;
   }
 }

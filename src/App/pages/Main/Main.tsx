@@ -1,56 +1,79 @@
+import { observer, useLocalStore } from 'mobx-react-lite';
 import React from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { Pagination } from '~/App/components/Pagination';
+import { Search } from '~/App/components/Search';
+import { WithLoader } from '~/App/components/WithLoader';
 import { RepoModel } from '~/App/models/GitHub';
-import { useGithubReposCtx } from '~/App/pages/Main/hooks/useGithubReposCtx';
-import { isSome } from '~/shared/utils';
+import { ReposStore } from '~/App/stores';
 import { GitRepoList } from './components/GitRepoList';
 import styles from './Main.module.scss';
 
-type PathParams = { orgName?: string; pageNum?: string };
+const SEARCH_PLACEHOLDER = 'Введите название организации';
 
-export const Main: React.FC = () => {
+export const Main: React.FC = observer(() => {
+  const store = useLocalStore(() => new ReposStore());
   const navigate = useNavigate();
-  const { orgName, pageNum } = useParams<PathParams>();
-  const { state, fetch } = useGithubReposCtx();
-
-  const controller = new AbortController();
+  const [input, setInput] = React.useState('');
+  const [orgName, setOrgName] = React.useState('');
+  const [pageNum, setPageNum] = React.useState(1);
 
   React.useEffect(() => {
-    if (!orgName) return;
-    const page = isSome(pageNum) ? Number(pageNum) : 1;
+    return () => store.destroy();
+  }, [store]);
 
-    fetch(orgName, isNaN(page) ? 1 : page, controller.signal);
-
-    // NOTE: Run effect once on component mount
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [orgName, pageNum]);
-
-  const getCardClickHandler =
+  const getCardClickHandler = React.useCallback(
     ({ name, owner }: RepoModel) =>
-    () => {
-      controller.abort();
-      navigate(`/repo/${owner.login}/${name}`);
-    };
+      () =>
+        navigate(`/repo/${owner.login}/${name}`),
+    [navigate]
+  );
+
+  const submitName = React.useCallback(
+    (name: string) => {
+      setOrgName(name);
+      if (!name) return;
+      store.fetch(name, pageNum);
+    },
+    [pageNum, store]
+  );
+
+  const submitPage = React.useCallback(
+    (page: number) => {
+      setPageNum(page);
+      if (!page) return;
+      store.fetch(orgName, page);
+    },
+    [orgName, store]
+  );
 
   return (
     <div className={styles.root}>
-      <div className={styles.repolist}>
-        <GitRepoList
-          state={state.repos}
-          orgName={state.orgName}
-          onSubmit={(name) => navigate(`/org/${name}`)}
-          getCardClickHandler={getCardClickHandler}
+      <div className={styles.section}>
+        <Search
+          value={input}
+          placeholder={SEARCH_PLACEHOLDER}
+          onChange={setInput}
+          onSubmit={submitName}
+          loading={store.loading}
         />
       </div>
-      <div className={styles.pagination}>
+      <div className={styles.section}>
+        <WithLoader loading={store.loading}>
+          <GitRepoList
+            state={store.state}
+            getCardClickHandler={getCardClickHandler}
+          />
+        </WithLoader>
+      </div>
+      <div>
         <Pagination
-          onSubmit={(page) => navigate(`/org/${state.orgName}/${page}`)}
-          page={state.params.page}
-          count={state.pagesCount}
-          loading={state.repos.loading}
+          onSubmit={submitPage}
+          page={pageNum}
+          count={store.pagesCount}
+          loading={store.loading}
         />
       </div>
     </div>
   );
-};
+});

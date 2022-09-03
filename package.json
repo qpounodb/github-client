@@ -70,6 +70,10 @@
     "plugins": [
       "mobx"
     ],
+    "rules": {
+      "mobx/exhaustive-make-observable": "off",
+      "mobx/missing-observer": "off"
+    },
     "overrides": [
       {
         "files": [

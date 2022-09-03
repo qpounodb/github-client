@@ -1,7 +1,6 @@
 import React from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { Button } from '~/App/components/Button';
-import { useGithubReposCtx } from '~/App/pages/Main/hooks/useGithubReposCtx';
 // import { RepoBranches } from './components/RepoBranches';
 import { RepoCommit } from './components/RepoCommit';
 import { RepoContributors } from './components/RepoContributors';
@@ -16,14 +15,14 @@ type PathParams = { orgName: string; repoName: string };
 export const Repo: React.FC = () => {
   const navigate = useNavigate();
   const { orgName, repoName } = useParams<PathParams>();
-  const { state: reposState } = useGithubReposCtx();
 
   const state = useRepoFetch(orgName, repoName);
 
   const handleBack = () => {
-    const org = reposState.orgName || orgName;
-    const page = reposState.params.page || 1;
-    navigate(`/org/${org}/${page}`);
+    // const org = reposState.orgName || orgName;
+    // const page = reposState.params.page || 1;
+    // navigate(`/org/${org}/${page}`);
+    navigate('/');
   };
 
   return (
