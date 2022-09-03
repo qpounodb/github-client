@@ -35,12 +35,14 @@ export const Main: React.FC = () => {
 
   return (
     <div className={styles.root}>
-      <GitRepoList
-        state={state.repos}
-        orgName={state.orgName}
-        onSubmit={(name) => navigate(`/org/${name}`)}
-        getCardClickHandler={getCardClickHandler}
-      />
+      <div className={styles.repolist}>
+        <GitRepoList
+          state={state.repos}
+          orgName={state.orgName}
+          onSubmit={(name) => navigate(`/org/${name}`)}
+          getCardClickHandler={getCardClickHandler}
+        />
+      </div>
       <div className={styles.pagination}>
         <Pagination
           onSubmit={(page) => navigate(`/org/${state.orgName}/${page}`)}

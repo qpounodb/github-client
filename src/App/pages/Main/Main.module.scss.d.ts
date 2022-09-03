@@ -1,5 +1,6 @@
 export type Styles = {
   pagination: string;
+  repolist: string;
   root: string;
 };
 
