@@ -13,8 +13,7 @@ import styles from './StatusIcon.module.scss';
 type Icon = React.FC<React.SVGProps<SVGSVGElement> & { title?: string }>;
 
 const getIcon = (Icon: Icon, className: string, title: string) => {
-  const cls = classname(styles.icon, className);
-  return <Icon className={cls} title={title} />;
+  return <Icon className={classname(styles.icon, className)} title={title} />;
 };
 
 export const StatusIcon: React.FC<{ file: CommitFile }> = ({
