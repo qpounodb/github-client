@@ -1,4 +1,5 @@
 const TsconfigPathsPlugin = require('tsconfig-paths-webpack-plugin');
+const { webpack } = require('../craco.config');
 
 module.exports = {
   stories: ['../src/**/*.stories.mdx', '../src/**/*.stories.@(js|jsx|ts|tsx)'],
@@ -13,14 +14,5 @@ module.exports = {
   core: {
     builder: '@storybook/builder-webpack5',
   },
-  webpackFinal: async (config) => {
-    config.resolve.extensions.push('.sass', '.scss');
-    config.resolve.plugins = [
-      ...(config.resolve.plugins || []),
-      new TsconfigPathsPlugin({
-        extensions: config.resolve.extensions,
-      }),
-    ];
-    return config;
-  },
+  webpackFinal: webpack.configure,
 };
