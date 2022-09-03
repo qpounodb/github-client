@@ -17,12 +17,11 @@ export const Loader: React.FC<LoaderProps> = ({
   color = Color.primary,
   className,
 }) => {
-  if (!loading) return null;
-
   return (
     <div
       className={joinClassName(
         styles.root,
+        loading && styles.root_loading,
         styles[`root_${color}`],
         styles[`root_size-${size}`],
         className
