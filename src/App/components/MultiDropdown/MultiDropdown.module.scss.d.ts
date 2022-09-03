@@ -1,9 +1,7 @@
 export type Styles = {
-  input: string;
-  item: string;
-  item_selected: string;
-  list: string;
-  main: string;
+  root: string;
+  root__input: string;
+  root__list: string;
 };
 
 export type ClassNames = keyof Styles;

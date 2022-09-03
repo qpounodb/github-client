@@ -1,19 +1,20 @@
-.checkbox {
-  --size: 30px;
-  --mark: 3px solid var(--color-accent);
-  --mark-pos: rotate(45deg) translate(-10%, -20%);
+@use '~/App/styles/color';
+@use '~/App/styles/size';
+@use '~/App/styles/mixin';
 
+$mark: 3px solid color.$accent;
+$mark-pos: rotate(45deg) translate(-10%, -20%);
+
+.root {
   -webkit-appearance: none;
   appearance: none;
 
   display: inline-block;
-  height: var(--size);
-  width: var(--size);
+  @include mixin.square(30px);
   position: relative;
 
-  background: var(--color-background);
-  border: 1px solid var(--color-border);
-  border-radius: 6px;
+  background: color.$background;
+  @include mixin.border;
 
   &:disabled,
   &[aria-disabled='true'] {
@@ -23,26 +24,22 @@
 
   &::before {
     content: '';
-    position: absolute;
+    @include mixin.inset;
     height: 50%;
     width: 30%;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    right: 0;
     margin: auto;
-    border-right: var(--mark);
-    border-bottom: var(--mark);
-    transform: scale(0) var(--mark-pos);
+    border-right: $mark;
+    border-bottom: $mark;
+    transform: scale(0) $mark-pos;
     transition: 120ms transform ease-in-out;
   }
 
   &:checked::before {
-    transform: scale(1) var(--mark-pos);
+    transform: scale(1) $mark-pos;
   }
 
   &:focus {
-    border-color: var(--color-accent);
+    border-color: color.$accent;
   }
 
   &:indeterminate::before,

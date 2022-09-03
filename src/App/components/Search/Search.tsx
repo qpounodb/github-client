@@ -22,7 +22,7 @@ export const Search: React.FC<SearchProps> = ({
   const handleSubmit = () => onSubmit(value);
 
   return (
-    <div className={styles.main}>
+    <div className={styles.root}>
       <Input
         placeholder={placeholder}
         value={value}
@@ -31,7 +31,7 @@ export const Search: React.FC<SearchProps> = ({
         onSubmit={handleSubmit}
       />
       <SquareButton onClick={handleSubmit} loading={loading}>
-        <IconSearch className={styles.icon} />
+        <IconSearch className={styles.root__icon} />
       </SquareButton>
     </div>
   );

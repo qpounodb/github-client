@@ -1,12 +1,12 @@
 export type Styles = {
-  avatar: string;
-  avatar_hidden: string;
-  card: string;
-  item: string;
-  main: string;
-  placeholder: string;
-  side: string;
-  title: string;
+  hidden: string;
+  root: string;
+  root__avatar: string;
+  root__item: string;
+  root__main: string;
+  root__placeholder: string;
+  root__side: string;
+  root__title: string;
 };
 
 export type ClassNames = keyof Styles;

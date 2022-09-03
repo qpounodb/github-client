@@ -1,6 +1,6 @@
 import { RepoLangsModel } from '~/App/models/GitHub';
 import { withRepoBlock } from '../withRepoBlock';
-import { RepoLang } from './RepoLang';
+import { Lang } from './Lang';
 import styles from './RepoLangs.module.scss';
 
 const getTotal = (langs: RepoLangsModel) => {
@@ -14,7 +14,7 @@ export const RepoLangs = withRepoBlock<RepoLangsModel>('', ({ data }) => {
       <h2>Project Programming Languages</h2>
       <div className={styles.list}>
         {Object.entries(data).map(([lang, count]) => (
-          <RepoLang key={lang} {...{ lang, count, total }} />
+          <Lang key={lang} {...{ lang, count, total }} />
         ))}
       </div>
     </>

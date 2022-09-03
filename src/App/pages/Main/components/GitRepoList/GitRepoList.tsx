@@ -70,7 +70,7 @@ export const GitRepoList: React.FC<GitRepoListProps> = ({
   }
 
   return (
-    <div className={styles.main}>
+    <div className={styles.root}>
       <Search
         value={input}
         placeholder={GIT_REPO_LIST_PLACEHOLDER}

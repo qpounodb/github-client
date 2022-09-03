@@ -1,1 +1,1 @@
-export { RepoBranches } from './RepoBranches';
+export * from './RepoBranches';

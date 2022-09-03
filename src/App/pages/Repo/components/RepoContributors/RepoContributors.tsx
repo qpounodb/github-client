@@ -1,7 +1,7 @@
 import { RepoContributorModelCollection } from '~/App/models/GitHub';
 import { linerizeCollection } from '~/App/models/shared';
 import { withRepoBlock } from '../withRepoBlock';
-import { RepoContributor } from './RepoContributor';
+import { Contributor } from './Contributor';
 import styles from './RepoContributors.module.scss';
 
 export const RepoContributors = withRepoBlock<RepoContributorModelCollection>(
@@ -11,7 +11,7 @@ export const RepoContributors = withRepoBlock<RepoContributorModelCollection>(
       <h2>Top 10 Contributors</h2>
       <div className={styles.list}>
         {linerizeCollection(data).map((c) => (
-          <RepoContributor key={c.id} contributor={c} />
+          <Contributor key={c.id} contributor={c} />
         ))}
       </div>
     </>

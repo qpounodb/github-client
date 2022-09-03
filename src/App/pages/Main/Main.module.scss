@@ -1,10 +1,17 @@
-.main {
+.root {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   row-gap: 16px;
   padding: 20px 0;
+}
+
+.repolist {
+  min-width: 320px;
+  max-width: 380px;
+  width: 100%;
+  padding: 0 10px;
 }
 
 .pagination {

@@ -10,9 +10,14 @@ export type CheckBoxProps = Omit<InputHTMLProps, 'onChange'> & {
 };
 
 export const CheckBox: React.FC<CheckBoxProps> = ({ onChange, ...rest }) => {
-  const cls = joinClassName(style.checkbox, rest.className);
-
   const handler: InputChangeHandler = (e) => onChange(e.currentTarget.checked);
 
-  return <input {...rest} className={cls} type="checkbox" onChange={handler} />;
+  return (
+    <input
+      {...rest}
+      type="checkbox"
+      className={joinClassName(style.root, rest.className)}
+      onChange={handler}
+    />
+  );
 };

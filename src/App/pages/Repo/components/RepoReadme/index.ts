@@ -1,1 +1,1 @@
-export { RepoReadme } from './RepoReadme';
+export * from './RepoReadme';

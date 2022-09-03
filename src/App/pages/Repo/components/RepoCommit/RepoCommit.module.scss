@@ -1,3 +1,5 @@
+@use '~/App/styles/color';
+
 .title {
   sup {
     margin-left: 10px;
@@ -46,7 +48,7 @@
     grid-template-columns: repeat(2, auto) 1fr;
     gap: 10px;
     font-family: monospace;
-    color: var(--color-hint);
+    color: color.$hint;
   }
 
   .filename {

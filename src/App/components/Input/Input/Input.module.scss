@@ -1,0 +1,46 @@
+@use '~/App/styles/color';
+@use '~/App/styles/size';
+@use '~/App/styles/mixin';
+
+@mixin size($h, $w, $p, $f) {
+  height: calc(size.$height - $h);
+  max-width: calc(size.$input-width - $w);
+  padding: $p;
+  font-size: $f;
+}
+
+.root {
+  width: 100%;
+  @include mixin.border;
+  outline: none;
+  background-color: color.$background;
+  color: color.$text;
+
+  &:focus {
+    border-color: color.$accent;
+  }
+
+  &:disabled {
+    background-color: color.$background-disabled;
+    color: color.$hint;
+    cursor: not-allowed;
+  }
+
+  &::placeholder {
+    color: color.$hint;
+  }
+
+  &_size {
+    &-l {
+      @include size(0px, 0px, 12px, 14px);
+    }
+
+    &-m {
+      @include size(10px, 45px, 10px, 13px);
+    }
+
+    &-s {
+      @include size(20px, 90px, 8px, 12px);
+    }
+  }
+}

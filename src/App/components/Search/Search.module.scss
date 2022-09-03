@@ -1,9 +1,8 @@
-.main {
+.root {
   display: flex;
-  column-gap: 12px;
-  width: min-content;
-}
+  column-gap: 10px;
 
-.icon {
-  width: 18px;
+  &__icon {
+    width: 18px;
+  }
 }

@@ -27,7 +27,7 @@ export const Repo: React.FC = () => {
   };
 
   return (
-    <div className={styles.main}>
+    <div className={styles.root}>
       <nav>
         <Button onClick={handleBack}>Back</Button>
       </nav>

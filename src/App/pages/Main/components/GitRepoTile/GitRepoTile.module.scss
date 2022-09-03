@@ -1,14 +1,16 @@
+@use '~/App/styles/color';
+
 .card {
-  background: var(--color-background);
+  background: color.$background;
   cursor: pointer;
 }
 
 .link {
-  color: var(--color-hint);
+  color: color.$hint;
   text-decoration: none;
 
   &:hover {
-    color: var(--color-link-hover);
+    color: color.$link-hover;
   }
 }
 
@@ -24,6 +26,6 @@
 
   svg {
     width: 16px;
-    fill: var(--color-star-accent);
+    fill: color.$star-accent;
   }
 }

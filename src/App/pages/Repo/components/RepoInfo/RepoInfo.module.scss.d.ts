@@ -4,10 +4,10 @@ export type Styles = {
   info: string;
   lang: string;
   link: string;
-  main: string;
   name: string;
   owner: string;
   repo: string;
+  root: string;
   stats: string;
   topics: string;
 };

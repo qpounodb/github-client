@@ -15,7 +15,7 @@ import {
 } from '~/App/models/GitHub';
 import { GithubRepoAPI } from '~/shared/GithubAPI';
 import { DataState } from '~/shared/types';
-import { getDataState, isNone, toError, updateDataState } from '~/shared/utils';
+import { getDataState, toError, updateDataState } from '~/shared/utils';
 
 export type RepoDataState = {
   info: DataState<RepoModel>;
@@ -90,7 +90,7 @@ export const useRepoFetch = (
   const [state, dispatch] = React.useReducer(reducer, initialRepoDataState);
 
   React.useEffect(() => {
-    if (isNone(orgName) || isNone(repoName)) return;
+    if (!orgName || !repoName) return;
     dispatch({ type: 'reset' });
 
     const controller = new AbortController();

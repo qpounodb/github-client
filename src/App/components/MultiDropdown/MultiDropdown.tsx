@@ -1,12 +1,27 @@
 import React, { useState } from 'react';
-import { Input } from '~/App/components/Input/Input';
+import { Input } from '~/App/components/Input';
 import { useHide } from '~/shared/hooks';
+import { List } from './List';
 import styles from './MultiDropdown.module.scss';
-import { MultiDropdownList } from './MultiDropdownList';
-import { MultiDropdownProps } from './types';
+import { Option } from './types';
+
+export type MultiDropdownProps = {
+  /** Массив возможных вариантов для выбора */
+  options: Option[];
+  /** Текущие выбранные значения поля, массив может быть пустым */
+  selected: Option[];
+  /** Callback, вызываемый при выборе варианта */
+  onChange: (selected: Option[]) => void;
+  /** Заблокирован ли дропдаун */
+  disabled?: boolean;
+  /** Преобразовать выбранные значения в строку. Отображается в дропдауне в качестве выбранного значения */
+  pluralizeOptions: (value: Option[]) => string;
+  /** Отображается в дропдауне когда ничего не выбранно */
+  placeholder?: string;
+};
 
 export const MultiDropdown: React.FC<MultiDropdownProps> = ({
-  value: selected,
+  selected,
   disabled,
   pluralizeOptions,
   placeholder = '',
@@ -25,9 +40,9 @@ export const MultiDropdown: React.FC<MultiDropdownProps> = ({
   const handleDropdown = () => disabled || setHide((state) => !state);
 
   return (
-    <div className={styles.main} ref={ref}>
+    <div className={styles.root} ref={ref}>
       <Input
-        className={styles.input}
+        className={styles.root__input}
         value={title}
         placeholder={placeholder}
         onClick={handleDropdown}
@@ -36,7 +51,7 @@ export const MultiDropdown: React.FC<MultiDropdownProps> = ({
         disabled={disabled}
       />
       {disabled || isHidden ? null : (
-        <MultiDropdownList {...rest} selected={selected} />
+        <List {...rest} selected={selected} className={styles.root__list} />
       )}
     </div>
   );

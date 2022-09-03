@@ -1,0 +1,22 @@
+@use '~/App/styles/color';
+
+@mixin size($size) {
+  column-gap: $size;
+  padding: 0 calc($size * 2);
+}
+
+.root_loading {
+  &.root_size {
+    &-l {
+      @include size(6px);
+    }
+
+    &-m {
+      @include size(4px);
+    }
+
+    &-s {
+      @include size(2px);
+    }
+  }
+}

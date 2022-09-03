@@ -3,7 +3,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { Pagination } from '~/App/components/Pagination';
 import { RepoModel } from '~/App/models/GitHub';
 import { useGithubReposCtx } from '~/App/pages/Main/hooks/useGithubReposCtx';
-import { isNone, isSome } from '~/shared/utils';
+import { isSome } from '~/shared/utils';
 import { GitRepoList } from './components/GitRepoList';
 import styles from './Main.module.scss';
 
@@ -17,7 +17,7 @@ export const Main: React.FC = () => {
   const controller = new AbortController();
 
   React.useEffect(() => {
-    if (isNone(orgName)) return;
+    if (!orgName) return;
     const page = isSome(pageNum) ? Number(pageNum) : 1;
 
     fetch(orgName, isNaN(page) ? 1 : page, controller.signal);
@@ -34,13 +34,15 @@ export const Main: React.FC = () => {
     };
 
   return (
-    <div className={styles.main}>
-      <GitRepoList
-        state={state.repos}
-        orgName={state.orgName}
-        onSubmit={(name) => navigate(`/org/${name}`)}
-        getCardClickHandler={getCardClickHandler}
-      />
+    <div className={styles.root}>
+      <div className={styles.repolist}>
+        <GitRepoList
+          state={state.repos}
+          orgName={state.orgName}
+          onSubmit={(name) => navigate(`/org/${name}`)}
+          getCardClickHandler={getCardClickHandler}
+        />
+      </div>
       <div className={styles.pagination}>
         <Pagination
           onSubmit={(page) => navigate(`/org/${state.orgName}/${page}`)}

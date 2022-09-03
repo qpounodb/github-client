@@ -1,8 +1,10 @@
-.main {
+@use '~/App/styles/color';
+@use '~/App/styles/mixin';
+
+.root {
   padding: 0 20px 20px;
-  background-color: var(--color-background);
-  border: 1px solid var(--color-border);
-  border-radius: 6px;
+  background-color: color.$background;
+  @include mixin.border;
 }
 
 .code {
