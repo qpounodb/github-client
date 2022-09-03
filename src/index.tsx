@@ -1,27 +1,14 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import '~/styles/index.css';
 import { App } from './App';
-import { Main } from './App/pages/Main';
-import { Repo } from './App/pages/Repo';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
 root.render(
   <React.StrictMode>
-    <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<App />}>
-          <Route index element={<Main />} />
-          <Route path="org/:orgName" element={<Main />} />
-          <Route path="org/:orgName/:pageNum" element={<Main />} />
-          <Route path="repo/:orgName/:repoName" element={<Repo />} />
-          <Route path="*" element={<h1>There's nothing here!</h1>} />
-        </Route>
-      </Routes>
-    </BrowserRouter>
+    <App />
   </React.StrictMode>
 );
 
