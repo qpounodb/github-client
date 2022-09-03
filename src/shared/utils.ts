@@ -26,19 +26,6 @@ export const isNone = <T>(x: Nullable<T>): x is None =>
 
 export const isSome = <T>(x: Nullable<T>): x is T => !isNone(x);
 
-export type Remap<T, V> = { [P in keyof T]: V };
-
-export type RemapProp<T, K extends keyof T, V> = {
-  [P in keyof T]: P extends K ? V : T[P];
-};
-
-// Workaround typing: https://github.com/microsoft/TypeScript/pull/33622#issuecomment-575301357
-export const assertNotEmpty: (str: string) => asserts str = (str) => {
-  if (!str) {
-    throw new Error('Empty string');
-  }
-};
-
 /**
  * @param name https://devicon.dev/
  * @returns
@@ -55,14 +42,7 @@ export const formatCount = (count: number): string => {
   return count < 1000 ? String(count) : `${Math.round(count / 100) / 10}k`;
 };
 
-export const sleep = (timeout: number = 1000): Promise<void> =>
-  new Promise((resolve) => setTimeout(resolve, timeout));
-
 export const formatCode = (x: unknown) => JSON.stringify(x, null, 4);
-
-export const fail = (reason?: string): never => {
-  throw new Error(reason);
-};
 
 export const toError = (err: unknown): Error =>
   err instanceof Error ? err : new Error('Unknown error');
