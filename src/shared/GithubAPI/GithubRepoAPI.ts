@@ -1,5 +1,4 @@
 import { AxiosCacheInstance, createAxios } from '../axios-config';
-import { assertNotEmpty } from '../utils';
 import { getGithubAPIConfig } from './GithubAPI.config';
 import {
   Branch,
@@ -15,8 +14,6 @@ export class GithubRepoAPI {
   private signal?: AbortSignal;
 
   constructor(orgName: string, repoName: string, signal?: AbortSignal) {
-    assertNotEmpty(orgName);
-    assertNotEmpty(repoName);
     this.signal = signal;
     this.fetch = createAxios(
       getGithubAPIConfig(`/repos/${orgName}/${repoName}`)
