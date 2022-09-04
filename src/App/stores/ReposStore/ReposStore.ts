@@ -1,4 +1,10 @@
-import { action, computed, flow, makeObservable } from 'mobx';
+import {
+  action,
+  computed,
+  IReactionDisposer,
+  makeObservable,
+  reaction,
+} from 'mobx';
 import { RepoModelCollection } from '~/App/models/GitHub';
 import { defaultRequestReposParams, GithubReposAPI } from '~/shared/GithubAPI';
 import { ILocalStore } from '~/shared/hooks';
@@ -11,8 +17,6 @@ import {
   ApiStore,
 } from '../ApiStore';
 
-type PrivateField = '_isCheckOrgFailed' | '_isReposCountFailed';
-
 export class ReposStore implements ILocalStore {
   private readonly _api: GithubReposAPI = new GithubReposAPI();
 
@@ -23,16 +27,14 @@ export class ReposStore implements ILocalStore {
   };
 
   constructor() {
-    makeObservable<ReposStore, PrivateField>(this, {
+    makeObservable<ReposStore>(this, {
       state: computed,
       loading: computed,
       success: computed,
       error: computed,
       pagesCount: computed,
-      fetch: flow.bound,
+      fetch: action.bound,
       destroy: action.bound,
-      _isCheckOrgFailed: computed,
-      _isReposCountFailed: computed,
     });
 
     console.log('ReposStore created');
@@ -64,26 +66,15 @@ export class ReposStore implements ILocalStore {
     return Math.ceil(totalCount / defaultRequestReposParams.per_page);
   }
 
-  *fetch(orgName: string, page = 1): Generator<Promise<void>, void> {
+  async fetch(orgName: string, page = 1): Promise<void> {
     if (this.loading) {
       return;
     }
-
     if (page === 1) {
-      yield this._apiStores.checkOrg.fetch({ orgName });
-      if (this._isCheckOrgFailed) {
-        this.reset();
-        return;
-      }
+      await this._apiStores.checkOrg.fetch({ orgName });
     }
-
-    yield this._apiStores.reposCount.fetch({ orgName });
-    if (this._isReposCountFailed) {
-      this.reset();
-      return;
-    }
-
-    yield this._apiStores.repos.fetch({ orgName, page });
+    await this._apiStores.reposCount.fetch({ orgName });
+    await this._apiStores.repos.fetch({ orgName, page });
   }
 
   stop(): void {
@@ -97,20 +88,19 @@ export class ReposStore implements ILocalStore {
   destroy(): void {
     this.stop();
     this._stores.forEach((store) => store.destroy());
-    console.log('ReposStore destroyed');
+    this._failReaction();
   }
 
-  private get _isCheckOrgFailed(): boolean {
-    return (
+  private _failReaction: IReactionDisposer = reaction(
+    () =>
       !this._apiStores.checkOrg.success ||
-      this._apiStores.checkOrg.data?.total_count === 0
-    );
-  }
-
-  private get _isReposCountFailed(): boolean {
-    return (
+      this._apiStores.checkOrg.data?.total_count === 0 ||
       !this._apiStores.reposCount.success ||
-      this._apiStores.reposCount.data?.total_count === 0
-    );
-  }
+      this._apiStores.reposCount.data?.total_count === 0,
+    (isFailed) => {
+      if (!isFailed) return;
+      this.stop();
+      this.reset();
+    }
+  );
 }
