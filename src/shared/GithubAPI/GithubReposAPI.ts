@@ -1,4 +1,5 @@
 import { RepoApi, SearchReposApi, SearchUsersApi } from '~/App/models/GitHub';
+import { SearchApi } from '~/App/models/GitHub/Search';
 import { AxiosCacheInstance, createAxios } from '../axios-config';
 import { getGithubAPIConfig } from './GithubAPI.config';
 
@@ -17,6 +18,12 @@ export const defaultRequestReposParams: Required<RequestReposParams> = {
   per_page: 5,
   page: 1,
 };
+
+const failSearchResults = <T>(): SearchApi<T> => ({
+  total_count: 0,
+  incomplete_results: false,
+  items: [],
+});
 
 export class GithubReposAPI {
   private _api: AxiosCacheInstance;
@@ -42,9 +49,12 @@ export class GithubReposAPI {
     return data;
   }
 
-  async getReposCount(orgName: string, signal?: AbortSignal): Promise<number> {
+  async getReposCount(
+    orgName: string,
+    signal?: AbortSignal
+  ): Promise<SearchReposApi> {
     if (orgName.length === 0) {
-      return 0;
+      return failSearchResults();
     }
     const url = `/search/repositories`;
     const config = {
@@ -52,18 +62,21 @@ export class GithubReposAPI {
       signal,
     };
     const { data } = await this._api.get<SearchReposApi>(url, config);
-    return data.total_count;
+    return data;
   }
 
-  async checkOrg(orgName: string, signal?: AbortSignal): Promise<number> {
+  async checkOrg(
+    orgName: string,
+    signal?: AbortSignal
+  ): Promise<SearchUsersApi> {
     if (orgName.length === 0) {
-      return 0;
+      return failSearchResults();
     }
     const url = `/search/users?q=org:${orgName}+type:org`;
     const config = {
       signal,
     };
     const { data } = await this._api.get<SearchUsersApi>(url, config);
-    return data.total_count;
+    return data;
   }
 }
