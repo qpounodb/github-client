@@ -20,39 +20,41 @@ export type MultiDropdownProps = {
   placeholder?: string;
 };
 
-export const MultiDropdown: React.FC<MultiDropdownProps> = ({
-  selected,
-  disabled,
-  pluralizeOptions,
-  placeholder = '',
-  ...rest
-}) => {
-  const ref = React.useRef<HTMLDivElement | null>(null);
-  const [isHidden, setHide] = useState<boolean>(true);
-  const hide = React.useCallback(() => setHide(true), [setHide]);
-  const title = React.useMemo(
-    () => pluralizeOptions(selected),
-    [selected, pluralizeOptions]
-  );
+export const MultiDropdown: React.FC<MultiDropdownProps> = React.memo(
+  ({ selected, disabled, pluralizeOptions, placeholder = '', ...rest }) => {
+    const ref = React.useRef<HTMLDivElement | null>(null);
 
-  useHide(ref, hide);
+    const [isHidden, setHide] = useState<boolean>(true);
 
-  const handleDropdown = () => disabled || setHide((state) => !state);
+    const title = React.useMemo(
+      () => pluralizeOptions(selected),
+      [selected, pluralizeOptions]
+    );
 
-  return (
-    <div className={styles.root} ref={ref}>
-      <Input
-        className={styles.root__input}
-        value={title}
-        placeholder={placeholder}
-        onClick={handleDropdown}
-        onChange={() => {}}
-        readOnly
-        disabled={disabled}
-      />
-      {disabled || isHidden ? null : (
-        <List {...rest} selected={selected} className={styles.root__list} />
-      )}
-    </div>
-  );
-};
+    const hide = React.useCallback(() => setHide(true), [setHide]);
+
+    useHide(ref, hide);
+
+    const handleDropdown = React.useCallback(
+      () => disabled || setHide((state) => !state),
+      [disabled]
+    );
+
+    return (
+      <div className={styles.root} ref={ref}>
+        <Input
+          className={styles.root__input}
+          value={title}
+          placeholder={placeholder}
+          onClick={handleDropdown}
+          onChange={() => {}}
+          readOnly
+          disabled={disabled}
+        />
+        {disabled || isHidden ? null : (
+          <List {...rest} selected={selected} className={styles.root__list} />
+        )}
+      </div>
+    );
+  }
+);

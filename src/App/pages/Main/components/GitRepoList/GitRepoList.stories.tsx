@@ -1,7 +1,6 @@
 import { ComponentMeta, ComponentStory } from '@storybook/react';
 import data from '~/App/assets/data-examples/repo-info.json';
 import { normalizeRepoCollection } from '~/App/models/GitHub';
-import { getDataState } from '~/shared/utils';
 
 import { GitRepoList as GitRepoListComponent } from './GitRepoList';
 
@@ -22,5 +21,5 @@ export const GitRepoList: Story = (args) => (
 const list = Array.from({ length: 5 }, (_, id) => ({ ...data, id }));
 
 GitRepoList.args = GitRepoList.args = {
-  state: getDataState(normalizeRepoCollection(list)),
+  data: normalizeRepoCollection(list),
 };

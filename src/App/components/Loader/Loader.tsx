@@ -11,22 +11,19 @@ export type LoaderProps = PropsWithClassName<{
   color?: Color;
 }>;
 
-export const Loader: React.FC<LoaderProps> = ({
-  loading = true,
-  size = Size.m,
-  color = Color.primary,
-  className,
-}) => {
-  return (
-    <div
-      className={joinClassName(
-        styles.root,
-        loading && styles.root_loading,
-        styles[`root_${color}`],
-        styles[`root_size-${size}`],
-        className
-      )}
-      data-testid={Locators.LOADER}
-    ></div>
-  );
-};
+export const Loader: React.FC<LoaderProps> = React.memo(
+  ({ loading = true, size = Size.m, color = Color.primary, className }) => {
+    return (
+      <div
+        className={joinClassName(
+          styles.root,
+          loading && styles.root_loading,
+          styles[`root_${color}`],
+          styles[`root_size-${size}`],
+          className
+        )}
+        data-testid={Locators.LOADER}
+      ></div>
+    );
+  }
+);

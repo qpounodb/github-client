@@ -12,49 +12,53 @@ export type GitRepoTileProps = {
   onClick?: React.MouseEventHandler;
 };
 
-export const GitRepoTile: React.FC<GitRepoTileProps> = ({
-  data,
-  placeholder,
-  onClick,
-}) => {
-  const updatedAt = React.useMemo(() => {
-    const date = data.updatedAt;
-    const currentYear = new Date().getFullYear();
-    const dayMonth = `${date.getDate()} ${MONTHS[date.getMonth()]}`;
-    const year = date.getFullYear();
-    return year < currentYear ? `${dayMonth} ${year}` : dayMonth;
-  }, [data.updatedAt]);
+export const GitRepoTile: React.FC<GitRepoTileProps> = React.memo(
+  ({ data, placeholder, onClick }) => {
+    const updatedAt = React.useMemo(() => {
+      const date = data.updatedAt;
+      const currentYear = new Date().getFullYear();
+      const dayMonth = `${date.getDate()} ${MONTHS[date.getMonth()]}`;
+      const year = date.getFullYear();
+      return year < currentYear ? `${dayMonth} ${year}` : dayMonth;
+    }, [data.updatedAt]);
 
-  const link = (
-    <a
-      className={styles.link}
-      href={data.owner.htmlUrl}
-      target="_blank"
-      rel="noopener noreferrer"
-    >
-      {data.owner.login}
-    </a>
-  );
+    const link = React.useMemo(
+      () => (
+        <a
+          className={styles.link}
+          href={data.owner.htmlUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          {data.owner.login}
+        </a>
+      ),
+      [data.owner.htmlUrl, data.owner.login]
+    );
 
-  const content = (
-    <div className={styles.content}>
-      <span className={styles.stars}>
-        <IconStar />
-        <span>{formatCount(data.stargazersCount)}</span>
-      </span>
-      <span>Updated {updatedAt}</span>
-    </div>
-  );
+    const content = React.useMemo(
+      () => (
+        <div className={styles.content}>
+          <span className={styles.stars}>
+            <IconStar />
+            <span>{formatCount(data.stargazersCount)}</span>
+          </span>
+          <span>Updated {updatedAt}</span>
+        </div>
+      ),
+      [data.stargazersCount, updatedAt]
+    );
 
-  return (
-    <Card
-      className={styles.card}
-      onClick={onClick}
-      image={data.owner.avatarUrl}
-      placeholder={placeholder || data.owner.login}
-      title={data.name}
-      subtitle={link}
-      content={content}
-    />
-  );
-};
+    return (
+      <Card
+        className={styles.card}
+        onClick={onClick}
+        image={data.owner.avatarUrl}
+        placeholder={placeholder || data.owner.login}
+        title={data.name}
+        subtitle={link}
+        content={content}
+      />
+    );
+  }
+);

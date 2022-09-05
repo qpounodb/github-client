@@ -9,15 +9,23 @@ export type ItemProps = {
   onChange: (option: Option, isSelected: boolean) => void;
 };
 
-export const Item: React.FC<ItemProps> = ({ option, isSelected, onChange }) => {
-  const handleClick = () => onChange(option, isSelected);
+export const Item: React.FC<ItemProps> = React.memo(
+  ({ option, isSelected, onChange }) => {
+    const handleClick = React.useCallback(
+      () => onChange(option, isSelected),
+      [isSelected, onChange, option]
+    );
 
-  return (
-    <div
-      className={joinClassName(styles.root, isSelected && styles.root_selected)}
-      onClick={handleClick}
-    >
-      {option.value}
-    </div>
-  );
-};
+    return (
+      <div
+        className={joinClassName(
+          styles.root,
+          isSelected && styles.root_selected
+        )}
+        onClick={handleClick}
+      >
+        {option.value}
+      </div>
+    );
+  }
+);
