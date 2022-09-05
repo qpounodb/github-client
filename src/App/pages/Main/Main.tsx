@@ -30,11 +30,9 @@ export const Main: React.FC = observer(function Main() {
   );
 
   React.useEffect(() => {
-    console.log('Main mount');
     store.init();
     store.fetch();
     return () => {
-      console.log('Main unmount');
       store.destroy();
     };
   }, [store]);
