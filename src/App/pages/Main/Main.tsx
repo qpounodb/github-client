@@ -6,45 +6,40 @@ import { Search } from '~/App/components/Search';
 import { WithLoader } from '~/App/components/WithLoader';
 import { RepoModel } from '~/App/models/GitHub';
 import { ReposStore } from '~/App/stores';
+import { rootStore } from '~/App/stores/RootStore';
 import { GitRepoList } from './components/GitRepoList';
 import styles from './Main.module.scss';
 
 const SEARCH_PLACEHOLDER = 'Введите название организации';
 
-export const Main: React.FC = observer(() => {
+export const Main: React.FC = observer(function Main() {
   const store = useLocalStore(() => new ReposStore());
   const navigate = useNavigate();
-  const [input, setInput] = React.useState('');
-  const [orgName, setOrgName] = React.useState('');
-  const [pageNum, setPageNum] = React.useState(1);
+  const [input, setInput] = React.useState(rootStore.queryParamsStore.orgName);
 
   React.useEffect(() => {
-    return () => store.destroy();
+    console.log('Main mount');
+    store.init();
+    store.fetch();
+    return () => {
+      console.log('Main unmount');
+      store.destroy();
+    };
   }, [store]);
+
+  const submitName = React.useCallback((name: string) => {
+    rootStore.queryParamsStore.setOrgName(name);
+  }, []);
+
+  const submitPage = React.useCallback((page: number) => {
+    rootStore.queryParamsStore.setPageNum(page);
+  }, []);
 
   const getCardClickHandler = React.useCallback(
     ({ name, owner }: RepoModel) =>
       () =>
         navigate(`/repo/${owner.login}/${name}`),
     [navigate]
-  );
-
-  const submitName = React.useCallback(
-    (name: string) => {
-      setOrgName(name);
-      if (!name) return;
-      store.fetch(name, pageNum);
-    },
-    [pageNum, store]
-  );
-
-  const submitPage = React.useCallback(
-    (page: number) => {
-      setPageNum(page);
-      if (!page) return;
-      store.fetch(orgName, page);
-    },
-    [orgName, store]
   );
 
   return (
@@ -61,7 +56,7 @@ export const Main: React.FC = observer(() => {
       <div className={styles.section}>
         <WithLoader loading={store.loading}>
           <GitRepoList
-            state={store.state}
+            data={store.state?.data}
             getCardClickHandler={getCardClickHandler}
           />
         </WithLoader>
@@ -69,7 +64,7 @@ export const Main: React.FC = observer(() => {
       <div>
         <Pagination
           onSubmit={submitPage}
-          page={pageNum}
+          page={rootStore.queryParamsStore.pageNum}
           count={store.pagesCount}
           loading={store.loading}
         />

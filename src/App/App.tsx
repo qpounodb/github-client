@@ -1,18 +1,19 @@
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import { Route, Routes } from 'react-router-dom';
 import styles from './App.module.scss';
 import { Main } from './pages/Main';
 import { Repo } from './pages/Repo';
+import { useQueryParamsStore } from './stores/RootStore/hooks/useQueryParamsStore';
 
 export const App: React.FC = () => {
+  useQueryParamsStore();
+
   return (
     <div className={styles.app}>
-      <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<Main />} />
-          <Route path="repo/:orgName/:repoName" element={<Repo />} />
-          <Route path="*" element={<h1>There's nothing here!</h1>} />
-        </Routes>
-      </BrowserRouter>
+      <Routes>
+        <Route path="/" element={<Main />} />
+        <Route path="repo/:orgName/:repoName" element={<Repo />} />
+        <Route path="*" element={<h1>There's nothing here!</h1>} />
+      </Routes>
     </div>
   );
 };

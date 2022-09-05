@@ -1,3 +1,4 @@
+import { CanceledError } from 'axios';
 import {
   action,
   computed,
@@ -9,18 +10,19 @@ import { RepoModelCollection } from '~/App/models/GitHub';
 import { defaultRequestReposParams, GithubReposAPI } from '~/shared/GithubAPI';
 import { ILocalStore } from '~/shared/hooks';
 import { DataState, Nullable } from '~/shared/types';
-import { isSome } from '~/shared/utils';
+import { isSome, toError } from '~/shared/utils';
 import {
   ApiReposStore,
   ApiSearchReposStore,
   ApiSearchUsersStore,
   ApiStore,
 } from '../ApiStore';
+import { rootStore } from '../RootStore';
 
 export class ReposStore implements ILocalStore {
   private readonly _api: GithubReposAPI = new GithubReposAPI();
 
-  private readonly _apiStores: Record<string, ApiStore> = {
+  private _apiStores: Record<string, ApiStore> = {
     checkOrg: new ApiSearchUsersStore(this._api),
     reposCount: new ApiSearchReposStore(this._api),
     repos: new ApiReposStore(this._api),
@@ -36,8 +38,6 @@ export class ReposStore implements ILocalStore {
       fetch: action.bound,
       destroy: action.bound,
     });
-
-    console.log('ReposStore created');
   }
 
   private get _stores(): ApiStore[] {
@@ -45,7 +45,7 @@ export class ReposStore implements ILocalStore {
   }
 
   get state(): DataState<RepoModelCollection> {
-    return this._apiStores.repos.state;
+    return this._apiStores.repos.state ?? null;
   }
 
   get loading(): boolean {
@@ -62,19 +62,30 @@ export class ReposStore implements ILocalStore {
   }
 
   get pagesCount(): number {
-    const totalCount = this._apiStores.reposCount.data?.total_count || 0;
+    const totalCount = this._apiStores?.reposCount.data?.total_count || 0;
     return Math.ceil(totalCount / defaultRequestReposParams.per_page);
   }
 
-  async fetch(orgName: string, page = 1): Promise<void> {
+  async fetch(): Promise<void> {
+    const { orgName, pageNum } = rootStore.queryParamsStore.reposParams;
     if (this.loading) {
       return;
     }
-    if (page === 1) {
-      await this._apiStores.checkOrg.fetch({ orgName });
+    if (!orgName || !pageNum) {
+      this.reset();
+      return;
     }
-    await this._apiStores.reposCount.fetch({ orgName });
-    await this._apiStores.repos.fetch({ orgName, page });
+    try {
+      if (pageNum === 1) {
+        await this._apiStores?.checkOrg.fetch({ orgName });
+      }
+      await this._apiStores?.reposCount.fetch({ orgName });
+      await this._apiStores?.repos.fetch({ orgName, pageNum });
+    } catch (error) {
+      if (!(toError(error) instanceof CanceledError)) {
+        console.error(error);
+      }
+    }
   }
 
   stop(): void {
@@ -85,22 +96,39 @@ export class ReposStore implements ILocalStore {
     this._stores.forEach((store) => store.reset());
   }
 
-  destroy(): void {
-    this.stop();
-    this._stores.forEach((store) => store.destroy());
-    this._failReaction();
+  private _failReaction: null | IReactionDisposer = null;
+
+  private _queryReaction: null | IReactionDisposer = null;
+
+  init(): void {
+    this._failReaction ??= reaction(
+      () =>
+        !this._apiStores?.checkOrg.success ||
+        this._apiStores?.checkOrg.data?.total_count === 0 ||
+        !this._apiStores?.reposCount.success ||
+        this._apiStores?.reposCount.data?.total_count === 0,
+      (isFailed) => {
+        if (!isFailed) return;
+        this.stop();
+        this.reset();
+      }
+    );
+
+    this._queryReaction ??= reaction(
+      () => rootStore.queryParamsStore.reposParams,
+      () => {
+        this.fetch();
+      }
+    );
   }
 
-  private _failReaction: IReactionDisposer = reaction(
-    () =>
-      !this._apiStores.checkOrg.success ||
-      this._apiStores.checkOrg.data?.total_count === 0 ||
-      !this._apiStores.reposCount.success ||
-      this._apiStores.reposCount.data?.total_count === 0,
-    (isFailed) => {
-      if (!isFailed) return;
-      this.stop();
-      this.reset();
-    }
-  );
+  destroy(): void {
+    this.stop();
+    this.reset();
+    this._stores.forEach((store) => store.destroy());
+    this._failReaction?.();
+    this._queryReaction?.();
+    this._failReaction = null;
+    this._queryReaction = null;
+  }
 }

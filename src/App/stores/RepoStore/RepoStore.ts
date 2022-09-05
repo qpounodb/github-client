@@ -1,8 +1,9 @@
+import { CanceledError } from 'axios';
 import { action, computed, makeObservable } from 'mobx';
 import { GithubRepoAPI } from '~/shared/GithubAPI';
 import { ILocalStore } from '~/shared/hooks';
 import { Nullable } from '~/shared/types';
-import { isSome } from '~/shared/utils';
+import { isSome, toError } from '~/shared/utils';
 import {
   ApiCommitStore,
   ApiRepoBranchesStore,
@@ -88,7 +89,11 @@ export class RepoStore implements ILocalStore {
     }
 
     return Promise.all(this._stores.map((store) => store.fetch({})))
-      .catch(() => this.stop())
+      .catch((err) => {
+        if (!(toError(err) instanceof CanceledError)) {
+          console.error(err);
+        }
+      })
       .then(null);
   }
 

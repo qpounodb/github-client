@@ -1,7 +1,8 @@
+import { CanceledError } from 'axios';
 import { action, computed, makeObservable, observable, toJS } from 'mobx';
 import { ILocalStore } from '~/shared/hooks';
 import { DataState, Nullable } from '~/shared/types';
-import { isNone, isSome, toError } from '~/shared/utils';
+import { isNone, isSome, sleep, toError } from '~/shared/utils';
 
 export type ApiStoreConfig<Params, Raw, Model> = {
   fetch: (params: Params, signal: AbortSignal) => Promise<Raw>;
@@ -15,7 +16,6 @@ type PrivateField =
   | '_start'
   | '_end'
   | '_finally';
-
 export class ApiStore<Params = any, Raw = any, Model = Raw>
   implements ILocalStore
 {
@@ -98,12 +98,20 @@ export class ApiStore<Params = any, Raw = any, Model = Raw>
     const signal = this._start();
 
     try {
+      await sleep(100);
+      if (signal.aborted) {
+        throw new CanceledError();
+      }
       const data = await this._fetch(params, signal);
+      if (signal.aborted) {
+        throw new CanceledError();
+      }
       this._end(this._normalize(data));
     } catch (error) {
       if (!signal.aborted) {
         this._end(toError(error));
       }
+      throw error;
     } finally {
       this._finally();
     }
@@ -111,6 +119,8 @@ export class ApiStore<Params = any, Raw = any, Model = Raw>
 
   reset(): void {
     this._data = null;
+    this._error = null;
+    this._loading = false;
   }
 
   stop(): void {
@@ -120,6 +130,6 @@ export class ApiStore<Params = any, Raw = any, Model = Raw>
   destroy(): void {
     this.stop();
     this.reset();
-    this._end();
+    this._controller = null;
   }
 }

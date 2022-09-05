@@ -23,11 +23,11 @@ export const Repo: React.FC = observer(() => {
 
   React.useEffect(() => {
     store.fetch();
-    return store.destroy;
+    return () => store.destroy();
   }, [store]);
 
   const handleBack = () => {
-    navigate('/');
+    navigate(-1);
   };
 
   return (

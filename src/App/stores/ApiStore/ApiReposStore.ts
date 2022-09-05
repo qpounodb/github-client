@@ -6,7 +6,7 @@ import {
 import { defaultRequestReposParams, GithubReposAPI } from '~/shared/GithubAPI';
 import { ApiStore } from './ApiStore';
 
-type FetchParams = { orgName: string; page: number };
+type FetchParams = { orgName: string; pageNum: number };
 
 export class ApiReposStore extends ApiStore<
   FetchParams,
@@ -15,7 +15,7 @@ export class ApiReposStore extends ApiStore<
 > {
   constructor(_api: GithubReposAPI) {
     super({
-      fetch: ({ orgName, page }, signal: AbortSignal) =>
+      fetch: ({ orgName, pageNum: page }, signal: AbortSignal) =>
         _api.getRepos(orgName, { ...defaultRequestReposParams, page }, signal),
       normalize: normalizeRepoCollection,
     });
