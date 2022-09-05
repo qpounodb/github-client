@@ -1,0 +1,17 @@
+@use '~/App/styles/size';
+@use '~/App/styles/color';
+@use '~/App/styles/mixin';
+
+.root {
+  width: size.$input-width;
+  display: flex;
+  flex-direction: column;
+  row-gap: 1px;
+
+  @include mixin.border;
+
+  background-color: color.$border;
+  color: color.$text;
+
+  overflow: hidden;
+}

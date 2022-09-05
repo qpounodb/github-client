@@ -10,7 +10,7 @@ export type InputProps = Omit<
   InputHTMLProps,
   'value' | 'onChange' | 'onSubmit' | 'size'
 > & {
-  value: string;
+  value: string | number;
   size?: Size;
   onChange: (value: string) => void;
   onSubmit?: (value: string) => void;
@@ -26,7 +26,7 @@ export const Input: React.FC<InputProps> = React.memo(
     const handleEnter: React.KeyboardEventHandler = React.useCallback(
       (e) => {
         if (e.key !== 'Enter') return;
-        onSubmit?.(rest.value);
+        onSubmit?.(String(rest.value));
       },
       [onSubmit, rest.value]
     );

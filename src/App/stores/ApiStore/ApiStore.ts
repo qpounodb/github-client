@@ -1,5 +1,5 @@
 import { CanceledError } from 'axios';
-import { action, computed, makeObservable, observable, toJS } from 'mobx';
+import { action, computed, makeObservable, observable } from 'mobx';
 import { ILocalStore } from '~/shared/hooks';
 import { DataState, Nullable } from '~/shared/types';
 import { isNone, isSome, sleep, toError } from '~/shared/utils';
@@ -68,9 +68,9 @@ export class ApiStore<Params = any, Raw = any, Model = Raw>
 
   get state(): DataState<Model> {
     return {
-      loading: toJS(this._loading),
-      error: toJS(this._error),
-      data: toJS(this._data),
+      loading: this._loading,
+      error: this._error,
+      data: this._data,
     };
   }
 
@@ -103,9 +103,6 @@ export class ApiStore<Params = any, Raw = any, Model = Raw>
         throw new CanceledError();
       }
       const data = await this._fetch(params, signal);
-      if (signal.aborted) {
-        throw new CanceledError();
-      }
       this._end(this._normalize(data));
     } catch (error) {
       if (!signal.aborted) {

@@ -67,7 +67,8 @@ export class ReposStore implements ILocalStore {
   }
 
   async fetch(): Promise<void> {
-    const { orgName, pageNum } = rootStore.queryParamsStore.reposParams;
+    const { orgName, pageNum, sortType, orderType } =
+      rootStore.queryParamsStore.reposParams;
     if (this.loading) {
       return;
     }
@@ -80,7 +81,12 @@ export class ReposStore implements ILocalStore {
         await this._apiStores?.checkOrg.fetch({ orgName });
       }
       await this._apiStores?.reposCount.fetch({ orgName });
-      await this._apiStores?.repos.fetch({ orgName, pageNum });
+      await this._apiStores?.repos.fetch({
+        orgName,
+        pageNum,
+        sortType,
+        orderType,
+      });
     } catch (error) {
       if (!(toError(error) instanceof CanceledError)) {
         console.error(error);

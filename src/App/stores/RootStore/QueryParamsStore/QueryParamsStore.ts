@@ -1,15 +1,18 @@
 import { action, computed, makeObservable, observable } from 'mobx';
 import { createSearchParams, URLSearchParamsInit } from 'react-router-dom';
+import {
+  OrderTypes,
+  SortTypes,
+  toOrderType,
+  toSortType,
+} from '~/shared/GithubAPI';
+import { Nullable } from '~/shared/types';
+import { ReposQueryParams } from '../../ApiStore';
 
 type SetURLSearchParams = (
   nextInit: URLSearchParamsInit,
   navigateOpts?: { replace?: boolean; state?: any }
 ) => void;
-
-export type ReposQueryParams = {
-  orgName: string;
-  pageNum: number;
-};
 
 type PrivateFields = '_params';
 
@@ -22,10 +25,14 @@ export class QueryParamsStore {
       _params: observable,
       orgName: computed,
       pageNum: computed,
+      sortType: computed,
+      orderType: computed,
       reposParams: computed,
       setParams: action.bound,
       setOrgName: action.bound,
       setPageNum: action.bound,
+      setSort: action.bound,
+      setOrder: action.bound,
     });
   }
 
@@ -37,10 +44,20 @@ export class QueryParamsStore {
     return Number(this._params.get('page') ?? 1);
   }
 
+  get sortType(): SortTypes {
+    return toSortType(this._params.get('sort'));
+  }
+
+  get orderType(): OrderTypes {
+    return toOrderType(this._params.get('order'));
+  }
+
   get reposParams(): ReposQueryParams {
     return {
       orgName: this.orgName,
       pageNum: this.pageNum,
+      sortType: this.sortType,
+      orderType: this.orderType,
     };
   }
 
@@ -56,6 +73,17 @@ export class QueryParamsStore {
 
   setPageNum(page: number): void {
     this._params.set('page', String(page));
+    this._setSearchParams?.(this._params);
+  }
+
+  setSort(sort?: Nullable<string>): void {
+    this._params.set('sort', sort ?? '');
+    this._params.set('order', sort === 'full_name' ? 'asc' : 'desc');
+    this._setSearchParams?.(this._params);
+  }
+
+  setOrder(order?: Nullable<string>): void {
+    this._params.set('order', order ?? '');
     this._setSearchParams?.(this._params);
   }
 
