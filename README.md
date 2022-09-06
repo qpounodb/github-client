@@ -2,15 +2,6 @@
 
 <details><summary> <img src="https://lms.metaclass.kts.studio/static/public/favicon/favicon-32x32.png" width="16" height="16"> Задание (кликните для открытия спойлера)  </summary><br>
 
-> #### Чек-лист для всех ДЗ, которые проверяет ментор
->
-> - [x] Проект выложен на `GitHub`.
->   - [x] Ветка с ДЗ оформлена в соответствии с номером ДЗ (например, `hw-3` для домашнего задания №3).
->   - [x] Открыт PR из ветки с ДЗ в ветку main
-> - [x] В репозитории используется `.gitignore`, в него добавлены `node_modules`, директории с результатом сборки, служебные файлы и т.д.
-> - [x] Проект создан с помощью `Create React App`
-> - [x] Весь код написан на `TypeScript`
->
 > #### Чек-лист требований для ДЗ 3
 >
 > - [x] Реализован сетап проекта с подключенным линтером, алиасами.
@@ -21,6 +12,15 @@
 > - [x] Стили переписаны на css-modules с использованием scss, переменные и миксины вынесены в отдельный файл
 > - [x] Дополнительно: реализована пагинация
 
+> #### Чек-лист требований для ДЗ 4
+>
+> - [x] Вся логика работы с данными переписана с помощью Mobx.
+> - [x] Корректно разделены сторы и выбрана "локальность" каждого из них.
+> - [x] Реализован поиск.
+> - [x] Добавлена пагинация.
+> - [x] В query-параметрах сохраняется состояние пагинации и поиска.
+> - [x] Дополнительно - использование сортировок из Github API
+
 </details>
 
 ## <img src="https://static.figma.com/app/icon/1/favicon.png" width="16" height="16"> Макет
@@ -29,10 +29,10 @@
 
 ## <img src="https://app.netlify.com/favicon-32x32.png" width="16" height="16"> Деплой
 
-> [**qpundb-hw3-github-client.netlify.app**][deploy]
+> [**qpundb-hw4-github-client.netlify.app**][deploy]
 
 [figma]: https://www.figma.com/file/xS1HZPihGT3NpSigyxSAm8/%D0%9F%D1%80%D0%BE%D0%B5%D0%BA%D1%82%D1%8B?node-id=0%3A1
-[deploy]: https://qpundb-hw3-github-client.netlify.app/
+[deploy]: https://qpundb-hw4-github-client.netlify.app/
 
 ## Подготовка к работе с проектом:
 
@@ -42,6 +42,10 @@
 
 - ```shell
   cd ./github-client
+  ```
+
+- ```shell
+  git checkout <some branch>
   ```
 
 - ```shell
@@ -77,9 +81,6 @@
 | `/repos/{owner}/{repo}/languages`     | [List repository languages][languages]       |
 | `/repos/{owner}/{repo}/readme`        | [Get a repository README][readme]            |
 
-> :warning: Note: [Правила ограничения количества запросов][rate] <br>
-
-[rate]: https://docs.github.com/en/rest/overview/resources-in-the-rest-api#rate-limiting
 [list]: https://docs.github.com/en/rest/repos/repos#list-organization-repositories
 [search-u]: https://docs.github.com/en/rest/search#search-users
 [search-r]: https://docs.github.com/en/rest/search#search-repositories
@@ -90,6 +91,20 @@
 [languages]: https://docs.github.com/en/rest/repos/repos#list-repository-languages
 [readme]: https://docs.github.com/en/rest/repos/contents#get-a-repository-readme
 
+### :warning: Note
+
+[Правила ограничения количества запросов][rate] <br>
+По умолчанию гитхаб ограничивает число запросов к АПИ до **60** в час на один **IP адрес**. <br>
+Для увеличения лимитов по запросам (**5000** в час на один **аккаунт**) - можно добавить [персональный гитхаб токен][token] в переменную окружения `REACT_APP_GITHUB_API_ACCESS_TOKEN`. <br>
+Для удобства можно создать в корне проекта файл `.env.local` с содержимым:
+
+```
+REACT_APP_GITHUB_API_ACCESS_TOKEN=<токен созданный в гитхаб>
+```
+
+[rate]: https://docs.github.com/en/rest/overview/resources-in-the-rest-api#rate-limiting
+[token]: https://github.com/settings/tokens
+
 ## Стек технологий:
 
 - [x] <img src="https://reactjs.org/favicon.ico" width="16" height="16"> [React](https://reactjs.org/docs/getting-started.html) - JS library for building user interfaces
@@ -98,7 +113,7 @@
 - [x] <img src="https://axios-cache-interceptor.js.org/static/favicon-32x32.png" width="16" height="16"> [Axios Cache Interceptor](https://axios-cache-interceptor.js.org) - adds caching capabilities to axios
 - [x] <img src="https://avatars.githubusercontent.com/u/872310?s=32&v=4" width="16" height="16"> [ClassNames](https://github.com/JedWatson/classnames) - simple conditionally joining classNames together
 - [x] <img src="https://showdownjs.com/favicon-32x32.png" width="16" height="16"> [Showdown](https://showdownjs.com/) - markdown to HTML bidirectional converter
-- [ ] <img src="https://mobx.js.org/img/favicon.png" width="16" height="16"> [MobX](https://mobx.js.org/README.html) - simple, scalable state management.
+- [x] <img src="https://mobx.js.org/img/favicon.png" width="16" height="16"> [MobX](https://mobx.js.org/README.html) - simple, scalable state management.
 
 ## Инструменты для разработки:
 
