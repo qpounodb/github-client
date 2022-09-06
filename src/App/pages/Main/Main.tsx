@@ -7,26 +7,28 @@ import { Search } from '~/App/components/Search';
 import { Option, Select } from '~/App/components/Select';
 import { WithLoader } from '~/App/components/WithLoader';
 import { RepoModel } from '~/App/models/GitHub';
+import { SORT_TYPES } from '~/App/models/QueryParams';
 import { ReposStore } from '~/App/stores';
 import { rootStore } from '~/App/stores/RootStore';
-import { SORT, toSortType } from '~/shared/GithubAPI';
 import { joinClassName } from '~/shared/utils';
 import { GitRepoList } from './components/GitRepoList';
 import styles from './Main.module.scss';
 
 const SEARCH_PLACEHOLDER = 'Введите название организации';
 
-const SORT_OPTIONS: Option[] = SORT.map((x) => ({
-  key: x,
-  value: `Sort repos by ${x.split('_').join(' ')}`,
-}));
+const SORT_OPTIONS: Option[] = Object.entries(SORT_TYPES).map(
+  ([key, value]) => ({
+    key,
+    value: `Sort repos by ${value.split('_').join(' ')}`,
+  })
+);
 
 export const Main: React.FC = observer(function Main() {
   const store = useLocalStore(() => new ReposStore());
   const navigate = useNavigate();
   const [input, setInput] = React.useState(rootStore.queryParamsStore.orgName);
   const [sortType, setSortType] = React.useState(
-    rootStore.queryParamsStore.sortType
+    rootStore.queryParamsStore.sort as string
   );
 
   React.useEffect(() => {
@@ -46,7 +48,7 @@ export const Main: React.FC = observer(function Main() {
   }, []);
 
   const submitSort = React.useCallback((sort: string | number) => {
-    setSortType(toSortType(String(sort)));
+    setSortType(String(sort));
     rootStore.queryParamsStore.setSort(String(sort));
   }, []);
 
@@ -65,7 +67,7 @@ export const Main: React.FC = observer(function Main() {
     <div className={styles.root}>
       <div className={styles.section}>
         <Search
-          value={input}
+          value={input ?? ''}
           placeholder={SEARCH_PLACEHOLDER}
           onChange={setInput}
           onSubmit={submitName}
@@ -81,7 +83,7 @@ export const Main: React.FC = observer(function Main() {
         />
         <label>
           <CheckBox
-            checked={rootStore.queryParamsStore.orderType === 'asc'}
+            checked={rootStore.queryParamsStore.order === 'asc'}
             onChange={submitOrder}
           />
           Asc order
@@ -98,7 +100,7 @@ export const Main: React.FC = observer(function Main() {
       <div>
         <Pagination
           onSubmit={submitPage}
-          page={rootStore.queryParamsStore.pageNum}
+          page={rootStore.queryParamsStore.page ?? 1}
           count={store.pagesCount}
           loading={store.loading}
         />

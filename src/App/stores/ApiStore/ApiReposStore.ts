@@ -3,40 +3,21 @@ import {
   RepoApi,
   RepoModelCollection,
 } from '~/App/models/GitHub';
-import {
-  defaultRequestReposParams,
-  GithubReposAPI,
-  OrderTypes,
-  SortTypes,
-} from '~/shared/GithubAPI';
+import { appParamsToApiParams, QueryParamsApp } from '~/App/models/QueryParams';
+import { GithubReposAPI } from '~/shared/GithubAPI';
 import { ApiStore } from './ApiStore';
 
-export type ReposQueryParams = {
-  orgName: string;
-  pageNum: number;
-  sortType: SortTypes;
-  orderType: OrderTypes;
-};
-
 export class ApiReposStore extends ApiStore<
-  ReposQueryParams,
+  QueryParamsApp,
   RepoApi[],
   RepoModelCollection
 > {
   constructor(_api: GithubReposAPI) {
     super({
-      fetch: (
-        { orgName, pageNum: page, sortType, orderType },
-        signal: AbortSignal
-      ) =>
+      fetch: (params, signal: AbortSignal) =>
         _api.getRepos(
-          orgName,
-          {
-            ...defaultRequestReposParams,
-            page,
-            sort: sortType ?? 'updated',
-            direction: orderType,
-          },
+          params.orgName ?? '',
+          appParamsToApiParams(params),
           signal
         ),
       normalize: normalizeRepoCollection,

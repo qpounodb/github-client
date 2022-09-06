@@ -1,94 +1,126 @@
-import { action, computed, makeObservable, observable } from 'mobx';
-import { createSearchParams, URLSearchParamsInit } from 'react-router-dom';
+import {
+  action,
+  computed,
+  IReactionDisposer,
+  makeObservable,
+  observable,
+  reaction,
+} from 'mobx';
+import { URLSearchParamsInit } from 'react-router-dom';
 import {
   OrderTypes,
+  QueryParamsApp,
   SortTypes,
   toOrderType,
   toSortType,
-} from '~/shared/GithubAPI';
-import { Nullable } from '~/shared/types';
-import { ReposQueryParams } from '../../ApiStore';
+  toUrlSearchParams,
+} from '~/App/models/QueryParams';
+import { isSome } from '~/shared/utils';
 
 type SetURLSearchParams = (
   nextInit: URLSearchParamsInit,
   navigateOpts?: { replace?: boolean; state?: any }
 ) => void;
 
-type PrivateFields = '_params';
+type PrivateFields = `_${keyof QueryParamsApp}`;
 
-export class QueryParamsStore {
-  private _params: URLSearchParams = createSearchParams('');
+export class QueryParamsStore implements QueryParamsApp {
   private _setSearchParams: null | SetURLSearchParams = null;
+  private _paramsReaction: IReactionDisposer;
+
+  private _orgName?: string;
+  private _page?: number;
+  private _sort?: SortTypes;
+  private _order?: OrderTypes;
 
   constructor() {
     makeObservable<QueryParamsStore, PrivateFields>(this, {
-      _params: observable,
+      _orgName: observable,
+      _page: observable,
+      _sort: observable,
+      _order: observable,
       orgName: computed,
-      pageNum: computed,
-      sortType: computed,
-      orderType: computed,
-      reposParams: computed,
+      page: computed,
+      sort: computed,
+      order: computed,
+      params: computed,
       setParams: action.bound,
       setOrgName: action.bound,
       setPageNum: action.bound,
       setSort: action.bound,
       setOrder: action.bound,
     });
+
+    this._paramsReaction = reaction(
+      () => this.params,
+      (params) => this._setSearchParams?.(toUrlSearchParams(params))
+    );
   }
 
-  get orgName(): string {
-    return this._params.get('org') ?? '';
+  get orgName(): string | undefined {
+    return this._orgName;
   }
 
-  get pageNum(): number {
-    return Number(this._params.get('page') ?? 1);
+  get page(): number | undefined {
+    return this._page;
   }
 
-  get sortType(): SortTypes {
-    return toSortType(this._params.get('sort'));
+  get sort(): SortTypes | undefined {
+    return this._sort;
   }
 
-  get orderType(): OrderTypes {
-    return toOrderType(this._params.get('order'));
+  get order(): OrderTypes | undefined {
+    return this._order;
   }
 
-  get reposParams(): ReposQueryParams {
-    return {
-      orgName: this.orgName,
-      pageNum: this.pageNum,
-      sortType: this.sortType,
-      orderType: this.orderType,
-    };
+  get params(): QueryParamsApp {
+    const params: QueryParamsApp = {};
+    isSome(this._orgName) && (params.orgName = this._orgName);
+    isSome(this._page) && (params.page = this._page);
+    isSome(this._sort) && (params.sort = this._sort);
+    isSome(this._order) && (params.order = this._order);
+    return params;
   }
 
-  setOrgName(name: string): void {
-    if (!name) {
-      this._setSearchParams?.('');
-      return;
+  setOrgName(name?: string): void {
+    this._orgName = name;
+    this._page = 1;
+  }
+
+  setPageNum(page?: number): void {
+    this._page = page;
+  }
+
+  setSort(sort?: string): void {
+    if (isSome(sort)) {
+      this._sort = toSortType(sort);
+      this._order = sort === 'full_name' ? 'asc' : 'desc';
+    } else {
+      this._sort = sort;
     }
-    this._params.set('org', name);
-    this._params.set('page', '1');
-    this._setSearchParams?.(this._params);
   }
 
-  setPageNum(page: number): void {
-    this._params.set('page', String(page));
-    this._setSearchParams?.(this._params);
-  }
-
-  setSort(sort?: Nullable<string>): void {
-    this._params.set('sort', sort ?? '');
-    this._params.set('order', sort === 'full_name' ? 'asc' : 'desc');
-    this._setSearchParams?.(this._params);
-  }
-
-  setOrder(order?: Nullable<string>): void {
-    this._params.set('order', order ?? '');
-    this._setSearchParams?.(this._params);
+  setOrder(order?: string): void {
+    this._order = isSome(order) ? toOrderType(order) : order;
   }
 
   setParams(params: URLSearchParams): void {
-    this._params = params;
+    params.forEach((value, key) => {
+      switch (key as keyof QueryParamsApp) {
+        case 'orgName':
+          this._orgName = value;
+          break;
+        case 'page':
+          this._page = Number(value);
+          break;
+        case 'sort':
+          this._sort = toSortType(value);
+          break;
+        case 'order':
+          this._order = toOrderType(value);
+          break;
+      }
+    });
   }
 
   setSearchParamsSetter(setSearchParams: SetURLSearchParams) {

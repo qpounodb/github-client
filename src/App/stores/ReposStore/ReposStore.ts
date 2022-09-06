@@ -7,7 +7,8 @@ import {
   reaction,
 } from 'mobx';
 import { RepoModelCollection } from '~/App/models/GitHub';
-import { defaultRequestReposParams, GithubReposAPI } from '~/shared/GithubAPI';
+import { defaultQueryParamsAPI } from '~/App/models/QueryParams';
+import { GithubReposAPI } from '~/shared/GithubAPI';
 import { ILocalStore } from '~/shared/hooks';
 import { DataState, Nullable } from '~/shared/types';
 import { isSome, toError } from '~/shared/utils';
@@ -63,30 +64,24 @@ export class ReposStore implements ILocalStore {
 
   get pagesCount(): number {
     const totalCount = this._apiStores?.reposCount.data?.total_count || 0;
-    return Math.ceil(totalCount / defaultRequestReposParams.per_page);
+    return Math.ceil(totalCount / defaultQueryParamsAPI.per_page);
   }
 
   async fetch(): Promise<void> {
-    const { orgName, pageNum, sortType, orderType } =
-      rootStore.queryParamsStore.reposParams;
+    const params = rootStore.queryParamsStore.params;
     if (this.loading) {
       return;
     }
-    if (!orgName || !pageNum) {
+    if (!params.orgName || !params.page) {
       this.reset();
       return;
     }
     try {
-      if (pageNum === 1) {
-        await this._apiStores?.checkOrg.fetch({ orgName });
+      if (params.page === 1) {
+        await this._apiStores?.checkOrg.fetch({ orgName: params.orgName });
       }
-      await this._apiStores?.reposCount.fetch({ orgName });
-      await this._apiStores?.repos.fetch({
-        orgName,
-        pageNum,
-        sortType,
-        orderType,
-      });
+      await this._apiStores?.reposCount.fetch({ orgName: params.orgName });
+      await this._apiStores?.repos.fetch(params);
     } catch (error) {
       if (!(toError(error) instanceof CanceledError)) {
         console.error(error);
@@ -121,7 +116,7 @@ export class ReposStore implements ILocalStore {
     );
 
     this._queryReaction ??= reaction(
-      () => rootStore.queryParamsStore.reposParams,
+      () => rootStore.queryParamsStore.params,
       () => {
         this.fetch();
       }
