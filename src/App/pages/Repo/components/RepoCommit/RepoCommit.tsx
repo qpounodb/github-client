@@ -1,12 +1,12 @@
 import React from 'react';
 import { CommitModel } from '~/App/models/GitHub';
 import { linerizeCollection } from '~/App/models/shared/Collection';
-import { withRepoBlock } from '../withRepoBlock';
+import { RepoBlock, withRepoBlock } from '../withRepoBlock';
 import styles from './RepoCommit.module.scss';
 import { Stats } from './Stats';
 import { StatusIcon } from './StatusIcon';
 
-export const RepoCommit = withRepoBlock<CommitModel>('', ({ data }) => {
+const RepoCommit: RepoBlock<CommitModel> = ({ data }) => {
   const user = data.commit.author ?? data.commit.committer;
   const owner = data.author ?? data.committer;
 
@@ -53,4 +53,6 @@ export const RepoCommit = withRepoBlock<CommitModel>('', ({ data }) => {
       </div>
     </>
   );
-});
+};
+
+export default withRepoBlock('', RepoCommit);

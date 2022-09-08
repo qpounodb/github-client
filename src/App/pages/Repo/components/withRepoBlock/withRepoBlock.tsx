@@ -2,18 +2,25 @@ import axios from 'axios';
 import React from 'react';
 import { WithLoader } from '~/App/components/WithLoader';
 import { DataState, PropsWithChildrenAndClassname } from '~/shared/types';
-import { formatCode, isNone, isSome, joinClassName } from '~/shared/utils';
+import {
+  formatCode,
+  getDisplayName,
+  isNone,
+  isSome,
+  joinClassName,
+} from '~/shared/utils';
 import styles from './withRepoBlock.module.scss';
 
-export type ComponentProps<T> = React.PropsWithChildren<{
+export type RepoBlockProps<T> = React.PropsWithChildren<{
   data: T;
 }>;
+export type RepoBlock<T> = React.FC<RepoBlockProps<T>>;
 
-export type RepoBlockProps<T extends object = {}> =
-  PropsWithChildrenAndClassname<{
-    state: DataState<T>;
-    title: string;
-  }>;
+export type RepoBlockWrapperProps<T> = PropsWithChildrenAndClassname<{
+  state: DataState<T>;
+  title: string;
+}>;
+export type RepoBlockWrapper<T> = React.FC<RepoBlockWrapperProps<T>>;
 
 const getTitles = (title: string) => ({
   loading: `${title} 👾`,
@@ -23,9 +30,9 @@ const getTitles = (title: string) => ({
 
 export const withRepoBlock = <T extends object>(
   className: string,
-  Component: React.FC<ComponentProps<T>>
-) => {
-  const RepoBlock: React.FC<RepoBlockProps<T>> = ({
+  RepoBlock: RepoBlock<T>
+): RepoBlockWrapper<T> => {
+  const RepoBlockWrapper: RepoBlockWrapper<T> = ({
     state: { loading, error, data },
     title,
     children,
@@ -72,10 +79,11 @@ export const withRepoBlock = <T extends object>(
 
     return (
       <div className={cls}>
-        <Component data={data} children={children} />
+        <RepoBlock data={data} children={children} />
       </div>
     );
   };
 
-  return RepoBlock;
+  RepoBlockWrapper.displayName = getDisplayName('WithRepoBlock', RepoBlock);
+  return React.memo(RepoBlockWrapper);
 };

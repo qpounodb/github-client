@@ -23,7 +23,7 @@ const SORT_OPTIONS: Option[] = Object.entries(SORT_TYPES).map(
   })
 );
 
-export const Main: React.FC = observer(function Main() {
+const Main: React.FC = () => {
   const store = useLocalStore(() => new ReposStore());
   const navigate = useNavigate();
   const [input, setInput] = React.useState(rootStore.queryParamsStore.orgName);
@@ -107,4 +107,6 @@ export const Main: React.FC = observer(function Main() {
       </div>
     </div>
   );
-});
+};
+
+export default observer(Main);

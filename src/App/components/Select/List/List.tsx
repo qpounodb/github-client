@@ -11,19 +11,24 @@ export type ListProps = PropsWithClassName<{
   onChange: (key: number | string) => void;
 }>;
 
-export const List: React.FC<ListProps> = React.memo(
-  ({ options, selected, onChange, className }) => {
-    return (
-      <div className={joinClassName(styles.root, className)}>
-        {options.map((option) => (
-          <Item
-            key={option.key}
-            option={option}
-            isSelected={isSome(selected) && selected === option.key}
-            onChange={onChange}
-          />
-        ))}
-      </div>
-    );
-  }
-);
+const List: React.FC<ListProps> = ({
+  options,
+  selected,
+  onChange,
+  className,
+}) => {
+  return (
+    <div className={joinClassName(styles.root, className)}>
+      {options.map((option) => (
+        <Item
+          key={option.key}
+          option={option}
+          isSelected={isSome(selected) && selected === option.key}
+          onChange={onChange}
+        />
+      ))}
+    </div>
+  );
+};
+
+export default React.memo(List);

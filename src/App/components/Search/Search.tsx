@@ -12,26 +12,32 @@ export type SearchProps = {
   onSubmit: (value: string) => void;
 };
 
-export const Search: React.FC<SearchProps> = React.memo(
-  ({ value, placeholder, loading = false, onChange, onSubmit }) => {
-    const handleSubmit = React.useCallback(
-      () => onSubmit(value),
-      [onSubmit, value]
-    );
+const Search: React.FC<SearchProps> = ({
+  value,
+  placeholder,
+  loading = false,
+  onChange,
+  onSubmit,
+}) => {
+  const handleSubmit = React.useCallback(
+    () => onSubmit(value),
+    [onSubmit, value]
+  );
 
-    return (
-      <div className={styles.root}>
-        <Input
-          placeholder={placeholder}
-          value={value}
-          disabled={loading}
-          onChange={onChange}
-          onSubmit={handleSubmit}
-        />
-        <SquareButton onClick={handleSubmit} loading={loading}>
-          <IconSearch className={styles.root__icon} />
-        </SquareButton>
-      </div>
-    );
-  }
-);
+  return (
+    <div className={styles.root}>
+      <Input
+        placeholder={placeholder}
+        value={value}
+        disabled={loading}
+        onChange={onChange}
+        onSubmit={handleSubmit}
+      />
+      <SquareButton onClick={handleSubmit} loading={loading}>
+        <IconSearch className={styles.root__icon} />
+      </SquareButton>
+    </div>
+  );
+};
+
+export default React.memo(Search);

@@ -11,24 +11,27 @@ export type GitRepoListProps = {
   getCardClickHandler: (data: RepoModel) => () => void;
 };
 
-export const GitRepoList: React.FC<GitRepoListProps> = React.memo(
-  ({ data, getCardClickHandler }) => {
-    if (isNone(data)) {
-      return null;
-    }
-
-    return (
-      <div className={styles.root}>
-        <div className={styles.list}>
-          {linerizeCollection(data).map((data) => (
-            <GitRepoTile
-              key={data.id}
-              data={data}
-              onClick={getCardClickHandler(data)}
-            />
-          ))}
-        </div>
-      </div>
-    );
+const GitRepoList: React.FC<GitRepoListProps> = ({
+  data,
+  getCardClickHandler,
+}) => {
+  if (isNone(data)) {
+    return null;
   }
-);
+
+  return (
+    <div className={styles.root}>
+      <div className={styles.list}>
+        {linerizeCollection(data).map((data) => (
+          <GitRepoTile
+            key={data.id}
+            data={data}
+            onClick={getCardClickHandler(data)}
+          />
+        ))}
+      </div>
+    </div>
+  );
+};
+
+export default React.memo(GitRepoList);

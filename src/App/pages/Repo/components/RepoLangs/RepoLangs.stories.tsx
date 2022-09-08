@@ -1,7 +1,7 @@
 import { ComponentMeta, ComponentStory } from '@storybook/react';
 import data from '~/App/assets/data-examples/repo-languages.json';
 import { getDataState } from '~/shared/utils';
-import { RepoLangs as RepoLangsComponent } from './RepoLangs';
+import RepoLangsComponent from './RepoLangs';
 
 type Meta = ComponentMeta<typeof RepoLangsComponent>;
 type Story = ComponentStory<typeof RepoLangsComponent>;

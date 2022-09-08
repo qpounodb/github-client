@@ -14,7 +14,7 @@ import styles from './Repo.module.scss';
 
 type PathParams = { orgName: string; repoName: string };
 
-export const Repo: React.FC = observer(() => {
+export const Repo: React.FC = () => {
   const navigate = useNavigate();
   const { orgName, repoName } = useParams<PathParams>();
   const store = useLocalStore(
@@ -43,4 +43,6 @@ export const Repo: React.FC = observer(() => {
       <RepoReadme title="README.md" state={store.state.readme} />
     </div>
   );
-});
+};
+
+export default observer(Repo);

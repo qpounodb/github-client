@@ -2,7 +2,7 @@ import { ComponentMeta, ComponentStory } from '@storybook/react';
 import data from '~/App/assets/data-examples/repo-info.json';
 import { normalizeRepo } from '~/App/models/GitHub';
 import { getDataState } from '~/shared/utils';
-import { RepoInfo as RepoInfoComponent } from './RepoInfo';
+import RepoInfoComponent from './RepoInfo';
 
 type Meta = ComponentMeta<typeof RepoInfoComponent>;
 type Story = ComponentStory<typeof RepoInfoComponent>;

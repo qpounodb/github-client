@@ -1,8 +1,7 @@
 import { ComponentMeta, ComponentStory } from '@storybook/react';
 import data from '~/App/assets/data-examples/repo-info.json';
 import { normalizeRepo } from '~/App/models/GitHub';
-
-import { GitRepoTile as GitRepoTileComponent } from './GitRepoTile';
+import GitRepoTileComponent from './GitRepoTile';
 
 type Meta = ComponentMeta<typeof GitRepoTileComponent>;
 type Story = ComponentStory<typeof GitRepoTileComponent>;

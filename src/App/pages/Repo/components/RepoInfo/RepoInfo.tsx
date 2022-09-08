@@ -7,10 +7,10 @@ import {
 } from '~/App/assets/icons';
 import { RepoModel } from '~/App/models/GitHub';
 import { formatCount, getLangLogo } from '~/shared/utils';
-import { withRepoBlock } from '../withRepoBlock';
+import { RepoBlock, withRepoBlock } from '../withRepoBlock';
 import styles from './RepoInfo.module.scss';
 
-export const RepoInfo = withRepoBlock<RepoModel>(styles.root, ({ data }) => {
+const RepoInfo: RepoBlock<RepoModel> = ({ data }) => {
   const langLogo = data.language && getLangLogo(data.language);
 
   return (
@@ -83,4 +83,6 @@ export const RepoInfo = withRepoBlock<RepoModel>(styles.root, ({ data }) => {
       )}
     </div>
   );
-});
+};
+
+export default withRepoBlock(styles.root, RepoInfo);

@@ -4,7 +4,7 @@ import { Main } from './pages/Main';
 import { Repo } from './pages/Repo';
 import { useQueryParamsStore } from './stores/RootStore/hooks/useQueryParamsStore';
 
-export const App: React.FC = () => {
+const App: React.FC = () => {
   useQueryParamsStore();
 
   return (
@@ -17,3 +17,5 @@ export const App: React.FC = () => {
     </div>
   );
 };
+
+export default App;

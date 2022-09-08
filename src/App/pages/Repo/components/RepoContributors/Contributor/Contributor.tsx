@@ -6,7 +6,7 @@ export type ContributorProps = {
   contributor: RepoContributorModel;
 };
 
-export const Contributor: React.FC<ContributorProps> = ({ contributor }) => {
+const Contributor: React.FC<ContributorProps> = ({ contributor }) => {
   return (
     <div className={styles.root}>
       <img className={styles.avatar} src={contributor.avatarUrl} alt="avatar" />
@@ -20,3 +20,5 @@ export const Contributor: React.FC<ContributorProps> = ({ contributor }) => {
     </div>
   );
 };
+
+export default React.memo(Contributor);

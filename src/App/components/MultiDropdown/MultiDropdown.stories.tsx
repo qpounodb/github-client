@@ -1,6 +1,6 @@
 import { ComponentMeta, ComponentStory } from '@storybook/react';
 import React from 'react';
-import { MultiDropdown as MultiDropdownComponent } from './MultiDropdown';
+import MultiDropdownComponent from './MultiDropdown';
 import { Option } from './types';
 
 type Meta = ComponentMeta<typeof MultiDropdownComponent>;

@@ -10,15 +10,13 @@ import { CommitFileModel } from '~/App/models/GitHub';
 import { joinClassName } from '~/shared/utils';
 import styles from './StatusIcon.module.scss';
 
-type Icon = React.FC<React.SVGProps<SVGSVGElement> & { title?: string }>;
-
-const getIcon = (Icon: Icon, className: string, title: string) => (
+const getIcon = (Icon: typeof IconAdded, className: string, title: string) => (
   <Icon className={joinClassName(styles.icon, className)} title={title} />
 );
 
-export const StatusIcon: React.FC<{ file: CommitFileModel }> = ({
-  file: { status },
-}) => {
+export type StatusIconProps = { file: CommitFileModel };
+
+const StatusIcon: React.FC<StatusIconProps> = ({ file: { status } }) => {
   switch (status) {
     case 'added':
       return getIcon(IconAdded, styles.added, status);
@@ -32,3 +30,5 @@ export const StatusIcon: React.FC<{ file: CommitFileModel }> = ({
       return getIcon(IconIssue, styles.unknown, status);
   }
 };
+
+export default React.memo(StatusIcon);

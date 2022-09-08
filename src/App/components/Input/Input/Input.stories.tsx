@@ -1,5 +1,5 @@
 import { ComponentMeta, ComponentStory } from '@storybook/react';
-import { Input as InputComponent } from './Input';
+import InputComponent from './Input';
 
 type Meta = ComponentMeta<typeof InputComponent>;
 type Story = ComponentStory<typeof InputComponent>;

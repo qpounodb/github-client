@@ -1,5 +1,5 @@
 import { RepoLangsModel } from '~/App/models/GitHub';
-import { withRepoBlock } from '../withRepoBlock';
+import { RepoBlock, withRepoBlock } from '../withRepoBlock';
 import { Lang } from './Lang';
 import styles from './RepoLangs.module.scss';
 
@@ -7,7 +7,7 @@ const getTotal = (langs: RepoLangsModel) => {
   return Object.values(langs).reduce((acc, x) => acc + x, 0);
 };
 
-export const RepoLangs = withRepoBlock<RepoLangsModel>('', ({ data }) => {
+const RepoLangs: RepoBlock<RepoLangsModel> = ({ data }) => {
   const total = getTotal(data);
   return (
     <>
@@ -19,4 +19,6 @@ export const RepoLangs = withRepoBlock<RepoLangsModel>('', ({ data }) => {
       </div>
     </>
   );
-});
+};
+
+export default withRepoBlock('', RepoLangs);

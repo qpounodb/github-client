@@ -1,9 +1,11 @@
 import React from 'react';
 import styles from './Stats.module.scss';
 
-export const Stats: React.FC<{
+export type StatsProps = {
   stats: { additions: number; deletions: number };
-}> = ({ stats: { additions, deletions } }) => {
+};
+
+const Stats: React.FC<StatsProps> = ({ stats: { additions, deletions } }) => {
   return (
     <div className={styles.root}>
       {additions > 0 && <span className={styles.plus}>++{additions}</span>}
@@ -11,3 +13,5 @@ export const Stats: React.FC<{
     </div>
   );
 };
+
+export default React.memo(Stats);

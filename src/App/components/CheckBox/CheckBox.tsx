@@ -9,20 +9,20 @@ export type CheckBoxProps = Omit<InputHTMLProps, 'onChange'> & {
   onChange: (value: boolean) => void;
 };
 
-export const CheckBox: React.FC<CheckBoxProps> = React.memo(
-  ({ onChange, ...rest }) => {
-    const handler: InputChangeHandler = React.useCallback(
-      (e) => onChange(e.currentTarget.checked),
-      [onChange]
-    );
+const CheckBox: React.FC<CheckBoxProps> = ({ onChange, ...rest }) => {
+  const handler: InputChangeHandler = React.useCallback(
+    (e) => onChange(e.currentTarget.checked),
+    [onChange]
+  );
 
-    return (
-      <input
-        {...rest}
-        type="checkbox"
-        className={joinClassName(style.root, rest.className)}
-        onChange={handler}
-      />
-    );
-  }
-);
+  return (
+    <input
+      {...rest}
+      type="checkbox"
+      className={joinClassName(style.root, rest.className)}
+      onChange={handler}
+    />
+  );
+};
+
+export default React.memo(CheckBox);

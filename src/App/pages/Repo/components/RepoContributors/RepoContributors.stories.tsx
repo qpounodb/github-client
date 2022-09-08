@@ -2,7 +2,7 @@ import { ComponentMeta, ComponentStory } from '@storybook/react';
 import data from '~/App/assets/data-examples/repo-contributors.json';
 import { normalizeRepoContributorCollection } from '~/App/models/GitHub';
 import { getDataState } from '~/shared/utils';
-import { RepoContributors as RepoContributorsComponent } from './RepoContributors';
+import RepoContributorsComponent from './RepoContributors';
 
 type Meta = ComponentMeta<typeof RepoContributorsComponent>;
 type Story = ComponentStory<typeof RepoContributorsComponent>;

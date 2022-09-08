@@ -13,36 +13,41 @@ export type ListProps = PropsWithClassName<{
 
 const equalTo = (a: Option) => (b: Option) => a.key === b.key;
 
-export const List: React.FC<ListProps> = React.memo(
-  ({ options, selected, onChange, className }) => {
-    const selectedSet = React.useMemo(
-      () => new Set(selected.map(({ key }) => key)),
-      [selected]
-    );
+const List: React.FC<ListProps> = ({
+  options,
+  selected,
+  onChange,
+  className,
+}) => {
+  const selectedSet = React.useMemo(
+    () => new Set(selected.map(({ key }) => key)),
+    [selected]
+  );
 
-    const handleChange = React.useCallback(
-      (option: Option, isSelected: boolean) => {
-        const isChanged = equalTo(option);
-        onChange(
-          isSelected
-            ? selected.filter(not(isChanged))
-            : options.filter((o) => isChanged(o) || selectedSet.has(o.key))
-        );
-      },
-      [onChange, options, selected, selectedSet]
-    );
+  const handleChange = React.useCallback(
+    (option: Option, isSelected: boolean) => {
+      const isChanged = equalTo(option);
+      onChange(
+        isSelected
+          ? selected.filter(not(isChanged))
+          : options.filter((o) => isChanged(o) || selectedSet.has(o.key))
+      );
+    },
+    [onChange, options, selected, selectedSet]
+  );
 
-    return (
-      <div className={joinClassName(styles.root, className)}>
-        {options.map((option) => (
-          <Item
-            key={option.key}
-            option={option}
-            isSelected={selectedSet.has(option.key)}
-            onChange={handleChange}
-          />
-        ))}
-      </div>
-    );
-  }
-);
+  return (
+    <div className={joinClassName(styles.root, className)}>
+      {options.map((option) => (
+        <Item
+          key={option.key}
+          option={option}
+          isSelected={selectedSet.has(option.key)}
+          onChange={handleChange}
+        />
+      ))}
+    </div>
+  );
+};
+
+export default React.memo(List);

@@ -1,6 +1,6 @@
 import { ComponentMeta, ComponentStory } from '@storybook/react';
 import React from 'react';
-import { CheckBox as CheckBoxComponent } from './CheckBox';
+import CheckBoxComponent from './CheckBox';
 
 type Meta = ComponentMeta<typeof CheckBoxComponent>;
 type Story = ComponentStory<typeof CheckBoxComponent>;

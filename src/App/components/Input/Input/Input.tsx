@@ -16,33 +16,39 @@ export type InputProps = Omit<
   onSubmit?: (value: string) => void;
 };
 
-export const Input: React.FC<InputProps> = React.memo(
-  ({ onChange, onSubmit, type = 'text', size = Size.l, ...rest }) => {
-    const handler: InputChangeHandler = React.useCallback(
-      (e) => onChange(e.target.value),
-      [onChange]
-    );
+const Input: React.FC<InputProps> = ({
+  onChange,
+  onSubmit,
+  type = 'text',
+  size = Size.l,
+  ...rest
+}) => {
+  const handler: InputChangeHandler = React.useCallback(
+    (e) => onChange(e.target.value),
+    [onChange]
+  );
 
-    const handleEnter: React.KeyboardEventHandler = React.useCallback(
-      (e) => {
-        if (e.key !== 'Enter') return;
-        onSubmit?.(String(rest.value));
-      },
-      [onSubmit, rest.value]
-    );
+  const handleEnter: React.KeyboardEventHandler = React.useCallback(
+    (e) => {
+      if (e.key !== 'Enter') return;
+      onSubmit?.(String(rest.value));
+    },
+    [onSubmit, rest.value]
+  );
 
-    return (
-      <input
-        {...rest}
-        className={joinClassName(
-          styles.root,
-          styles[`root_size-${size}`],
-          rest.className
-        )}
-        type={type}
-        onChange={handler}
-        onKeyDown={handleEnter}
-      />
-    );
-  }
-);
+  return (
+    <input
+      {...rest}
+      className={joinClassName(
+        styles.root,
+        styles[`root_size-${size}`],
+        rest.className
+      )}
+      type={type}
+      onChange={handler}
+      onKeyDown={handleEnter}
+    />
+  );
+};
+
+export default React.memo(Input);
