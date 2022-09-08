@@ -2,9 +2,9 @@ import {
   normalizeRepoCollection,
   RepoApi,
   RepoModelCollection,
-} from '~/App/models/GitHub';
-import { appParamsToApiParams, QueryParamsApp } from '~/App/models/QueryParams';
-import { GithubReposAPI } from '~/shared/GithubAPI';
+} from '~/App/models/github';
+import { appParamsToApiParams, QueryParamsApp } from '~/App/models/queryParams';
+import { GithubReposAPI } from '~/shared/githubAPI';
 import { ApiStore } from './ApiStore';
 
 export class ApiReposStore extends ApiStore<

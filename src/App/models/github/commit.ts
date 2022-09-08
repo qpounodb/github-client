@@ -4,18 +4,18 @@ import {
   CommitFileApi,
   CommitFileCollection,
   normalizeCommitFileCollection,
-} from './CommitFile';
+} from './commitFile';
 import {
   CommitInfoApi,
   CommitInfoModel,
   normalizeCommitInfo,
-} from './CommitInfo';
+} from './commitInfo';
 import {
   CommitStatsApi,
   CommitStatsModel,
   normalizeCommitStats,
-} from './CommitStats';
-import { normalizeRepoOwner, RepoOwnerApi, RepoOwnerModel } from './RepoOwner';
+} from './commitStats';
+import { normalizeRepoOwner, RepoOwnerApi, RepoOwnerModel } from './repoOwner';
 
 export type CommitApi = {
   sha: string;

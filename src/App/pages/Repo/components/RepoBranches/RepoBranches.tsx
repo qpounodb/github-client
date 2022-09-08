@@ -2,7 +2,7 @@ import { IconBranch } from '~/App/assets/icons';
 import {
   RepoBranchModel,
   RepoBranchModelCollection,
-} from '~/App/models/GitHub';
+} from '~/App/models/github';
 import { linerizeCollection } from '~/App/models/shared';
 import { RepoBlock, withRepoBlock } from '../withRepoBlock';
 import styles from './RepoBranches.module.scss';

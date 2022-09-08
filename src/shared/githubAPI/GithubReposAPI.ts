@@ -1,8 +1,8 @@
-import { RepoApi, SearchReposApi, SearchUsersApi } from '~/App/models/GitHub';
-import { SearchApi } from '~/App/models/GitHub/Search';
-import { QueryParamsAPI } from '~/App/models/QueryParams';
+import { RepoApi, SearchReposApi, SearchUsersApi } from '~/App/models/github';
+import { SearchApi } from '~/App/models/github/Search';
+import { QueryParamsAPI } from '~/App/models/queryParams';
 import { AxiosCacheInstance, createAxios } from '../axios-config';
-import { getGithubAPIConfig } from './GithubAPI.config';
+import { getConfig } from './config';
 
 const failSearchResults = <T>(): SearchApi<T> => ({
   total_count: 0,
@@ -14,7 +14,7 @@ export class GithubReposAPI {
   private _api: AxiosCacheInstance;
 
   constructor() {
-    this._api = createAxios(getGithubAPIConfig());
+    this._api = createAxios(getConfig());
   }
 
   async getRepos(

@@ -5,7 +5,7 @@ import {
   IconRepo,
   IconStar,
 } from '~/App/assets/icons';
-import { RepoModel } from '~/App/models/GitHub';
+import { RepoModel } from '~/App/models/github';
 import { formatCount, getLangLogo } from '~/shared/utils';
 import { RepoBlock, withRepoBlock } from '../withRepoBlock';
 import styles from './RepoInfo.module.scss';

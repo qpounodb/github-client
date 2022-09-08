@@ -1,5 +1,5 @@
-import { CommitApi, CommitModel, normalizeCommit } from '~/App/models/GitHub';
-import { GithubRepoAPI } from '~/shared/GithubAPI';
+import { CommitApi, CommitModel, normalizeCommit } from '~/App/models/github';
+import { GithubRepoAPI } from '~/shared/githubAPI';
 import { ApiStore } from './ApiStore';
 
 export class ApiCommitStore extends ApiStore<{}, CommitApi, CommitModel> {

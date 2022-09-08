@@ -1,6 +1,6 @@
 import { ComponentMeta, ComponentStory } from '@storybook/react';
 import data from '~/App/assets/data-examples/repo-contributors.json';
-import { normalizeRepoContributorCollection } from '~/App/models/GitHub';
+import { normalizeRepoContributorCollection } from '~/App/models/github';
 import { getDataState } from '~/shared/utils';
 import RepoContributorsComponent from './RepoContributors';
 

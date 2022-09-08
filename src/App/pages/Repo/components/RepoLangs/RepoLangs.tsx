@@ -1,4 +1,4 @@
-import { RepoLangsModel } from '~/App/models/GitHub';
+import { RepoLangsModel } from '~/App/models/github';
 import { RepoBlock, withRepoBlock } from '../withRepoBlock';
 import { Lang } from './Lang';
 import styles from './RepoLangs.module.scss';

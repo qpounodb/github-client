@@ -3,7 +3,7 @@ import { AxiosRequestConfig, AxiosRequestHeaders } from 'axios';
 const setAuth = (token?: string): AxiosRequestHeaders =>
   token ? { Authorization: `Bearer ${token}` } : {};
 
-export const getGithubAPIConfig = <T extends any = any>(
+export const getConfig = <T extends any = any>(
   urlPrefix: string = '',
   config: AxiosRequestConfig<T> = {}
 ): AxiosRequestConfig<T> => {

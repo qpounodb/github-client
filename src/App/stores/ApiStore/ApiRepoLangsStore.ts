@@ -2,8 +2,8 @@ import {
   normalizeRepoLangs,
   RepoLangsApi,
   RepoLangsModel,
-} from '~/App/models/GitHub';
-import { GithubRepoAPI } from '~/shared/GithubAPI';
+} from '~/App/models/github';
+import { GithubRepoAPI } from '~/shared/githubAPI';
 import { ApiStore } from './ApiStore';
 
 export class ApiRepoLangsStore extends ApiStore<

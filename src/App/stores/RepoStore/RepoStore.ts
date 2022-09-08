@@ -1,6 +1,6 @@
 import { CanceledError } from 'axios';
 import { action, computed, makeObservable } from 'mobx';
-import { GithubRepoAPI } from '~/shared/GithubAPI';
+import { GithubRepoAPI } from '~/shared/githubAPI';
 import { ILocalStore } from '~/shared/hooks';
 import { Nullable } from '~/shared/types';
 import { isSome, toError } from '~/shared/utils';

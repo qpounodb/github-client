@@ -1,5 +1,5 @@
-import { normalizeRepo, RepoApi, RepoModel } from '~/App/models/GitHub';
-import { GithubRepoAPI } from '~/shared/GithubAPI';
+import { normalizeRepo, RepoApi, RepoModel } from '~/App/models/github';
+import { GithubRepoAPI } from '~/shared/githubAPI';
 import { ApiStore } from './ApiStore';
 
 export class ApiRepoInfoStore extends ApiStore<{}, RepoApi, RepoModel> {

@@ -1,6 +1,6 @@
 import React from 'react';
-import { CommitModel } from '~/App/models/GitHub';
-import { linerizeCollection } from '~/App/models/shared/Collection';
+import { CommitModel } from '~/App/models/github';
+import { linerizeCollection } from '~/App/models/shared';
 import { RepoBlock, withRepoBlock } from '../withRepoBlock';
 import styles from './RepoCommit.module.scss';
 import { Stats } from './Stats';

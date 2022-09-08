@@ -1,5 +1,5 @@
 import { CollectionModel, normalizeCollection } from '../shared';
-import { normalizeRepoOwner, RepoOwnerApi, RepoOwnerModel } from './RepoOwner';
+import { normalizeRepoOwner, RepoOwnerApi, RepoOwnerModel } from './repoOwner';
 
 export type RepoContributorApi = RepoOwnerApi & {
   contributions: number;

@@ -5,9 +5,9 @@ import {
   RepoContributorApi,
   RepoLangsApi,
   RepoReadmeApi,
-} from '~/App/models/GitHub';
+} from '~/App/models/github';
 import { AxiosCacheInstance, createAxios } from '../axios-config';
-import { getGithubAPIConfig } from './GithubAPI.config';
+import { getConfig } from './config';
 
 export class GithubRepoAPI {
   private fetch: AxiosCacheInstance;
@@ -15,9 +15,7 @@ export class GithubRepoAPI {
 
   constructor(orgName: string, repoName: string, signal?: AbortSignal) {
     this.signal = signal;
-    this.fetch = createAxios(
-      getGithubAPIConfig(`/repos/${orgName}/${repoName}`)
-    );
+    this.fetch = createAxios(getConfig(`/repos/${orgName}/${repoName}`));
   }
 
   private getCfg(params?: Record<string, number | string>) {

@@ -1,5 +1,5 @@
 import React from 'react';
-import { RepoModel, RepoModelCollection } from '~/App/models/GitHub';
+import { RepoModel, RepoModelCollection } from '~/App/models/github';
 import { linerizeCollection } from '~/App/models/shared';
 import { Nullable } from '~/shared/types';
 import { isNone } from '~/shared/utils';

@@ -14,7 +14,7 @@ import {
   toOrderType,
   toSortType,
   toUrlSearchParams,
-} from '~/App/models/QueryParams';
+} from '~/App/models/queryParams';
 import { isSome } from '~/shared/utils';
 
 type SetURLSearchParams = (

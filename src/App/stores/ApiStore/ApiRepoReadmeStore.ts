@@ -2,8 +2,8 @@ import {
   normalizeRepoReadme,
   RepoReadmeApi,
   RepoReadmeModel,
-} from '~/App/models/GitHub';
-import { GithubRepoAPI } from '~/shared/GithubAPI';
+} from '~/App/models/github';
+import { GithubRepoAPI } from '~/shared/githubAPI';
 import { ApiStore } from './ApiStore';
 
 export class ApiRepoReadmeStore extends ApiStore<

@@ -1,6 +1,6 @@
 import React from 'react';
 import { Converter } from 'showdown';
-import { RepoReadmeModel } from '~/App/models/GitHub';
+import { RepoReadmeModel } from '~/App/models/github';
 import { RepoBlock, withRepoBlock } from '../withRepoBlock';
 import styles from './RepoReadme.module.scss';
 

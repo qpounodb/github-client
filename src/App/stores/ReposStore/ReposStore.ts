@@ -6,9 +6,9 @@ import {
   makeObservable,
   reaction,
 } from 'mobx';
-import { RepoModelCollection } from '~/App/models/GitHub';
-import { defaultQueryParamsAPI } from '~/App/models/QueryParams';
-import { GithubReposAPI } from '~/shared/GithubAPI';
+import { RepoModelCollection } from '~/App/models/github';
+import { defaultQueryParamsAPI } from '~/App/models/queryParams';
+import { GithubReposAPI } from '~/shared/githubAPI';
 import { ILocalStore } from '~/shared/hooks';
 import { DataState, Nullable } from '~/shared/types';
 import { isSome, toError } from '~/shared/utils';

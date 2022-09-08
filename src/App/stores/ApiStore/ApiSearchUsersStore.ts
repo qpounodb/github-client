@@ -1,5 +1,5 @@
-import { SearchUsersApi } from '~/App/models/GitHub';
-import { GithubReposAPI } from '~/shared/GithubAPI';
+import { SearchUsersApi } from '~/App/models/github';
+import { GithubReposAPI } from '~/shared/githubAPI';
 import { ApiStore } from './ApiStore';
 
 type FetchParams = { orgName: string };
