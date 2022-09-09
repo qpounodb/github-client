@@ -2,7 +2,7 @@ import { CanceledError } from 'axios';
 import { action, computed, makeObservable, observable } from 'mobx';
 import { ILocalStore } from '~/shared/hooks';
 import { DataState, Nullable } from '~/shared/types';
-import { isNone, isSome, sleep, toError } from '~/shared/utils';
+import { isNone, isSome, toError } from '~/shared/utils';
 
 export type ApiStoreConfig<Params, Raw, Model> = {
   fetch: (params: Params, signal: AbortSignal) => Promise<Raw>;
@@ -109,7 +109,6 @@ export class ApiStore<Params = any, Raw = any, Model = Raw>
     const signal = this._start();
 
     try {
-      await sleep(100);
       if (signal.aborted) {
         throw new CanceledError();
       }
