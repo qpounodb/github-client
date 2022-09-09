@@ -16,8 +16,8 @@ import styles from './Main.module.scss';
 
 const SEARCH_PLACEHOLDER = 'Введите название организации';
 
-const SORT_OPTIONS: Option[] = Object.entries(SortKind).map(([key, value]) => ({
-  key,
+const SORT_OPTIONS: Option[] = Object.values(SortKind).map((value) => ({
+  key: value,
   value: `Sort repos by ${value.split('_').join(' ')}`,
 }));
 
@@ -25,13 +25,11 @@ const Main: React.FC = () => {
   const store = useLocalStore(() => new ReposStore());
   const navigate = useNavigate();
   const [input, setInput] = React.useState(rootStore.queryParamsStore.orgName);
-  const [sortType, setSortType] = React.useState(
-    rootStore.queryParamsStore.sort as string
-  );
 
   const selectedSort = React.useMemo(
-    () => SORT_OPTIONS.find((o) => o.key === sortType),
-    [sortType]
+    () => SORT_OPTIONS.find((o) => o.key === rootStore.queryParamsStore.sort),
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [rootStore.queryParamsStore.sort]
   );
 
   React.useEffect(() => {
@@ -51,7 +49,6 @@ const Main: React.FC = () => {
   }, []);
 
   const submitSort = React.useCallback(({ key }: Option) => {
-    setSortType(String(key));
     rootStore.queryParamsStore.setSort(String(key));
   }, []);
 
