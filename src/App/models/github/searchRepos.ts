@@ -1,5 +1,5 @@
 import { normalizeRepoCollection, RepoApi, RepoModel } from './repo';
-import { normalizeSearch, SearchApi, SearchModel } from './Search';
+import { normalizeSearch, SearchApi, SearchModel } from './search';
 
 export type SearchReposApi = SearchApi<RepoApi>;
 

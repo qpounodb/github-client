@@ -3,7 +3,7 @@ import {
   RepoOwnerApi,
   RepoOwnerModel,
 } from './repoOwner';
-import { normalizeSearch, SearchApi, SearchModel } from './Search';
+import { normalizeSearch, SearchApi, SearchModel } from './search';
 
 export type SearchUsersApi = SearchApi<RepoOwnerApi>;
 

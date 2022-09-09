@@ -1,5 +1,5 @@
 import { RepoApi, SearchReposApi, SearchUsersApi } from '~/App/models/github';
-import { SearchApi } from '~/App/models/github/Search';
+import { SearchApi } from '~/App/models/github/search';
 import { QueryParamsAPI } from '~/App/models/queryParams';
 import { AxiosCacheInstance, createAxios } from '../axios-config';
 import { getConfig } from './config';
