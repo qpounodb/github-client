@@ -1,13 +1,13 @@
 import { ComponentMeta, ComponentStory } from '@storybook/react';
 import React from 'react';
+import { Option } from '../Option';
 import MultiDropdownComponent from './MultiDropdown';
-import { Option } from './types';
 
 type Meta = ComponentMeta<typeof MultiDropdownComponent>;
 type Story = ComponentStory<typeof MultiDropdownComponent>;
 
 const meta: Meta = {
-  title: 'Input/MultiDropdown',
+  title: 'Dropdown/MultiDropdown',
   component: MultiDropdownComponent,
 };
 

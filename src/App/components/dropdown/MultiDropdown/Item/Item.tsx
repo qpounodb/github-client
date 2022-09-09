@@ -1,6 +1,6 @@
 import React from 'react';
 import { joinClassName } from '~/shared/utils';
-import { Option } from '../types';
+import { Option } from '../../Option';
 import styles from './Item.module.scss';
 
 export type ItemProps = {

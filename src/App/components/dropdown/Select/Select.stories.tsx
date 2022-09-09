@@ -1,13 +1,13 @@
 import { ComponentMeta, ComponentStory } from '@storybook/react';
 import React from 'react';
+import { Option } from '../Option';
 import SelectComponent from './Select';
-import { Option } from './types';
 
 type Meta = ComponentMeta<typeof SelectComponent>;
 type Story = ComponentStory<typeof SelectComponent>;
 
 const meta: Meta = {
-  title: 'Input/Select',
+  title: 'Dropdown/Select',
   component: SelectComponent,
 };
 

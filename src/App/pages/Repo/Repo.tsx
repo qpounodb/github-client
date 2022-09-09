@@ -1,7 +1,7 @@
 import { observer } from 'mobx-react-lite';
 import React from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import { Button } from '~/App/components/Button';
+import { Button } from '~/App/components/button';
 import { RepoStore } from '~/App/stores';
 import { useLocalStore } from '~/shared/hooks';
 import { RepoBranches } from './components/RepoBranches';

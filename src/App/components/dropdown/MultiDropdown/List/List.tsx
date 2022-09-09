@@ -1,8 +1,8 @@
 import React from 'react';
 import { PropsWithClassName } from '~/shared/types';
 import { joinClassName, not } from '~/shared/utils';
+import { Option } from '../../Option';
 import { Item } from '../Item';
-import { Option } from '../types';
 import styles from './List.module.scss';
 
 export type ListProps = PropsWithClassName<{

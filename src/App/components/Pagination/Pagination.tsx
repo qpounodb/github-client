@@ -1,7 +1,7 @@
 import React from 'react';
 import { Color, Size } from '~/App/constants';
-import { SquareButton } from '../Button';
-import { InputNumber } from '../Input';
+import { SquareButton } from '../button';
+import { InputNumber } from '../input';
 import styles from './Pagination.module.scss';
 
 export type PaginationProps = {

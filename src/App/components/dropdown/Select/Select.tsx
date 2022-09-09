@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
-import { Input } from '~/App/components/Input';
+import { Input } from '~/App/components/input';
 import { useHide } from '~/shared/hooks';
+import { Option } from '../Option';
 import { List } from './List';
 import styles from './Select.module.scss';
-import { Option } from './types';
 
 export type SelectProps = {
   options: Option[];

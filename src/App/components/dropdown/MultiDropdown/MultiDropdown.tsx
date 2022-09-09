@@ -1,22 +1,16 @@
 import React, { useState } from 'react';
-import { Input } from '~/App/components/Input';
+import { Input } from '~/App/components/input';
 import { useHide } from '~/shared/hooks';
+import { Option } from '../Option';
 import { List } from './List';
 import styles from './MultiDropdown.module.scss';
-import { Option } from './types';
 
 export type MultiDropdownProps = {
-  /** Массив возможных вариантов для выбора */
   options: Option[];
-  /** Текущие выбранные значения поля, массив может быть пустым */
   selected: Option[];
-  /** Callback, вызываемый при выборе варианта */
   onChange: (selected: Option[]) => void;
-  /** Заблокирован ли дропдаун */
   disabled?: boolean;
-  /** Преобразовать выбранные значения в строку. Отображается в дропдауне в качестве выбранного значения */
   pluralizeOptions: (value: Option[]) => string;
-  /** Отображается в дропдауне когда ничего не выбранно */
   placeholder?: string;
 };
 

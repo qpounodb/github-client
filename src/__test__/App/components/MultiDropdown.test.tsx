@@ -5,7 +5,7 @@ import {
   MultiDropdown,
   MultiDropdownProps,
   Option,
-} from '~/App/components/MultiDropdown';
+} from '~/App/components/dropdown';
 import { TEST_TITLE } from '~/__test__/constants';
 
 const defaultOptions: Option[] = [
