@@ -2,46 +2,48 @@ import { URLSearchParamsInit } from 'react-router-dom';
 import { Nullable } from '~/shared/types';
 import { isNone } from '~/shared/utils';
 
-type ToType = <T extends Record<string, string>>(
-  record: T,
-  def: keyof T
-) => (key: Nullable<string>) => keyof T;
+export enum RepoType {
+  all = 'all',
+  public = 'public',
+  private = 'private',
+  forks = 'forks',
+  sources = 'sources',
+  member = 'member',
+}
 
-const createNormalizerToType: ToType = (record, def) => (key) => {
-  return (key && record[key]) ?? def;
+export enum SortKind {
+  created = 'created',
+  updated = 'updated',
+  pushed = 'pushed',
+  full_name = 'full_name',
+}
+
+export enum OrderDir {
+  asc = 'asc',
+  desc = 'desc',
+}
+
+type ToType = <Enum extends Record<string, unknown>>(
+  someEnum: Enum,
+  def: keyof Enum
+) => (key: Nullable<string>) => keyof Enum;
+
+const createNormalizer: ToType = (someEnum, def) => (key) => {
+  return key && Object.hasOwn(someEnum, key) ? key : def;
 };
 
-export const REPOS_TYPES = {
-  all: 'all',
-  public: 'public',
-  private: 'private',
-  forks: 'forks',
-  sources: 'sources',
-  member: 'member',
-};
-export type ReposTypes = keyof typeof REPOS_TYPES;
-export const toRepoType = createNormalizerToType(REPOS_TYPES, 'all');
+export const toRepoType = createNormalizer(RepoType, RepoType.all);
+export const toSortKind = createNormalizer(SortKind, SortKind.updated);
+export const toOrderDir = createNormalizer(OrderDir, OrderDir.asc);
 
-export const SORT_TYPES = {
-  created: 'created',
-  updated: 'updated',
-  pushed: 'pushed',
-  full_name: 'full_name',
-};
-export type SortTypes = keyof typeof SORT_TYPES;
-export const toSortType = createNormalizerToType(SORT_TYPES, 'updated');
-
-export const ORDER_TYPES = {
-  asc: 'asc',
-  desc: 'desc',
-};
-export type OrderTypes = keyof typeof ORDER_TYPES;
-export const toOrderType = createNormalizerToType(ORDER_TYPES, 'asc');
+type Repos = keyof typeof RepoType;
+type Sort = keyof typeof SortKind;
+type Order = keyof typeof OrderDir;
 
 export type QueryParamsAPI = {
-  type?: ReposTypes;
-  sort?: SortTypes;
-  direction?: OrderTypes;
+  type?: Repos;
+  sort?: Sort;
+  direction?: Order;
   per_page: number;
   page: number;
 };
@@ -49,8 +51,8 @@ export type QueryParamsAPI = {
 export type QueryParamsApp = {
   orgName?: string;
   page?: number;
-  sort?: SortTypes;
-  order?: OrderTypes;
+  sort?: Sort;
+  order?: Order;
 };
 
 export const defaultQueryParamsAPI: Required<QueryParamsAPI> = {
@@ -68,8 +70,8 @@ export const appParamsToApiParams = ({
 }: QueryParamsApp): QueryParamsAPI => ({
   ...defaultQueryParamsAPI,
   page: page ?? 1,
-  sort: toSortType(sort),
-  direction: toOrderType(order),
+  sort: toSortKind(sort),
+  direction: toOrderDir(order),
 });
 
 export const toUrlSearchParams = ({

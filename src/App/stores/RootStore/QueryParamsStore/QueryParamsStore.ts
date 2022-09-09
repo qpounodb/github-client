@@ -8,11 +8,11 @@ import {
 } from 'mobx';
 import { URLSearchParamsInit } from 'react-router-dom';
 import {
-  OrderTypes,
+  OrderDir,
   QueryParamsApp,
-  SortTypes,
-  toOrderType,
-  toSortType,
+  SortKind,
+  toOrderDir,
+  toSortKind,
   toUrlSearchParams,
 } from '~/App/models/queryParams';
 import { isSome } from '~/shared/utils';
@@ -22,6 +22,9 @@ type SetURLSearchParams = (
   navigateOpts?: { replace?: boolean; state?: any }
 ) => void;
 
+type Sort = keyof typeof SortKind;
+type Order = keyof typeof OrderDir;
+
 type PrivateFields = `_${keyof QueryParamsApp}`;
 
 export class QueryParamsStore implements QueryParamsApp {
@@ -30,8 +33,8 @@ export class QueryParamsStore implements QueryParamsApp {
 
   private _orgName?: string;
   private _page?: number;
-  private _sort?: SortTypes;
-  private _order?: OrderTypes;
+  private _sort?: Sort;
+  private _order?: Order;
 
   constructor() {
     makeObservable<QueryParamsStore, PrivateFields>(this, {
@@ -65,11 +68,11 @@ export class QueryParamsStore implements QueryParamsApp {
     return this._page;
   }
 
-  get sort(): SortTypes | undefined {
+  get sort(): Sort | undefined {
     return this._sort;
   }
 
-  get order(): OrderTypes | undefined {
+  get order(): Order | undefined {
     return this._order;
   }
 
@@ -93,15 +96,15 @@ export class QueryParamsStore implements QueryParamsApp {
 
   setSort(sort?: string): void {
     if (isSome(sort)) {
-      this._sort = toSortType(sort);
-      this._order = sort === 'full_name' ? 'asc' : 'desc';
+      this._sort = toSortKind(sort);
+      this._order = sort === SortKind.full_name ? OrderDir.asc : OrderDir.desc;
     } else {
       this._sort = sort;
     }
   }
 
   setOrder(order?: string): void {
-    this._order = isSome(order) ? toOrderType(order) : order;
+    this._order = isSome(order) ? toOrderDir(order) : order;
   }
 
   setParams(params: URLSearchParams): void {
@@ -114,10 +117,10 @@ export class QueryParamsStore implements QueryParamsApp {
           this._page = Number(value);
           break;
         case 'sort':
-          this._sort = toSortType(value);
+          this._sort = toSortKind(value);
           break;
         case 'order':
-          this._order = toOrderType(value);
+          this._order = toOrderDir(value);
           break;
       }
     });

@@ -7,7 +7,7 @@ import { Pagination } from '~/App/components/Pagination';
 import { Search } from '~/App/components/Search';
 import { WithLoader } from '~/App/components/WithLoader';
 import { RepoModel } from '~/App/models/github';
-import { SORT_TYPES } from '~/App/models/queryParams';
+import { SortKind } from '~/App/models/queryParams';
 import { ReposStore } from '~/App/stores';
 import { rootStore } from '~/App/stores/RootStore';
 import { joinClassName } from '~/shared/utils';
@@ -16,12 +16,10 @@ import styles from './Main.module.scss';
 
 const SEARCH_PLACEHOLDER = 'Введите название организации';
 
-const SORT_OPTIONS: Option[] = Object.entries(SORT_TYPES).map(
-  ([key, value]) => ({
-    key,
-    value: `Sort repos by ${value.split('_').join(' ')}`,
-  })
-);
+const SORT_OPTIONS: Option[] = Object.entries(SortKind).map(([key, value]) => ({
+  key,
+  value: `Sort repos by ${value.split('_').join(' ')}`,
+}));
 
 const Main: React.FC = () => {
   const store = useLocalStore(() => new ReposStore());
