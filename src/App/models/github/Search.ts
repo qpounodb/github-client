@@ -3,14 +3,12 @@ import { CollectionModel, ToCollection } from '../shared';
 export type SearchApi<T> = {
   total_count: number;
   incomplete_results: boolean;
-} & {
   items: T[];
 };
 
 export type SearchModel<KeyId extends keyof M, M> = {
   totalCount: number;
   incomplete: boolean;
-} & {
   items: CollectionModel<KeyId, M>;
 };
 
