@@ -6,4 +6,5 @@ export * from './error';
 export * from './format';
 export * from './is';
 export * from './link';
+export * from './object';
 export * from './wrapper';

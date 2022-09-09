@@ -15,7 +15,7 @@ import {
   toSortKind,
   toUrlSearchParams,
 } from '~/App/models/queryParams';
-import { isSome } from '~/shared/utils';
+import { isSome, removeUndefined } from '~/shared/utils';
 
 type SetURLSearchParams = (
   nextInit: URLSearchParamsInit,
@@ -77,12 +77,12 @@ export class QueryParamsStore implements QueryParamsApp {
   }
 
   get params(): QueryParamsApp {
-    const params: QueryParamsApp = {};
-    isSome(this._orgName) && (params.orgName = this._orgName);
-    isSome(this._page) && (params.page = this._page);
-    isSome(this._sort) && (params.sort = this._sort);
-    isSome(this._order) && (params.order = this._order);
-    return params;
+    return removeUndefined({
+      orgName: this._orgName,
+      page: this._page,
+      sort: this._sort,
+      order: this._order,
+    });
   }
 
   setOrgName(name?: string): void {
