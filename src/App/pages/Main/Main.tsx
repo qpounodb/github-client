@@ -31,6 +31,11 @@ const Main: React.FC = () => {
     rootStore.queryParamsStore.sort as string
   );
 
+  const selectedSort = React.useMemo(
+    () => SORT_OPTIONS.find((o) => o.key === sortType),
+    [sortType]
+  );
+
   React.useEffect(() => {
     store.init();
     store.fetch();
@@ -47,9 +52,9 @@ const Main: React.FC = () => {
     rootStore.queryParamsStore.setPageNum(page);
   }, []);
 
-  const submitSort = React.useCallback((sort: string | number) => {
-    setSortType(String(sort));
-    rootStore.queryParamsStore.setSort(String(sort));
+  const submitSort = React.useCallback(({ key }: Option) => {
+    setSortType(String(key));
+    rootStore.queryParamsStore.setSort(String(key));
   }, []);
 
   const submitOrder = React.useCallback((isAsc: boolean) => {
@@ -77,9 +82,9 @@ const Main: React.FC = () => {
       <div className={joinClassName(styles.section, styles.filters)}>
         <Select
           options={SORT_OPTIONS}
-          selected={sortType}
+          selected={selectedSort}
           onChange={submitSort}
-          placeholder="Set sort by"
+          placeholder="Set sort by..."
         />
         <label>
           <CheckBox

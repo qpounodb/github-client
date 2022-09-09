@@ -13,22 +13,11 @@ const meta: Meta = {
 
 export default meta;
 
-export const Select: Story = ({
-  selected: initialSelected,
-  onChange,
-  ...rest
-}) => {
-  const [selected, setSelected] = React.useState(initialSelected);
-
-  React.useEffect(() => setSelected(initialSelected), [initialSelected]);
-
-  const handleChange: typeof onChange = (selected) => {
-    setSelected(selected);
-    onChange(selected);
-  };
+export const Select: Story = (props) => {
+  const [selected, setSelected] = React.useState<Option | undefined>(undefined);
 
   return (
-    <SelectComponent {...rest} selected={selected} onChange={handleChange} />
+    <SelectComponent {...props} selected={selected} onChange={setSelected} />
   );
 };
 
@@ -41,7 +30,6 @@ const options: Option[] = [
 
 Select.args = {
   options,
-  selected: null,
   placeholder: 'Выберите организацию',
   disabled: false,
 };

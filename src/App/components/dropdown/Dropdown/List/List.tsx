@@ -1,19 +1,19 @@
 import React from 'react';
 import { PropsWithClassName } from '~/shared/types';
-import { isSome, joinClassName } from '~/shared/utils';
+import { joinClassName } from '~/shared/utils';
 import { Option } from '../../Option';
 import { Item } from '../Item';
 import styles from './List.module.scss';
 
 export type ListProps = PropsWithClassName<{
   options: Option[];
-  selected: number | string | null;
-  onChange: (key: number | string) => void;
+  isSelected: (option: Option) => boolean;
+  onChange: (option: Option, isSelected: boolean) => void;
 }>;
 
 const List: React.FC<ListProps> = ({
   options,
-  selected,
+  isSelected,
   onChange,
   className,
 }) => {
@@ -23,7 +23,7 @@ const List: React.FC<ListProps> = ({
         <Item
           key={option.key}
           option={option}
-          isSelected={isSome(selected) && selected === option.key}
+          isSelected={isSelected(option)}
           onChange={onChange}
         />
       ))}

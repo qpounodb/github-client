@@ -46,6 +46,7 @@ const Input: React.FC<InputProps> = ({
         rest.className
       )}
       type={type}
+      value={value}
       onChange={handler}
       onKeyDown={handleEnter}
     />

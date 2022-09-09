@@ -1,59 +1,59 @@
-import React, { useState } from 'react';
-import { Input } from '~/App/components/input';
-import { useHide } from '~/shared/hooks';
+import React from 'react';
+import { not } from '~/shared/utils';
+import { Dropdown } from '../Dropdown';
 import { Option } from '../Option';
-import { List } from './List';
-import styles from './MultiDropdown.module.scss';
 
 export type MultiDropdownProps = {
   options: Option[];
   selected: Option[];
+  getTitle: (selected: Option[]) => string;
+  placeholder?: string;
   onChange: (selected: Option[]) => void;
   disabled?: boolean;
-  pluralizeOptions: (value: Option[]) => string;
-  placeholder?: string;
 };
 
+const equalTo = (a: Option) => (b: Option) => a.key === b.key;
+
 const MultiDropdown: React.FC<MultiDropdownProps> = ({
+  options,
   selected,
+  getTitle,
+  placeholder,
+  onChange,
   disabled,
-  pluralizeOptions,
-  placeholder = '',
-  ...rest
 }) => {
-  const ref = React.useRef<HTMLDivElement | null>(null);
+  const title = React.useMemo(() => getTitle(selected), [selected, getTitle]);
 
-  const [isHidden, setHide] = useState<boolean>(true);
-
-  const title = React.useMemo(
-    () => pluralizeOptions(selected),
-    [selected, pluralizeOptions]
+  const selectedSet = React.useMemo(
+    () => new Set(selected.map(({ key }) => key)),
+    [selected]
   );
 
-  const hide = React.useCallback(() => setHide(true), [setHide]);
+  const isSelected = React.useCallback(
+    (option: Option) => selectedSet.has(option.key),
+    [selectedSet]
+  );
 
-  useHide(ref, hide);
-
-  const handleDropdown = React.useCallback(
-    () => disabled || setHide((state) => !state),
-    [disabled]
+  const handleChange = React.useCallback(
+    (option: Option, wasSelected: boolean) => {
+      const isChanged = equalTo(option);
+      onChange(
+        wasSelected ? selected.filter(not(isChanged)) : [...selected, option]
+      );
+    },
+    [onChange, selected]
   );
 
   return (
-    <div className={styles.root} ref={ref}>
-      <Input
-        className={styles.root__input}
-        value={title}
-        placeholder={placeholder}
-        onClick={handleDropdown}
-        onChange={() => {}}
-        readOnly
-        disabled={disabled}
-      />
-      {disabled || isHidden ? null : (
-        <List {...rest} selected={selected} className={styles.root__list} />
-      )}
-    </div>
+    <Dropdown
+      options={options}
+      isSelected={isSelected}
+      title={title}
+      placeholder={placeholder}
+      onChange={handleChange}
+      hideOnChange={false}
+      disabled={disabled}
+    />
   );
 };
 
