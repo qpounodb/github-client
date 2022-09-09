@@ -16,6 +16,7 @@ type PrivateField =
   | '_start'
   | '_end'
   | '_finally';
+
 export class ApiStore<Params = any, Raw = any, Model = Raw>
   implements ILocalStore
 {
@@ -87,10 +88,13 @@ export class ApiStore<Params = any, Raw = any, Model = Raw>
     return this._controller.signal;
   }
 
-  private _end(result?: Nullable<Error | Model>): void {
+  private _end(
+    data: Nullable<Model> = null,
+    error: Nullable<Error> = null
+  ): void {
     this._controller = null;
-    this._data = result instanceof Error ? null : result;
-    this._error = result instanceof Error ? result : null;
+    this._data = data;
+    this._error = error;
   }
 
   private _finally(): void {
@@ -113,7 +117,7 @@ export class ApiStore<Params = any, Raw = any, Model = Raw>
       this._end(this._normalize(data));
     } catch (error) {
       if (!signal.aborted) {
-        this._end(toError(error));
+        this._end(null, toError(error));
       }
       throw error;
     } finally {
