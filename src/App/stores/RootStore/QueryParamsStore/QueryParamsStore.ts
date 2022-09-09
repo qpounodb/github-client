@@ -95,12 +95,8 @@ export class QueryParamsStore implements QueryParamsApp {
   }
 
   setSort(sort?: string): void {
-    if (isSome(sort)) {
-      this._sort = toSortKind(sort);
-      this._order = sort === SortKind.full_name ? OrderDir.asc : OrderDir.desc;
-    } else {
-      this._sort = sort;
-    }
+    this._sort = toSortKind(sort);
+    this._page = 1;
   }
 
   setOrder(order?: string): void {
