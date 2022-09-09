@@ -67,7 +67,7 @@ const Main: React.FC = () => {
     <div className={styles.root}>
       <div className={styles.section}>
         <Search
-          value={input ?? ''}
+          value={input}
           placeholder={SEARCH_PLACEHOLDER}
           onChange={setInput}
           onSubmit={submitName}
@@ -100,7 +100,7 @@ const Main: React.FC = () => {
       <div>
         <Pagination
           onSubmit={submitPage}
-          page={rootStore.queryParamsStore.page ?? 1}
+          page={rootStore.queryParamsStore.page}
           count={store.pagesCount}
           loading={store.loading}
         />

@@ -6,14 +6,14 @@ import styles from './Pagination.module.scss';
 
 export type PaginationProps = {
   onSubmit: (page: number) => void;
-  page: number;
+  page?: number;
   count: number;
   loading?: boolean;
 };
 
 const Pagination: React.FC<PaginationProps> = ({
   onSubmit,
-  page,
+  page = 1,
   count,
   loading = false,
 }) => {

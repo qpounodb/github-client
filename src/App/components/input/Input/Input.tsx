@@ -10,7 +10,7 @@ export type InputProps = Omit<
   InputHTMLProps,
   'value' | 'onChange' | 'onSubmit' | 'size'
 > & {
-  value: string | number;
+  value?: string | number;
   size?: Size;
   onChange: (value: string) => void;
   onSubmit?: (value: string) => void;
@@ -21,6 +21,7 @@ const Input: React.FC<InputProps> = ({
   onSubmit,
   type = 'text',
   size = Size.l,
+  value = '',
   ...rest
 }) => {
   const handler: InputChangeHandler = React.useCallback(
@@ -31,9 +32,9 @@ const Input: React.FC<InputProps> = ({
   const handleEnter: React.KeyboardEventHandler = React.useCallback(
     (e) => {
       if (e.key !== 'Enter') return;
-      onSubmit?.(String(rest.value));
+      onSubmit?.(String(value));
     },
-    [onSubmit, rest.value]
+    [onSubmit, value]
   );
 
   return (

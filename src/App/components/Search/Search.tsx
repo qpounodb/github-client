@@ -5,7 +5,7 @@ import { Input } from '../input';
 import styles from './Search.module.scss';
 
 export type SearchProps = {
-  value: string;
+  value?: string;
   placeholder: string;
   loading?: boolean;
   onChange: (value: string) => void;
@@ -13,7 +13,7 @@ export type SearchProps = {
 };
 
 const Search: React.FC<SearchProps> = ({
-  value,
+  value = '',
   placeholder,
   loading = false,
   onChange,
