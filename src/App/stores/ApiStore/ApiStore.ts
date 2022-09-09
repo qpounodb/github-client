@@ -46,8 +46,15 @@ export class ApiStore<Params = any, Raw = any, Model = Raw>
       _finally: action.bound,
       fetch: action.bound,
       reset: action.bound,
-      destroy: action.bound,
     });
+  }
+
+  init(): void {}
+
+  destroy(): void {
+    this.stop();
+    this.reset();
+    this._controller = null;
   }
 
   get loading(): boolean {
@@ -122,11 +129,5 @@ export class ApiStore<Params = any, Raw = any, Model = Raw>
 
   stop(): void {
     this._controller?.abort();
-  }
-
-  destroy(): void {
-    this.stop();
-    this.reset();
-    this._controller = null;
   }
 }

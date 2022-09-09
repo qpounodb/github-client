@@ -1,6 +1,7 @@
 import React from 'react';
 
 export interface ILocalStore {
+  init(): void;
   destroy(): void;
 }
 
@@ -12,6 +13,7 @@ export const useLocalStore = <T extends ILocalStore>(create: () => T): T => {
   }
 
   React.useEffect(() => {
+    ref.current?.init();
     return () => ref.current?.destroy();
   }, []);
 

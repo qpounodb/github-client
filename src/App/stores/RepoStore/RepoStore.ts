@@ -32,7 +32,7 @@ export class RepoStore implements ILocalStore {
 
   private readonly _storesMap: ApiStoresMap;
 
-  constructor(orgName: string, repoName: string) {
+  constructor(orgName = '', repoName = '') {
     this._api = new GithubRepoAPI(orgName, repoName);
 
     this._storesMap = {
@@ -50,8 +50,15 @@ export class RepoStore implements ILocalStore {
       error: computed,
       state: computed,
       fetch: action.bound,
-      destroy: action.bound,
     });
+  }
+
+  init(): void {
+    this.fetch().then(null, null);
+  }
+
+  destroy(): void {
+    this._stores.forEach((store) => store.destroy());
   }
 
   private get _stores(): ApiStore[] {
@@ -103,10 +110,5 @@ export class RepoStore implements ILocalStore {
 
   reset(): void {
     this._stores.forEach((store) => store.reset());
-  }
-
-  destroy(): void {
-    this.stop();
-    this._stores.forEach((store) => store.destroy());
   }
 }

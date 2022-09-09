@@ -17,14 +17,7 @@ type PathParams = { orgName: string; repoName: string };
 export const Repo: React.FC = () => {
   const navigate = useNavigate();
   const { orgName, repoName } = useParams<PathParams>();
-  const store = useLocalStore(
-    () => new RepoStore(orgName ?? '', repoName ?? '')
-  );
-
-  React.useEffect(() => {
-    store.fetch();
-    return () => store.destroy();
-  }, [store]);
+  const store = useLocalStore(() => new RepoStore(orgName, repoName));
 
   const handleBack = () => {
     navigate(-1);

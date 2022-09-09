@@ -1,4 +1,4 @@
-import { observer, useLocalStore } from 'mobx-react-lite';
+import { observer } from 'mobx-react-lite';
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { CheckBox } from '~/App/components/CheckBox';
@@ -10,6 +10,7 @@ import { RepoModel } from '~/App/models/github';
 import { SortKind } from '~/App/models/queryParams';
 import { ReposStore } from '~/App/stores';
 import { rootStore } from '~/App/stores/RootStore';
+import { useLocalStore } from '~/shared/hooks';
 import { joinClassName } from '~/shared/utils';
 import { GitRepoList } from './components/GitRepoList';
 import styles from './Main.module.scss';
@@ -31,14 +32,6 @@ const Main: React.FC = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
     [rootStore.queryParamsStore.sort]
   );
-
-  React.useEffect(() => {
-    store.init();
-    store.fetch();
-    return () => {
-      store.destroy();
-    };
-  }, [store]);
 
   const submitName = React.useCallback((name: string) => {
     rootStore.queryParamsStore.setOrgName(name);
