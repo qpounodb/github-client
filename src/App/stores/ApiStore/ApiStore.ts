@@ -2,7 +2,7 @@ import { CanceledError } from 'axios';
 import { action, computed, makeObservable, observable } from 'mobx';
 import { ILocalStore } from '~/shared/hooks';
 import { DataState, Nullable } from '~/shared/types';
-import { isNone, isSome, toError } from '~/shared/utils';
+import { isSome } from '~/shared/utils';
 import { rootStore } from '../RootStore';
 
 export type ApiStoreConfig<Params, Raw, Model> = {
@@ -24,7 +24,7 @@ export class ApiStore<Params = any, Raw = any, Model = Raw>
   private _controller: Nullable<AbortController> = null;
 
   private _data: Nullable<Model> = null;
-  private _error: Nullable<Error> = null;
+  private _error: boolean = false;
   private _loading: boolean = false;
 
   private _fetch: (params: Params, signal: AbortSignal) => Promise<Raw>;
@@ -36,7 +36,7 @@ export class ApiStore<Params = any, Raw = any, Model = Raw>
 
     makeObservable<ApiStore<Params, Raw, Model>, PrivateField>(this, {
       _loading: observable,
-      _error: observable.ref,
+      _error: observable,
       _data: observable.ref,
       loading: computed,
       error: computed,
@@ -63,7 +63,7 @@ export class ApiStore<Params = any, Raw = any, Model = Raw>
     return this._loading;
   }
 
-  get error(): Nullable<Error> {
+  get error(): boolean {
     return this._error;
   }
 
@@ -72,7 +72,7 @@ export class ApiStore<Params = any, Raw = any, Model = Raw>
   }
 
   get success(): boolean {
-    return isNone(this._error) && isSome(this._data);
+    return !this._error && isSome(this._data);
   }
 
   get state(): DataState<Model> {
@@ -89,10 +89,7 @@ export class ApiStore<Params = any, Raw = any, Model = Raw>
     return this._controller.signal;
   }
 
-  private _end(
-    data: Nullable<Model> = null,
-    error: Nullable<Error> = null
-  ): void {
+  private _end(data: Nullable<Model> = null, error: boolean = false): void {
     this._controller = null;
     this._data = data;
     this._error = error;
@@ -117,7 +114,7 @@ export class ApiStore<Params = any, Raw = any, Model = Raw>
       this._end(this._normalize(data));
     } catch (err) {
       if (!signal.aborted) {
-        this._end(null, toError(err));
+        this._end(null, true);
         rootStore.notifyStore.error(err);
       }
       throw err;
@@ -128,7 +125,7 @@ export class ApiStore<Params = any, Raw = any, Model = Raw>
 
   reset(): void {
     this._data = null;
-    this._error = null;
+    this._error = false;
     this._loading = false;
   }
 

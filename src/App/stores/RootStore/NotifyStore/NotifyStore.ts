@@ -29,7 +29,10 @@ export class NotifyStore {
   private _removing: boolean = false;
   private _config: Required<NotifyStoreConfig>;
 
-  constructor({ maxItems = 0, autoRemoveTimeout = 5 }: NotifyStoreConfig = {}) {
+  constructor({
+    maxItems = 0,
+    autoRemoveTimeout = 15,
+  }: NotifyStoreConfig = {}) {
     this._config = { maxItems, autoRemoveTimeout };
 
     makeObservable<NotifyStore, PrivateFields>(this, {

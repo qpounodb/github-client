@@ -1,9 +1,7 @@
-import { CanceledError } from 'axios';
 import { action, computed, makeObservable } from 'mobx';
 import { GithubRepoAPI } from '~/shared/githubAPI';
 import { ILocalStore } from '~/shared/hooks';
-import { Nullable } from '~/shared/types';
-import { isSome, toError } from '~/shared/utils';
+import { remapRecord } from '~/shared/utils';
 import {
   ApiCommitStore,
   ApiRepoBranchesStore,
@@ -53,14 +51,6 @@ export class RepoStore implements ILocalStore {
     });
   }
 
-  init(): void {
-    this.fetch().then(null, null);
-  }
-
-  destroy(): void {
-    this._stores.forEach((store) => store.destroy());
-  }
-
   private get _stores(): ApiStore[] {
     return Object.values(this._storesMap);
   }
@@ -69,25 +59,16 @@ export class RepoStore implements ILocalStore {
     return this._stores.some((store) => store.loading);
   }
 
+  get error(): boolean {
+    return this._stores.some((store) => store.error);
+  }
+
   get success(): boolean {
     return this._stores.every((store) => store.success);
   }
 
-  get error(): Nullable<Error> {
-    return this._stores
-      .map((store) => store.error)
-      .find((error) => isSome(error));
-  }
-
   get state(): StoresStateMap {
-    return {
-      info: this._storesMap.info.state,
-      branches: this._storesMap.branches.state,
-      langs: this._storesMap.langs.state,
-      contributors: this._storesMap.contributors.state,
-      commit: this._storesMap.commit.state,
-      readme: this._storesMap.readme.state,
-    };
+    return remapRecord(this._storesMap, ({ state }) => state);
   }
 
   async fetch(): Promise<void> {
@@ -95,13 +76,9 @@ export class RepoStore implements ILocalStore {
       return;
     }
 
-    return Promise.all(this._stores.map((store) => store.fetch({})))
-      .catch((err) => {
-        if (!(toError(err) instanceof CanceledError)) {
-          console.error(err);
-        }
-      })
-      .then(null);
+    const tasks = this._stores.map((store) => store.fetch({}));
+
+    return Promise.all(tasks).then(null, null);
   }
 
   stop(): void {
@@ -110,5 +87,13 @@ export class RepoStore implements ILocalStore {
 
   reset(): void {
     this._stores.forEach((store) => store.reset());
+  }
+
+  init(): void {
+    this.fetch().then(null, null);
+  }
+
+  destroy(): void {
+    this._stores.forEach((store) => store.destroy());
   }
 }
