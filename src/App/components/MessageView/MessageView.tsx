@@ -5,7 +5,7 @@ import styles from './MessageView.module.scss';
 
 export type MessageViewProps = {
   message: Message;
-  onClose?: () => void;
+  onClose?: (id: number) => void;
 };
 
 const getTite = (level: Level): string => {
@@ -21,22 +21,32 @@ const getTite = (level: Level): string => {
   }
 };
 
-const MessageView: React.FC<MessageViewProps> = ({ message, onClose }) => {
-  return (
-    <div
-      className={joinClassName(
+const MessageView: React.FC<MessageViewProps> = ({
+  message: { id, level, text, time },
+  onClose,
+}) => {
+  const handleClose = React.useCallback(() => onClose?.(id), [id, onClose]);
+
+  const rootClassName = React.useMemo(
+    () =>
+      joinClassName(
         styles.root,
-        styles[`root_${message.level.toLowerCase() as keyof typeof Level}`]
-      )}
-    >
+        styles[`root_${level.toLowerCase() as keyof typeof Level}`]
+      ),
+    [level]
+  );
+
+  const title = React.useMemo(() => getTite(level), [level]);
+  const LocaleTime = React.useMemo(() => time.toLocaleTimeString(), [time]);
+
+  return (
+    <div className={rootClassName}>
       <div className={styles.root__title}>
-        <span>{getTite(message.level)}</span>
+        <span>{title}</span>
       </div>
-      <div className={styles.root__text}>{message.text}</div>
-      <div className={styles.root__time}>
-        {message.time.toLocaleTimeString()}
-      </div>
-      <div className={styles.root__close} onClick={onClose}></div>
+      <div className={styles.root__text}>{text}</div>
+      <div className={styles.root__time}>{LocaleTime}</div>
+      <div className={styles.root__close} onClick={handleClose}></div>
     </div>
   );
 };
