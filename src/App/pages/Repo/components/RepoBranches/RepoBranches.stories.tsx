@@ -1,7 +1,6 @@
 import { ComponentMeta, ComponentStory } from '@storybook/react';
 import data from '~/App/assets/data-examples/repo-branches.json';
 import { normalizeRepoBranchCollection } from '~/App/models/github';
-import { getDataState } from '~/shared/utils';
 import RepoBranchesComponent from './RepoBranches';
 
 type Meta = ComponentMeta<typeof RepoBranchesComponent>;
@@ -18,5 +17,5 @@ export const RepoBranches: Story = (args) => (
   <RepoBranchesComponent {...args} />
 );
 RepoBranches.args = {
-  state: getDataState(normalizeRepoBranchCollection(data)),
+  state: { data: normalizeRepoBranchCollection(data) },
 };

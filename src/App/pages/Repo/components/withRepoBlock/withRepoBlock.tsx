@@ -1,14 +1,7 @@
-import axios from 'axios';
 import React from 'react';
 import { WithLoader } from '~/App/components/WithLoader';
 import { DataState, PropsWithChildrenAndClassname } from '~/shared/types';
-import {
-  formatCode,
-  getDisplayName,
-  isNone,
-  isSome,
-  joinClassName,
-} from '~/shared/utils';
+import { getDisplayName, isNone, joinClassName } from '~/shared/utils';
 import styles from './withRepoBlock.module.scss';
 
 export type RepoBlockProps<T> = React.PropsWithChildren<{
@@ -25,7 +18,6 @@ export type RepoBlockWrapper<T> = React.FC<RepoBlockWrapperProps<T>>;
 const getTitles = (title: string) => ({
   loading: `${title} 👾`,
   noData: `No ${title} 😿`,
-  error: `Error on fetching ${title} 🙀`,
 });
 
 export const withRepoBlock = <T extends object>(
@@ -33,7 +25,7 @@ export const withRepoBlock = <T extends object>(
   RepoBlock: RepoBlock<T>
 ): RepoBlockWrapper<T> => {
   const RepoBlockWrapper: RepoBlockWrapper<T> = ({
-    state: { loading, error, data },
+    state: { loading, data },
     title,
     children,
   }) => {
@@ -44,27 +36,6 @@ export const withRepoBlock = <T extends object>(
       return (
         <div className={cls}>
           <WithLoader loading={loading} message={titles.loading}></WithLoader>
-        </div>
-      );
-    }
-
-    if (isSome(error)) {
-      return (
-        <div className={cls}>
-          <h2>{titles.error}</h2>
-          <p>{error.message}</p>
-          {axios.isAxiosError(error) && error.response && (
-            <div>
-              <code>
-                <pre className={styles.code}>
-                  {formatCode(error.response.data)}
-                </pre>
-                <pre className={styles.code}>
-                  {formatCode(error.response.headers)}
-                </pre>
-              </code>
-            </div>
-          )}
         </div>
       );
     }

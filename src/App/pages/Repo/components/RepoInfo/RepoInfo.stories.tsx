@@ -1,7 +1,6 @@
 import { ComponentMeta, ComponentStory } from '@storybook/react';
 import data from '~/App/assets/data-examples/repo-info.json';
 import { normalizeRepo } from '~/App/models/github';
-import { getDataState } from '~/shared/utils';
 import RepoInfoComponent from './RepoInfo';
 
 type Meta = ComponentMeta<typeof RepoInfoComponent>;
@@ -15,4 +14,4 @@ const meta: Meta = {
 export default meta;
 
 export const RepoInfo: Story = (args) => <RepoInfoComponent {...args} />;
-RepoInfo.args = { state: getDataState(normalizeRepo(data)) };
+RepoInfo.args = { state: { data: normalizeRepo(data) } };

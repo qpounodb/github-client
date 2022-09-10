@@ -1,6 +1,6 @@
 import { ComponentMeta, ComponentStory } from '@storybook/react';
 import data from '~/App/assets/data-examples/repo-languages.json';
-import { getDataState } from '~/shared/utils';
+import { normalizeRepoLangs } from '~/App/models/github';
 import RepoLangsComponent from './RepoLangs';
 
 type Meta = ComponentMeta<typeof RepoLangsComponent>;
@@ -14,4 +14,4 @@ const meta: Meta = {
 export default meta;
 
 export const RepoLangs: Story = (args) => <RepoLangsComponent {...args} />;
-RepoLangs.args = { state: getDataState(data) };
+RepoLangs.args = { state: { data: normalizeRepoLangs(data) } };

@@ -2,7 +2,6 @@ export * from './array';
 export * from './assert';
 export * from './async';
 export * from './className';
-export * from './dataState';
 export * from './error';
 export * from './format';
 export * from './is';
