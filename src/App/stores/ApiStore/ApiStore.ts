@@ -3,6 +3,7 @@ import { action, computed, makeObservable, observable } from 'mobx';
 import { ILocalStore } from '~/shared/hooks';
 import { DataState, Nullable } from '~/shared/types';
 import { isNone, isSome, toError } from '~/shared/utils';
+import { rootStore } from '../RootStore';
 
 export type ApiStoreConfig<Params, Raw, Model> = {
   fetch: (params: Params, signal: AbortSignal) => Promise<Raw>;
@@ -114,11 +115,12 @@ export class ApiStore<Params = any, Raw = any, Model = Raw>
       }
       const data = await this._fetch(params, signal);
       this._end(this._normalize(data));
-    } catch (error) {
+    } catch (err) {
       if (!signal.aborted) {
-        this._end(null, toError(error));
+        this._end(null, toError(err));
+        rootStore.notifyStore.error(err);
       }
-      throw error;
+      throw err;
     } finally {
       this._finally();
     }

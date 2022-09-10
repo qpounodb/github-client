@@ -7,7 +7,7 @@ import {
   reaction,
   runInAction,
 } from 'mobx';
-import { toError } from '~/shared/utils';
+import { formatError } from '~/shared/utils';
 import { Level } from './Level';
 import { Message } from './Message';
 
@@ -70,8 +70,7 @@ export class NotifyStore {
   }
 
   error(err: unknown): void {
-    const error = toError(err);
-    this._enqueue(Level.error, error.message);
+    this._enqueue(Level.error, formatError(err));
   }
 
   warn(text: string): void {
