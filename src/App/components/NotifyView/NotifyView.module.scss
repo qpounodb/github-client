@@ -1,0 +1,20 @@
+.root {
+  position: fixed;
+  z-index: 100;
+  right: 0;
+  bottom: 0;
+  max-height: 100vh;
+  overflow: auto;
+
+  &__queue {
+    display: flex;
+    flex-direction: column-reverse;
+    justify-content: flex-start;
+    gap: 10px;
+    padding: 10px;
+  }
+
+  &__item {
+    flex-shrink: 0;
+  }
+}
