@@ -27,8 +27,13 @@
 
   &__text {
     padding: 10px;
-    text-align: center;
     background-color: c.$background;
+
+    pre {
+      margin: 0;
+      white-space: pre-wrap;
+      word-break: keep-all;
+    }
   }
 
   &__time {

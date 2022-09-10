@@ -19,7 +19,7 @@ export const Message: Story = ({ text }) => {
 };
 
 Message.args = {
-  text: 'Lorem, ipsum dolor sit amet consectetur adipisicing elit.',
+  text: 'Lorem\n\n ipsum dolor sit, amet consectetur adipisicing elit. Excepturi\n\n\n adipisci corporis quidem, quasi repellat et?',
 };
 
 const meta: Meta = {

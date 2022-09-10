@@ -44,7 +44,11 @@ const MessageView: React.FC<MessageViewProps> = ({
       <div className={styles.root__title}>
         <span>{title}</span>
       </div>
-      <div className={styles.root__text}>{text}</div>
+      <div className={styles.root__text}>
+        <code>
+          <pre>{text}</pre>
+        </code>
+      </div>
       <div className={styles.root__time}>{LocaleTime}</div>
       <div className={styles.root__close} onClick={handleClose}></div>
     </div>
