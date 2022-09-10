@@ -11,9 +11,9 @@ export const Message: Story = ({ text }) => {
 
   return (
     <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
-      <MessageView message={{ level: Level.error, text, time }} />
-      <MessageView message={{ level: Level.warn, text, time }} />
-      <MessageView message={{ level: Level.info, text, time }} />
+      <MessageView message={{ id: 0, level: Level.error, text, time }} />
+      <MessageView message={{ id: 1, level: Level.warn, text, time }} />
+      <MessageView message={{ id: 2, level: Level.info, text, time }} />
     </div>
   );
 };

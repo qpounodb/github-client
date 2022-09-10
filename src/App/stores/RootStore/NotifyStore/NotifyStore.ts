@@ -6,6 +6,7 @@ import { Message } from './Message';
 type PrivateFields = '_queue' | '_enqueue' | '_dequeue';
 
 export class NotifyStore {
+  private _id: number = 0;
   private _queue: Message[] = [];
 
   constructor() {
@@ -28,7 +29,8 @@ export class NotifyStore {
   }
 
   _enqueue(level: Level, text: string): void {
-    this._queue.push({ level, text, time: new Date() });
+    this._queue.push({ id: this._id, level, text, time: new Date() });
+    this._id += 1;
   }
 
   _dequeue(): Message | null {
