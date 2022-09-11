@@ -1,5 +1,5 @@
 import React from 'react';
-import { classname } from '~/shared/utils';
+import { joinClassName } from '~/shared/utils';
 import styles from './Card.module.scss';
 
 export type CardProps = {
@@ -15,7 +15,7 @@ export type CardProps = {
 const DEFAULT_AVATAR_ALT = 'avatar';
 const DEFAULT_PLACEHOLDER = '🍥';
 
-export const Card: React.FC<CardProps> = ({
+const Card: React.FC<CardProps> = ({
   image,
   placeholder = DEFAULT_PLACEHOLDER,
   title,
@@ -39,20 +39,20 @@ export const Card: React.FC<CardProps> = ({
   }, []);
 
   return (
-    <div className={classname(styles.root, className)} onClick={onClick}>
+    <div className={joinClassName(styles.root, className)} onClick={onClick}>
       <div className={styles.root__side}>
         <div ref={placeholderRef} className={styles.root__placeholder}>
           {placeholder.at(0)?.toUpperCase() || DEFAULT_PLACEHOLDER}
         </div>
         <img
           ref={imgRef}
-          className={classname(styles.root__avatar, styles.hidden)}
+          className={joinClassName(styles.root__avatar, styles.hidden)}
           src={image}
           alt={DEFAULT_AVATAR_ALT}
         />
       </div>
       <div className={styles.root__main}>
-        <div className={classname(styles.root__item, styles.root__title)}>
+        <div className={joinClassName(styles.root__item, styles.root__title)}>
           {title}
         </div>
         <div className={styles.root__item}>{subtitle}</div>
@@ -61,3 +61,5 @@ export const Card: React.FC<CardProps> = ({
     </div>
   );
 };
+
+export default React.memo(Card);

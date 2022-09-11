@@ -1,6 +1,7 @@
 import React from 'react';
 import { Loader } from '~/App/components/Loader';
-import { classname, PropsWithChildrenAndClassname } from '~/shared/utils';
+import { PropsWithChildrenAndClassname } from '~/shared/types';
+import { joinClassName } from '~/shared/utils';
 import styles from './WithLoader.module.scss';
 
 export type WithLoaderProps = PropsWithChildrenAndClassname<{
@@ -8,7 +9,7 @@ export type WithLoaderProps = PropsWithChildrenAndClassname<{
   message?: string;
 }>;
 
-export const WithLoader: React.FC<WithLoaderProps> = ({
+const WithLoader: React.FC<WithLoaderProps> = ({
   loading,
   message,
   children,
@@ -17,15 +18,31 @@ export const WithLoader: React.FC<WithLoaderProps> = ({
   const info = message ? `Loading ${message}...` : 'Loading...';
 
   return (
-    <div className={classname(styles.root, className)}>
-      {children}
-      {loading && (
-        <div className={styles.root__cover}>
-          <div className={styles.root__message}>
-            <Loader /> {info}
-          </div>
-        </div>
+    <div
+      className={joinClassName(
+        styles.root,
+        loading && styles.root_loading,
+        className
       )}
+    >
+      {children}
+      <div
+        className={joinClassName(
+          styles.root__cover,
+          loading && styles.root__cover_loading
+        )}
+      >
+        <div
+          className={joinClassName(
+            styles.root__message,
+            loading && styles.root__message_loading
+          )}
+        >
+          <Loader loading={loading} /> {info}
+        </div>
+      </div>
     </div>
   );
 };
+
+export default React.memo(WithLoader);

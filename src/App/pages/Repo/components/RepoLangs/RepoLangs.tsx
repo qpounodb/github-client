@@ -1,13 +1,13 @@
-import { Languages } from '~/shared/GithubAPI';
-import { withRepoBlock } from '../withRepoBlock';
+import { RepoLangsModel } from '~/App/models/github';
+import { RepoBlock, withRepoBlock } from '../withRepoBlock';
 import { Lang } from './Lang';
 import styles from './RepoLangs.module.scss';
 
-const getTotal = (langs: Languages) => {
+const getTotal = (langs: RepoLangsModel) => {
   return Object.values(langs).reduce((acc, x) => acc + x, 0);
 };
 
-export const RepoLangs = withRepoBlock<Languages>('', ({ data }) => {
+const RepoLangs: RepoBlock<RepoLangsModel> = ({ data }) => {
   const total = getTotal(data);
   return (
     <>
@@ -19,4 +19,6 @@ export const RepoLangs = withRepoBlock<Languages>('', ({ data }) => {
       </div>
     </>
   );
-});
+};
+
+export default withRepoBlock('', RepoLangs);

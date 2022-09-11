@@ -1,7 +1,7 @@
 export type Styles = {
-  pagination: string;
-  repolist: string;
+  filters: string;
   root: string;
+  section: string;
 };
 
 export type ClassNames = keyof Styles;

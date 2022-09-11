@@ -1,25 +1,28 @@
 import React from 'react';
 import { IconSearch } from '~/App/assets/icons';
-import { SquareButton } from '../Button';
-import { Input } from '../Input';
+import { SquareButton } from '../button';
+import { Input } from '../input';
 import styles from './Search.module.scss';
 
 export type SearchProps = {
-  value: string;
+  value?: string;
   placeholder: string;
   loading?: boolean;
   onChange: (value: string) => void;
   onSubmit: (value: string) => void;
 };
 
-export const Search: React.FC<SearchProps> = ({
-  value,
+const Search: React.FC<SearchProps> = ({
+  value = '',
   placeholder,
   loading = false,
   onChange,
   onSubmit,
 }) => {
-  const handleSubmit = () => onSubmit(value);
+  const handleSubmit = React.useCallback(
+    () => onSubmit(value),
+    [onSubmit, value]
+  );
 
   return (
     <div className={styles.root}>
@@ -36,3 +39,5 @@ export const Search: React.FC<SearchProps> = ({
     </div>
   );
 };
+
+export default React.memo(Search);

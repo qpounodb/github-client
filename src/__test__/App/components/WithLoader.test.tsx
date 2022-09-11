@@ -11,7 +11,8 @@ describe('Тестирование компонента WithLoader', () => {
     );
 
     const loaderElement = screen.getByTestId(Locators.LOADER);
-    expect(loaderElement).toBeVisible();
+
+    expect(loaderElement.className).toContain('loading');
 
     rerender(
       <WithLoader loading={false}>
@@ -19,7 +20,7 @@ describe('Тестирование компонента WithLoader', () => {
       </WithLoader>
     );
 
-    expect(loaderElement).not.toBeVisible();
+    expect(loaderElement.className).not.toContain('loading');
   });
 
   test('Изменение children', () => {

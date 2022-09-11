@@ -1,7 +1,7 @@
 import { ComponentMeta, ComponentStory } from '@storybook/react';
 import data from '~/App/assets/data-examples/repo-readme.json';
-import { getDataState } from '~/shared/data-state';
-import { RepoReadme as RepoReadmeComponent } from './RepoReadme';
+import { normalizeRepoReadme } from '~/App/models/github';
+import RepoReadmeComponent from './RepoReadme';
 
 type Meta = ComponentMeta<typeof RepoReadmeComponent>;
 type Story = ComponentStory<typeof RepoReadmeComponent>;
@@ -14,4 +14,4 @@ const meta: Meta = {
 export default meta;
 
 export const RepoReadme: Story = (args) => <RepoReadmeComponent {...args} />;
-RepoReadme.args = { state: getDataState(data) };
+RepoReadme.args = { state: { data: normalizeRepoReadme(data) } };

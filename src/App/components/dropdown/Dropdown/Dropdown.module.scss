@@ -1,0 +1,13 @@
+.root {
+  position: relative;
+
+  &__input {
+    display: block;
+  }
+
+  &__list {
+    position: absolute;
+    z-index: 10;
+    top: calc(100% + 8px);
+  }
+}

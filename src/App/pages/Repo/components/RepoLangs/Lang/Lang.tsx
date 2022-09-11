@@ -11,7 +11,7 @@ export type LangPrpos = {
 const getFraction = (count: number, total: number): number =>
   Math.round((count / total) * 10000) / 100;
 
-export const Lang: React.FC<LangPrpos> = ({ lang, count, total }) => {
+const Lang: React.FC<LangPrpos> = ({ lang, count, total }) => {
   const fraction = React.useMemo(
     () => getFraction(count, total),
     [count, total]
@@ -24,3 +24,5 @@ export const Lang: React.FC<LangPrpos> = ({ lang, count, total }) => {
     </div>
   );
 };
+
+export default React.memo(Lang);

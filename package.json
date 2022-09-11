@@ -15,7 +15,8 @@
   "dependencies": {
     "axios": "^0.27.2",
     "axios-cache-interceptor": "^0.10.7",
-    "classnames": "^2.3.1",
+    "mobx": "^6.6.1",
+    "mobx-react-lite": "^3.4.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-router-dom": "6",
@@ -45,6 +46,7 @@
     "@types/showdown": "^2.0.0",
     "babel-plugin-named-exports-order": "^0.0.2",
     "concurrently": "^7.3.0",
+    "eslint-plugin-mobx": "^0.0.9",
     "prop-types": "^15.8.1",
     "react-app-alias": "^2.2.1",
     "react-scripts": "5.0.1",
@@ -62,8 +64,16 @@
   "eslintConfig": {
     "extends": [
       "react-app",
-      "react-app/jest"
+      "react-app/jest",
+      "plugin:mobx/recommended"
     ],
+    "plugins": [
+      "mobx"
+    ],
+    "rules": {
+      "mobx/exhaustive-make-observable": "off",
+      "mobx/missing-observer": "off"
+    },
     "overrides": [
       {
         "files": [

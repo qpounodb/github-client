@@ -15,6 +15,13 @@
   transform: rotate(35deg);
   animation: rotate 3s linear infinite;
 
+  opacity: 0;
+  @include mixin.loader-trans(opacity);
+
+  &_loading {
+    opacity: 1;
+  }
+
   &_primary {
     color: color.$accent;
   }

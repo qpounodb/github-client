@@ -1,56 +1,115 @@
+import { runInAction } from 'mobx';
+import { observer } from 'mobx-react-lite';
 import React from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
+import { CheckBox } from '~/App/components/CheckBox';
+import { Option, Select } from '~/App/components/dropdown';
 import { Pagination } from '~/App/components/Pagination';
-import { useGithubReposCtx } from '~/App/pages/Main/hooks/useGithubReposCtx';
-import { Repository } from '~/shared/GithubAPI';
-import { isSome } from '~/shared/utils';
+import { Search } from '~/App/components/Search';
+import { WithLoader } from '~/App/components/WithLoader';
+import { RepoModel } from '~/App/models/github';
+import { OrderDir, SortKind } from '~/App/models/queryParams';
+import { ReposStore } from '~/App/stores';
+import { rootStore } from '~/App/stores/RootStore';
+import { useLocalStore } from '~/shared/hooks';
+import { joinClassName } from '~/shared/utils';
 import { GitRepoList } from './components/GitRepoList';
 import styles from './Main.module.scss';
 
-type PathParams = { orgName?: string; pageNum?: string };
+const SEARCH_PLACEHOLDER = 'Введите название организации';
 
-export const Main: React.FC = () => {
+const SORT_OPTIONS: Option[] = Object.values(SortKind).map((value) => ({
+  key: value,
+  value: `Sort repos by ${value.split('_').join(' ')}`,
+}));
+
+const Main: React.FC = () => {
+  const { queryParamsStore } = rootStore;
+  const store = useLocalStore(() => new ReposStore());
   const navigate = useNavigate();
-  const { orgName, pageNum } = useParams<PathParams>();
-  const { state, fetch } = useGithubReposCtx();
-
-  const controller = new AbortController();
+  const [input, setInput] = React.useState(queryParamsStore.orgName);
 
   React.useEffect(() => {
-    if (!orgName) return;
-    const page = isSome(pageNum) ? Number(pageNum) : 1;
+    runInAction(() => setInput(queryParamsStore.orgName));
+  }, [queryParamsStore.orgName]);
 
-    fetch(orgName, isNaN(page) ? 1 : page, controller.signal);
+  const selectedSort = React.useMemo(
+    () => SORT_OPTIONS.find((o) => o.key === queryParamsStore.sort),
+    [queryParamsStore.sort]
+  );
 
-    // NOTE: Run effect once on component mount
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [orgName, pageNum]);
+  const submitName = React.useCallback(
+    (name: string) => queryParamsStore.setOrgName(name),
+    [queryParamsStore]
+  );
 
-  const getCardClickHandler =
-    ({ name, owner }: Repository) =>
-    () => {
-      controller.abort();
-      navigate(`/repo/${owner.login}/${name}`);
-    };
+  const submitPage = React.useCallback(
+    (page: number) => queryParamsStore.setPageNum(page),
+    [queryParamsStore]
+  );
+
+  const submitSort = React.useCallback(
+    ({ key }: Option) => queryParamsStore.setSort(String(key)),
+    [queryParamsStore]
+  );
+
+  const submitOrder = React.useCallback(
+    (isAsc: boolean) =>
+      queryParamsStore.setOrder(isAsc ? OrderDir.asc : OrderDir.desc),
+    [queryParamsStore]
+  );
+
+  const getCardClickHandler = React.useCallback(
+    ({ name, owner }: RepoModel) =>
+      () =>
+        navigate(`/repo/${owner.login}/${name}`),
+    [navigate]
+  );
 
   return (
     <div className={styles.root}>
-      <div className={styles.repolist}>
-        <GitRepoList
-          state={state.repos}
-          orgName={state.orgName}
-          onSubmit={(name) => navigate(`/org/${name}`)}
-          getCardClickHandler={getCardClickHandler}
+      <div className={styles.section}>
+        <Search
+          value={input}
+          placeholder={SEARCH_PLACEHOLDER}
+          onChange={setInput}
+          onSubmit={submitName}
+          loading={store.loading}
         />
       </div>
-      <div className={styles.pagination}>
+      <div className={joinClassName(styles.section, styles.filters)}>
+        <Select
+          options={SORT_OPTIONS}
+          selected={selectedSort}
+          onChange={submitSort}
+          placeholder="Set sort by..."
+        />
+        <label>
+          <CheckBox
+            checked={queryParamsStore.order === 'asc'}
+            onChange={submitOrder}
+          />
+          Asc order
+        </label>
+      </div>
+      <div className={styles.section}>
+        <WithLoader loading={store.loading}>
+          <GitRepoList
+            data={store.state.data}
+            getCardClickHandler={getCardClickHandler}
+          />
+        </WithLoader>
+      </div>
+      <div>
         <Pagination
-          onSubmit={(page) => navigate(`/org/${state.orgName}/${page}`)}
-          page={state.params.page}
-          count={state.pages_count}
-          loading={state.repos.loading}
+          onSubmit={submitPage}
+          page={queryParamsStore.page}
+          count={store.pagesCount}
+          loading={store.loading}
         />
       </div>
     </div>
   );
 };
+
+export default observer(Main);

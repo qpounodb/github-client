@@ -1,5 +1,5 @@
 import { ComponentMeta, ComponentStory } from '@storybook/react';
-import { Search as SearchComponent } from './Search';
+import SearchComponent from './Search';
 
 type Meta = ComponentMeta<typeof SearchComponent>;
 type Story = ComponentStory<typeof SearchComponent>;

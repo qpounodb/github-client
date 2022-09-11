@@ -1,6 +1,5 @@
 import { ComponentMeta, ComponentStory } from '@storybook/react';
-
-import { Card as CardComponent } from './Card';
+import CardComponent from './Card';
 
 type Meta = ComponentMeta<typeof CardComponent>;
 type Story = ComponentStory<typeof CardComponent>;

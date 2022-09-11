@@ -1,8 +1,7 @@
 import { ComponentMeta, ComponentStory } from '@storybook/react';
 import data from '~/App/assets/data-examples/repo-info.json';
-import { getDataState } from '~/shared/data-state';
-
-import { GitRepoList as GitRepoListComponent } from './GitRepoList';
+import { normalizeRepoCollection } from '~/App/models/github';
+import GitRepoListComponent from './GitRepoList';
 
 type Meta = ComponentMeta<typeof GitRepoListComponent>;
 type Story = ComponentStory<typeof GitRepoListComponent>;
@@ -17,11 +16,9 @@ export default meta;
 export const GitRepoList: Story = (args) => (
   <GitRepoListComponent {...args} getCardClickHandler={() => () => {}} />
 );
+
+const list = Array.from({ length: 5 }, (_, id) => ({ ...data, id }));
+
 GitRepoList.args = GitRepoList.args = {
-  state: getDataState(
-    Array.from({ length: 5 }, (_, id) => ({
-      ...data,
-      id,
-    }))
-  ),
+  data: normalizeRepoCollection(list),
 };

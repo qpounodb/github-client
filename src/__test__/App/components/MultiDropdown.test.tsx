@@ -5,7 +5,7 @@ import {
   MultiDropdown,
   MultiDropdownProps,
   Option,
-} from '~/App/components/MultiDropdown';
+} from '~/App/components/dropdown';
 import { TEST_TITLE } from '~/__test__/constants';
 
 const defaultOptions: Option[] = [
@@ -38,7 +38,7 @@ describe('Тестирование компонента MultiDropdown', () => {
         onChange={() => {}}
         selected={defaultOptions}
         options={defaultOptions}
-        pluralizeOptions={pluralizeOptions}
+        getTitle={pluralizeOptions}
       />
     );
 
@@ -52,7 +52,7 @@ describe('Тестирование компонента MultiDropdown', () => {
         onChange={() => {}}
         selected={[]}
         options={defaultOptions}
-        pluralizeOptions={pluralizeOptions}
+        getTitle={pluralizeOptions}
       />
     );
 
@@ -66,7 +66,7 @@ describe('Тестирование компонента MultiDropdown', () => {
         onChange={mockOnChange}
         selected={defaultOptions}
         options={defaultOptions}
-        pluralizeOptions={defaultPluralizeOptions}
+        getTitle={defaultPluralizeOptions}
       />
     );
 
@@ -83,7 +83,7 @@ describe('Тестирование компонента MultiDropdown', () => {
         onChange={mockOnChange}
         selected={[]}
         options={defaultOptions}
-        pluralizeOptions={defaultPluralizeOptions}
+        getTitle={defaultPluralizeOptions}
       />
     );
 
@@ -93,10 +93,7 @@ describe('Тестирование компонента MultiDropdown', () => {
 
   test('Проверка открытия/закрытия списка опций при клике', () => {
     render(
-      <WrappedDropdown
-        options={defaultOptions}
-        pluralizeOptions={() => TEST_TITLE}
-      />
+      <WrappedDropdown options={defaultOptions} getTitle={() => TEST_TITLE} />
     );
 
     const dropdownElement = screen.getByDisplayValue(TEST_TITLE);
@@ -113,10 +110,7 @@ describe('Тестирование компонента MultiDropdown', () => {
 
   test('Отображаются все переданные options', () => {
     render(
-      <WrappedDropdown
-        options={defaultOptions}
-        pluralizeOptions={() => TEST_TITLE}
-      />
+      <WrappedDropdown options={defaultOptions} getTitle={() => TEST_TITLE} />
     );
 
     const dropdownElement = screen.getByDisplayValue(TEST_TITLE);
@@ -135,10 +129,7 @@ describe('Тестирование компонента MultiDropdown', () => {
 
   test('При disabled=true не открывается список опций', () => {
     const { rerender } = render(
-      <WrappedDropdown
-        options={defaultOptions}
-        pluralizeOptions={() => TEST_TITLE}
-      />
+      <WrappedDropdown options={defaultOptions} getTitle={() => TEST_TITLE} />
     );
 
     const dropdownElement = screen.getByDisplayValue(TEST_TITLE);
@@ -152,7 +143,7 @@ describe('Тестирование компонента MultiDropdown', () => {
     rerender(
       <WrappedDropdown
         options={defaultOptions}
-        pluralizeOptions={() => TEST_TITLE}
+        getTitle={() => TEST_TITLE}
         disabled
       />
     );
@@ -170,7 +161,7 @@ describe('Тестирование компонента MultiDropdown', () => {
         onChange={mockOnChange}
         selected={[]}
         options={defaultOptions}
-        pluralizeOptions={() => TEST_TITLE}
+        getTitle={() => TEST_TITLE}
       />
     );
 
@@ -193,7 +184,7 @@ describe('Тестирование компонента MultiDropdown', () => {
         onChange={mockOnChange}
         selected={defaultOptions}
         options={defaultOptions}
-        pluralizeOptions={defaultPluralizeOptions}
+        getTitle={defaultPluralizeOptions}
       />
     );
 
@@ -212,7 +203,7 @@ describe('Тестирование компонента MultiDropdown', () => {
         onChange={() => {}}
         selected={[]}
         options={defaultOptions}
-        pluralizeOptions={() => TEST_TITLE}
+        getTitle={() => TEST_TITLE}
       />
     );
 
@@ -232,7 +223,7 @@ describe('Тестирование компонента MultiDropdown', () => {
         onChange={() => {}}
         selected={[]}
         options={[defaultOptions[0], defaultOptions[2]]}
-        pluralizeOptions={() => TEST_TITLE}
+        getTitle={() => TEST_TITLE}
       />
     );
 

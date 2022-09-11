@@ -1,5 +1,6 @@
 export type Styles = {
   root: string;
+  root_loading: string;
   root_primary: string;
   root_secondary: string;
   'root_size-l': string;

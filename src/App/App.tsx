@@ -1,23 +1,34 @@
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import { observer } from 'mobx-react-lite';
+import React from 'react';
+import { Route, Routes } from 'react-router-dom';
 import styles from './App.module.scss';
+import { NotifyView } from './components/NotifyView';
 import { Main } from './pages/Main';
-import { GithubReposProvider } from './pages/Main/hooks/useGithubReposCtx';
 import { Repo } from './pages/Repo';
+import { rootStore } from './stores/RootStore';
+import { useQueryParamsStore } from './stores/RootStore/hooks/useQueryParamsStore';
 
-export const App: React.FC = () => {
+const App: React.FC = () => {
+  useQueryParamsStore();
+
+  const handleMessageClose = React.useCallback(
+    (id: number) => rootStore.notifyStore.remove(id),
+    []
+  );
+
   return (
-    <GithubReposProvider>
-      <div className={styles.app}>
-        <BrowserRouter>
-          <Routes>
-            <Route path="/" element={<Main />} />
-            <Route path="org/:orgName" element={<Main />} />
-            <Route path="org/:orgName/:pageNum" element={<Main />} />
-            <Route path="repo/:orgName/:repoName" element={<Repo />} />
-            <Route path="*" element={<h1>There's nothing here!</h1>} />
-          </Routes>
-        </BrowserRouter>
-      </div>
-    </GithubReposProvider>
+    <div className={styles.app}>
+      <Routes>
+        <Route path="/" element={<Main />} />
+        <Route path="repo/:orgName/:repoName" element={<Repo />} />
+        <Route path="*" element={<h1>There's nothing here!</h1>} />
+      </Routes>
+      <NotifyView
+        messages={rootStore.notifyStore.messages}
+        onClose={handleMessageClose}
+      />
+    </div>
   );
 };
+
+export default observer(App);

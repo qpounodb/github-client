@@ -1,5 +1,5 @@
 import React from 'react';
-import { classname } from '~/shared/utils';
+import { joinClassName } from '~/shared/utils';
 import style from './CheckBox.module.scss';
 
 type InputHTMLProps = React.InputHTMLAttributes<HTMLInputElement>;
@@ -9,15 +9,20 @@ export type CheckBoxProps = Omit<InputHTMLProps, 'onChange'> & {
   onChange: (value: boolean) => void;
 };
 
-export const CheckBox: React.FC<CheckBoxProps> = ({ onChange, ...rest }) => {
-  const handler: InputChangeHandler = (e) => onChange(e.currentTarget.checked);
+const CheckBox: React.FC<CheckBoxProps> = ({ onChange, ...rest }) => {
+  const handler: InputChangeHandler = React.useCallback(
+    (e) => onChange(e.currentTarget.checked),
+    [onChange]
+  );
 
   return (
     <input
       {...rest}
       type="checkbox"
-      className={classname(style.root, rest.className)}
+      className={joinClassName(style.root, rest.className)}
       onChange={handler}
     />
   );
 };
+
+export default React.memo(CheckBox);

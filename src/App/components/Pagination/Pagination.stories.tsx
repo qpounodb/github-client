@@ -1,6 +1,6 @@
 import { ComponentMeta, ComponentStory } from '@storybook/react';
 import React from 'react';
-import { Pagination as PaginationComponent } from './Pagination';
+import PaginationComponent from './Pagination';
 
 type Meta = ComponentMeta<typeof PaginationComponent>;
 type Story = ComponentStory<typeof PaginationComponent>;

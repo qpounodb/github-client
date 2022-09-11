@@ -1,0 +1,101 @@
+@use "sass:color";
+@use '~/App/styles/color' as c;
+@use '~/App/styles/mixin';
+
+.root {
+  position: relative;
+  max-width: 300px;
+  min-width: 150px;
+  width: 100%;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+  @include mixin.border;
+  background-color: c.$background-selected;
+
+  &__title {
+    padding: 5px;
+    font-size: 20px;
+    font-weight: bold;
+    color: c.$background;
+
+    span {
+      filter: drop-shadow(0px 0px 2px #0004);
+    }
+  }
+
+  &__text {
+    padding: 10px;
+    background-color: c.$background;
+
+    pre {
+      margin: 0;
+      white-space: pre-wrap;
+      word-break: keep-all;
+    }
+  }
+
+  &__time {
+    padding: 5px;
+    text-align: right;
+    background-color: c.$background;
+    color: c.$hint;
+    font-size: 0.8em;
+  }
+
+  &__close {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    @include mixin.square(20px);
+    transform: rotate(45deg);
+    transition: 200ms transform ease-in-out;
+    cursor: pointer;
+
+    @function block($left, $color) {
+      $right: 100% - $left;
+      @return transparent $left, $color $left, $color $right, transparent $right;
+    }
+
+    @function cross($left, $color) {
+      $block: block($left, $color);
+      @return linear-gradient(to bottom, $block),
+        linear-gradient(to right, $block);
+    }
+
+    background: cross(35%, c.$background);
+    filter: drop-shadow(0px 0px 2px #0004);
+
+    &:hover {
+      transform: rotate(225deg);
+    }
+  }
+}
+
+@mixin set-color($color) {
+  $color-secondary: color.adjust($color, $alpha: -0.9);
+
+  background-color: $color-secondary;
+  border-color: $color-secondary;
+
+  .root__title {
+    background: linear-gradient(to right, c.$background 10px, $color 60px);
+  }
+
+  .root__text {
+    color: $color;
+  }
+}
+
+.root_error {
+  @include set-color(c.$accent);
+}
+
+.root_warn {
+  @include set-color(c.$star-accent);
+}
+
+.root_info {
+  @include set-color(c.$link-hover);
+}

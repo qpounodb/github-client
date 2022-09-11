@@ -37,3 +37,9 @@
   right: list.nth($p2, 1);
   bottom: list.nth($p2, 2);
 }
+
+@mixin loader-trans($props...) {
+  transition-property: $props;
+  transition-duration: 500ms;
+  transition-timing-function: linear;
+}
