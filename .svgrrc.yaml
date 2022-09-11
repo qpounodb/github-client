@@ -1,0 +1,10 @@
+prettier: false
+
+ref: true
+titleProp: true
+
+dimensions: false
+svgoConfig:
+  plugins:
+    - name: removeViewBox
+      active: false,

@@ -43,16 +43,20 @@ describe('Тестирование компонента Input', () => {
     expect(inputElement).toHaveValue('прив');
   });
 
-  test('При вводе значений в input вызывается onChange, принимающий новое значение', () => {
+  test('При вводе значений в input вызывается onChange, принимающий новое значение', async () => {
+    const user = userEvent.setup();
     const mockOnChange = jest.fn();
+
     render(<WrappedInput onChange={mockOnChange} />);
 
-    userEvent.tab();
-    userEvent.keyboard('d');
+    await user.tab();
+    await user.keyboard('d');
     expect(mockOnChange).toBeCalledWith('d');
-    userEvent.keyboard('i');
+
+    await user.keyboard('i');
     expect(mockOnChange).toBeCalledWith('di');
-    userEvent.keyboard('v');
+
+    await user.keyboard('v');
     expect(mockOnChange).toBeCalledWith('div');
   });
 
@@ -86,8 +90,10 @@ describe('Тестирование компонента Input', () => {
     expect(inputElement).not.toBeDisabled();
   });
 
-  test('При передаче disabled=true во время попытки ввода не вызывается onChange', () => {
+  test('При передаче disabled=true во время попытки ввода не вызывается onChange', async () => {
+    const user = userEvent.setup();
     const mockOnChange = jest.fn();
+
     render(
       <Input
         value=""
@@ -98,7 +104,8 @@ describe('Тестирование компонента Input', () => {
     );
 
     const inputElement = screen.getByTestId(Locators.INPUT);
-    userEvent.type(inputElement, 'some_text');
+
+    await user.type(inputElement, 'some_text');
     expect(mockOnChange).not.toBeCalled();
   });
 
@@ -136,7 +143,8 @@ describe('Тестирование компонента Input', () => {
     expect(inputElement).toHaveValue(testValue);
   });
 
-  test('Пробрасываются все пропсы, которые принимает нативный инпут', () => {
+  test('Пробрасываются все пропсы, которые принимает нативный инпут', async () => {
+    const user = userEvent.setup();
     const onHover = jest.fn();
     const onUnHover = jest.fn();
     const onFocus = jest.fn();
@@ -163,16 +171,16 @@ describe('Тестирование компонента Input', () => {
 
     const buttonElement = screen.getByTestId(Locators.INPUT);
 
-    userEvent.hover(buttonElement);
+    await user.hover(buttonElement);
     expect(onHover).toBeCalledTimes(1);
 
-    userEvent.unhover(buttonElement);
+    await user.unhover(buttonElement);
     expect(onUnHover).toBeCalledTimes(1);
 
-    userEvent.tab();
+    await user.tab();
     expect(onFocus).toBeCalledTimes(1);
 
-    userEvent.tab();
+    await user.tab();
     expect(onBlur).toBeCalledTimes(1);
 
     expect(buttonElement).toHaveAttribute('id', id);

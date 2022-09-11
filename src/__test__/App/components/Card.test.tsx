@@ -81,8 +81,10 @@ describe('Тестирование компонента Card', () => {
     expect(content).not.toBeInTheDocument();
   });
 
-  test('При клике вызывается onClick, если передан', () => {
+  test('При клике вызывается onClick, если передан', async () => {
+    const user = userEvent.setup();
     const mockOnClick = jest.fn();
+
     render(
       <div data-testid={Locators.TEST_CONTAINER}>
         <Card
@@ -98,7 +100,8 @@ describe('Тестирование компонента Card', () => {
     const cardElement = container.firstChild;
 
     expect(cardElement).toBeInTheDocument();
-    userEvent.click(cardElement as Element);
+
+    await user.click(cardElement as Element);
     expect(mockOnClick).toBeCalledTimes(1);
   });
 });

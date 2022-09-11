@@ -27,8 +27,10 @@ describe('Тестирование компонента CheckBox', () => {
     expect(checkBoxElement).not.toHaveAttribute('checked', 'false');
   });
 
-  test('При клике на чекбокс вызывается onChange со значением', () => {
+  test('При клике на чекбокс вызывается onChange со значением', async () => {
+    const user = userEvent.setup();
     const mockOnChange = jest.fn();
+
     const { rerender } = render(
       <CheckBox
         checked={true}
@@ -39,7 +41,7 @@ describe('Тестирование компонента CheckBox', () => {
 
     const checkBoxElement = screen.getByTestId(Locators.CHECKBOX);
 
-    userEvent.click(checkBoxElement);
+    await user.click(checkBoxElement);
     expect(mockOnChange).toBeCalledWith(false);
 
     rerender(
@@ -50,7 +52,7 @@ describe('Тестирование компонента CheckBox', () => {
       />
     );
 
-    userEvent.click(checkBoxElement);
+    await user.click(checkBoxElement);
     expect(mockOnChange).toBeCalledWith(true);
   });
 
@@ -69,8 +71,10 @@ describe('Тестирование компонента CheckBox', () => {
     expect(inputElement).toHaveAttribute('type', 'checkbox');
   });
 
-  test('При передаче disabled=true не вызывается onChange', () => {
+  test('При передаче disabled=true не вызывается onChange', async () => {
+    const user = userEvent.setup();
     const mockOnChange = jest.fn();
+
     const { rerender } = render(
       <CheckBox
         disabled
@@ -82,7 +86,7 @@ describe('Тестирование компонента CheckBox', () => {
 
     const checkBoxElement = screen.getByTestId(Locators.CHECKBOX);
 
-    userEvent.click(checkBoxElement);
+    await user.click(checkBoxElement);
     expect(mockOnChange).not.toBeCalled();
 
     rerender(
@@ -93,7 +97,7 @@ describe('Тестирование компонента CheckBox', () => {
       />
     );
 
-    userEvent.click(checkBoxElement);
+    await user.click(checkBoxElement);
     expect(mockOnChange).toBeCalled();
   });
 

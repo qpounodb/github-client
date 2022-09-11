@@ -14,7 +14,7 @@ export default meta;
 
 export const Card: Story = (args) => <CardComponent {...args} />;
 Card.args = {
-  image: 'https://picsum.photos/100/100',
+  image: 'https://api.lorem.space/image/face?w=150&h=150',
   placeholder: 'S',
   title: 'Title',
   subtitle: 'Subtitle',
