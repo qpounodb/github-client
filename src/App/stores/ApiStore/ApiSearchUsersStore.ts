@@ -1,15 +1,9 @@
-import { SearchUsersApi } from '~/App/models/github';
+import { RepoOwnerApi } from '~/App/models/github';
 import { GithubReposAPI } from '~/shared/githubAPI';
-import { ApiStore } from './ApiStore';
+import { ApiSearchStore } from './ApiSearchStore';
 
-type FetchParams = { orgName: string };
-
-export class ApiSearchUsersStore extends ApiStore<FetchParams, SearchUsersApi> {
+export class ApiSearchUsersStore extends ApiSearchStore<RepoOwnerApi> {
   constructor(_api: GithubReposAPI) {
-    super({
-      fetch: ({ orgName }, signal: AbortSignal) =>
-        _api.checkOrg(orgName, signal),
-      normalize: (x) => x,
-    });
+    super(({ orgName }, signal) => _api.checkOrg(orgName, signal));
   }
 }

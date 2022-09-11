@@ -9,5 +9,6 @@ export * from './repoContributor';
 export * from './repoLangs';
 export * from './repoOwner';
 export * from './repoReadme';
+export * from './search';
 export * from './searchRepos';
 export * from './searchUsers';

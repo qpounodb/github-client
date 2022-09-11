@@ -86,12 +86,12 @@ export class QueryParamsStore implements QueryParamsApp {
   }
 
   setOrgName(name?: string): void {
-    this._orgName = name;
+    this._orgName = name || undefined;
     this._page = 1;
   }
 
   setPageNum(page?: number): void {
-    this._page = page;
+    this._page = page || undefined;
   }
 
   setSort(sort?: string): void {
@@ -99,8 +99,8 @@ export class QueryParamsStore implements QueryParamsApp {
     this._page = 1;
   }
 
-  setOrder(order?: string): void {
-    this._order = isSome(order) ? toOrderDir(order) : order;
+  setOrder(order?: Order): void {
+    this._order = order;
   }
 
   setParams(params: URLSearchParams): void {
@@ -120,6 +120,10 @@ export class QueryParamsStore implements QueryParamsApp {
           break;
       }
     });
+    if (isSome(this._page) && (isNaN(this._page) || this._page < 1)) {
+      this._page = 1;
+      this.setPageNum(1);
+    }
   }
 
   setSearchParamsSetter(setSearchParams: SetURLSearchParams) {

@@ -51,14 +51,6 @@ export class ApiStore<Params = any, Raw = any, Model = Raw>
     });
   }
 
-  init(): void {}
-
-  destroy(): void {
-    this.stop();
-    this.reset();
-    this._controller = null;
-  }
-
   get loading(): boolean {
     return this._loading;
   }
@@ -131,5 +123,13 @@ export class ApiStore<Params = any, Raw = any, Model = Raw>
 
   stop(): void {
     this._controller?.abort();
+  }
+
+  init(): void {}
+
+  destroy(): void {
+    this.stop();
+    this.reset();
+    this._controller = null;
   }
 }

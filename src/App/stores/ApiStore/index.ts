@@ -6,5 +6,6 @@ export * from './ApiRepoLangsStore';
 export * from './ApiRepoReadmeStore';
 export * from './ApiReposStore';
 export * from './ApiSearchReposStore';
+export * from './ApiSearchStore';
 export * from './ApiSearchUsersStore';
 export * from './ApiStore';

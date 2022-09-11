@@ -1,3 +1,4 @@
+import { runInAction } from 'mobx';
 import { observer } from 'mobx-react-lite';
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
@@ -7,7 +8,7 @@ import { Pagination } from '~/App/components/Pagination';
 import { Search } from '~/App/components/Search';
 import { WithLoader } from '~/App/components/WithLoader';
 import { RepoModel } from '~/App/models/github';
-import { SortKind } from '~/App/models/queryParams';
+import { OrderDir, SortKind } from '~/App/models/queryParams';
 import { ReposStore } from '~/App/stores';
 import { rootStore } from '~/App/stores/RootStore';
 import { useLocalStore } from '~/shared/hooks';
@@ -23,31 +24,40 @@ const SORT_OPTIONS: Option[] = Object.values(SortKind).map((value) => ({
 }));
 
 const Main: React.FC = () => {
+  const { queryParamsStore } = rootStore;
   const store = useLocalStore(() => new ReposStore());
   const navigate = useNavigate();
-  const [input, setInput] = React.useState(rootStore.queryParamsStore.orgName);
+  const [input, setInput] = React.useState(queryParamsStore.orgName);
+
+  React.useEffect(() => {
+    runInAction(() => setInput(queryParamsStore.orgName));
+  }, [queryParamsStore.orgName]);
 
   const selectedSort = React.useMemo(
-    () => SORT_OPTIONS.find((o) => o.key === rootStore.queryParamsStore.sort),
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    [rootStore.queryParamsStore.sort]
+    () => SORT_OPTIONS.find((o) => o.key === queryParamsStore.sort),
+    [queryParamsStore.sort]
   );
 
-  const submitName = React.useCallback((name: string) => {
-    rootStore.queryParamsStore.setOrgName(name);
-  }, []);
+  const submitName = React.useCallback(
+    (name: string) => queryParamsStore.setOrgName(name),
+    [queryParamsStore]
+  );
 
-  const submitPage = React.useCallback((page: number) => {
-    rootStore.queryParamsStore.setPageNum(page);
-  }, []);
+  const submitPage = React.useCallback(
+    (page: number) => queryParamsStore.setPageNum(page),
+    [queryParamsStore]
+  );
 
-  const submitSort = React.useCallback(({ key }: Option) => {
-    rootStore.queryParamsStore.setSort(String(key));
-  }, []);
+  const submitSort = React.useCallback(
+    ({ key }: Option) => queryParamsStore.setSort(String(key)),
+    [queryParamsStore]
+  );
 
-  const submitOrder = React.useCallback((isAsc: boolean) => {
-    rootStore.queryParamsStore.setOrder(isAsc ? 'asc' : 'desc');
-  }, []);
+  const submitOrder = React.useCallback(
+    (isAsc: boolean) =>
+      queryParamsStore.setOrder(isAsc ? OrderDir.asc : OrderDir.desc),
+    [queryParamsStore]
+  );
 
   const getCardClickHandler = React.useCallback(
     ({ name, owner }: RepoModel) =>
@@ -76,7 +86,7 @@ const Main: React.FC = () => {
         />
         <label>
           <CheckBox
-            checked={rootStore.queryParamsStore.order === 'asc'}
+            checked={queryParamsStore.order === 'asc'}
             onChange={submitOrder}
           />
           Asc order
@@ -85,7 +95,7 @@ const Main: React.FC = () => {
       <div className={styles.section}>
         <WithLoader loading={store.loading}>
           <GitRepoList
-            data={store.state?.data}
+            data={store.state.data}
             getCardClickHandler={getCardClickHandler}
           />
         </WithLoader>
@@ -93,7 +103,7 @@ const Main: React.FC = () => {
       <div>
         <Pagination
           onSubmit={submitPage}
-          page={rootStore.queryParamsStore.page}
+          page={queryParamsStore.page}
           count={store.pagesCount}
           loading={store.loading}
         />
