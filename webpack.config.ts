@@ -1,10 +1,11 @@
+import path from 'path';
+
 import ReactRefreshWebpackPlugin from '@pmmmwh/react-refresh-webpack-plugin';
 import DotenvWebpackPlugin from 'dotenv-webpack';
 import ForkTsCheckerWebpackPlugin from 'fork-ts-checker-webpack-plugin';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
 import MiniCssExtractPlugin from 'mini-css-extract-plugin';
-import path from 'path';
-import TsconfigPathsPlugin from 'tsconfig-paths-webpack-plugin';
+import { TsconfigPathsPlugin } from 'tsconfig-paths-webpack-plugin';
 import Webpack from 'webpack';
 import DevServer from 'webpack-dev-server';
 

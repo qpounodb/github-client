@@ -62,6 +62,8 @@
     "dotenv-webpack": "^8.0.1",
     "eslint": "^8.23.0",
     "eslint-config-prettier": "^8.5.0",
+    "eslint-import-resolver-typescript": "^3.5.1",
+    "eslint-plugin-import": "^2.26.0",
     "eslint-plugin-jest-dom": "^4.0.2",
     "eslint-plugin-mobx": "^0.0.9",
     "eslint-plugin-prettier": "^4.2.1",

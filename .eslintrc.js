@@ -11,6 +11,8 @@ const config = {
 
   extends: [
     'eslint:recommended',
+    'plugin:import/recommended',
+    'plugin:import/typescript',
     'plugin:react/recommended',
     'plugin:react/jsx-runtime',
     'plugin:@typescript-eslint/recommended',
@@ -18,7 +20,14 @@ const config = {
     'prettier',
   ],
 
-  plugins: ['react', 'react-hooks', 'mobx', '@typescript-eslint', 'prettier'],
+  plugins: [
+    'import',
+    'react',
+    'react-hooks',
+    'mobx',
+    '@typescript-eslint',
+    'prettier',
+  ],
 
   parser: '@typescript-eslint/parser',
   parserOptions: {
@@ -31,13 +40,46 @@ const config = {
 
   settings: {
     react: { version: 'detect' },
+    'import/parsers': {
+      '@typescript-eslint/parser': ['.ts', '.tsx'],
+    },
     'import/resolver': {
-      typescript: {},
+      typescript: {
+        project: './tsconfig.json',
+      },
+      node: true,
     },
   },
 
   rules: {
-    // 'sort-imports': 'error',
+    'import/no-named-as-default-member': 'off',
+    'import/newline-after-import': ['error', { count: 1 }],
+    'import/order': [
+      'error',
+      {
+        groups: [
+          'builtin',
+          'external',
+          'internal',
+          'parent',
+          'sibling',
+          'index',
+        ],
+        pathGroups: [
+          {
+            pattern: '~/**',
+            group: 'internal',
+            position: 'before',
+          },
+        ],
+        // distinctGroup: true,
+        'newlines-between': 'always-and-inside-groups',
+        alphabetize: {
+          order: 'asc',
+          caseInsensitive: true,
+        },
+      },
+    ],
     'mobx/exhaustive-make-observable': 'off',
     'mobx/missing-observer': 'off',
   },
