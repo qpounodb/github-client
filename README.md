@@ -1,40 +1,80 @@
 # Github Client
 
-<details><summary> <img src="https://lms.metaclass.kts.studio/static/public/favicon/favicon-32x32.png" width="16" height="16"> Задание (кликните для открытия спойлера)  </summary><br>
-
-> #### Чек-лист требований для ДЗ 3
->
-> - [x] Реализован сетап проекта с подключенным линтером, алиасами.
-> - [x] В проекте соблюдена структура, о которой рассказывали во втором модуле.
-> - [x] Реализована страница списка сущностей с получением данных из API
-> - [x] Добавлена страница одной сущности с получением данных из API
-> - [x] Подключен роутинг
-> - [x] Стили переписаны на css-modules с использованием scss, переменные и миксины вынесены в отдельный файл
-> - [x] Дополнительно: реализована пагинация
-
-> #### Чек-лист требований для ДЗ 4
->
-> - [x] Вся логика работы с данными переписана с помощью Mobx.
-> - [x] Корректно разделены сторы и выбрана "локальность" каждого из них.
-> - [x] Реализован поиск.
-> - [x] Добавлена пагинация.
-> - [x] В query-параметрах сохраняется состояние пагинации и поиска.
-> - [x] Дополнительно - использование сортировок из Github API
-
-</details>
-
-## <img src="https://static.figma.com/app/icon/1/favicon.png" width="16" height="16"> Макет
+## <img src="https://cdn.svgporn.com/logos/figma.svg" height="32" align="top"> Макет
 
 > [**Figma 🔸 Github Client**][figma]
 
-## <img src="https://app.netlify.com/favicon-32x32.png" width="16" height="16"> Деплой
-
-> [**qpundb-hw4-github-client.netlify.app**][deploy]
-
 [figma]: https://www.figma.com/file/xS1HZPihGT3NpSigyxSAm8/%D0%9F%D1%80%D0%BE%D0%B5%D0%BA%D1%82%D1%8B?node-id=0%3A1
-[deploy]: https://qpundb-hw4-github-client.netlify.app/
 
-## Подготовка к работе с проектом:
+## <img src="https://lms.metaclass.kts.studio/static/public/favicon/favicon-32x32.png" height="32" align="top"> Задание
+
+- <details><summary> ДЗ 3 (кликните для открытия спойлера) </summary><br>
+
+  > - [x] **Сетап проекта**. Необходимо создать проект с помощью create-react-app, подключить линтер и алиасы. Подробнее можно прочесть здесь. При реализации необходимо соблюдать структуру проекта, про это мы рассказывали во втором модуле.
+  > - [x] **Страницу списка сущностей вашего проекта** (Github client - репозитории, crypto - монеты и тд). Получение данных для отображения сущностей должно осуществляться с помощью запроса к API, который указан в таблице(кроме тех случаев, когда выбрана тема отличная от тем из таблицы).
+  > - [x] **Страницу отображения одной сущности**. Получение данных об одном проекте должно также осуществляться с помощью запроса к API(запрещается использование данных из списка для отображения сущности на отдельной странице).
+  > - [x] **Роутинг**. В вашем приложении должен быть реализована маршрутизация, при перезагрузке страницы должно отображаться то же состояние, что и до.
+  > - [x] **Стили**, написанные на css-modules с использованием scss.
+  >
+  > Запросы к API должны осуществляться с помощью библиотеки axios.
+  >
+  > #### Чек-лист требований
+  >
+  > - [x] Реализован сетап проекта с подключенным линтером, алиасами.
+  > - [x] В проекте соблюдена структура, о которой рассказывали во втором модуле.
+  > - [x] Реализована страница списка сущностей с получением данных из API
+  > - [x] Добавлена страница одной сущности с получением данных из API
+  > - [x] Подключен роутинг
+  > - [x] Стили переписаны на css-modules с использованием scss, переменные и миксины вынесены в отдельный файл
+  > - [x] Дополнительно: реализована пагинация
+
+   </details>
+
+- <details><summary> ДЗ 4 (кликните для открытия спойлера) </summary><br>
+
+  > - [x] **Логику на Mobx**. Необходимо переписать логику загрузки/хранения/использования данных на Mobx.
+  > - [x] **Mobx-сторы**. Реализовать разделение логики на Mobx-сторы.
+  > - [x] **Поиск**. Добавить нахождение списка сущностей по введенной строке (см. документацию в API).
+  > - [x] **Пагинацию**. Реализовать пагинацию сущностей (или бесконечный скрол).
+  > - [x] **Query-параметры**. Сохранять введенное значение в поиске и параметры пагинации в query-параметрах. В итоге при перезагрузке страницы списка должны отображаться те же данные, что были до.
+  >
+  > #### Чек-лист требований
+  >
+  > - [x] Вся логика работы с данными переписана с помощью Mobx.
+  > - [x] Корректно разделены сторы и выбрана "локальность" каждого из них.
+  > - [x] Реализован поиск.
+  > - [x] Добавлена пагинация.
+  > - [x] В query-параметрах сохраняется состояние пагинации и поиска.
+  > - [x] Дополнительно - использование сортировок из Github API
+
+   </details>
+
+- <details><summary> ДЗ 5 (кликните для открытия спойлера) </summary><br>
+
+  > - [x] Заменить текущую сборку, которую предоставляет create-react-app, на собственную.
+  >
+  > #### Чек-лист требований
+  >
+  > - [x] Все файлы собираются с помощью Webpack
+  > - [x] Все `.ts` `.js` `.tsx` `.jsx` файлы транспилируются с помощью Babel
+  > - [x] Настройки Webpack, Babel прописаны в конфигах
+  > - [x] Настроена сборка стилей: поддерживается sass-синтаксис, css-modules; для dev-сборки используется style-loader, для prod - MiniCssExtractPlugin
+  > - [x] Подключен Hot Module Replacement
+  > - [x] Реализована работа с файлами (добавлены ассеты)
+  > - [x] Подключен TypeScript
+  > - [x] На проекте используются alias-ы и babel-плагины для нового синтаксиса
+
+   </details>
+
+## <img src="https://cdn.svgporn.com/logos/netlify.svg" height="32" align="top"> Деплой [![Netlify Status][deploy-status]][deploys]
+
+> [**qpundb-github-client.netlify.app**][deploy]
+
+[deploy]: https://qpundb-github-client.netlify.app
+[deploys]: https://app.netlify.com/sites/qpundb-github-client/deploys
+[deploy-status]: https://api.netlify.com/api/v1/badges/11bc2bb0-1566-4f67-9f4b-39ad1240e236/deploy-status
+
+## <img src="https://cdn.svgporn.com/logos/git-icon.svg" height="32" align="top"> Подготовка к работе с проектом:
 
 - ```shell
   git clone https://github.com/qpounodb/github-client.git
@@ -52,22 +92,23 @@
   yarn install
   ```
 
-## Управление проектом:
+## <img src="https://cdn.svgporn.com/logos/yarn.svg" height="32" align="top"> Управление проектом:
 
-- `yarn start` - запускает [Create React App][cra], [Storybook][sb] и [Typed-SCSS-Modules][tsm] одновременно
-- `yarn start:cra` - запускает [Create React App][cra]
-- `yarn start:sb` - запускает [Storybook][sb]
-- `yarn start:tsm` - запускает [Typed-SCSS-Modules][tsm]
-- `yarn build:cra` - производит сборку [Create React App][cra]
-- `yarn build:sb` - производит сборку [Storybook][sb]
-- `yarn test` - запускает [Jest][jest] тесты
+[app]: .
 
-[cra]: https://create-react-app.dev/docs/getting-started
-[sb]: https://storybook.js.org/docs/react/get-started/introduction
-[tsm]: https://github.com/skovy/typed-scss-modules
-[jest]: https://jestjs.io/docs/getting-started
+- `yarn start` - запускает [App][app], [Storybook][storybook] и [Typed-SCSS-Modules][tsm] одновременно
+- `yarn start:app` - запускает [App][app] в режиме разработки
+- `yarn build:app` - производит сборку [App][app] для продакшена
+- `yarn start:sb` - запускает [Storybook][storybook] в режиме разработки
+- `yarn build:sb` - производит сборку [Storybook][storybook] для продакшена
+- `yarn start:tsm` - запускает [Typed-SCSS-Modules][tsm] для автогенерации типов для файлов [CSS-Modules][cssm]
+- `yarn test` - запускает [Jest](https://jestjs.io) тесты
+- `yarn ts:check` - запускает проверки [Typescript][ts]
+- `yarn lint` - запускает проверки [ESLint][eslint]
+- `yarn lint:fix` - производит автоисправление с помощью [ESLint][eslint]
+- `yarn format` - производит форматирование с помощью [Prettier][prettier]
 
-## <img src="https://docs.github.com/assets/cb-803/images/site/favicon.svg" width="16" height="16"> API endpoints:
+## <img src="https://docs.github.com/assets/cb-803/images/site/favicon.svg" height="32" align="top"> API endpoints:
 
 | `https://api.github.com`              | Documentation                                |
 | ------------------------------------- | -------------------------------------------- |
@@ -95,36 +136,71 @@
 
 [Правила ограничения количества запросов][rate] <br>
 По умолчанию гитхаб ограничивает число запросов к АПИ до **60** в час на один **IP адрес**. <br>
-Для увеличения лимитов по запросам (**5000** в час на один **аккаунт**) - можно добавить [персональный гитхаб токен][token] в переменную окружения `REACT_APP_GITHUB_API_ACCESS_TOKEN`. <br>
+Для увеличения лимитов по запросам (**5000** в час на один **аккаунт**) - можно добавить [персональный гитхаб токен][token] в переменную окружения `GITHUB_API_ACCESS_TOKEN`. <br>
 Для удобства можно создать в корне проекта файл `.env.local` с содержимым:
 
 ```
-REACT_APP_GITHUB_API_ACCESS_TOKEN=<токен созданный в гитхаб>
+GITHUB_API_ACCESS_TOKEN=<токен созданный в гитхаб>
 ```
 
 [rate]: https://docs.github.com/en/rest/overview/resources-in-the-rest-api#rate-limiting
 [token]: https://github.com/settings/tokens
 
-## Стек технологий:
+## 🧱 Стек технологий:
 
-- [x] <img src="https://reactjs.org/favicon.ico" width="16" height="16"> [React](https://reactjs.org/docs/getting-started.html) - JS library for building user interfaces
-- [x] <img src="https://reactrouter.com/favicon-light.png" width="16" height="16"> [React-router](https://reactrouter.com/docs/en/v6) - fully-featured client and server-side routing library
-- [x] <img src="https://axios-http.com/assets/favicon.ico" width="16" height="16"> [Axios](https://axios-http.com/docs/intro) - promise based HTTP client for the browser and node.js
-- [x] <img src="https://axios-cache-interceptor.js.org/static/favicon-32x32.png" width="16" height="16"> [Axios Cache Interceptor](https://axios-cache-interceptor.js.org) - adds caching capabilities to axios
-- [x] <img src="https://avatars.githubusercontent.com/u/872310?s=32&v=4" width="16" height="16"> [ClassNames](https://github.com/JedWatson/classnames) - simple conditionally joining classNames together
-- [x] <img src="https://showdownjs.com/favicon-32x32.png" width="16" height="16"> [Showdown](https://showdownjs.com/) - markdown to HTML bidirectional converter
-- [x] <img src="https://mobx.js.org/img/favicon.png" width="16" height="16"> [MobX](https://mobx.js.org/README.html) - simple, scalable state management.
+[react]: https://reactjs.org
+[router]: https://reactrouter.com
+[axios]: https://axios-http.com
+[mobx]: https://mobx.js.org
 
-## Инструменты для разработки:
+- <img src="https://cdn.svgporn.com/logos/react.svg" height="32" align="top"> [React][react] - JavaScript library for building user interfaces
 
-- [x] <img src="https://www.typescriptlang.org/favicon-32x32.png" width="16" height="16"> [Typescript](https://www.typescriptlang.org/docs/) - strongly typed programming language
-- [x] <img src="https://nodejs.org/static/images/favicons/favicon-32x32.png" width="16" height="16"> [Nodejs](https://nodejs.org/en/) - JS runtime built on Chrome's V8 JS engine
-- [x] <img src="https://yarnpkg.com/favicon-32x32.png" width="16" height="16"> [Yarn](https://yarnpkg.com/getting-started) - package manager
-- [x] <img src="https://create-react-app.dev/img/favicon/favicon.ico" width="16" height="16"> [Create React App][cra] - modern build setup with no configuration
-- [x] <img src="https://storybook.js.org/images/logos/icon-storybook.png" width="16" height="16"> [Storybook][sb] - tool for UI development
-- [x] <img src="https://sass-lang.com/favicon.ico" width="16" height="16"> [SCSS](https://sass-lang.com/documentation/) - stylesheet language that’s compiled to CSS
-- [x] <img src="https://raw.githubusercontent.com/css-modules/logos/master/css-modules-logo.png" width="16" height="16"> [CSS Modules](https://github.com/css-modules/css-modules) - CSS files in which all class names and animation names are scoped locally by default
-- [x] <img src="https://avatars.githubusercontent.com/u/5247455?s=32&v=4" width="16" height="16"> [Typed-SCSS-Modules][tsm] - Generate type definitions (.d.ts) for CSS Modules using SCSS
-- [x] <img src="https://avatars.githubusercontent.com/u/5363448?s=32&v=4" width="16" height="16"> [Concurrently](https://github.com/open-cli-tools/concurrently) - Run commands concurrently. Like `npm run watch-js & npm run watch-less` but better.
-- [x] <img src="https://jestjs.io/img/jest.png" width="16" height="16"> [Jest][jest] - delightful JS Testing Framework with a focus on simplicity
-- [x] <img src="https://testing-library.com/img/octopus-32x32.png" width="16" height="16"> [React Testing Library](https://testing-library.com/docs/react-testing-library/intro/) - builds on top of `DOM Testing Library` by adding APIs for working with React components.
+- <img src="https://cdn.svgporn.com/logos/react-router.svg" height="32" align="top"> [React-router][router] - fully-featured client and server-side routing library
+
+- <img src="https://axios-http.com/assets/favicon.ico" height="32" align="top"> [Axios][axios] - promise based HTTP client for the browser and node.js
+
+- <img src="https://cdn.svgporn.com/logos/mobx.svg" height="32" align="top"> [MobX][mobx] - simple, scalable state management.
+
+## 🛠️ Инструменты для разработки:
+
+[git]: https://git-scm.com/
+[yarn]: https://yarnpkg.com
+[node]: https://nodejs.org
+[ts-node]: https://typestrong.org/ts-node
+[babel]: https://babeljs.io
+[ts]: https://www.typescriptlang.org
+[sass]: https://sass-lang.com
+[webpack]: https://webpack.js.org
+[storybook]: https://storybook.js.org
+[jest]: https://jestjs.io
+[test-lib]: https://testing-library.com
+[eslint]: https://eslint.org
+[prettier]: https://prettier.io
+[tsm]: https://github.com/skovy/typed-scss-modules
+[cssm]: https://github.com/css-modules/css-modules
+
+- <img src="https://cdn.svgporn.com/logos/git-icon.svg" height="32" align="top"> [Git][git] - distributed version control system
+
+- <img src="https://cdn.svgporn.com/logos/yarn.svg" height="32" align="top"> [Yarn][yarn] - package manager
+
+- <img src="https://nodejs.org/static/images/favicons/favicon-32x32.png" height="32" align="top"> [Node.js][node] - JavaScript runtime built on Chrome's V8 JavaScript engine
+
+- <img src="https://typestrong.org/ts-node/img/favicon/favicon-32x32.png" height="32" align="top"> [TS-node][ts-node] - TypeScript execution and REPL for node.js
+
+- <img src="https://babeljs.io/img/favicon.png" height="32" align="top"> [Babel][babel] - JavaScript compiler.
+
+- <img src="https://www.typescriptlang.org/favicon-32x32.png" height="32" align="top"> [TypeScript][ts] - strongly typed programming language
+
+- <img src="https://cdn.svgporn.com/logos/sass.svg" height="32" align="top"> [SASS/SCSS][sass] - stylesheet language that’s compiled to CSS
+
+- <img src="https://cdn.svgporn.com/logos/webpack.svg" height="32" align="top"> [Webpack][webpack] - static module bundler for modern JavaScript applications.
+
+- <img src="https://cdn.svgporn.com/logos/storybook-icon.svg" height="32" align="top"> [Storybook][storybook] - tool for UI development
+
+- <img src="https://cdn.svgporn.com/logos/jest.svg" height="32" align="top"> [Jest][jest] - delightful JavaScript Testing Framework with a focus on simplicity
+
+- <img src="https://testing-library.com/img/octopus-32x32.png" height="32" align="top"> [React Testing Library][test-lib] - builds on top of `DOM Testing Library` by adding APIs for working with React components.
+
+- <img src="https://eslint.org/icon.svg" height="32" align="top"> [ESLint][eslint] - statically analyzes your code to quickly find problems.
+
+- <img src="https://prettier.io/icon.png" height="32" align="top"> [Prettier][prettier] - opinionated code formatter.
