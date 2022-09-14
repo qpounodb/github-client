@@ -2,21 +2,23 @@ import { runInAction } from 'mobx';
 import { observer } from 'mobx-react-lite';
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import { CheckBox } from '~/App/components/CheckBox';
-import { Option, Select } from '~/App/components/dropdown';
-import { Pagination } from '~/App/components/Pagination';
-import { Search } from '~/App/components/Search';
-import { WithLoader } from '~/App/components/WithLoader';
-import { RepoModel } from '~/App/models/github';
-import { OrderDir, SortKind } from '~/App/models/queryParams';
-import { ReposStore } from '~/App/stores';
-import { rootStore } from '~/App/stores/RootStore';
-import { useLocalStore } from '~/shared/hooks';
-import { joinClassName } from '~/shared/utils';
+
+import { CheckBox } from '~components/CheckBox';
+import { Option, Select } from '~components/dropdown';
+import { Pagination } from '~components/Pagination';
+import { Search } from '~components/Search';
+import { WithLoader } from '~components/WithLoader';
+import { useLocalStore } from '~hooks';
+import { RepoModel } from '~models/github';
+import { OrderDir, SortKind } from '~models/queryParams';
+import { ReposStore } from '~stores';
+import { rootStore } from '~stores/RootStore';
+import { joinClassName } from '~utils';
+
 import { GitRepoList } from './components/GitRepoList';
 import styles from './Main.module.scss';
 
-const SEARCH_PLACEHOLDER = 'Введите название организации';
+const SEARCH_PLACEHOLDER = 'Enter organization name';
 
 const SORT_OPTIONS: Option[] = Object.values(SortKind).map((value) => ({
   key: value,

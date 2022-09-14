@@ -1,6 +1,6 @@
-@use '~/App/styles/color';
-@use '~/App/styles/size';
-@use '~/App/styles/mixin';
+@use '~styles/color';
+@use '~styles/size';
+@use '~styles/mixin';
 
 .root {
   max-width: 360px;

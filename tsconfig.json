@@ -3,7 +3,19 @@
   "compilerOptions": {
     "baseUrl": "src",
     "paths": {
-      "~/*": ["*"]
+      "~/*": ["*"],
+      "~app/*": ["App/*"],
+      "~assets/*": ["App/assets/*"],
+      "~styles/*": ["App/styles/*"],
+      "~components/*": ["App/components/*"],
+      "~models": ["App/models"],
+      "~models/*": ["App/models/*"],
+      "~stores": ["App/stores"],
+      "~stores/*": ["App/stores/*"],
+      "~shared/*": ["shared/*"],
+      "~hooks": ["shared/hooks"],
+      "~utils": ["shared/utils"],
+      "~types": ["shared/types"]
     },
     "target": "ES6",
     "lib": ["dom", "dom.iterable", "esnext"],
