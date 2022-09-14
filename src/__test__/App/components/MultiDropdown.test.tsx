@@ -59,8 +59,10 @@ describe('Тестирование компонента MultiDropdown', () => {
     expect(dropdownElement).toHaveTextContent('');
   });
 
-  test('Проверка синхронизации значения value', () => {
+  test('Проверка синхронизации значения value', async () => {
+    const user = userEvent.setup();
     const mockOnChange = jest.fn();
+
     const { rerender } = render(
       <MultiDropdown
         onChange={mockOnChange}
@@ -71,11 +73,12 @@ describe('Тестирование компонента MultiDropdown', () => {
     );
 
     const dropdownElement = screen.getByDisplayValue(defaultTitle);
-    userEvent.click(dropdownElement);
+
+    await user.click(dropdownElement);
 
     const firstOption = screen.getByText(defaultOptions[0].value);
-    userEvent.click(firstOption);
 
+    await user.click(firstOption);
     expect(mockOnChange).toBeCalledWith([defaultOptions[1], defaultOptions[2]]);
 
     rerender(
@@ -87,11 +90,13 @@ describe('Тестирование компонента MultiDropdown', () => {
       />
     );
 
-    userEvent.click(firstOption);
+    await user.click(firstOption);
     expect(mockOnChange).toBeCalledWith([defaultOptions[0]]);
   });
 
-  test('Проверка открытия/закрытия списка опций при клике', () => {
+  test('Проверка открытия/закрытия списка опций при клике', async () => {
+    const user = userEvent.setup();
+
     render(
       <WrappedDropdown options={defaultOptions} getTitle={() => TEST_TITLE} />
     );
@@ -99,16 +104,18 @@ describe('Тестирование компонента MultiDropdown', () => {
     const dropdownElement = screen.getByDisplayValue(TEST_TITLE);
     expect(dropdownElement).toBeInTheDocument();
 
-    userEvent.click(dropdownElement);
+    await user.click(dropdownElement);
 
     const firstOption = screen.getByText(defaultOptions[0].value);
     expect(firstOption).toBeInTheDocument();
 
-    userEvent.click(dropdownElement);
+    await user.click(dropdownElement);
     expect(firstOption).not.toBeInTheDocument();
   });
 
-  test('Отображаются все переданные options', () => {
+  test('Отображаются все переданные options', async () => {
+    const user = userEvent.setup();
+
     render(
       <WrappedDropdown options={defaultOptions} getTitle={() => TEST_TITLE} />
     );
@@ -116,7 +123,7 @@ describe('Тестирование компонента MultiDropdown', () => {
     const dropdownElement = screen.getByDisplayValue(TEST_TITLE);
     expect(dropdownElement).toBeInTheDocument();
 
-    userEvent.click(dropdownElement);
+    await user.click(dropdownElement);
 
     const firstOption = screen.getByText(defaultOptions[0].value);
     const secondOption = screen.getByText(defaultOptions[1].value);
@@ -127,7 +134,9 @@ describe('Тестирование компонента MultiDropdown', () => {
     expect(thirdOption).toBeInTheDocument();
   });
 
-  test('При disabled=true не открывается список опций', () => {
+  test('При disabled=true не открывается список опций', async () => {
+    const user = userEvent.setup();
+
     const { rerender } = render(
       <WrappedDropdown options={defaultOptions} getTitle={() => TEST_TITLE} />
     );
@@ -135,7 +144,7 @@ describe('Тестирование компонента MultiDropdown', () => {
     const dropdownElement = screen.getByDisplayValue(TEST_TITLE);
     expect(dropdownElement).toBeInTheDocument();
 
-    userEvent.click(dropdownElement);
+    await user.click(dropdownElement);
 
     const firstOption = screen.getByText(defaultOptions[0].value);
     expect(firstOption).toBeInTheDocument();
@@ -150,12 +159,14 @@ describe('Тестирование компонента MultiDropdown', () => {
 
     expect(firstOption).not.toBeInTheDocument();
 
-    userEvent.click(dropdownElement);
+    await user.click(dropdownElement);
     expect(firstOption).not.toBeInTheDocument();
   });
 
-  test('При клике на опцию вызывается onChange с добавленной опцией', () => {
+  test('При клике на опцию вызывается onChange с добавленной опцией', async () => {
+    const user = userEvent.setup();
     const mockOnChange = jest.fn();
+
     render(
       <MultiDropdown
         onChange={mockOnChange}
@@ -166,19 +177,24 @@ describe('Тестирование компонента MultiDropdown', () => {
     );
 
     const dropdownElement = screen.getByDisplayValue(TEST_TITLE);
-    userEvent.click(dropdownElement);
+
+    await user.click(dropdownElement);
 
     const firstOption = screen.getByText(defaultOptions[0].value);
-    userEvent.click(firstOption);
+
+    await user.click(firstOption);
     expect(mockOnChange).toBeCalledWith([defaultOptions[0]]);
 
     const secondOption = screen.getByText(defaultOptions[1].value);
-    userEvent.click(secondOption);
+
+    await user.click(secondOption);
     expect(mockOnChange).toBeCalledWith([defaultOptions[1]]);
   });
 
-  test('При клике на уже выбранную опцию вызывается onChange без этой опции', () => {
+  test('При клике на уже выбранную опцию вызывается onChange без этой опции', async () => {
+    const user = userEvent.setup();
     const mockOnChange = jest.fn();
+
     render(
       <MultiDropdown
         onChange={mockOnChange}
@@ -189,15 +205,18 @@ describe('Тестирование компонента MultiDropdown', () => {
     );
 
     const dropdownElement = screen.getByDisplayValue(defaultTitle);
-    userEvent.click(dropdownElement);
+
+    await user.click(dropdownElement);
 
     const firstOption = screen.getByText(defaultOptions[0].value);
-    userEvent.click(firstOption);
 
+    await user.click(firstOption);
     expect(mockOnChange).toBeCalledWith([defaultOptions[1], defaultOptions[2]]);
   });
 
-  test('Проверка перерендера при изменении options (key)', () => {
+  test('Проверка перерендера при изменении options (key)', async () => {
+    const user = userEvent.setup();
+
     const { rerender } = render(
       <MultiDropdown
         onChange={() => {}}
@@ -208,7 +227,8 @@ describe('Тестирование компонента MultiDropdown', () => {
     );
 
     const dropdownElement = screen.getByDisplayValue(TEST_TITLE);
-    userEvent.click(dropdownElement);
+
+    await user.click(dropdownElement);
 
     const firstOption = screen.getByText(defaultOptions[0].value);
     const secondOption = screen.getByText(defaultOptions[1].value);

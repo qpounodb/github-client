@@ -65,8 +65,10 @@ describe('Тестирование компонента Button', () => {
     expect(buttonElement).not.toBeDisabled();
   });
 
-  test('При передаче loading=true при клике на кнопку onClick не вызывается', () => {
+  test('При передаче loading=true при клике на кнопку onClick не вызывается', async () => {
+    const user = userEvent.setup();
     const mockOnClick = jest.fn();
+
     render(
       <Button data-testid={Locators.BUTTON} onClick={mockOnClick} loading>
         {BUTTON_TEXT}
@@ -74,8 +76,8 @@ describe('Тестирование компонента Button', () => {
     );
 
     const buttonElement = screen.getByTestId(Locators.BUTTON);
-    userEvent.click(buttonElement);
 
+    await user.click(buttonElement);
     expect(mockOnClick).not.toBeCalled();
   });
 
@@ -95,8 +97,10 @@ describe('Тестирование компонента Button', () => {
     expect(buttonElement).not.toHaveAttribute('disabled');
   });
 
-  test('Переданный onClick вызывается при клике', () => {
+  test('Переданный onClick вызывается при клике', async () => {
+    const user = userEvent.setup();
     const mockOnClick = jest.fn();
+
     render(
       <Button onClick={mockOnClick} data-testid={Locators.BUTTON}>
         {BUTTON_TEXT}
@@ -104,8 +108,8 @@ describe('Тестирование компонента Button', () => {
     );
 
     const buttonElement = screen.getByTestId(Locators.BUTTON);
-    userEvent.click(buttonElement);
 
+    await user.click(buttonElement);
     expect(mockOnClick).toBeCalledTimes(1);
   });
 
@@ -140,8 +144,10 @@ describe('Тестирование компонента Button', () => {
     expect(buttonElement.className).not.toContain(Color.secondary);
   });
 
-  test('При disabled=true не вызывается onClick', () => {
+  test('При disabled=true не вызывается onClick', async () => {
+    const user = userEvent.setup();
     const mockOnClick = jest.fn();
+
     const { rerender } = render(
       <Button data-testid={Locators.BUTTON} onClick={mockOnClick} disabled>
         {BUTTON_TEXT}
@@ -149,8 +155,8 @@ describe('Тестирование компонента Button', () => {
     );
 
     const buttonElement = screen.getByTestId(Locators.BUTTON);
-    userEvent.click(buttonElement);
 
+    await user.click(buttonElement);
     expect(mockOnClick).not.toBeCalled();
 
     rerender(
@@ -158,8 +164,8 @@ describe('Тестирование компонента Button', () => {
         {BUTTON_TEXT}
       </Button>
     );
-    userEvent.click(buttonElement);
 
+    await user.click(buttonElement);
     expect(mockOnClick).toBeCalledTimes(1);
   });
 
@@ -192,7 +198,8 @@ describe('Тестирование компонента Button', () => {
     expect(buttonElement).toHaveClass(testClassName);
   });
 
-  test('Пробрасываются все пропсы, которые принимает нативная кнопка', () => {
+  test('Пробрасываются все пропсы, которые принимает нативная кнопка', async () => {
+    const user = userEvent.setup();
     const onHover = jest.fn();
     const onUnHover = jest.fn();
     const onFocus = jest.fn();
@@ -218,16 +225,16 @@ describe('Тестирование компонента Button', () => {
 
     const buttonElement = screen.getByTestId(Locators.BUTTON);
 
-    userEvent.hover(buttonElement);
+    await user.hover(buttonElement);
     expect(onHover).toBeCalledTimes(1);
 
-    userEvent.unhover(buttonElement);
+    await user.unhover(buttonElement);
     expect(onUnHover).toBeCalledTimes(1);
 
-    userEvent.tab();
+    await user.tab();
     expect(onFocus).toBeCalledTimes(1);
 
-    userEvent.tab();
+    await user.tab();
     expect(onBlur).toBeCalledTimes(1);
 
     expect(buttonElement).toHaveAttribute('id', id);
