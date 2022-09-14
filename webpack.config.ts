@@ -14,7 +14,8 @@ const SRC = path.join(ROOT, 'src');
 const DIST = path.join(ROOT, 'dist');
 const PUBLIC = path.join(ROOT, 'public');
 
-const notFalse = <T>(x: false | T): x is T => Boolean(x);
+type Falsy = false | null | undefined | 0 | '';
+type TruthyPredicat = <T>(x: T | Falsy) => x is T;
 
 export const getStylesLoaders = (
   isDev: boolean,
@@ -128,7 +129,7 @@ const getConfig = (env: Record<string, string>): Webpack.Configuration => {
         }),
       isDev && new ReactRefreshWebpackPlugin(),
       new ForkTsCheckerWebpackPlugin(),
-    ].filter(notFalse),
+    ].filter(Boolean as unknown as TruthyPredicat),
   };
 };
 

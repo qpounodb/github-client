@@ -1,7 +1,9 @@
 //@ts-check
 
-/** @type {<T>(x: false | T) => x is T} */
-const notFalse = (x) => Boolean(x);
+/**
+ * @typedef {false | null | undefined | 0 | ''} Falsy
+ * @typedef {<T>(x: Falsy | T) => x is T} TruthyPredicat
+ */
 
 /** @type {import('@babel/core').ConfigFunction} */
 const getConfig = (api) => {
@@ -20,7 +22,7 @@ const getConfig = (api) => {
   const plugins = [
     '@babel/plugin-proposal-class-properties',
     isDev && 'react-refresh/babel',
-  ].filter(notFalse);
+  ].filter(/** @type {TruthyPredicat} */ (/** @type {unknown} */ (Boolean)));
 
   return {
     presets,
