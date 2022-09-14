@@ -16,7 +16,7 @@ const DIST = path.join(ROOT, 'dist');
 const PUBLIC = path.join(ROOT, 'public');
 
 type Falsy = false | null | undefined | 0 | '';
-type TruthyPredicat = <T>(x: T | Falsy) => x is T;
+type TruthyPredicate = <T>(x: T | Falsy) => x is T;
 
 const styleExt = '(css|sass|scss)';
 
@@ -171,7 +171,7 @@ const getConfig = (env: Record<string, string>): Webpack.Configuration => {
         }),
       isDev && new ReactRefreshWebpackPlugin(),
       new ForkTsCheckerWebpackPlugin(),
-    ].filter(Boolean as unknown as TruthyPredicat),
+    ].filter(Boolean as unknown as TruthyPredicate),
   };
 };
 

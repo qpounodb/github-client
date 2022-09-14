@@ -2,7 +2,7 @@
 
 /**
  * @typedef {false | null | undefined | 0 | ''} Falsy
- * @typedef {<T>(x: Falsy | T) => x is T} TruthyPredicat
+ * @typedef {<T>(x: Falsy | T) => x is T} TruthyPredicate
  */
 
 /** @type {import('@babel/core').ConfigFunction} */
@@ -22,7 +22,7 @@ const getConfig = (api) => {
   const plugins = [
     '@babel/plugin-proposal-class-properties',
     isDev && 'react-refresh/babel',
-  ].filter(/** @type {TruthyPredicat} */ (/** @type {unknown} */ (Boolean)));
+  ].filter(/** @type {TruthyPredicate} */ (/** @type {unknown} */ (Boolean)));
 
   return {
     presets,
