@@ -83,7 +83,34 @@ const getConfig = (env: Record<string, string>): Webpack.Configuration => {
 
     output: {
       path: DIST,
-      filename: 'bundle-[contenthash].js',
+      filename: 'static/script/bundle-[contenthash].js',
+      publicPath: '',
+      clean: true,
+    },
+
+    optimization: {
+      chunkIds: 'named',
+      splitChunks: {
+        chunks: 'all',
+        cacheGroups: {
+          vendors: {
+            test: /[\\/]node_modules[\\/]/,
+            priority: -10,
+            reuseExistingChunk: true,
+            filename: 'static/script/vendor/[name].min.js',
+            name(
+              module: Webpack.Module
+              // chunks: Webpack.Chunk[],
+              // cacheGroupKey: string
+            ) {
+              const moduleFileName = module
+                .identifier()
+                .replace(/.*node_modules\/([^/]*).*/, '$1');
+              return moduleFileName;
+            },
+          },
+        },
+      },
     },
 
     target: 'browserslist',
@@ -140,7 +167,7 @@ const getConfig = (env: Record<string, string>): Webpack.Configuration => {
       }),
       isProd &&
         new MiniCssExtractPlugin({
-          filename: 'bundle-[hash].css',
+          filename: 'static/style/bundle-[fullhash].css',
         }),
       isDev && new ReactRefreshWebpackPlugin(),
       new ForkTsCheckerWebpackPlugin(),
