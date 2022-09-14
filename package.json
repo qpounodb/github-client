@@ -59,6 +59,7 @@
     "babel-jest": "^29.0.2",
     "babel-loader": "^8.2.5",
     "concurrently": "^7.3.0",
+    "copy-webpack-plugin": "^11.0.0",
     "css-loader": "^6.7.1",
     "dotenv-webpack": "^8.0.1",
     "eslint": "^8.23.0",

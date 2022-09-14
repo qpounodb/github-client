@@ -1,6 +1,7 @@
 import path from 'path';
 
 import ReactRefreshWebpackPlugin from '@pmmmwh/react-refresh-webpack-plugin';
+import CopyWebpackPlugin from 'copy-webpack-plugin';
 import DotenvWebpackPlugin from 'dotenv-webpack';
 import ForkTsCheckerWebpackPlugin from 'fork-ts-checker-webpack-plugin';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
@@ -66,7 +67,7 @@ const getConfig = (env: Record<string, string>): Webpack.Configuration => {
     host: 'localhost',
     port: 7007,
     static: {
-      directory: './public',
+      directory: PUBLIC,
     },
     hot: true,
     open: true,
@@ -126,11 +127,15 @@ const getConfig = (env: Record<string, string>): Webpack.Configuration => {
     },
 
     plugins: [
+      isProd &&
+        new CopyWebpackPlugin({
+          patterns: [{ from: PUBLIC, to: DIST }],
+        }),
       new DotenvWebpackPlugin({
         path: './.env.local',
       }),
       new HtmlWebpackPlugin({
-        template: path.join(PUBLIC, 'index.html'),
+        template: path.join(SRC, 'index.html'),
         inject: 'body',
       }),
       isProd &&
