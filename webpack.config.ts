@@ -71,6 +71,7 @@ const getConfig = (env: Record<string, string>): Webpack.Configuration => {
     },
     hot: true,
     open: true,
+    historyApiFallback: true,
   };
 
   return {
@@ -84,7 +85,7 @@ const getConfig = (env: Record<string, string>): Webpack.Configuration => {
     output: {
       path: DIST,
       filename: 'static/script/bundle-[contenthash].js',
-      publicPath: '',
+      publicPath: '/',
       clean: true,
     },
 
@@ -160,6 +161,7 @@ const getConfig = (env: Record<string, string>): Webpack.Configuration => {
         }),
       new DotenvWebpackPlugin({
         path: './.env.local',
+        systemvars: true,
       }),
       new HtmlWebpackPlugin({
         template: path.join(SRC, 'index.html'),
