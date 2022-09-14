@@ -17,6 +17,20 @@ const PUBLIC = path.join(ROOT, 'public');
 type Falsy = false | null | undefined | 0 | '';
 type TruthyPredicat = <T>(x: T | Falsy) => x is T;
 
+const styleExt = '(css|sass|scss)';
+
+const extMap = {
+  script: /\.(tsx?|jsx?)$/i,
+  style: new RegExp(`\\.${styleExt}$`, 'i'),
+  styleModule: new RegExp(`\\.module\\.${styleExt}$`, 'i'),
+};
+
+const assetExtMap = {
+  font: /\.(woff2?|eot|ttf|otf)(\?.*)?$/i,
+  image: /\.(ico|jpe?g|a?png|gif|webp)(\?.*)?$/i,
+  media: /\.(mp4|webm|wav|mp3|m4a|aac|oga)(\?.*)?$/i,
+};
+
 export const getStylesLoaders = (
   isDev: boolean,
   withModules = false
@@ -78,35 +92,31 @@ const getConfig = (env: Record<string, string>): Webpack.Configuration => {
     module: {
       rules: [
         {
-          test: /\.[tj]sx?$/i,
+          test: extMap.script,
           exclude: /node_modules/,
           use: 'babel-loader',
         },
         {
-          test: /\.module\.s?css$/i,
+          test: extMap.styleModule,
           use: getStylesLoaders(isDev, true),
         },
         {
-          test: /\.s?css$/i,
-          exclude: /\.module\.s?css$/i,
+          test: extMap.style,
+          exclude: extMap.styleModule,
           use: getStylesLoaders(isDev, false),
           sideEffects: true,
         },
         {
           test: /\.svg$/,
-          issuer: /\.[tj]sx?$/i,
+          issuer: extMap.script,
           use: '@svgr/webpack',
         },
-        {
-          test: /\.(ico|jpe?g|a?png|gif|eot|otf|webp|ttf|woff2?|cur|ani|pdf)(\?.*)?$/,
-          type: 'asset/resource',
-          generator: { filename: 'static/media/[path][name][ext]' },
-        },
-        {
-          test: /\.(mp4|webm|wav|mp3|m4a|aac|oga)(\?.*)?$/,
-          type: 'asset/resource',
-          generator: { filename: 'static/media/[path][name][ext]' },
-        },
+        ...Object.entries(assetExtMap).map(([type, ext]) => ({
+          test: ext,
+          type: 'asset',
+          parser: { dataUrlCondition: { maxSize: 1024 } },
+          generator: { filename: `static/${type}/[path][name][ext]` },
+        })),
       ],
     },
 

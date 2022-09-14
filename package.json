@@ -11,8 +11,9 @@
     "start:tsm": "typed-scss-modules 'src/**/*.module.{css,scss}' --watch",
     "ts:check": "tsc --skipLibCheck --noEmit --project tsconfig.json",
     "lint": "eslint 'src/**/*.{js,jsx,ts,tsx,json}'",
-    "lint:fix": "eslint --fix 'src/**/*.{js,jsx,ts,tsx,json}'",
-    "format": "prettier --write 'src/**/*.{js,jsx,ts,tsx,css,md,json}'",
+    "lint:fix": "yarn lint --fix",
+    "format": "prettier --check 'src/**/*.{js,jsx,ts,tsx,css,scss,sass,md,json,yaml}'",
+    "format:fix": "yarn format --write",
     "test": "jest --watchAll=false"
   },
   "dependencies": {
