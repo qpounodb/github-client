@@ -1,5 +1,7 @@
 import React from 'react';
+
 import { getLangLogo } from '~/shared/utils';
+
 import styles from './Lang.module.scss';
 
 export type LangPrpos = {

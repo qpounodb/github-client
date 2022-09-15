@@ -20,8 +20,8 @@ export default async (): Promise<Config> => {
     moduleDirectories: ['node_modules'],
 
     moduleNameMapper: {
-      '^~/(.+)': '<rootDir>/src/$1',
       [styleModuleRegExp]: 'identity-obj-proxy',
+      '^~/(.+)': '<rootDir>/src/$1',
     },
 
     transform: {

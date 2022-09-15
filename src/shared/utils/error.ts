@@ -1,4 +1,5 @@
-import Axios, { AxiosError } from 'axios';
+import axios, { AxiosError } from 'axios';
+
 import { formatCode } from './format';
 
 export const fail = (reason?: string): never => {
@@ -30,7 +31,7 @@ export const formatError = (err: unknown): string => {
 
   const error = toError(err);
 
-  if (Axios.isAxiosError(error)) {
+  if (axios.isAxiosError(error)) {
     return formatAxiosError(error);
   }
 

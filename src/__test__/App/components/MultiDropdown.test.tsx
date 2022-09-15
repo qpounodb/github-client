@@ -1,12 +1,13 @@
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import React from 'react';
+
+import { TEST_TITLE } from '~/__test__/constants';
 import {
   MultiDropdown,
   MultiDropdownProps,
   Option,
 } from '~/App/components/dropdown';
-import { TEST_TITLE } from '~/__test__/constants';
 
 const defaultOptions: Option[] = [
   { key: 'msk', value: 'Москва' },
@@ -35,7 +36,7 @@ describe('Тестирование компонента MultiDropdown', () => {
       .mockImplementation(defaultPluralizeOptions);
     const { rerender } = render(
       <MultiDropdown
-        onChange={() => {}}
+        onChange={() => null}
         selected={defaultOptions}
         options={defaultOptions}
         getTitle={pluralizeOptions}
@@ -49,7 +50,7 @@ describe('Тестирование компонента MultiDropdown', () => {
 
     rerender(
       <MultiDropdown
-        onChange={() => {}}
+        onChange={() => null}
         selected={[]}
         options={defaultOptions}
         getTitle={pluralizeOptions}
@@ -219,7 +220,7 @@ describe('Тестирование компонента MultiDropdown', () => {
 
     const { rerender } = render(
       <MultiDropdown
-        onChange={() => {}}
+        onChange={() => null}
         selected={[]}
         options={defaultOptions}
         getTitle={() => TEST_TITLE}
@@ -240,7 +241,7 @@ describe('Тестирование компонента MultiDropdown', () => {
 
     rerender(
       <MultiDropdown
-        onChange={() => {}}
+        onChange={() => null}
         selected={[]}
         options={[defaultOptions[0], defaultOptions[2]]}
         getTitle={() => TEST_TITLE}

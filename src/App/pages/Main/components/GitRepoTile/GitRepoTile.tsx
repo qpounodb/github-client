@@ -1,9 +1,11 @@
 import React from 'react';
+
 import { IconStar } from '~/App/assets/icons';
 import { Card } from '~/App/components/Card';
 import { RepoModel } from '~/App/models/github';
 import { MONTHS } from '~/shared/constants';
 import { formatCount } from '~/shared/utils';
+
 import styles from './GitRepoTile.module.scss';
 
 export type GitRepoTileProps = {

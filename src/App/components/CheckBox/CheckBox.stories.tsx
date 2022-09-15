@@ -1,5 +1,6 @@
 import { ComponentMeta, ComponentStory } from '@storybook/react';
 import React from 'react';
+
 import CheckBoxComponent from './CheckBox';
 
 type Meta = ComponentMeta<typeof CheckBoxComponent>;
@@ -9,26 +10,16 @@ const meta: Meta = {
   title: 'Input/CheckBox',
   component: CheckBoxComponent,
 };
-
 export default meta;
 
-const initChecked = true;
-
-export const CheckBox: Story = ({ checked, onChange, ...rest }) => {
-  const [isChecked, setChecked] = React.useState(Boolean(checked));
-
-  React.useEffect(() => setChecked(Boolean(checked)), [checked]);
-
-  const handleChange: typeof onChange = (value) => {
-    setChecked(value);
-    onChange(value);
-  };
+export const CheckBox: Story = (props) => {
+  const [isChecked, setChecked] = React.useState(false);
 
   return (
-    <CheckBoxComponent {...rest} checked={isChecked} onChange={handleChange} />
+    <CheckBoxComponent {...props} checked={isChecked} onChange={setChecked} />
   );
 };
+
 CheckBox.args = {
-  checked: initChecked,
   disabled: false,
 };

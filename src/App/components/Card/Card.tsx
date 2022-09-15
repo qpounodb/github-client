@@ -1,5 +1,7 @@
 import React from 'react';
+
 import { joinClassName } from '~/shared/utils';
+
 import styles from './Card.module.scss';
 
 export type CardProps = {

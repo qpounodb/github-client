@@ -1,6 +1,8 @@
 import { ComponentMeta, ComponentStory } from '@storybook/react';
+
 import data from '~/App/assets/data-examples/repo-readme.json';
 import { normalizeRepoReadme } from '~/App/models/github';
+
 import RepoReadmeComponent from './RepoReadme';
 
 type Meta = ComponentMeta<typeof RepoReadmeComponent>;

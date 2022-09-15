@@ -1,6 +1,8 @@
 import React from 'react';
+
 import { Size } from '~/App/constants';
 import { joinClassName } from '~/shared/utils';
+
 import styles from './Input.module.scss';
 
 type InputHTMLProps = React.InputHTMLAttributes<HTMLInputElement>;
@@ -12,7 +14,7 @@ export type InputProps = Omit<
 > & {
   value?: string | number;
   size?: Size;
-  onChange: (value: string) => void;
+  onChange?: (value: string) => void;
   onSubmit?: (value: string) => void;
 };
 
@@ -25,7 +27,7 @@ const Input: React.FC<InputProps> = ({
   ...rest
 }) => {
   const handler: InputChangeHandler = React.useCallback(
-    (e) => onChange(e.target.value),
+    (e) => onChange?.(e.target.value),
     [onChange]
   );
 

@@ -1,7 +1,10 @@
 import React from 'react';
+
 import { Size } from '~/App/constants';
 import { joinClassName } from '~/shared/utils';
+
 import { Input, InputProps } from '../Input';
+
 import styles from './InputNumber.module.scss';
 
 export type InputNumberProps = Omit<

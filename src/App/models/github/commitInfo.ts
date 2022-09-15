@@ -1,4 +1,5 @@
 import { Nullable } from '~/shared/types';
+
 import { CommitterApi, CommitterModel, normalizeCommitter } from './committer';
 
 export type CommitInfoApi = {

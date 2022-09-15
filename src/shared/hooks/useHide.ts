@@ -1,4 +1,5 @@
 import React from 'react';
+
 import { isNode } from '../utils';
 
 export const useHide = <T extends HTMLElement>(

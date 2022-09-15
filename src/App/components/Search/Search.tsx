@@ -1,7 +1,9 @@
 import React from 'react';
+
 import { IconSearch } from '~/App/assets/icons';
-import { SquareButton } from '../button';
-import { Input } from '../input';
+import { SquareButton } from '~/App/components/button';
+import { Input } from '~/App/components/input';
+
 import styles from './Search.module.scss';
 
 export type SearchProps = {

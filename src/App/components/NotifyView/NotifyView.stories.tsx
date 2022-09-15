@@ -1,6 +1,8 @@
 import { ComponentMeta, ComponentStory } from '@storybook/react';
+
 import { Level } from '~/App/stores/RootStore/NotifyStore';
 import { randomItem, randomRange, shuffleItems } from '~/shared/utils';
+
 import NotifyView from './NotifyView';
 
 type Meta = ComponentMeta<typeof NotifyView>;

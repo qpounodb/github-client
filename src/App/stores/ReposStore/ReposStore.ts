@@ -6,11 +6,13 @@ import {
   reaction,
   runInAction,
 } from 'mobx';
+
 import { RepoModelCollection } from '~/App/models/github';
 import { defaultQueryParamsAPI } from '~/App/models/queryParams';
 import { GithubReposAPI } from '~/shared/githubAPI';
 import { ILocalStore } from '~/shared/hooks';
 import { DataState } from '~/shared/types';
+
 import {
   ApiReposStore,
   ApiSearchReposStore,
@@ -70,14 +72,14 @@ export class ReposStore implements ILocalStore {
   private _ID = ++ReposStore._ID;
   private _fetchID = 0;
 
-  private _log(...args: any[]) {
+  private _log(...args: unknown[]) {
     if (!DEV_MODE) return;
     console.log(`[ReposStore.${this._ID}/${ReposStore._ID}]`, ...args);
   }
 
   private readonly _api: GithubReposAPI = new GithubReposAPI();
 
-  private _stopped: boolean = false;
+  private _stopped = false;
 
   private _apiStoresMap: StoresMap = getNewStores(this._api);
 
@@ -143,7 +145,7 @@ export class ReposStore implements ILocalStore {
 
   async fetch(): Promise<void> {
     const fetchId = ++this._fetchID;
-    const log = (...args: any[]) => {
+    const log = (...args: unknown[]) => {
       this._log(`FETCH.${fetchId}/${this._fetchID} >`, ...args);
     };
 
@@ -206,7 +208,7 @@ export class ReposStore implements ILocalStore {
   private _createLoadingReaction = (
     store: ApiSearchStore
   ): IReactionDisposer => {
-    const log = (...args: any[]) =>
+    const log = (...args: unknown[]) =>
       this._log('loading-reaction', store.constructor.name, ...args);
     log('created');
 
@@ -220,7 +222,8 @@ export class ReposStore implements ILocalStore {
         runInAction(() => {
           log('stop');
           const orgName = rootStore.queryParamsStore.orgName;
-          rootStore.notifyStore.info(`Organization "${orgName}" not found!`);
+          orgName &&
+            rootStore.notifyStore.info(`Organization "${orgName}" not found!`);
           this.stop();
         });
       }
@@ -234,7 +237,7 @@ export class ReposStore implements ILocalStore {
       return;
     }
     this._log('_handleQueryParams > run fetch');
-    this.fetch();
+    void this.fetch();
   }
 
   init(): void {

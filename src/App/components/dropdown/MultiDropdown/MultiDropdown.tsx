@@ -1,5 +1,7 @@
 import React from 'react';
+
 import { not } from '~/shared/utils';
+
 import { Dropdown } from '../Dropdown';
 import { Option } from '../Option';
 

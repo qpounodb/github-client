@@ -16,6 +16,7 @@ const config = {
     'plugin:react/recommended',
     'plugin:react/jsx-runtime',
     'plugin:@typescript-eslint/recommended',
+    'plugin:@typescript-eslint/recommended-requiring-type-checking',
     'plugin:mobx/recommended',
     'prettier',
   ],
@@ -36,6 +37,7 @@ const config = {
     ecmaFeatures: {
       jsx: true,
     },
+    project: './tsconfig.eslint.json',
   },
 
   settings: {
@@ -94,6 +96,12 @@ const config = {
     {
       files: ['**/*.test.*'],
       extends: ['plugin:jest-dom/recommended', 'plugin:testing-library/react'],
+      rules: {
+        'testing-library/no-node-access': [
+          'error',
+          { allowContainerFirstChild: true },
+        ],
+      },
     },
     {
       files: ['**/*.stories.*'],

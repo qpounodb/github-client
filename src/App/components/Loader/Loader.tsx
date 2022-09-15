@@ -1,8 +1,10 @@
 import React from 'react';
+
+import { Locators } from '~/__test__/constants';
 import { Color, Size } from '~/App/constants';
 import { PropsWithClassName } from '~/shared/types';
 import { joinClassName } from '~/shared/utils';
-import { Locators } from '~/__test__/constants';
+
 import styles from './Loader.module.scss';
 
 export type LoaderProps = PropsWithClassName<{

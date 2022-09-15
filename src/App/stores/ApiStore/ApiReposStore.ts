@@ -5,6 +5,7 @@ import {
 } from '~/App/models/github';
 import { appParamsToApiParams, QueryParamsApp } from '~/App/models/queryParams';
 import { GithubReposAPI } from '~/shared/githubAPI';
+
 import { ApiStore } from './ApiStore';
 
 export class ApiReposStore extends ApiStore<

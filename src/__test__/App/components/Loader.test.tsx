@@ -1,20 +1,22 @@
 import '@testing-library/jest-dom';
 import { render, screen } from '@testing-library/react';
-import { Loader } from '~/App/components/Loader';
-import { Size } from '~/App/constants';
+
 import { Locators } from '~/__test__/constants';
+import { Loader } from '~/App/components/Loader';
+import styles from '~/App/components/Loader/Loader.module.scss';
+import { Size } from '~/App/constants';
 
 describe('Тестирование компонента Loader', () => {
   test('По умолчанию применяется класс loading', () => {
     render(<Loader />);
     const loader = screen.getByTestId(Locators.LOADER);
-    expect(loader.className).toContain('loading');
+    expect(loader).toHaveClass(styles.root_loading);
   });
 
   test('При передаче loading=false не применяется класс loading', () => {
     render(<Loader loading={false} />);
     const loader = screen.getByTestId(Locators.LOADER);
-    expect(loader.className).not.toContain('loading');
+    expect(loader).not.toHaveClass(styles.root_loading);
   });
 
   test('Переданный className добавляется в список классов лоадера', () => {
@@ -27,15 +29,15 @@ describe('Тестирование компонента Loader', () => {
   test('По умолчанию LoaderSize.m', () => {
     render(<Loader />);
     const loader = screen.getByTestId(Locators.LOADER);
-    expect(loader.className).toContain('size-m');
+    expect(loader).toHaveClass(styles['root_size-m']);
   });
 
   test('При изменении size изменяется и className', () => {
     const { rerender } = render(<Loader />);
     const loader = screen.getByTestId(Locators.LOADER);
-    expect(loader.className).toContain('size-m');
+    expect(loader).toHaveClass(styles['root_size-m']);
 
     rerender(<Loader size={Size.s} />);
-    expect(loader.className).toContain('size-s');
+    expect(loader).toHaveClass(styles['root_size-s']);
   });
 });

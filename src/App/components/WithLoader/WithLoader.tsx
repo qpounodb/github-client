@@ -1,7 +1,9 @@
 import React from 'react';
+
 import { Loader } from '~/App/components/Loader';
 import { PropsWithChildrenAndClassname } from '~/shared/types';
 import { joinClassName } from '~/shared/utils';
+
 import styles from './WithLoader.module.scss';
 
 export type WithLoaderProps = PropsWithChildrenAndClassname<{

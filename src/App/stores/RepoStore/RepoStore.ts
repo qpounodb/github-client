@@ -1,7 +1,9 @@
 import { action, computed, makeObservable } from 'mobx';
+
 import { GithubRepoAPI } from '~/shared/githubAPI';
 import { ILocalStore } from '~/shared/hooks';
 import { remapRecord } from '~/shared/utils';
+
 import {
   ApiCommitStore,
   ApiRepoBranchesStore,

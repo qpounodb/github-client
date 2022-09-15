@@ -1,5 +1,7 @@
 import React from 'react';
+
 import { StateContext } from '../types';
+
 import { useLocalStorage } from './useLocalStorage';
 
 export const createLocalStorageCtx = <T>(key: string, defaultValue: T) => {

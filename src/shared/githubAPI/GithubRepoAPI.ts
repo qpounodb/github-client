@@ -6,45 +6,48 @@ import {
   RepoLangsApi,
   RepoReadmeApi,
 } from '~/App/models/github';
+
 import { AxiosCacheInstance, createAxios } from '../axios-config';
+
 import { getConfig } from './config';
 
 export class GithubRepoAPI {
   private fetch: AxiosCacheInstance;
-  private signal?: AbortSignal;
 
-  constructor(orgName: string, repoName: string, signal?: AbortSignal) {
-    this.signal = signal;
+  constructor(orgName: string, repoName: string) {
     this.fetch = createAxios(getConfig(`/repos/${orgName}/${repoName}`));
   }
 
-  private getCfg(params?: Record<string, number | string>) {
+  private getCfg(
+    params?: Record<string, number | string>,
+    signal?: AbortSignal
+  ) {
     return {
-      signal: this.signal,
+      signal,
       params,
     };
   }
 
-  async getInfo(): Promise<RepoApi> {
-    const cfg = this.getCfg();
+  async getInfo(signal?: AbortSignal): Promise<RepoApi> {
+    const cfg = this.getCfg({}, signal);
     const { data } = await this.fetch.get<RepoApi>('', cfg);
     return data;
   }
 
-  async getBranches(): Promise<RepoBranchApi[]> {
-    const cfg = this.getCfg({ per_page: 100 });
+  async getBranches(signal?: AbortSignal): Promise<RepoBranchApi[]> {
+    const cfg = this.getCfg({ per_page: 100 }, signal);
     const { data } = await this.fetch.get<RepoBranchApi[]>('/branches', cfg);
     return data;
   }
 
-  async getCommit(ref = 'HEAD'): Promise<CommitApi> {
-    const cfg = this.getCfg({ per_page: 100 });
-    const { data } = await this.fetch.get<CommitApi>(`/commits/${ref}`, cfg);
+  async getCommit(signal?: AbortSignal): Promise<CommitApi> {
+    const cfg = this.getCfg({ per_page: 100 }, signal);
+    const { data } = await this.fetch.get<CommitApi>(`/commits/HEAD`, cfg);
     return data;
   }
 
-  async getContributors(): Promise<RepoContributorApi[]> {
-    const cfg = this.getCfg({ per_page: 10 });
+  async getContributors(signal?: AbortSignal): Promise<RepoContributorApi[]> {
+    const cfg = this.getCfg({ per_page: 10 }, signal);
     const { data } = await this.fetch.get<RepoContributorApi[]>(
       '/contributors',
       cfg
@@ -52,14 +55,14 @@ export class GithubRepoAPI {
     return data;
   }
 
-  async getLanguages(): Promise<RepoLangsApi> {
-    const cfg = this.getCfg();
+  async getLanguages(signal?: AbortSignal): Promise<RepoLangsApi> {
+    const cfg = this.getCfg({}, signal);
     const { data } = await this.fetch.get<RepoLangsApi>('/languages', cfg);
     return data;
   }
 
-  async getReadme(): Promise<RepoReadmeApi> {
-    const cfg = this.getCfg();
+  async getReadme(signal?: AbortSignal): Promise<RepoReadmeApi> {
+    const cfg = this.getCfg({}, signal);
     const { data } = await this.fetch.get<RepoReadmeApi>('/readme', cfg);
     return data;
   }

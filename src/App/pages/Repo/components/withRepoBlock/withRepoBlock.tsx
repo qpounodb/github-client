@@ -1,7 +1,9 @@
 import React from 'react';
+
 import { WithLoader } from '~/App/components/WithLoader';
 import { DataState, PropsWithChildrenAndClassname } from '~/shared/types';
 import { getDisplayName, isNone, joinClassName } from '~/shared/utils';
+
 import styles from './withRepoBlock.module.scss';
 
 export type RepoBlockProps<T> = React.PropsWithChildren<{
@@ -28,7 +30,7 @@ export const withRepoBlock = <T extends object>(
     state: { loading, data },
     title,
     children,
-  }) => {
+  }: RepoBlockWrapperProps<T>) => {
     const cls = joinClassName(styles.root, className);
     const titles = getTitles(title);
 
@@ -50,7 +52,7 @@ export const withRepoBlock = <T extends object>(
 
     return (
       <div className={cls}>
-        <RepoBlock data={data} children={children} />
+        <RepoBlock data={data}>{children}</RepoBlock>
       </div>
     );
   };

@@ -1,5 +1,6 @@
 import { RepoApi } from '~/App/models/github';
 import { GithubReposAPI } from '~/shared/githubAPI';
+
 import { ApiSearchStore } from './ApiSearchStore';
 
 export class ApiSearchReposStore extends ApiSearchStore<RepoApi> {

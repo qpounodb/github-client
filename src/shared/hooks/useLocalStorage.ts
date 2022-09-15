@@ -10,7 +10,7 @@ export const useLocalStorage = <T>(
   const [storedState, setStoredState] = React.useState<T>(() => {
     try {
       const state = window.localStorage.getItem(key);
-      return state ? JSON.parse(state) : initialState;
+      return state ? (JSON.parse(state) as T) : initialState;
     } catch (error) {
       console.log(error);
       return initialState;

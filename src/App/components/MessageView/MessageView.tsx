@@ -1,6 +1,8 @@
 import React from 'react';
+
 import { Level, Message } from '~/App/stores/RootStore/NotifyStore';
 import { joinClassName } from '~/shared/utils';
+
 import styles from './MessageView.module.scss';
 
 export type MessageViewProps = {

@@ -1,12 +1,17 @@
 import React from 'react';
+
 import { CommitModel } from '~/App/models/github';
 import { linerizeCollection } from '~/App/models/shared';
-import { RepoBlock, withRepoBlock } from '../withRepoBlock';
+
+import { RepoBlock, RepoBlockProps, withRepoBlock } from '../withRepoBlock';
+
 import styles from './RepoCommit.module.scss';
 import { Stats } from './Stats';
 import { StatusIcon } from './StatusIcon';
 
-const RepoCommit: RepoBlock<CommitModel> = ({ data }) => {
+const RepoCommit: RepoBlock<CommitModel> = ({
+  data,
+}: RepoBlockProps<CommitModel>) => {
   const user = data.commit.author ?? data.commit.committer;
   const owner = data.author ?? data.committer;
 

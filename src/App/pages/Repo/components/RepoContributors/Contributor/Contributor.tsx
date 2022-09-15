@@ -1,5 +1,7 @@
 import React from 'react';
+
 import { RepoContributorModel } from '~/App/models/github';
+
 import styles from './Contributor.module.scss';
 
 export type ContributorProps = {

@@ -1,15 +1,19 @@
 import { observer } from 'mobx-react-lite';
 import React from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
+
 import { Button } from '~/App/components/button';
 import { RepoStore } from '~/App/stores';
 import { useLocalStore } from '~/shared/hooks';
-import { RepoBranches } from './components/RepoBranches';
-import { RepoCommit } from './components/RepoCommit';
-import { RepoContributors } from './components/RepoContributors';
-import { RepoInfo } from './components/RepoInfo';
-import { RepoLangs } from './components/RepoLangs';
-import { RepoReadme } from './components/RepoReadme';
+
+import {
+  RepoBranches,
+  RepoCommit,
+  RepoContributors,
+  RepoInfo,
+  RepoLangs,
+  RepoReadme,
+} from './components';
 import styles from './Repo.module.scss';
 
 type PathParams = { orgName: string; repoName: string };

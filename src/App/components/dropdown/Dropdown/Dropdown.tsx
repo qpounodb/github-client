@@ -1,7 +1,10 @@
 import React from 'react';
+
 import { Input } from '~/App/components/input';
 import { useHide } from '~/shared/hooks';
+
 import { Option } from '../Option';
+
 import styles from './Dropdown.module.scss';
 import { List } from './List';
 
@@ -26,8 +29,6 @@ const Dropdown: React.FC<DropdownProps> = ({
 }) => {
   const ref = React.useRef<HTMLDivElement | null>(null);
   const [isHidden, setHide] = React.useState<boolean>(true);
-
-  const noop = React.useCallback(() => {}, []);
 
   useHide(
     ref,
@@ -55,7 +56,6 @@ const Dropdown: React.FC<DropdownProps> = ({
         placeholder={placeholder}
         onClick={handleDropdown}
         readOnly
-        onChange={noop}
         disabled={disabled}
       />
       {disabled || isHidden ? null : (

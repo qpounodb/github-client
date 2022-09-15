@@ -1,5 +1,7 @@
 import { ComponentMeta, ComponentStory } from '@storybook/react';
+
 import { Color } from '~/App/constants';
+
 import { SquareButton as SquareButtonComponent } from './SquareButton';
 
 type Meta = ComponentMeta<typeof SquareButtonComponent>;

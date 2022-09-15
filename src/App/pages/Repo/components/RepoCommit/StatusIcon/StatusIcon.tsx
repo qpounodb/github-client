@@ -1,4 +1,5 @@
 import React from 'react';
+
 import {
   IconAdded,
   IconIssue,
@@ -8,6 +9,7 @@ import {
 } from '~/App/assets/icons';
 import { CommitFileModel } from '~/App/models/github';
 import { joinClassName } from '~/shared/utils';
+
 import styles from './StatusIcon.module.scss';
 
 const getIcon = (Icon: typeof IconAdded, className: string, title: string) => (

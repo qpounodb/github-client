@@ -7,7 +7,9 @@ import {
   reaction,
   runInAction,
 } from 'mobx';
+
 import { formatError } from '~/shared/utils';
+
 import { Level } from './Level';
 import { Message } from './Message';
 
@@ -24,9 +26,9 @@ export type NotifyStoreConfig = {
 };
 
 export class NotifyStore {
-  private _id: number = 0;
+  private _id = 0;
   private _messages: Message[] = [];
-  private _removing: boolean = false;
+  private _removing = false;
   private _config: Required<NotifyStoreConfig>;
 
   constructor({

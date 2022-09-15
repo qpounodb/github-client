@@ -1,6 +1,8 @@
 import { ComponentMeta, ComponentStory } from '@storybook/react';
 import React from 'react';
+
 import { Size } from '~/App/constants';
+
 import InputNumberComponent from './InputNumber';
 
 type Meta = ComponentMeta<typeof InputNumberComponent>;
@@ -13,11 +15,11 @@ const meta: Meta = {
 
 export default meta;
 
-export const InputNumber: Story = ({ value: init, ...rest }) => {
-  const [value, setValue] = React.useState(init);
+export const InputNumber: Story = (props) => {
+  const [value, setValue] = React.useState(123);
   return (
     <InputNumberComponent
-      {...rest}
+      {...props}
       value={value}
       onChange={setValue}
       onSubmit={setValue}

@@ -1,6 +1,6 @@
 import { randomMax } from './random';
 
-export const randomItem = <T extends any[]>(items: T): T[number] => {
+export const randomItem = <T extends unknown[]>(items: T): T[number] => {
   return items[randomMax(items.length - 1)];
 };
 

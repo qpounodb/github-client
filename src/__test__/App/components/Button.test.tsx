@@ -1,8 +1,10 @@
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { Button } from '~/App/components/button';
-import { Color } from '~/App/constants';
+
 import { BUTTON_TEXT, Locators } from '~/__test__/constants';
+import { Button } from '~/App/components/button';
+import styles from '~/App/components/button/withButton/withButton.module.scss';
+import { Color } from '~/App/constants';
 
 describe('Тестирование компонента Button', () => {
   test('Текстовый children пробрасывается корректно', () => {
@@ -62,7 +64,7 @@ describe('Тестирование компонента Button', () => {
     expect(buttonElement).toBeDisabled();
 
     rerender(<Button data-testid={Locators.BUTTON}>{BUTTON_TEXT}</Button>);
-    expect(buttonElement).not.toBeDisabled();
+    expect(buttonElement).toBeEnabled();
   });
 
   test('При передаче loading=true при клике на кнопку onClick не вызывается', async () => {
@@ -90,11 +92,11 @@ describe('Тестирование компонента Button', () => {
 
     const buttonElement = screen.getByTestId(Locators.BUTTON);
 
-    expect(buttonElement).toHaveAttribute('disabled');
+    expect(buttonElement).toBeDisabled();
 
     rerender(<Button data-testid={Locators.BUTTON}>{BUTTON_TEXT}</Button>);
 
-    expect(buttonElement).not.toHaveAttribute('disabled');
+    expect(buttonElement).toBeEnabled();
   });
 
   test('Переданный onClick вызывается при клике', async () => {
@@ -122,8 +124,8 @@ describe('Тестирование компонента Button', () => {
 
     const buttonElement = screen.getByTestId(Locators.BUTTON);
 
-    expect(buttonElement.className).toContain(Color.primary);
-    expect(buttonElement.className).not.toContain(Color.secondary);
+    expect(buttonElement).toHaveClass(styles.root_primary);
+    expect(buttonElement).not.toHaveClass(styles.root_secondary);
 
     rerender(
       <Button color={Color.secondary} data-testid={Locators.BUTTON}>
@@ -131,8 +133,8 @@ describe('Тестирование компонента Button', () => {
       </Button>
     );
 
-    expect(buttonElement.className).toContain(Color.secondary);
-    expect(buttonElement.className).not.toContain(Color.primary);
+    expect(buttonElement).toHaveClass(styles.root_secondary);
+    expect(buttonElement).not.toHaveClass(styles.root_primary);
   });
 
   test('Цвет кнопки по умолчанию - Color.primary', () => {
@@ -140,8 +142,8 @@ describe('Тестирование компонента Button', () => {
 
     const buttonElement = screen.getByTestId(Locators.BUTTON);
 
-    expect(buttonElement.className).toContain(Color.primary);
-    expect(buttonElement.className).not.toContain(Color.secondary);
+    expect(buttonElement).toHaveClass(styles.root_primary);
+    expect(buttonElement).not.toHaveClass(styles.root_secondary);
   });
 
   test('При disabled=true не вызывается onClick', async () => {
@@ -182,7 +184,7 @@ describe('Тестирование компонента Button', () => {
 
     rerender(<Button data-testid={Locators.BUTTON}>{BUTTON_TEXT}</Button>);
 
-    expect(buttonElement).not.toBeDisabled();
+    expect(buttonElement).toBeEnabled();
   });
 
   test('Можно передать дополнительный className, не влияющий на остальные классы кнопки', () => {

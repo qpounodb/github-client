@@ -1,8 +1,10 @@
 import { CanceledError } from 'axios';
 import { action, computed, makeObservable, observable } from 'mobx';
+
 import { ILocalStore } from '~/shared/hooks';
 import { DataState, Nullable } from '~/shared/types';
 import { isSome } from '~/shared/utils';
+
 import { rootStore } from '../RootStore';
 
 export type ApiStoreConfig<Params, Raw, Model> = {
@@ -18,14 +20,15 @@ type PrivateField =
   | '_end'
   | '_finally';
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export class ApiStore<Params = any, Raw = any, Model = Raw>
   implements ILocalStore
 {
   private _controller: Nullable<AbortController> = null;
 
   private _data: Nullable<Model> = null;
-  private _error: boolean = false;
-  private _loading: boolean = false;
+  private _error = false;
+  private _loading = false;
 
   private _fetch: (params: Params, signal: AbortSignal) => Promise<Raw>;
   private _normalize: (data: Raw) => Model;
@@ -81,7 +84,7 @@ export class ApiStore<Params = any, Raw = any, Model = Raw>
     return this._controller.signal;
   }
 
-  private _end(data: Nullable<Model> = null, error: boolean = false): void {
+  private _end(data: Nullable<Model> = null, error = false): void {
     this._controller = null;
     this._data = data;
     this._error = error;
@@ -125,7 +128,9 @@ export class ApiStore<Params = any, Raw = any, Model = Raw>
     this._controller?.abort();
   }
 
-  init(): void {}
+  init(): void {
+    /* empty */
+  }
 
   destroy(): void {
     this.stop();
