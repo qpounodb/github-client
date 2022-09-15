@@ -1,7 +1,7 @@
 import { ComponentMeta, ComponentStory } from '@storybook/react';
 
-import data from '~/App/assets/data-examples/repo-languages.json';
-import { normalizeRepoLangs } from '~/App/models/github';
+import data from '~assets/data-examples/repo-languages.json';
+import { normalizeRepoLangs } from '~models/github';
 
 import RepoLangsComponent from './RepoLangs';
 

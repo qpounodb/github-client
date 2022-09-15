@@ -1,6 +1,6 @@
 import { ComponentMeta, ComponentStory } from '@storybook/react';
 
-import { Level } from '~/App/stores/RootStore/NotifyStore';
+import { Level } from '~stores/RootStore/NotifyStore';
 
 import MessageView from './MessageView';
 

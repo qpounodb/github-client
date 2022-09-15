@@ -1,10 +1,10 @@
 import '@testing-library/jest-dom';
 import { render, screen } from '@testing-library/react';
 
-import { Locators } from '~/__test__/constants';
-import { Loader } from '~/App/components/Loader';
-import styles from '~/App/components/Loader/Loader.module.scss';
-import { Size } from '~/App/constants';
+import { Loader } from '~components/Loader';
+import styles from '~components/Loader/Loader.module.scss';
+import { Size } from '~constants';
+import { Locators } from '~tests/constants';
 
 describe('Тестирование компонента Loader', () => {
   test('По умолчанию применяется класс loading', () => {

@@ -1,4 +1,4 @@
-import { Nullable } from '~/shared/types';
+import type { Nullable } from '~types';
 
 import { CommitterApi, CommitterModel, normalizeCommitter } from './committer';
 

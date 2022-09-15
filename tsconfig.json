@@ -4,9 +4,12 @@
     "baseUrl": "src",
     "paths": {
       "~/*": ["*"],
+      "~tests/*": ["__test__/*"],
       "~app/*": ["App/*"],
       "~assets/*": ["App/assets/*"],
+      "~configs/*": ["App/configs/*"],
       "~styles/*": ["App/styles/*"],
+      "~constants": ["App/constants"],
       "~components/*": ["App/components/*"],
       "~models": ["App/models"],
       "~models/*": ["App/models/*"],

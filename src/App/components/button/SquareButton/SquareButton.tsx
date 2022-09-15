@@ -1,4 +1,4 @@
-import { joinClassName } from '~/shared/utils';
+import { joinClassName } from '~utils';
 
 import {
   GetClassName,

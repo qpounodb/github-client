@@ -1,8 +1,8 @@
 import React from 'react';
 
-import { SquareButton } from '~/App/components/button';
-import { InputNumber } from '~/App/components/input';
-import { Color, Size } from '~/App/constants';
+import { SquareButton } from '~components/button';
+import { InputNumber } from '~components/input';
+import { Color, Size } from '~constants';
 
 import styles from './Pagination.module.scss';
 

@@ -1,6 +1,6 @@
-@use '~/App/styles/color';
-@use '~/App/styles/size';
-@use '~/App/styles/mixin';
+@use '~styles/color';
+@use '~styles/size';
+@use '~styles/mixin';
 
 $mark: 3px solid color.$accent;
 $mark-pos: rotate(45deg) translate(-10%, -20%);

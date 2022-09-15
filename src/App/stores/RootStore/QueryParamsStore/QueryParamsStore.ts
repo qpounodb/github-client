@@ -15,8 +15,8 @@ import {
   toOrderDir,
   toSortKind,
   toUrlSearchParams,
-} from '~/App/models/queryParams';
-import { isSome, removeUndefined } from '~/shared/utils';
+} from '~models/queryParams';
+import { isSome, removeUndefined } from '~utils';
 
 type SetURLSearchParams = (
   nextInit: URLSearchParamsInit,

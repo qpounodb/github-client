@@ -1,9 +1,9 @@
 import React from 'react';
 
-import { Locators } from '~/__test__/constants';
-import { Color, Size } from '~/App/constants';
-import { PropsWithClassName } from '~/shared/types';
-import { joinClassName } from '~/shared/utils';
+import { Color, Size } from '~constants';
+import { Locators } from '~tests/constants';
+import type { PropsWithClassName } from '~types';
+import { joinClassName } from '~utils';
 
 import styles from './Loader.module.scss';
 

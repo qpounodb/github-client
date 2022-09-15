@@ -1,7 +1,7 @@
 import { URLSearchParamsInit } from 'react-router-dom';
 
-import { Nullable } from '~/shared/types';
-import { isNone } from '~/shared/utils';
+import type { Nullable } from '~types';
+import { isNone } from '~utils';
 
 export enum RepoType {
   all = 'all',

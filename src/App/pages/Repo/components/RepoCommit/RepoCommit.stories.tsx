@@ -1,7 +1,7 @@
 import { ComponentMeta, ComponentStory } from '@storybook/react';
 
-import data from '~/App/assets/data-examples/repo-commit.json';
-import { normalizeCommit } from '~/App/models/github';
+import data from '~assets/data-examples/repo-commit.json';
+import { normalizeCommit } from '~models/github';
 
 import RepoCommitComponent from './RepoCommit';
 

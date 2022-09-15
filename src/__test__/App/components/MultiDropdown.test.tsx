@@ -2,12 +2,12 @@ import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import React from 'react';
 
-import { TEST_TITLE } from '~/__test__/constants';
 import {
   MultiDropdown,
   MultiDropdownProps,
   Option,
-} from '~/App/components/dropdown';
+} from '~components/dropdown';
+import { TEST_TITLE } from '~tests/constants';
 
 const defaultOptions: Option[] = [
   { key: 'msk', value: 'Москва' },

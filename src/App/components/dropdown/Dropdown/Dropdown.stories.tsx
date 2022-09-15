@@ -1,7 +1,7 @@
 import { ComponentMeta, ComponentStory } from '@storybook/react';
 import React from 'react';
 
-import { Option } from '../Option';
+import { Option } from '../types';
 
 import DropdownComponent, { DropdownProps } from './Dropdown';
 

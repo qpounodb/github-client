@@ -1,9 +1,10 @@
 import { action, computed, makeObservable } from 'mobx';
 
-import { GithubRepoAPI } from '~/shared/githubAPI';
-import { ILocalStore } from '~/shared/hooks';
-import { remapRecord } from '~/shared/utils';
+import type { ILocalStore } from '~hooks';
+import type { ApiStore } from '~stores';
+import { remapRecord } from '~utils';
 
+import { GithubRepoAPI } from './api';
 import {
   ApiCommitStore,
   ApiRepoBranchesStore,
@@ -11,8 +12,7 @@ import {
   ApiRepoInfoStore,
   ApiRepoLangsStore,
   ApiRepoReadmeStore,
-  ApiStore,
-} from '../ApiStore';
+} from './stores';
 
 type ApiStoresMap = {
   info: ApiRepoInfoStore;
@@ -80,7 +80,9 @@ export class RepoStore implements ILocalStore {
 
     const tasks = this._stores.map((store) => store.fetch({}));
 
-    return Promise.all(tasks).then(null, null);
+    return Promise.all(tasks)
+      .catch(() => null)
+      .then(null);
   }
 
   stop(): void {

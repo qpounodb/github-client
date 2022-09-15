@@ -1,9 +1,6 @@
-import { IconBranch } from '~/App/assets/icons';
-import {
-  RepoBranchModel,
-  RepoBranchModelCollection,
-} from '~/App/models/github';
-import { linerizeCollection } from '~/App/models/shared';
+import { IconBranch } from '~assets/icons';
+import { RepoBranchModel, RepoBranchModelCollection } from '~models/github';
+import { linerizeCollection } from '~models/shared';
 
 import { RepoBlock, RepoBlockProps, withRepoBlock } from '../withRepoBlock';
 

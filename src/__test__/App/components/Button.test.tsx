@@ -1,10 +1,10 @@
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
-import { BUTTON_TEXT, Locators } from '~/__test__/constants';
-import { Button } from '~/App/components/button';
-import styles from '~/App/components/button/withButton/withButton.module.scss';
-import { Color } from '~/App/constants';
+import { Button } from '~components/button';
+import styles from '~components/button/withButton/withButton.module.scss';
+import { Color } from '~constants';
+import { BUTTON_TEXT, Locators } from '~tests/constants';
 
 describe('Тестирование компонента Button', () => {
   test('Текстовый children пробрасывается корректно', () => {

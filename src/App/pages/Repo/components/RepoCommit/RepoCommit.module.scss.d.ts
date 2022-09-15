@@ -1,5 +1,5 @@
 export type Styles = {
-  autor: string;
+  author: string;
   avatar: string;
   changes: string;
   commit: string;

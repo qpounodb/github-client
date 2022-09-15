@@ -1,8 +1,8 @@
 import React from 'react';
 
-import { IconSearch } from '~/App/assets/icons';
-import { SquareButton } from '~/App/components/button';
-import { Input } from '~/App/components/input';
+import { IconSearch } from '~assets/icons';
+import { SquareButton } from '~components/button';
+import { Input } from '~components/input';
 
 import styles from './Search.module.scss';
 

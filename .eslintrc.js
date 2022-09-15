@@ -47,7 +47,7 @@ const config = {
     },
     'import/resolver': {
       typescript: {
-        project: './tsconfig.json',
+        project: './tsconfig.eslint.json',
       },
       node: true,
     },
@@ -69,13 +69,21 @@ const config = {
         ],
         pathGroups: [
           {
+            pattern: '~*',
+            group: 'internal',
+          },
+          {
             pattern: '~/**',
             group: 'internal',
-            position: 'before',
+          },
+          {
+            pattern: '~*/**',
+            group: 'internal',
           },
         ],
         // distinctGroup: true,
-        'newlines-between': 'always-and-inside-groups',
+        // 'newlines-between': 'always-and-inside-groups',
+        'newlines-between': 'always',
         alphabetize: {
           order: 'asc',
           caseInsensitive: true,

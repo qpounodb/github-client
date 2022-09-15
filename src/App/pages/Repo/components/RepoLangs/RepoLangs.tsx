@@ -1,8 +1,8 @@
-import { RepoLangsModel } from '~/App/models/github';
+import { RepoLangsModel } from '~models/github';
 
 import { RepoBlock, RepoBlockProps, withRepoBlock } from '../withRepoBlock';
 
-import { Lang } from './Lang';
+import { Lang } from './components';
 import styles from './RepoLangs.module.scss';
 
 const getTotal = (langs: RepoLangsModel) => {

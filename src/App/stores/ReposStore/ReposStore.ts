@@ -7,25 +7,26 @@ import {
   runInAction,
 } from 'mobx';
 
-import { RepoModelCollection } from '~/App/models/github';
-import { defaultQueryParamsAPI } from '~/App/models/queryParams';
-import { GithubReposAPI } from '~/shared/githubAPI';
-import { ILocalStore } from '~/shared/hooks';
-import { DataState } from '~/shared/types';
+import type { ILocalStore } from '~hooks';
+import type { RepoModelCollection } from '~models/github';
+import { defaultQueryParamsAPI } from '~models/queryParams';
+import type { ApiStore } from '~stores';
+import type { DataState } from '~types';
 
+import { rootStore } from '../RootStore';
+
+import { GithubReposAPI } from './api';
 import {
   ApiReposStore,
   ApiSearchReposStore,
   ApiSearchStore,
   ApiSearchUsersStore,
-  ApiStore,
-} from '../ApiStore';
-import { rootStore } from '../RootStore';
+} from './stores';
 
 const DEV_MODE = process.env.NODE_ENV === 'development';
 
 //
-// If DEV_MODE then loggin ReposStore life cycle ENABLED.
+// If DEV_MODE then logging ReposStore life cycle ENABLED.
 //
 // Complex startup:
 //  1. <React.StrictMod> active (double mounting all components)
@@ -34,7 +35,7 @@ const DEV_MODE = process.env.NODE_ENV === 'development';
 // Life cycle:
 //  1. <React.StrictMod> mount Main page
 //  2. ReposStore initializing:
-//     a. create rections for searching api
+//     a. create reactions for searching api
 //     b. call fetch (1):
 //        - get promise fetching search api
 //
@@ -45,7 +46,7 @@ const DEV_MODE = process.env.NODE_ENV === 'development';
 //
 //  5. <React.StrictMod> again mount Main page
 //  6. ReposStore again start initializing:
-//     a. recreate disposed rections for searching api
+//     a. recreate disposed reactions for searching api
 //     b. call fetch (2):
 //        - get promise fetching search api
 //
@@ -79,9 +80,9 @@ export class ReposStore implements ILocalStore {
 
   private readonly _api: GithubReposAPI = new GithubReposAPI();
 
-  private _stopped = false;
-
   private _apiStoresMap: StoresMap = getNewStores(this._api);
+
+  private _stopped = false;
 
   private _reactionsMap: Record<string, null | IReactionDisposer> = {
     queryParams: null,
@@ -164,14 +165,14 @@ export class ReposStore implements ILocalStore {
     try {
       this._start();
       log('checkOrg start');
-      await this._apiStoresMap.checkOrg.fetch({ orgName: params.orgName });
+      await this._apiStoresMap.checkOrg.fetch(params.orgName);
       log('checkOrg end');
       if (this._stopped) return;
       log('checkOrg pass');
 
       this._start();
       log('reposCount start');
-      await this._apiStoresMap.searchRepos.fetch({ orgName: params.orgName });
+      await this._apiStoresMap.searchRepos.fetch(params.orgName);
       log('reposCount end');
       if (this._stopped) return;
       runInAction(() => {

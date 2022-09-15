@@ -1,7 +1,7 @@
 import { ComponentMeta, ComponentStory } from '@storybook/react';
 import React from 'react';
 
-import { Size } from '~/App/constants';
+import { Size } from '~constants';
 
 import InputNumberComponent from './InputNumber';
 

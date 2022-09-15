@@ -1,6 +1,6 @@
 @use 'sass:color';
-@use '~/App/styles/color' as c;
-@use '~/App/styles/mixin';
+@use '~styles/color' as c;
+@use '~styles/mixin';
 
 .root {
   position: relative;

@@ -1,8 +1,8 @@
 import React from 'react';
 
-import { WithLoader } from '~/App/components/WithLoader';
-import { DataState, PropsWithChildrenAndClassname } from '~/shared/types';
-import { getDisplayName, isNone, joinClassName } from '~/shared/utils';
+import { WithLoader } from '~components/WithLoader';
+import type { DataState, PropsWithChildrenAndClassName } from '~types';
+import { getDisplayName, isNone, joinClassName } from '~utils';
 
 import styles from './withRepoBlock.module.scss';
 
@@ -11,7 +11,7 @@ export type RepoBlockProps<T> = React.PropsWithChildren<{
 }>;
 export type RepoBlock<T> = React.FC<RepoBlockProps<T>>;
 
-export type RepoBlockWrapperProps<T> = PropsWithChildrenAndClassname<{
+export type RepoBlockWrapperProps<T> = PropsWithChildrenAndClassName<{
   state: DataState<T>;
   title: string;
 }>;

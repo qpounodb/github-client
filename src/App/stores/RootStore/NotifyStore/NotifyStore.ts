@@ -8,10 +8,10 @@ import {
   runInAction,
 } from 'mobx';
 
-import { formatError } from '~/shared/utils';
+import { formatError } from '~utils';
 
 import { Level } from './Level';
-import { Message } from './Message';
+import type { Message } from './Message';
 
 type PrivateFields =
   | '_messages'

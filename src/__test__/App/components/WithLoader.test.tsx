@@ -1,8 +1,8 @@
 import { render, screen } from '@testing-library/react';
 
-import { Locators } from '~/__test__/constants';
-import styles from '~/App/components/Loader/Loader.module.scss';
-import { WithLoader } from '~/App/components/WithLoader';
+import styles from '~components/Loader/Loader.module.scss';
+import { WithLoader } from '~components/WithLoader';
+import { Locators } from '~tests/constants';
 
 describe('Тестирование компонента WithLoader', () => {
   test('При передаче loading=true отображается Loader', () => {

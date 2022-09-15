@@ -1,7 +1,7 @@
 import React from 'react';
 import { Converter } from 'showdown';
 
-import { RepoReadmeModel } from '~/App/models/github';
+import { RepoReadmeModel } from '~models/github';
 
 import { RepoBlock, RepoBlockProps, withRepoBlock } from '../withRepoBlock';
 

@@ -2,13 +2,12 @@ import { observer } from 'mobx-react-lite';
 import React from 'react';
 import { Route, Routes } from 'react-router-dom';
 
-import { NotifyView } from '~/App/components/NotifyView';
-import { Main } from '~/App/pages/Main';
-import { Repo } from '~/App/pages/Repo';
-import { rootStore } from '~/App/stores/RootStore';
-import { useQueryParamsStore } from '~/App/stores/RootStore/hooks';
+import { NotifyView } from '~components/NotifyView';
+import { rootStore, useQueryParamsStore } from '~stores/RootStore';
 
 import styles from './App.module.scss';
+import { Main } from './pages/Main';
+import { Repo } from './pages/Repo';
 
 const App: React.FC = () => {
   useQueryParamsStore();

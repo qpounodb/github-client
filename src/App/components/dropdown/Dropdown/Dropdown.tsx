@@ -1,12 +1,12 @@
 import React from 'react';
 
-import { Input } from '~/App/components/input';
-import { useHide } from '~/shared/hooks';
+import { Input } from '~components/input';
+import { useHide } from '~hooks';
 
-import { Option } from '../Option';
+import { Option } from '../types';
 
+import { List } from './components';
 import styles from './Dropdown.module.scss';
-import { List } from './List';
 
 export type DropdownProps = {
   options: Option[];

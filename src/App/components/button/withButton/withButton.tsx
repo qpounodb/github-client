@@ -1,9 +1,9 @@
 import React from 'react';
 
-import { Loader } from '~/App/components/Loader';
-import { Color, invert, Size } from '~/App/constants';
-import { Nullable, PropsWithChildrenAndClassname } from '~/shared/types';
-import { getDisplayName, joinClassName } from '~/shared/utils';
+import { Loader } from '~components/Loader';
+import { Color, invert, Size } from '~constants';
+import type { Nullable, PropsWithChildrenAndClassName } from '~types';
+import { getDisplayName, joinClassName } from '~utils';
 
 import styles from './withButton.module.scss';
 
@@ -13,7 +13,7 @@ export type ButtonProps = {
   loading?: boolean;
 };
 
-export type ButtonReactProps = PropsWithChildrenAndClassname<ButtonProps>;
+export type ButtonReactProps = PropsWithChildrenAndClassName<ButtonProps>;
 export type ButtonHTMLProps = React.ButtonHTMLAttributes<HTMLButtonElement>;
 
 export type ButtonComponentProps = ButtonReactProps & ButtonHTMLProps;

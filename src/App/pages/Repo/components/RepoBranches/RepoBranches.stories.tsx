@@ -1,7 +1,7 @@
 import { ComponentMeta, ComponentStory } from '@storybook/react';
 
-import data from '~/App/assets/data-examples/repo-branches.json';
-import { normalizeRepoBranchCollection } from '~/App/models/github';
+import data from '~assets/data-examples/repo-branches.json';
+import { normalizeRepoBranchCollection } from '~models/github';
 
 import RepoBranchesComponent from './RepoBranches';
 

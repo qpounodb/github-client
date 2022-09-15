@@ -4,9 +4,9 @@ import {
   IconIssue,
   IconRepo,
   IconStar,
-} from '~/App/assets/icons';
-import { RepoModel } from '~/App/models/github';
-import { formatCount, getLangLogo } from '~/shared/utils';
+} from '~assets/icons';
+import { RepoModel } from '~models/github';
+import { formatCount, getLangLogo } from '~utils';
 
 import { RepoBlock, RepoBlockProps, withRepoBlock } from '../withRepoBlock';
 
