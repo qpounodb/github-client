@@ -3,11 +3,10 @@ import React from 'react';
 import { Route, Routes } from 'react-router-dom';
 
 import { NotifyView } from '~components/NotifyView';
+import { Main, Repo } from '~pages';
 import { rootStore, useQueryParamsStore } from '~stores/RootStore';
 
 import styles from './App.module.scss';
-import { Main } from './pages/Main';
-import { Repo } from './pages/Repo';
 
 const App: React.FC = () => {
   useQueryParamsStore();

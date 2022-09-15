@@ -4,7 +4,6 @@ import { useNavigate, useParams } from 'react-router-dom';
 
 import { Button } from '~components/button';
 import { useLocalStore } from '~hooks';
-import { RepoStore } from '~stores';
 
 import {
   RepoBranches,
@@ -15,6 +14,7 @@ import {
   RepoReadme,
 } from './components';
 import styles from './Repo.module.scss';
+import { RepoStore } from './stores';
 
 type PathParams = { orgName: string; repoName: string };
 

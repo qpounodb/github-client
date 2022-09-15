@@ -11,9 +11,8 @@ import type { ILocalStore } from '~hooks';
 import type { RepoModelCollection } from '~models/github';
 import { defaultQueryParamsAPI } from '~models/queryParams';
 import type { ApiStore } from '~stores';
+import { rootStore } from '~stores/RootStore';
 import type { DataState } from '~types';
-
-import { rootStore } from '../RootStore';
 
 import { GithubReposAPI } from './api';
 import {

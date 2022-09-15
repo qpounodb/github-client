@@ -11,12 +11,12 @@ import { WithLoader } from '~components/WithLoader';
 import { useLocalStore } from '~hooks';
 import { RepoModel } from '~models/github';
 import { OrderDir, SortKind } from '~models/queryParams';
-import { ReposStore } from '~stores';
 import { rootStore } from '~stores/RootStore';
 import { joinClassName } from '~utils';
 
 import { GitRepoList } from './components/GitRepoList';
 import styles from './Main.module.scss';
+import { ReposStore } from './stores';
 
 const SEARCH_PLACEHOLDER = 'Enter organization name';
 
