@@ -1,7 +1,7 @@
 import { action, computed, makeObservable } from 'mobx';
 
-import type { ILocalStore } from '~hooks';
 import type { ApiStore } from '~stores';
+import type { ILocalStore } from '~types';
 import { remapRecord } from '~utils';
 
 import { GithubRepoAPI } from './api';

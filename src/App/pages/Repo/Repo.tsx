@@ -32,12 +32,15 @@ export const Repo: React.FC = () => {
       <nav>
         <Button onClick={handleBack}>Back</Button>
       </nav>
-      <RepoInfo title="Info" state={store.state.info} />
-      <RepoBranches title="Branches" state={store.state.branches} />
-      <RepoLangs title="Languages" state={store.state.langs} />
-      <RepoContributors title="Contributors" state={store.state.contributors} />
-      <RepoCommit title="Last Commit" state={store.state.commit} />
-      <RepoReadme title="README.md" state={store.state.readme} />
+      <RepoInfo title="Info" state={store?.state.info} />
+      <RepoBranches title="Branches" state={store?.state.branches} />
+      <RepoLangs title="Languages" state={store?.state.langs} />
+      <RepoContributors
+        title="Contributors"
+        state={store?.state.contributors}
+      />
+      <RepoCommit title="Last Commit" state={store?.state.commit} />
+      <RepoReadme title="README.md" state={store?.state.readme} />
     </div>
   );
 };

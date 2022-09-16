@@ -1,8 +1,7 @@
 import { CanceledError } from 'axios';
 import { action, computed, makeObservable, observable } from 'mobx';
 
-import { ILocalStore } from '~hooks';
-import type { DataState, Nullable } from '~types';
+import type { ILocalStore, DataState, Nullable } from '~types';
 import { isSome } from '~utils';
 
 import { rootStore } from '../RootStore';

@@ -7,12 +7,11 @@ import {
   runInAction,
 } from 'mobx';
 
-import type { ILocalStore } from '~hooks';
 import type { RepoModelCollection } from '~models/github';
 import { defaultQueryParamsAPI } from '~models/queryParams';
 import type { ApiStore } from '~stores';
 import { rootStore } from '~stores/RootStore';
-import type { DataState } from '~types';
+import type { ILocalStore, DataState } from '~types';
 
 import { GithubReposAPI } from './api';
 import {
@@ -23,35 +22,6 @@ import {
 } from './stores';
 
 const DEV_MODE = process.env.NODE_ENV === 'development';
-
-//
-// If DEV_MODE then logging ReposStore life cycle ENABLED.
-//
-// Complex startup:
-//  1. <React.StrictMod> active (double mounting all components)
-//  2. Some query params detected
-//
-// Life cycle:
-//  1. <React.StrictMod> mount Main page
-//  2. ReposStore initializing:
-//     a. create reactions for searching api
-//     b. call fetch (1):
-//        - get promise fetching search api
-//
-//  3. <React.StrictMod> unmount Main page
-//  4. ReposStore call destroy:
-//     a. aborting active request
-//     b. dispose reactions
-//
-//  5. <React.StrictMod> again mount Main page
-//  6. ReposStore again start initializing:
-//     a. recreate disposed reactions for searching api
-//     b. call fetch (2):
-//        - get promise fetching search api
-//
-// ⚠️ About that time the first fetching promise throw Cancelation Error
-// ⚠️ We need to check the context where the error was caught and don't abort second promise!
-//
 
 type StoresMap = {
   checkOrg: ApiSearchUsersStore;
@@ -264,10 +234,19 @@ export class ReposStore implements ILocalStore {
 
   destroy(): void {
     this._log('destroy start');
+
+    this._log('dispose checkOrg reaction', this._reactionsMap.checkOrg);
     this._reactionsMap.checkOrg?.();
-    this._reactionsMap.searchRepos?.();
     this._reactionsMap.checkOrg = null;
+
+    this._log('dispose searchRepos reaction', this._reactionsMap.searchRepos);
+    this._reactionsMap.searchRepos?.();
     this._reactionsMap.searchRepos = null;
+
+    this._log('dispose queryParams reaction', this._reactionsMap.queryParams);
+    this._reactionsMap.queryParams?.();
+    this._reactionsMap.queryParams = null;
+
     this._apiStores.forEach((store) => store.destroy());
     this._apiStoresMap = getNewStores(this._api);
     this._log('destroy end');

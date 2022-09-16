@@ -12,7 +12,7 @@ export type RepoBlockProps<T> = React.PropsWithChildren<{
 export type RepoBlock<T> = React.FC<RepoBlockProps<T>>;
 
 export type RepoBlockWrapperProps<T> = PropsWithChildrenAndClassName<{
-  state: DataState<T>;
+  state?: DataState<T>;
   title: string;
 }>;
 export type RepoBlockWrapper<T> = React.FC<RepoBlockWrapperProps<T>>;
@@ -27,22 +27,25 @@ export const withRepoBlock = <T extends object>(
   RepoBlock: RepoBlock<T>
 ): RepoBlockWrapper<T> => {
   const RepoBlockWrapper: RepoBlockWrapper<T> = ({
-    state: { loading, data },
+    state,
     title,
     children,
   }: RepoBlockWrapperProps<T>) => {
     const cls = joinClassName(styles.root, className);
     const titles = getTitles(title);
 
-    if (loading) {
+    if (state?.loading) {
       return (
         <div className={cls}>
-          <WithLoader loading={loading} message={titles.loading}></WithLoader>
+          <WithLoader
+            loading={state?.loading}
+            message={titles.loading}
+          ></WithLoader>
         </div>
       );
     }
 
-    if (isNone(data)) {
+    if (isNone(state) || isNone(state?.data)) {
       return (
         <div className={cls}>
           <h2>{titles.noData}</h2>
@@ -52,7 +55,7 @@ export const withRepoBlock = <T extends object>(
 
     return (
       <div className={cls}>
-        <RepoBlock data={data}>{children}</RepoBlock>
+        <RepoBlock data={state.data}>{children}</RepoBlock>
       </div>
     );
   };

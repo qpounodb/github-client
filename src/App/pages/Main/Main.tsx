@@ -76,7 +76,7 @@ const Main: React.FC = () => {
           placeholder={SEARCH_PLACEHOLDER}
           onChange={setInput}
           onSubmit={submitName}
-          loading={store.loading}
+          loading={store?.loading}
         />
       </div>
       <div className={joinClassName(styles.section, styles.filters)}>
@@ -95,9 +95,9 @@ const Main: React.FC = () => {
         </label>
       </div>
       <div className={styles.section}>
-        <WithLoader loading={store.loading}>
+        <WithLoader loading={store?.loading}>
           <GitRepoList
-            data={store.state.data}
+            data={store?.state.data}
             getCardClickHandler={getCardClickHandler}
           />
         </WithLoader>
@@ -106,8 +106,8 @@ const Main: React.FC = () => {
         <Pagination
           onSubmit={submitPage}
           page={queryParamsStore.page}
-          count={store.pagesCount}
-          loading={store.loading}
+          count={store?.pagesCount ?? 0}
+          loading={store?.loading}
         />
       </div>
     </div>
