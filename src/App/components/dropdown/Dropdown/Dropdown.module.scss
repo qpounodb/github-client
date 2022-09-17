@@ -1,13 +1,65 @@
+@use '~styles/color';
+@use '~styles/mixin';
+
 .root {
   position: relative;
+  display: inline-block;
 
   &__input {
-    display: block;
+    cursor: pointer;
   }
 
   &__list {
     position: absolute;
     z-index: 10;
     top: calc(100% + 8px);
+  }
+
+  $h: 15px;
+  $w: 1.3 * $h;
+
+  &::before {
+    content: '';
+    display: block;
+    position: absolute;
+    right: 1px;
+    top: 1px;
+    bottom: 1px;
+    width: 5 * $h;
+    @include mixin.rounded;
+    background-image: linear-gradient(
+      to right,
+      transparent,
+      color.$background 60%
+    );
+    pointer-events: none;
+  }
+
+  &::after {
+    content: '';
+    display: block;
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%) rotate(-90deg);
+
+    width: $w;
+    height: $h;
+    background-color: color.$background-selected;
+    clip-path: polygon(50% 0, 100% 100%, 0 100%);
+
+    transition: 200ms transform ease-in-out;
+    pointer-events: none;
+  }
+
+  &_open::after {
+    transform: translateY(-50%) rotate(-180deg);
+  }
+
+  &_disabled {
+    &::before,
+    &::after {
+      display: none;
+    }
   }
 }
