@@ -3,252 +3,106 @@ import {
   computed,
   IReactionDisposer,
   makeObservable,
+  observable,
   reaction,
-  runInAction,
 } from 'mobx';
 
-import type { RepoModelCollection } from '~models/github';
-import { defaultQueryParamsAPI } from '~models/queryParams';
-import type { ApiStore } from '~stores';
-import { rootStore } from '~stores/RootStore';
-import type { ILocalStore, DataState } from '~types';
-
-import { GithubReposAPI } from './api';
 import {
-  ApiReposStore,
-  ApiSearchReposStore,
-  ApiSearchStore,
-  ApiSearchUsersStore,
-} from './stores';
+  appParamsToApiParams,
+  defaultQueryParamsAPI,
+  QueryParamsApp,
+} from '~models/queryParams';
+import { ApiStore } from '~stores';
+import { rootStore } from '~stores/RootStore';
+import type { ILocalStore } from '~types';
+import { getPagesCount } from '~utils';
 
-const DEV_MODE = process.env.NODE_ENV === 'development';
+import { GithubReposApi, ReposApiData } from './api';
 
-type StoresMap = {
-  checkOrg: ApiSearchUsersStore;
-  searchRepos: ApiSearchReposStore;
-  repos: ApiReposStore;
-};
-
-const getNewStores = (api: GithubReposAPI): StoresMap => ({
-  checkOrg: new ApiSearchUsersStore(api),
-  searchRepos: new ApiSearchReposStore(api),
-  repos: new ApiReposStore(api),
-});
-
-type PrivateFields = '_handleQueryParams';
+type PrivateFields = '_apiData' | '_end';
 
 export class ReposStore implements ILocalStore {
-  private static _ID = 0;
-  private _ID = ++ReposStore._ID;
-  private _fetchID = 0;
+  private readonly _api: GithubReposApi = new GithubReposApi();
+  private readonly _apiStore: ApiStore = new ApiStore();
 
-  private _log(...args: unknown[]) {
-    if (!DEV_MODE) return;
-    console.log(`[ReposStore.${this._ID}/${ReposStore._ID}]`, ...args);
-  }
+  private _apiData: null | ReposApiData = null;
 
-  private readonly _api: GithubReposAPI = new GithubReposAPI();
-
-  private _apiStoresMap: StoresMap = getNewStores(this._api);
-
-  private _stopped = false;
-
-  private _reactionsMap: Record<string, null | IReactionDisposer> = {
-    queryParams: null,
-    checkOrg: null,
-    searchRepos: null,
-  };
+  private _queryParamsReaction: null | IReactionDisposer = null;
 
   constructor() {
     makeObservable<ReposStore, PrivateFields>(this, {
-      loading: computed,
-      success: computed,
-      error: computed,
+      _apiData: observable.ref,
+      data: computed,
       pagesCount: computed,
-      state: computed,
+      isLoading: computed,
       fetch: action.bound,
-      _handleQueryParams: action.bound,
+      _end: action.bound,
     });
-    this._log('created');
   }
 
-  private get _apiStores(): ApiStore[] {
-    return Object.values(this._apiStoresMap);
-  }
-
-  private get _reactions(): Array<null | IReactionDisposer> {
-    return Object.values(this._reactionsMap);
-  }
-
-  get loading(): boolean {
-    return this._apiStores.some((store) => store.loading);
-  }
-
-  get error(): boolean {
-    return this._apiStores.some((store) => store.error);
-  }
-
-  get success(): boolean {
-    return this._apiStores.every((store) => store.success);
+  get data(): null | ReposApiData['data'] {
+    return this._apiData?.data ?? null;
   }
 
   get pagesCount(): number {
-    const totalCount = this._apiStoresMap.searchRepos.data ?? 0;
-    this._log('pagesCount', totalCount / defaultQueryParamsAPI.per_page);
-    return Math.ceil(totalCount / defaultQueryParamsAPI.per_page);
+    const totalCount = this._apiData?.totalCount ?? 0;
+    return getPagesCount(totalCount, defaultQueryParamsAPI.per_page);
   }
 
-  get state(): DataState<RepoModelCollection> {
-    this._log('state', this._apiStoresMap.repos.state);
-    return this._apiStoresMap.repos.state;
-  }
-
-  _start() {
-    this._log('_start');
-    this._stopped = false;
-  }
-
-  _stop() {
-    this._log('_stop');
-    this._stopped = true;
-  }
-
-  async fetch(): Promise<void> {
-    const fetchId = ++this._fetchID;
-    const log = (...args: unknown[]) => {
-      this._log(`FETCH.${fetchId}/${this._fetchID} >`, ...args);
-    };
-
-    log('start');
-    if (this.loading) {
-      return;
-    }
-
-    const params = rootStore.queryParamsStore.params;
-    log('params', params);
-    if (!params.orgName) {
-      this.reset();
-      return;
-    }
-
-    try {
-      this._start();
-      log('checkOrg start');
-      await this._apiStoresMap.checkOrg.fetch(params.orgName);
-      log('checkOrg end');
-      if (this._stopped) return;
-      log('checkOrg pass');
-
-      this._start();
-      log('reposCount start');
-      await this._apiStoresMap.searchRepos.fetch(params.orgName);
-      log('reposCount end');
-      if (this._stopped) return;
-      runInAction(() => {
-        if (params.page && params.page > this.pagesCount) {
-          rootStore.queryParamsStore.setPageNum(this.pagesCount);
-          return;
-        }
-      });
-      log('reposCount pass');
-
-      this._start();
-      log('repos start');
-      await this._apiStoresMap.repos.fetch(params);
-      log('repos end');
-    } catch (err) {
-      log('error', err);
-      if (fetchId !== this._fetchID) return;
-      this.stop();
-    }
-  }
-
-  stop(): void {
-    this._log('stop');
-    this._stop();
-    this._apiStores.forEach((store) => store.stop());
-    this.reset();
-  }
-
-  reset(): void {
-    this._log('reset');
-    this._apiStores.forEach((store) => store.reset());
-  }
-
-  private _createLoadingReaction = (
-    store: ApiSearchStore
-  ): IReactionDisposer => {
-    const log = (...args: unknown[]) =>
-      this._log('loading-reaction', store.constructor.name, ...args);
-    log('created');
-
-    return reaction(
-      () => store.loading,
-      (loading) => {
-        log('is loading?', loading);
-        if (loading) return;
-        log('is fail?', store.fail);
-        if (!store.fail) return;
-        runInAction(() => {
-          log('stop');
-          const orgName = rootStore.queryParamsStore.orgName;
-          orgName &&
-            rootStore.notifyStore.info(`Organization "${orgName}" not found!`);
-          this.stop();
-        });
-      }
-    );
-  };
-
-  _handleQueryParams() {
-    this._log('_handleQueryParams check orgName');
-    if (!rootStore.queryParamsStore.orgName) {
-      this.reset();
-      return;
-    }
-    this._log('_handleQueryParams > run fetch');
-    void this.fetch();
+  get isLoading(): boolean {
+    return this._apiStore.isLoading;
   }
 
   init(): void {
-    this._log('init start');
-
-    this._reactionsMap.queryParams ??= reaction(
+    this._queryParamsReaction ??= reaction(
       () => rootStore.queryParamsStore.params,
-      (params) => {
-        this._log('query-params-reaction', params);
-        this._handleQueryParams();
-      }
+      () => void this.fetch()
     );
 
-    this._reactionsMap.checkOrg ??= this._createLoadingReaction(
-      this._apiStoresMap.checkOrg
-    );
-    this._reactionsMap.searchRepos ??= this._createLoadingReaction(
-      this._apiStoresMap.searchRepos
-    );
-
-    this._handleQueryParams();
-    this._log('init end');
+    void this.fetch();
   }
 
   destroy(): void {
-    this._log('destroy start');
+    this._queryParamsReaction?.();
+    this._queryParamsReaction = null;
+    this._apiStore.destroy();
+  }
 
-    this._log('dispose checkOrg reaction', this._reactionsMap.checkOrg);
-    this._reactionsMap.checkOrg?.();
-    this._reactionsMap.checkOrg = null;
+  async fetch(): Promise<void> {
+    if (this.isLoading) {
+      return;
+    }
 
-    this._log('dispose searchRepos reaction', this._reactionsMap.searchRepos);
-    this._reactionsMap.searchRepos?.();
-    this._reactionsMap.searchRepos = null;
+    const { orgName, ...params } = rootStore.queryParamsStore.params;
+    if (!orgName) {
+      return;
+    }
 
-    this._log('dispose queryParams reaction', this._reactionsMap.queryParams);
-    this._reactionsMap.queryParams?.();
-    this._reactionsMap.queryParams = null;
+    const result = await this._apiStore.run((signal) =>
+      this._api.getAll(orgName, appParamsToApiParams(params), signal)
+    );
 
-    this._apiStores.forEach((store) => store.destroy());
-    this._apiStoresMap = getNewStores(this._api);
-    this._log('destroy end');
+    this._end(orgName, params, result);
+  }
+
+  private _end(
+    orgName: string,
+    params: QueryParamsApp,
+    data: null | ReposApiData
+  ): void {
+    this._apiData = data;
+
+    if (this._apiStore.isError) {
+      return;
+    }
+
+    if (this._apiStore.isSuccess && data === null) {
+      rootStore.notifyStore.info(`Organization "${orgName}" not found!`);
+      return;
+    }
+
+    if (params.page && params.page > this.pagesCount) {
+      rootStore.queryParamsStore.setPageNum(this.pagesCount);
+    }
   }
 }

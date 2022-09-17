@@ -6,6 +6,7 @@ export * from './error';
 export * from './format';
 export * from './is';
 export * from './link';
+export * from './math';
 export * from './object';
 export * from './random';
 export * from './wrapper';

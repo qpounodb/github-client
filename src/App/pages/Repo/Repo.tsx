@@ -3,6 +3,7 @@ import React from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 
 import { Button } from '~components/button';
+import { WithLoader } from '~components/WithLoader';
 import { useLocalStore } from '~hooks';
 
 import {
@@ -32,15 +33,14 @@ export const Repo: React.FC = () => {
       <nav>
         <Button onClick={handleBack}>Back</Button>
       </nav>
-      <RepoInfo title="Info" state={store?.state.info} />
-      <RepoBranches title="Branches" state={store?.state.branches} />
-      <RepoLangs title="Languages" state={store?.state.langs} />
-      <RepoContributors
-        title="Contributors"
-        state={store?.state.contributors}
-      />
-      <RepoCommit title="Last Commit" state={store?.state.commit} />
-      <RepoReadme title="README.md" state={store?.state.readme} />
+      <WithLoader loading={store?.isLoading} className={styles.root}>
+        <RepoInfo data={store?.dataMap?.info} />
+        <RepoBranches data={store?.dataMap?.branches} />
+        <RepoLangs data={store?.dataMap?.languages} />
+        <RepoContributors data={store?.dataMap?.contributors} />
+        <RepoCommit data={store?.dataMap?.commit} />
+        <RepoReadme data={store?.dataMap?.readme} />
+      </WithLoader>
     </div>
   );
 };

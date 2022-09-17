@@ -16,7 +16,6 @@
       "~models/*": ["App/models/*"],
       "~stores": ["App/stores"],
       "~stores/*": ["App/stores/*"],
-      "~shared/*": ["shared/*"],
       "~hooks": ["shared/hooks"],
       "~utils": ["shared/utils"],
       "~types": ["shared/types"]

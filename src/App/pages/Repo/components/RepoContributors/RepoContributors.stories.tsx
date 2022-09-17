@@ -19,5 +19,5 @@ export const RepoContributors: Story = (args) => (
   <RepoContributorsComponent {...args} />
 );
 RepoContributors.args = {
-  state: { data: normalizeRepoContributorCollection(data) },
+  data: normalizeRepoContributorCollection(data),
 };

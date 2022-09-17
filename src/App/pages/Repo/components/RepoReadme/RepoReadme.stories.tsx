@@ -16,4 +16,4 @@ const meta: Meta = {
 export default meta;
 
 export const RepoReadme: Story = (args) => <RepoReadmeComponent {...args} />;
-RepoReadme.args = { state: { data: normalizeRepoReadme(data) } };
+RepoReadme.args = { data: normalizeRepoReadme(data) };

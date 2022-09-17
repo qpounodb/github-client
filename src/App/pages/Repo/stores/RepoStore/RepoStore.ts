@@ -1,103 +1,67 @@
-import { action, computed, makeObservable } from 'mobx';
+import { action, computed, makeObservable, observable } from 'mobx';
 
-import type { ApiStore } from '~stores';
+import { ApiStore } from '~stores';
+import { rootStore } from '~stores/RootStore';
 import type { ILocalStore } from '~types';
-import { remapRecord } from '~utils';
 
-import { GithubRepoAPI } from './api';
-import {
-  ApiCommitStore,
-  ApiRepoBranchesStore,
-  ApiRepoContributorsStore,
-  ApiRepoInfoStore,
-  ApiRepoLangsStore,
-  ApiRepoReadmeStore,
-} from './stores';
+import { GithubRepoApi, RepoApiDataMap, RepoApiResult } from './api';
 
-type ApiStoresMap = {
-  info: ApiRepoInfoStore;
-  branches: ApiRepoBranchesStore;
-  langs: ApiRepoLangsStore;
-  contributors: ApiRepoContributorsStore;
-  commit: ApiCommitStore;
-  readme: ApiRepoReadmeStore;
-};
-
-type StoresStateMap = {
-  [K in keyof ApiStoresMap]: ApiStoresMap[K]['state'];
-};
+type PrivateFields = '_apiDataMap' | '_end';
 
 export class RepoStore implements ILocalStore {
-  private readonly _api: GithubRepoAPI;
+  private readonly _api: GithubRepoApi;
+  private readonly _apiStore: ApiStore = new ApiStore();
 
-  private readonly _storesMap: ApiStoresMap;
+  private _apiDataMap: RepoApiDataMap | null = null;
 
   constructor(orgName = '', repoName = '') {
-    this._api = new GithubRepoAPI(orgName, repoName);
+    this._api = new GithubRepoApi(orgName, repoName);
 
-    this._storesMap = {
-      info: new ApiRepoInfoStore(this._api),
-      branches: new ApiRepoBranchesStore(this._api),
-      langs: new ApiRepoLangsStore(this._api),
-      contributors: new ApiRepoContributorsStore(this._api),
-      commit: new ApiCommitStore(this._api),
-      readme: new ApiRepoReadmeStore(this._api),
-    };
-
-    makeObservable<RepoStore>(this, {
-      loading: computed,
-      success: computed,
-      error: computed,
-      state: computed,
+    makeObservable<RepoStore, PrivateFields>(this, {
+      _apiDataMap: observable.ref,
+      dataMap: computed,
+      isLoading: computed,
       fetch: action.bound,
+      _end: action.bound,
     });
   }
 
-  private get _stores(): ApiStore[] {
-    return Object.values(this._storesMap);
+  get dataMap(): RepoApiDataMap | null {
+    return this._apiDataMap;
   }
 
-  get loading(): boolean {
-    return this._stores.some((store) => store.loading);
-  }
-
-  get error(): boolean {
-    return this._stores.some((store) => store.error);
-  }
-
-  get success(): boolean {
-    return this._stores.every((store) => store.success);
-  }
-
-  get state(): StoresStateMap {
-    return remapRecord(this._storesMap, ({ state }) => state);
-  }
-
-  async fetch(): Promise<void> {
-    if (this.loading) {
-      return;
-    }
-
-    const tasks = this._stores.map((store) => store.fetch({}));
-
-    return Promise.all(tasks)
-      .catch(() => null)
-      .then(null);
-  }
-
-  stop(): void {
-    this._stores.forEach((store) => store.stop());
-  }
-
-  reset(): void {
-    this._stores.forEach((store) => store.reset());
+  get isLoading(): boolean {
+    return this._apiStore.isLoading;
   }
 
   init(): void {
-    this.fetch().then(null, null);
+    void this.fetch();
   }
 
   destroy(): void {
-    this._stores.forEach((store) => store.destroy());
+    this._apiStore.destroy();
+  }
+
+  async fetch(): Promise<void> {
+    if (this.isLoading) {
+      return;
+    }
+
+    const result = await this._apiStore.run(this._api.getAll.bind(this._api));
+    this._end(result);
+  }
+
+  private _end(result: RepoApiResult | null): void {
+    if (!result) {
+      this.reset();
+      return;
+    }
+    this._apiDataMap = result.dataMap;
+
+    result.errors.forEach((error) => rootStore.notifyStore.error(error));
+  }
+
+  reset(): void {
+    this._apiDataMap = null;
   }
 }

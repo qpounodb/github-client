@@ -1,3 +1,5 @@
+import { CanceledError } from 'axios';
+
 import { None, Nullable } from '../types';
 
 export const isNone = <T>(x: Nullable<T>): x is None => {
@@ -30,4 +32,10 @@ export const isRecord = (x: unknown): x is Record<string, unknown> => {
 
 export const isNode = (e: Event['target']): e is Node => {
   return e !== null && 'nodeType' in e;
+};
+
+export const isCanceledError = (
+  err: unknown
+): err is CanceledError<unknown> => {
+  return err instanceof CanceledError;
 };

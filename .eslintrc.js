@@ -54,6 +54,7 @@ const config = {
   },
 
   rules: {
+    '@typescript-eslint/no-unused-vars': 'error',
     'import/no-named-as-default-member': 'off',
     'import/newline-after-import': ['error', { count: 1 }],
     'import/order': [

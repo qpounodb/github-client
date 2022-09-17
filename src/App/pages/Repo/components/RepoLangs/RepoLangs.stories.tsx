@@ -16,4 +16,4 @@ const meta: Meta = {
 export default meta;
 
 export const RepoLangs: Story = (args) => <RepoLangsComponent {...args} />;
-RepoLangs.args = { state: { data: normalizeRepoLangs(data) } };
+RepoLangs.args = { data: normalizeRepoLangs(data) };

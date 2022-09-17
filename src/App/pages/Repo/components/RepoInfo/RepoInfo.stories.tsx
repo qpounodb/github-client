@@ -16,4 +16,4 @@ const meta: Meta = {
 export default meta;
 
 export const RepoInfo: Story = (args) => <RepoInfoComponent {...args} />;
-RepoInfo.args = { state: { data: normalizeRepo(data) } };
+RepoInfo.args = { data: normalizeRepo(data) };

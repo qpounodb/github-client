@@ -19,5 +19,5 @@ export const RepoBranches: Story = (args) => (
   <RepoBranchesComponent {...args} />
 );
 RepoBranches.args = {
-  state: { data: normalizeRepoBranchCollection(data) },
+  data: normalizeRepoBranchCollection(data),
 };

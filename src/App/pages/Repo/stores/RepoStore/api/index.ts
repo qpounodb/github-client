@@ -1,1 +1,1 @@
-export * from './GithubRepoAPI';
+export * from './GithubRepoApi';

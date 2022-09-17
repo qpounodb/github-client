@@ -16,4 +16,4 @@ const meta: Meta = {
 export default meta;
 
 export const RepoCommit: Story = (args) => <RepoCommitComponent {...args} />;
-RepoCommit.args = { state: { data: normalizeCommit(data) } };
+RepoCommit.args = { data: normalizeCommit(data) };
