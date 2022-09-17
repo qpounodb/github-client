@@ -22,4 +22,5 @@ export const CheckBox: Story = (props) => {
 
 CheckBox.args = {
   disabled: false,
+  label: 'Label',
 };

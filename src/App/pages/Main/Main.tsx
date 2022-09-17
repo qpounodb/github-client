@@ -86,13 +86,11 @@ const Main: React.FC = () => {
           onChange={submitSort}
           placeholder="Set sort by..."
         />
-        <label>
-          <CheckBox
-            checked={queryParamsStore.order === 'asc'}
-            onChange={submitOrder}
-          />
-          Asc order
-        </label>
+        <CheckBox
+          label="Asc order"
+          checked={queryParamsStore.order === 'asc'}
+          onChange={submitOrder}
+        />
       </div>
       <div className={styles.section}>
         <WithLoader loading={store?.isLoading}>
