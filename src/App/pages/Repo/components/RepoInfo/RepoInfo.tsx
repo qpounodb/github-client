@@ -4,13 +4,17 @@ import {
   IconIssue,
   IconRepo,
   IconStar,
-} from '~/App/assets/icons';
-import { RepoModel } from '~/App/models/github';
-import { formatCount, getLangLogo } from '~/shared/utils';
-import { RepoBlock, withRepoBlock } from '../withRepoBlock';
+} from '~assets/icons';
+import { RepoModel } from '~models/github';
+import { formatCount, getLangLogo } from '~utils';
+
+import { RepoBlock, RepoBlockProps, withRepoBlock } from '../withRepoBlock';
+
 import styles from './RepoInfo.module.scss';
 
-const RepoInfo: RepoBlock<RepoModel> = ({ data }) => {
+const RepoInfo: RepoBlock<RepoModel> = ({
+  data,
+}: RepoBlockProps<RepoModel>) => {
   const langLogo = data.language && getLangLogo(data.language);
 
   return (

@@ -1,6 +1,8 @@
 import { ComponentMeta, ComponentStory } from '@storybook/react';
 import React from 'react';
-import { Option } from '../Option';
+
+import { Option } from '../types';
+
 import SelectComponent from './Select';
 
 type Meta = ComponentMeta<typeof SelectComponent>;

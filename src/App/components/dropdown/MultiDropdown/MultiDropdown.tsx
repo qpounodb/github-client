@@ -1,7 +1,9 @@
 import React from 'react';
-import { not } from '~/shared/utils';
+
+import { not } from '~utils';
+
 import { Dropdown } from '../Dropdown';
-import { Option } from '../Option';
+import { Option } from '../types';
 
 export type MultiDropdownProps = {
   options: Option[];

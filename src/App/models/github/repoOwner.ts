@@ -1,4 +1,5 @@
-import { Nullable } from '~/shared/types';
+import type { Nullable } from '~types';
+
 import { CollectionModel, normalizeCollection } from '../shared';
 
 export type RepoOwnerApi = {

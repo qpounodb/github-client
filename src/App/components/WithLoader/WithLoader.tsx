@@ -1,10 +1,12 @@
 import React from 'react';
-import { Loader } from '~/App/components/Loader';
-import { PropsWithChildrenAndClassname } from '~/shared/types';
-import { joinClassName } from '~/shared/utils';
+
+import { Loader } from '~components/Loader';
+import type { PropsWithChildrenAndClassName } from '~types';
+import { joinClassName } from '~utils';
+
 import styles from './WithLoader.module.scss';
 
-export type WithLoaderProps = PropsWithChildrenAndClassname<{
+export type WithLoaderProps = PropsWithChildrenAndClassName<{
   loading?: boolean;
   message?: string;
 }>;

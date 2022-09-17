@@ -1,4 +1,5 @@
 import { ComponentMeta, ComponentStory } from '@storybook/react';
+
 import WithLoaderComponent from './WithLoader';
 
 type Meta = ComponentMeta<typeof WithLoaderComponent>;

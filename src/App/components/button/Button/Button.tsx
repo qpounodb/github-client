@@ -1,5 +1,12 @@
-import { joinClassName } from '~/shared/utils';
-import { GetClassName, InnerComponent, withButton } from '../withButton';
+import { joinClassName } from '~utils';
+
+import {
+  GetClassName,
+  InnerComponent,
+  InnerComponentProps,
+  withButton,
+} from '../withButton';
+
 import styles from './Button.module.scss';
 
 const getClassName: GetClassName = ({ loading, size }) => {
@@ -9,7 +16,11 @@ const getClassName: GetClassName = ({ loading, size }) => {
   );
 };
 
-const Default: InnerComponent = ({ loading, loader, children }) => {
+const Default: InnerComponent = ({
+  loading,
+  loader,
+  children,
+}: InnerComponentProps) => {
   return (
     <>
       {loading && loader}

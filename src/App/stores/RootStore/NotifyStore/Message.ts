@@ -1,4 +1,4 @@
-import { Level } from './Level';
+import type { Level } from './Level';
 
 export type Message = {
   id: number;

@@ -7,6 +7,7 @@ import {
   reaction,
 } from 'mobx';
 import { URLSearchParamsInit } from 'react-router-dom';
+
 import {
   OrderDir,
   QueryParamsApp,
@@ -14,12 +15,12 @@ import {
   toOrderDir,
   toSortKind,
   toUrlSearchParams,
-} from '~/App/models/queryParams';
-import { isSome, removeUndefined } from '~/shared/utils';
+} from '~models/queryParams';
+import { isSome, removeUndefined } from '~utils';
 
 type SetURLSearchParams = (
   nextInit: URLSearchParamsInit,
-  navigateOpts?: { replace?: boolean; state?: any }
+  navigateOpts?: { replace?: boolean; state?: unknown }
 ) => void;
 
 type Sort = keyof typeof SortKind;

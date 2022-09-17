@@ -1,16 +1,21 @@
 import { observer } from 'mobx-react-lite';
 import React from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import { Button } from '~/App/components/button';
-import { RepoStore } from '~/App/stores';
-import { useLocalStore } from '~/shared/hooks';
-import { RepoBranches } from './components/RepoBranches';
-import { RepoCommit } from './components/RepoCommit';
-import { RepoContributors } from './components/RepoContributors';
-import { RepoInfo } from './components/RepoInfo';
-import { RepoLangs } from './components/RepoLangs';
-import { RepoReadme } from './components/RepoReadme';
+
+import { Button } from '~components/button';
+import { WithLoader } from '~components/WithLoader';
+import { useLocalStore } from '~hooks';
+
+import {
+  RepoBranches,
+  RepoCommit,
+  RepoContributors,
+  RepoInfo,
+  RepoLangs,
+  RepoReadme,
+} from './components';
 import styles from './Repo.module.scss';
+import { RepoStore } from './stores';
 
 type PathParams = { orgName: string; repoName: string };
 
@@ -28,12 +33,14 @@ export const Repo: React.FC = () => {
       <nav>
         <Button onClick={handleBack}>Back</Button>
       </nav>
-      <RepoInfo title="Info" state={store.state.info} />
-      <RepoBranches title="Branches" state={store.state.branches} />
-      <RepoLangs title="Languages" state={store.state.langs} />
-      <RepoContributors title="Contributors" state={store.state.contributors} />
-      <RepoCommit title="Last Commit" state={store.state.commit} />
-      <RepoReadme title="README.md" state={store.state.readme} />
+      <WithLoader loading={store?.isLoading} className={styles.root}>
+        <RepoInfo data={store?.dataMap?.info} />
+        <RepoBranches data={store?.dataMap?.branches} />
+        <RepoLangs data={store?.dataMap?.languages} />
+        <RepoContributors data={store?.dataMap?.contributors} />
+        <RepoCommit data={store?.dataMap?.commit} />
+        <RepoReadme data={store?.dataMap?.readme} />
+      </WithLoader>
     </div>
   );
 };

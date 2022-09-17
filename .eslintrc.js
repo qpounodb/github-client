@@ -16,6 +16,7 @@ const config = {
     'plugin:react/recommended',
     'plugin:react/jsx-runtime',
     'plugin:@typescript-eslint/recommended',
+    'plugin:@typescript-eslint/recommended-requiring-type-checking',
     'plugin:mobx/recommended',
     'prettier',
   ],
@@ -36,6 +37,7 @@ const config = {
     ecmaFeatures: {
       jsx: true,
     },
+    project: './tsconfig.eslint.json',
   },
 
   settings: {
@@ -45,13 +47,14 @@ const config = {
     },
     'import/resolver': {
       typescript: {
-        project: './tsconfig.json',
+        project: './tsconfig.eslint.json',
       },
       node: true,
     },
   },
 
   rules: {
+    '@typescript-eslint/no-unused-vars': 'error',
     'import/no-named-as-default-member': 'off',
     'import/newline-after-import': ['error', { count: 1 }],
     'import/order': [
@@ -67,13 +70,21 @@ const config = {
         ],
         pathGroups: [
           {
+            pattern: '~*',
+            group: 'internal',
+          },
+          {
             pattern: '~/**',
             group: 'internal',
-            position: 'before',
+          },
+          {
+            pattern: '~*/**',
+            group: 'internal',
           },
         ],
         // distinctGroup: true,
-        'newlines-between': 'always-and-inside-groups',
+        // 'newlines-between': 'always-and-inside-groups',
+        'newlines-between': 'always',
         alphabetize: {
           order: 'asc',
           caseInsensitive: true,
@@ -94,6 +105,12 @@ const config = {
     {
       files: ['**/*.test.*'],
       extends: ['plugin:jest-dom/recommended', 'plugin:testing-library/react'],
+      rules: {
+        'testing-library/no-node-access': [
+          'error',
+          { allowContainerFirstChild: true },
+        ],
+      },
     },
     {
       files: ['**/*.stories.*'],

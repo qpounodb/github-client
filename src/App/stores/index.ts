@@ -1,2 +1,1 @@
-export * from './ReposStore';
-export * from './RepoStore';
+export * from './ApiStore';

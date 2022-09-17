@@ -1,6 +1,8 @@
 import { render, screen } from '@testing-library/react';
-import { WithLoader } from '~/App/components/WithLoader';
-import { Locators } from '~/__test__/constants';
+
+import styles from '~components/Loader/Loader.module.scss';
+import { WithLoader } from '~components/WithLoader';
+import { Locators } from '~tests/constants';
 
 describe('Тестирование компонента WithLoader', () => {
   test('При передаче loading=true отображается Loader', () => {
@@ -12,7 +14,7 @@ describe('Тестирование компонента WithLoader', () => {
 
     const loaderElement = screen.getByTestId(Locators.LOADER);
 
-    expect(loaderElement.className).toContain('loading');
+    expect(loaderElement).toHaveClass(styles.root_loading);
 
     rerender(
       <WithLoader loading={false}>
@@ -20,7 +22,7 @@ describe('Тестирование компонента WithLoader', () => {
       </WithLoader>
     );
 
-    expect(loaderElement.className).not.toContain('loading');
+    expect(loaderElement).not.toHaveClass(styles.root_loading);
   });
 
   test('Изменение children', () => {

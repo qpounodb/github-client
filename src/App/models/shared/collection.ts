@@ -7,6 +7,7 @@ export type CollectionModel<K extends keyof T, T> = T[K] extends ID
     }
   : never;
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const getInitialCollectionModel = (): CollectionModel<any, any> => ({
   order: [],
   entities: {},
@@ -33,7 +34,9 @@ export const normalizeCollection: Normalize = (keyId, normalize) => (list) => {
       const id = model[keyId];
       collection.order.push(id);
       collection.entities[id] = model;
-    } catch {}
+    } catch {
+      // continue regardless of error
+    }
   });
 
   return collection;
@@ -42,6 +45,7 @@ export const normalizeCollection: Normalize = (keyId, normalize) => (list) => {
 export const linerizeCollection = <T>({
   order,
   entities,
-}: CollectionModel<any, T>): Array<T> => {
+}: // eslint-disable-next-line @typescript-eslint/no-explicit-any
+CollectionModel<any, T>): Array<T> => {
   return order.map((id) => entities[id]);
 };

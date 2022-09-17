@@ -1,5 +1,6 @@
 import React from 'react';
 import { useSearchParams } from 'react-router-dom';
+
 import { rootStore } from '../instance';
 
 export const useQueryParamsStore = (): void => {

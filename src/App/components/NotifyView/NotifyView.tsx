@@ -1,6 +1,9 @@
 import React from 'react';
-import { Message } from '~/App/stores/RootStore/NotifyStore';
+
+import { Message } from '~stores/RootStore/NotifyStore';
+
 import { MessageView } from '../MessageView';
+
 import styles from './NotifyView.module.scss';
 
 export type NotifyViewProps = {

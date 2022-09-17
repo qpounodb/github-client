@@ -1,6 +1,7 @@
 import React from 'react';
+
 import { Dropdown } from '../Dropdown';
-import { Option } from '../Option';
+import { Option } from '../types';
 
 export type SelectProps = {
   options: Option[];

@@ -1,30 +1,31 @@
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { CheckBox } from '~/App/components/CheckBox';
-import { Locators } from '~/__test__/constants';
+
+import { CheckBox } from '~components/CheckBox';
+import { Locators } from '~tests/constants';
 
 describe('Тестирование компонента CheckBox', () => {
   test('Значение чекбокса зависит от пропса checked', () => {
     const { rerender } = render(
       <CheckBox
         checked={true}
-        onChange={() => {}}
+        onChange={() => null}
         data-testid={Locators.CHECKBOX}
       />
     );
 
     const checkBoxElement = screen.getByTestId(Locators.CHECKBOX);
 
-    expect(checkBoxElement).toHaveAttribute('checked');
+    expect(checkBoxElement).toBeChecked();
 
     rerender(
       <CheckBox
         checked={false}
-        onChange={() => {}}
+        onChange={() => null}
         data-testid={Locators.CHECKBOX}
       />
     );
-    expect(checkBoxElement).not.toHaveAttribute('checked', 'false');
+    expect(checkBoxElement).not.toBeChecked();
   });
 
   test('При клике на чекбокс вызывается onChange со значением', async () => {
@@ -60,7 +61,7 @@ describe('Тестирование компонента CheckBox', () => {
     render(
       <CheckBox
         checked={true}
-        onChange={() => {}}
+        onChange={() => null}
         data-testid={Locators.CHECKBOX}
       />
     );
@@ -106,23 +107,23 @@ describe('Тестирование компонента CheckBox', () => {
       <CheckBox
         disabled={true}
         checked={true}
-        onChange={() => {}}
+        onChange={() => null}
         data-testid={Locators.CHECKBOX}
       />
     );
 
     const checkBoxElement = screen.getByTestId(Locators.CHECKBOX);
-    expect(checkBoxElement).toHaveAttribute('disabled');
+    expect(checkBoxElement).toBeDisabled();
 
     rerender(
       <CheckBox
         disabled={false}
         checked={true}
-        onChange={() => {}}
+        onChange={() => null}
         data-testid={Locators.CHECKBOX}
       />
     );
 
-    expect(checkBoxElement).not.toHaveAttribute('disabled', false);
+    expect(checkBoxElement).toBeEnabled();
   });
 });

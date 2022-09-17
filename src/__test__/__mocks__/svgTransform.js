@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
 const path = require('path');
+
 const camelCase = require('camelcase');
 
 // Based on how SVGR generates a component name:
@@ -18,7 +19,7 @@ function getComponentName(filePath) {
   return `Svg${pascalCaseFileName}`;
 }
 
-module.exports = {
+const transformer = {
   /**
    * @param {string} src
    * @param {string} filename
@@ -27,7 +28,8 @@ module.exports = {
     const assetFilename = JSON.stringify(path.basename(filename));
     const componentName = getComponentName(filename);
 
-    return `const React = require('react');
+    return {
+      code: `const React = require('react');
       module.exports = {
         __esModule: true,
         default: React.forwardRef(function ${componentName}(props, ref) {
@@ -41,6 +43,9 @@ module.exports = {
             })
           };
         }),
-      };`;
+      };`,
+    };
   },
 };
+
+module.exports = transformer;

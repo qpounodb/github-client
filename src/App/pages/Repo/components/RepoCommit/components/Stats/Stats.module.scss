@@ -1,0 +1,15 @@
+@use '~styles/color';
+
+.root {
+  display: inline-flex;
+  gap: 5px;
+  font-family: monospace;
+}
+
+.plus {
+  color: color.$star-accent;
+}
+
+.minus {
+  color: color.$accent;
+}

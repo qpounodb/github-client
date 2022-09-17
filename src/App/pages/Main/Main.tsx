@@ -11,12 +11,12 @@ import { WithLoader } from '~components/WithLoader';
 import { useLocalStore } from '~hooks';
 import { RepoModel } from '~models/github';
 import { OrderDir, SortKind } from '~models/queryParams';
-import { ReposStore } from '~stores';
 import { rootStore } from '~stores/RootStore';
 import { joinClassName } from '~utils';
 
 import { GitRepoList } from './components/GitRepoList';
 import styles from './Main.module.scss';
+import { ReposStore } from './stores';
 
 const SEARCH_PLACEHOLDER = 'Enter organization name';
 
@@ -76,7 +76,7 @@ const Main: React.FC = () => {
           placeholder={SEARCH_PLACEHOLDER}
           onChange={setInput}
           onSubmit={submitName}
-          loading={store.loading}
+          loading={store?.isLoading}
         />
       </div>
       <div className={joinClassName(styles.section, styles.filters)}>
@@ -95,9 +95,9 @@ const Main: React.FC = () => {
         </label>
       </div>
       <div className={styles.section}>
-        <WithLoader loading={store.loading}>
+        <WithLoader loading={store?.isLoading}>
           <GitRepoList
-            data={store.state.data}
+            data={store?.data}
             getCardClickHandler={getCardClickHandler}
           />
         </WithLoader>
@@ -106,8 +106,8 @@ const Main: React.FC = () => {
         <Pagination
           onSubmit={submitPage}
           page={queryParamsStore.page}
-          count={store.pagesCount}
-          loading={store.loading}
+          count={store?.pagesCount ?? 0}
+          loading={store?.isLoading}
         />
       </div>
     </div>

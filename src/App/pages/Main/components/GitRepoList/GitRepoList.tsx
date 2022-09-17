@@ -1,9 +1,12 @@
 import React from 'react';
-import { RepoModel, RepoModelCollection } from '~/App/models/github';
-import { linerizeCollection } from '~/App/models/shared';
-import { Nullable } from '~/shared/types';
-import { isNone } from '~/shared/utils';
+
+import { RepoModel, RepoModelCollection } from '~models/github';
+import { linerizeCollection } from '~models/shared';
+import type { Nullable } from '~types';
+import { isNone } from '~utils';
+
 import { GitRepoTile } from '../GitRepoTile';
+
 import styles from './GitRepoList.module.scss';
 
 export type GitRepoListProps = {

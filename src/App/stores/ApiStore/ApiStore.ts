@@ -1,135 +1,107 @@
-import { CanceledError } from 'axios';
 import { action, computed, makeObservable, observable } from 'mobx';
-import { ILocalStore } from '~/shared/hooks';
-import { DataState, Nullable } from '~/shared/types';
-import { isSome } from '~/shared/utils';
+
+import type { ILocalStore, Nullable } from '~types';
+import { isCanceledError } from '~utils';
+
 import { rootStore } from '../RootStore';
 
-export type ApiStoreConfig<Params, Raw, Model> = {
-  fetch: (params: Params, signal: AbortSignal) => Promise<Raw>;
-  normalize: (data: Raw) => Model;
-};
+enum ApiStoreState {
+  IDLE,
+  LOADING,
+  ERROR,
+  SUCCESS,
+}
 
-type PrivateField =
-  | '_loading'
-  | '_error'
-  | '_data'
-  | '_start'
-  | '_end'
-  | '_finally';
+type PrivateField = '_state' | '_start' | '_end';
 
-export class ApiStore<Params = any, Raw = any, Model = Raw>
-  implements ILocalStore
-{
+export class ApiStore implements ILocalStore {
   private _controller: Nullable<AbortController> = null;
 
-  private _data: Nullable<Model> = null;
-  private _error: boolean = false;
-  private _loading: boolean = false;
+  private _state = ApiStoreState.IDLE;
 
-  private _fetch: (params: Params, signal: AbortSignal) => Promise<Raw>;
-  private _normalize: (data: Raw) => Model;
-
-  constructor({ fetch, normalize }: ApiStoreConfig<Params, Raw, Model>) {
-    this._fetch = fetch;
-    this._normalize = normalize;
-
-    makeObservable<ApiStore<Params, Raw, Model>, PrivateField>(this, {
-      _loading: observable,
-      _error: observable,
-      _data: observable.ref,
-      loading: computed,
-      error: computed,
-      data: computed,
-      success: computed,
-      state: computed,
+  constructor() {
+    makeObservable<ApiStore, PrivateField>(this, {
+      _state: observable,
+      isIdle: computed,
+      isLoading: computed,
+      isError: computed,
+      isSuccess: computed,
       _start: action.bound,
       _end: action.bound,
-      _finally: action.bound,
-      fetch: action.bound,
       reset: action.bound,
+      run: action.bound,
     });
   }
 
-  get loading(): boolean {
-    return this._loading;
+  get isIdle(): boolean {
+    return this._state === ApiStoreState.IDLE;
   }
 
-  get error(): boolean {
-    return this._error;
+  get isLoading(): boolean {
+    return this._state === ApiStoreState.LOADING;
   }
 
-  get data(): Nullable<Model> {
-    return this._data;
+  get isError(): boolean {
+    return this._state === ApiStoreState.ERROR;
   }
 
-  get success(): boolean {
-    return !this._error && isSome(this._data);
+  get isSuccess(): boolean {
+    return this._state === ApiStoreState.SUCCESS;
   }
 
-  get state(): DataState<Model> {
-    return {
-      loading: this._loading,
-      error: this._error,
-      data: this._data,
-    };
+  init(): void {
+    this.reset();
   }
 
-  private _start(): AbortSignal {
-    this._controller = new AbortController();
-    this._loading = true;
-    return this._controller.signal;
-  }
-
-  private _end(data: Nullable<Model> = null, error: boolean = false): void {
+  destroy(): void {
+    this.stop();
+    this.reset();
     this._controller = null;
-    this._data = data;
-    this._error = error;
-  }
-
-  private _finally(): void {
-    this._loading = false;
-  }
-
-  async fetch(params: Params): Promise<void> {
-    if (this.loading) {
-      return;
-    }
-
-    const signal = this._start();
-
-    try {
-      if (signal.aborted) {
-        throw new CanceledError();
-      }
-      const data = await this._fetch(params, signal);
-      this._end(this._normalize(data));
-    } catch (err) {
-      if (!signal.aborted) {
-        this._end(null, true);
-        rootStore.notifyStore.error(err);
-      }
-      throw err;
-    } finally {
-      this._finally();
-    }
   }
 
   reset(): void {
-    this._data = null;
-    this._error = false;
-    this._loading = false;
+    this._state = ApiStoreState.IDLE;
   }
 
   stop(): void {
     this._controller?.abort();
   }
 
-  init(): void {}
+  private _start(): void {
+    this._state = ApiStoreState.LOADING;
+  }
 
-  destroy(): void {
-    this.stop();
-    this.reset();
-    this._controller = null;
+  private _end(err?: unknown): void {
+    if (this.isIdle) return;
+    if (!err) {
+      this._state = ApiStoreState.SUCCESS;
+      return;
+    }
+    this._state = ApiStoreState.ERROR;
+    if (isCanceledError(err)) return;
+    rootStore.notifyStore.error(err);
+  }
+
+  async run<T>(
+    fetch: (signal: AbortSignal) => Promise<T | null>
+  ): Promise<T | null> {
+    if (this.isLoading) {
+      return null;
+    }
+
+    this._start();
+    this._controller = new AbortController();
+    let data: T | null = null;
+
+    try {
+      data = await fetch(this._controller.signal);
+      this._end();
+    } catch (err) {
+      this._end(err);
+    } finally {
+      this._controller = null;
+    }
+
+    return data;
   }
 }

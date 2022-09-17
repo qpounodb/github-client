@@ -1,12 +1,15 @@
 import { ComponentMeta, ComponentStory } from '@storybook/react';
-import { Level } from '~/App/stores/RootStore/NotifyStore';
+
+import { Level } from '~stores/RootStore/NotifyStore';
+
 import MessageView from './MessageView';
 
-type View = React.FC<{ text: string }>;
+type Props = { text: string };
+type View = React.FC<Props>;
 type Meta = ComponentMeta<View>;
 type Story = ComponentStory<View>;
 
-export const Message: Story = ({ text }) => {
+export const Message: Story = ({ text }: Props) => {
   const time: Date = new Date();
 
   return (

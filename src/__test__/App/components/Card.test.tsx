@@ -1,7 +1,8 @@
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { Card } from '~/App/components/Card';
-import { CARD_SUBTITLE, CARD_TITLE, Locators } from '~/__test__/constants';
+
+import { Card } from '~components/Card';
+import { CARD_SUBTITLE, CARD_TITLE, Locators } from '~tests/constants';
 
 describe('Тестирование компонента Card', () => {
   test('Пропсы title, subtitle передаются и отображаются', () => {

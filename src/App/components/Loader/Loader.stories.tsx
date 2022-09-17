@@ -1,5 +1,7 @@
 import { ComponentMeta, ComponentStory } from '@storybook/react';
-import { Size } from '~/App/constants';
+
+import { Size } from '~constants';
+
 import LoaderComponent from './Loader';
 
 type Meta = ComponentMeta<typeof LoaderComponent>;

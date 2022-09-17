@@ -1,8 +1,10 @@
 import React from 'react';
-import { Loader } from '~/App/components/Loader';
-import { Color, invert, Size } from '~/App/constants';
-import { Nullable } from '~/shared/types';
-import { getDisplayName, joinClassName } from '~/shared/utils';
+
+import { Loader } from '~components/Loader';
+import { Color, invert, Size } from '~constants';
+import type { Nullable, PropsWithChildrenAndClassName } from '~types';
+import { getDisplayName, joinClassName } from '~utils';
+
 import styles from './withButton.module.scss';
 
 export type ButtonProps = {
@@ -11,11 +13,11 @@ export type ButtonProps = {
   loading?: boolean;
 };
 
-type ButtonReactProps = React.PropsWithChildren<ButtonProps>;
-type ButtonHTMLProps = React.ButtonHTMLAttributes<HTMLButtonElement>;
+export type ButtonReactProps = PropsWithChildrenAndClassName<ButtonProps>;
+export type ButtonHTMLProps = React.ButtonHTMLAttributes<HTMLButtonElement>;
 
-type ButtonComponentProps = ButtonReactProps & ButtonHTMLProps;
-type InnerComponentProps = ButtonReactProps & { loader?: JSX.Element };
+export type ButtonComponentProps = ButtonReactProps & ButtonHTMLProps;
+export type InnerComponentProps = ButtonReactProps & { loader?: JSX.Element };
 
 export type ButtonComponent = React.FC<ButtonComponentProps>;
 export type InnerComponent = React.FC<InnerComponentProps>;
@@ -32,7 +34,7 @@ export const withButton = (
     children,
     className: subClassName,
     ...rest
-  }) => {
+  }: ButtonComponentProps) => {
     const loader = React.useMemo(
       () => (
         <Loader

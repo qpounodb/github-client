@@ -1,6 +1,6 @@
 import { CollectionModel, ToCollection } from '../shared';
 
-export type SearchApi<T> = {
+export type SearchApi<T = unknown> = {
   total_count: number;
   incomplete_results: boolean;
   items: T[];

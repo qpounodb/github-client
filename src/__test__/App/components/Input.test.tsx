@@ -1,15 +1,16 @@
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import React from 'react';
-import { Input, InputProps } from '~/App/components/input';
-import { Locators } from '~/__test__/constants';
+
+import { Input, InputProps } from '~components/input';
+import { Locators } from '~tests/constants';
 
 const WrappedInput: React.FC<Pick<InputProps, 'onChange'>> = ({ onChange }) => {
   const [value, setValue] = React.useState('');
 
   const handleChange = (value: string): void => {
     setValue(value);
-    onChange(value);
+    onChange?.(value);
   };
 
   return (
@@ -20,26 +21,20 @@ const WrappedInput: React.FC<Pick<InputProps, 'onChange'>> = ({ onChange }) => {
 describe('Тестирование компонента Input', () => {
   test('Значение в инпуте зависит от пропса value', () => {
     const { rerender } = render(
-      <Input value="п" onChange={() => {}} data-testid={Locators.INPUT} />
+      <Input value="п" data-testid={Locators.INPUT} />
     );
 
     const inputElement = screen.getByTestId(Locators.INPUT);
 
     expect(inputElement).toHaveValue('п');
 
-    rerender(
-      <Input value="пр" onChange={() => {}} data-testid={Locators.INPUT} />
-    );
+    rerender(<Input value="пр" data-testid={Locators.INPUT} />);
     expect(inputElement).toHaveValue('пр');
 
-    rerender(
-      <Input value="при" onChange={() => {}} data-testid={Locators.INPUT} />
-    );
+    rerender(<Input value="при" data-testid={Locators.INPUT} />);
     expect(inputElement).toHaveValue('при');
 
-    rerender(
-      <Input value="прив" onChange={() => {}} data-testid={Locators.INPUT} />
-    );
+    rerender(<Input value="прив" data-testid={Locators.INPUT} />);
     expect(inputElement).toHaveValue('прив');
   });
 
@@ -61,7 +56,7 @@ describe('Тестирование компонента Input', () => {
   });
 
   test('Компонент Input использует нативный тег input с типом text', () => {
-    render(<Input value="" onChange={() => {}} data-testid={Locators.INPUT} />);
+    render(<Input value="" data-testid={Locators.INPUT} />);
 
     const inputElement = screen.getByTestId(Locators.INPUT);
 
@@ -71,23 +66,16 @@ describe('Тестирование компонента Input', () => {
 
   test('При disabled=true добавляется аттрибут disabled', () => {
     const { rerender } = render(
-      <Input
-        value=""
-        onChange={() => {}}
-        data-testid={Locators.INPUT}
-        disabled
-      />
+      <Input value="" data-testid={Locators.INPUT} disabled />
     );
 
     const inputElement = screen.getByTestId(Locators.INPUT);
 
     expect(inputElement).toBeDisabled();
 
-    rerender(
-      <Input value="" onChange={() => {}} data-testid={Locators.INPUT} />
-    );
+    rerender(<Input value="" data-testid={Locators.INPUT} />);
 
-    expect(inputElement).not.toBeDisabled();
+    expect(inputElement).toBeEnabled();
   });
 
   test('При передаче disabled=true во время попытки ввода не вызывается onChange', async () => {
@@ -114,7 +102,6 @@ describe('Тестирование компонента Input', () => {
     render(
       <Input
         value=""
-        onChange={() => {}}
         data-testid={Locators.INPUT}
         disabled
         className={testClassName}
@@ -128,18 +115,11 @@ describe('Тестирование компонента Input', () => {
 
   test('При disabled=true атрибут value передается корректно', () => {
     const testValue = 'some_value';
-    render(
-      <Input
-        value={testValue}
-        onChange={() => {}}
-        data-testid={Locators.INPUT}
-        disabled
-      />
-    );
+    render(<Input value={testValue} data-testid={Locators.INPUT} disabled />);
 
     const inputElement = screen.getByTestId(Locators.INPUT);
 
-    expect(inputElement).toHaveAttribute('value', testValue);
+    expect(inputElement).toHaveValue(testValue);
     expect(inputElement).toHaveValue(testValue);
   });
 
@@ -155,7 +135,6 @@ describe('Тестирование компонента Input', () => {
 
     render(
       <Input
-        onChange={() => {}}
         value=""
         onMouseOver={onHover}
         onFocus={onFocus}
