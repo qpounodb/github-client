@@ -13,7 +13,8 @@
   user-select: none;
   cursor: pointer;
 
-  transition: 200ms background-color ease-in-out;
+  background-color: transparent;
+  @include mixin.fast-trans(background-color);
 
   &:hover {
     background-color: rgba(0, 0, 0, 0.01);

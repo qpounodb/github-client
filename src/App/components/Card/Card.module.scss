@@ -14,6 +14,8 @@
   column-gap: 12px;
   padding: 0 12px;
 
+  @include mixin.fast-trans(box-shadow);
+
   &:hover {
     box-shadow: 0px 2px 6px color.$card-hover;
   }
@@ -50,7 +52,7 @@
     object-fit: cover;
     object-position: 50% 50%;
     font-size: 0;
-    transition: opacity 500ms ease;
+    @include mixin.slow-trans(opacity);
   }
 
   &__main {

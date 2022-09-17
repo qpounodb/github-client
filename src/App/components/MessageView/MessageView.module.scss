@@ -50,7 +50,7 @@
     right: 5px;
     @include mixin.square(20px);
     transform: rotate(45deg);
-    transition: 200ms transform ease-in-out;
+    @include mixin.fast-trans(transform);
     cursor: pointer;
 
     @function block($left, $color) {

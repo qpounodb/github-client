@@ -11,10 +11,11 @@
 
 .root {
   width: 100%;
-  @include mixin.border;
   outline: none;
   background-color: color.$background;
   color: color.$text;
+  @include mixin.border;
+  @include mixin.fast-trans(border-color);
 
   &:focus {
     border-color: color.$accent;

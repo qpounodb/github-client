@@ -30,8 +30,13 @@
   @include mixin.no-border;
 
   cursor: pointer;
-  transition-property: color, fill, border-color, background-color, box-shadow;
-  transition-duration: 200ms;
+  @include mixin.fast-trans(
+    color,
+    fill,
+    border-color,
+    background-color,
+    box-shadow
+  );
 
   &:disabled {
     cursor: default;

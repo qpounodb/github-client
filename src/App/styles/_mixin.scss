@@ -38,8 +38,20 @@
   bottom: list.nth($p2, 2);
 }
 
-@mixin loader-trans($props...) {
+@mixin trans($time, $type, $props...) {
+  transition-duration: $time;
   transition-property: $props;
-  transition-duration: 500ms;
-  transition-timing-function: linear;
+  transition-timing-function: $type;
+}
+
+@mixin loader-trans($props...) {
+  @include trans(500ms, linear, $props);
+}
+
+@mixin fast-trans($props...) {
+  @include trans(200ms, ease-in-out, $props);
+}
+
+@mixin slow-trans($props...) {
+  @include trans(500ms, ease-in-out, $props);
 }
