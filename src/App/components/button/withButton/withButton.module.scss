@@ -34,7 +34,7 @@
   transition-duration: 200ms;
 
   &:disabled {
-    cursor: not-allowed;
+    cursor: default;
   }
 
   &_size {
