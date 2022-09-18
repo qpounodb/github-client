@@ -75,7 +75,7 @@ const Main: React.FC = () => {
           placeholder={SEARCH_PLACEHOLDER}
           onChange={setInput}
           onSubmit={submitName}
-          disabled={store?.isLoading}
+          disabled={!input || store?.isLoading}
         />
       </div>
       <div className={styles.section}>
