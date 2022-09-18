@@ -30,16 +30,18 @@ export const Repo: React.FC = () => {
 
   return (
     <div className={styles.root}>
-      <nav>
+      <nav className={styles.root__nav}>
         <Button onClick={handleBack}>Back</Button>
       </nav>
-      <WithLoader loading={store?.isLoading} className={styles.root}>
-        <RepoInfo data={store?.dataMap?.info} />
-        <RepoBranches data={store?.dataMap?.branches} />
-        <RepoLangs data={store?.dataMap?.languages} />
-        <RepoContributors data={store?.dataMap?.contributors} />
-        <RepoCommit data={store?.dataMap?.commit} />
-        <RepoReadme data={store?.dataMap?.readme} />
+      <WithLoader loading={store?.isLoading}>
+        <div className={styles.root__content}>
+          <RepoInfo data={store?.dataMap?.info} />
+          <RepoBranches data={store?.dataMap?.branches} />
+          <RepoLangs data={store?.dataMap?.languages} />
+          <RepoContributors data={store?.dataMap?.contributors} />
+          <RepoCommit data={store?.dataMap?.commit} />
+          <RepoReadme data={store?.dataMap?.readme} />
+        </div>
       </WithLoader>
     </div>
   );
