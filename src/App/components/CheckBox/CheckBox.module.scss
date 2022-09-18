@@ -1,14 +1,22 @@
-@use '~styles/color';
 @use '~styles/size';
 @use '~styles/mixin';
+@use '~styles/themes' as t;
 
-$mark: 3px solid color.$accent;
 $mark-pos: rotate(45deg) translate(-10%, -20%);
+
+@mixin checkMark($value) {
+  @include t.themify {
+    $mark: 3px solid t.getValue($value);
+    border-right: $mark;
+    border-bottom: $mark;
+  }
+}
 
 .root {
   display: inline-flex;
   gap: 10px;
   align-items: center;
+  @include t.color('text');
   cursor: pointer;
   user-select: none;
 
@@ -25,11 +33,19 @@ $mark-pos: rotate(45deg) translate(-10%, -20%);
     @include mixin.square(30px);
     position: relative;
 
-    background: color.$background;
+    @include t.background;
     @include mixin.border;
     @include mixin.fast-trans(border-color);
 
     cursor: pointer;
+
+    &:hover {
+      @include t.border('accentHover');
+    }
+
+    &:focus {
+      @include t.border('accent');
+    }
 
     &:disabled,
     &[aria-disabled='true'] {
@@ -42,18 +58,13 @@ $mark-pos: rotate(45deg) translate(-10%, -20%);
       height: 50%;
       width: 30%;
       margin: auto;
-      border-right: $mark;
-      border-bottom: $mark;
+      @include checkMark('accent');
       transform: scale(0) $mark-pos;
       @include mixin.fast-trans(transform);
     }
 
     &:checked::before {
       transform: scale(1) $mark-pos;
-    }
-
-    &:focus {
-      border-color: color.$accent;
     }
 
     &:indeterminate::before,

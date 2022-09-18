@@ -1,6 +1,6 @@
 @use '~styles/size';
-@use '~styles/color';
 @use '~styles/mixin';
+@use '~styles/themes' as t;
 
 .root {
   position: relative;
@@ -17,17 +17,18 @@
   @include mixin.fast-trans(background-color);
 
   &:hover {
-    background-color: rgba(0, 0, 0, 0.01);
+    @include t.background('backgroundHover');
   }
 
   &::after {
     content: '';
     @include mixin.inset;
     z-index: -1;
-    background-color: color.$background;
+    @include t.background;
+    @include mixin.fast-trans(background-color);
   }
 
   &_selected::after {
-    background-color: color.$background-selected;
+    @include t.background('backgroundSelected');
   }
 }

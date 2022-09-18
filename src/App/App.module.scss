@@ -1,4 +1,17 @@
-.app {
+@use '~styles/themes' as t;
+
+body {
+  @include t.background;
+  @include t.color;
+}
+
+.root {
   height: 100vh;
-  margin: 0 auto;
+
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+
+  &__main {
+    display: block;
+  }
 }

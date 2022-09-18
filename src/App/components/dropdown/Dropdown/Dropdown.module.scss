@@ -1,6 +1,6 @@
-@use '~styles/color';
 @use '~styles/mixin';
 @use '~styles/size';
+@use '~styles/themes' as t;
 
 .root {
   position: relative;
@@ -29,11 +29,15 @@
     bottom: 1px;
     width: 5 * $h;
     @include mixin.rounded;
-    background-image: linear-gradient(
-      to right,
-      transparent,
-      color.$background 60%
-    );
+
+    @include t.themify {
+      background-image: linear-gradient(
+        to right,
+        transparent,
+        t.getValue('background') 60%
+      );
+    }
+
     pointer-events: none;
   }
 
@@ -48,7 +52,7 @@
 
     width: $w;
     height: $h;
-    background-color: color.$background-selected;
+    @include t.background('backgroundSelected');
     clip-path: polygon(50% 0, 100% 100%, 0 100%);
 
     pointer-events: none;

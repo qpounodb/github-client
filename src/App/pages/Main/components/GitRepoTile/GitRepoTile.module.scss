@@ -1,16 +1,16 @@
-@use '~styles/color';
+@use '~styles/themes' as t;
 
 .card {
-  background: color.$background;
+  @include t.background;
   cursor: pointer;
 }
 
 .link {
-  color: color.$hint;
+  @include t.color('hint');
   text-decoration: none;
 
   &:hover {
-    color: color.$link-hover;
+    @include t.color('linkHover');
   }
 }
 
@@ -26,6 +26,6 @@
 
   svg {
     width: 16px;
-    fill: color.$star-accent;
+    @include t.fill('starAccent');
   }
 }

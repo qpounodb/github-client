@@ -1,6 +1,6 @@
 @use 'sass:color';
-@use '~styles/color' as c;
 @use '~styles/mixin';
+@use '~styles/themes' as t;
 
 .root {
   position: relative;
@@ -12,13 +12,13 @@
   flex-direction: column;
   gap: 1px;
   @include mixin.border;
-  background-color: c.$background-selected;
+  @include t.background('backgroundSelected');
 
   &__title {
     padding: 5px;
     font-size: 20px;
     font-weight: bold;
-    color: c.$background;
+    @include t.color('background');
 
     span {
       filter: drop-shadow(0px 0px 2px #0004);
@@ -27,7 +27,7 @@
 
   &__text {
     padding: 10px;
-    background-color: c.$background;
+    @include t.background;
 
     pre {
       margin: 0;
@@ -39,8 +39,8 @@
   &__time {
     padding: 5px;
     text-align: right;
-    background-color: c.$background;
-    color: c.$hint;
+    @include t.background;
+    @include t.color('hint');
     font-size: 0.8em;
   }
 
@@ -64,7 +64,10 @@
         linear-gradient(to right, $block);
     }
 
-    background: cross(35%, c.$background);
+    @include t.themify {
+      background-image: cross(35%, t.getValue('background'));
+    }
+
     filter: drop-shadow(0px 0px 2px #0004);
 
     &:hover {
@@ -73,29 +76,33 @@
   }
 }
 
-@mixin set-color($color) {
-  $color-secondary: color.adjust($color, $alpha: -0.9);
+@mixin set-color($value) {
+  @include t.themify {
+    $c1: t.getValue('background');
+    $c2: t.getValue($value);
+    $c3: color.adjust($c2, $alpha: -0.9);
 
-  background-color: $color-secondary;
-  border-color: $color-secondary;
+    background-color: $c3;
+    border-color: $c3;
 
-  .root__title {
-    background: linear-gradient(to right, c.$background 10px, $color 60px);
-  }
+    .root__title {
+      background: linear-gradient(to right, $c1 10px, $c2 60px);
+    }
 
-  .root__text {
-    color: $color;
+    .root__text {
+      color: $c2;
+    }
   }
 }
 
 .root_error {
-  @include set-color(c.$accent);
+  @include set-color('error');
 }
 
 .root_warn {
-  @include set-color(c.$star-accent);
+  @include set-color('warn');
 }
 
 .root_info {
-  @include set-color(c.$link-hover);
+  @include set-color('info');
 }

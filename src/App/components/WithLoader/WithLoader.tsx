@@ -4,7 +4,7 @@ import { Loader } from '~components/Loader';
 import type { PropsWithChildrenAndClassName } from '~types';
 import { joinClassName } from '~utils';
 
-import styles from './WithLoader.module.scss';
+import { default as s } from './WithLoader.module.scss';
 
 export type WithLoaderProps = PropsWithChildrenAndClassName<{
   loading?: boolean;
@@ -19,27 +19,21 @@ const WithLoader: React.FC<WithLoaderProps> = ({
 }) => {
   const info = message ? `Loading ${message}...` : 'Loading...';
 
+  const [root, content, cover, msg] = React.useMemo(
+    () => [
+      joinClassName(s.root, loading && s.root_loading, className),
+      joinClassName(s.root__content, loading && s.root__content_loading),
+      joinClassName(s.root__cover, loading && s.root__cover_loading),
+      joinClassName(s.root__message, loading && s.root__message_loading),
+    ],
+    [loading]
+  );
+
   return (
-    <div
-      className={joinClassName(
-        styles.root,
-        loading && styles.root_loading,
-        className
-      )}
-    >
-      {children}
-      <div
-        className={joinClassName(
-          styles.root__cover,
-          loading && styles.root__cover_loading
-        )}
-      >
-        <div
-          className={joinClassName(
-            styles.root__message,
-            loading && styles.root__message_loading
-          )}
-        >
+    <div className={root}>
+      <div className={content}>{children}</div>
+      <div className={cover}>
+        <div className={msg}>
           <Loader loading={loading} /> {info}
         </div>
       </div>

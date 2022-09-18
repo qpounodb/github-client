@@ -1,4 +1,4 @@
-@use '~styles/color';
+@use '~styles/themes' as t;
 
 .title {
   sup {
@@ -48,7 +48,7 @@
     grid-template-columns: repeat(2, auto) 1fr;
     gap: 10px;
     font-family: monospace;
-    color: color.$hint;
+    @include t.color('hint');
   }
 
   .filename {

@@ -11,7 +11,7 @@ export type InputNumberProps = Omit<
   InputProps,
   'value' | 'onChange' | 'onSubmit'
 > & {
-  value: number;
+  value?: number;
   onChange: (value: number) => void;
   onSubmit?: (value: number) => void;
 };
@@ -60,7 +60,7 @@ const InputNumber: React.FC<InputNumberProps> = ({
         rest.className
       )}
       type="number"
-      value={String(value)}
+      value={value}
       onChange={handlerChange}
       onSubmit={handlerSubmit}
     />

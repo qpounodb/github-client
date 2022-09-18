@@ -9,3 +9,7 @@ export { default as IconIssue } from './open-issue.svg';
 export { default as IconRepo } from './repo.svg';
 export { default as IconSearch } from './search.svg';
 export { default as IconStar } from './star.svg';
+export { default as IconSun } from './sun.svg';
+export { default as IconMoon } from './moon.svg';
+export { default as Logo } from './logo.svg';
+export { default as LogoKts } from './logo-kts.svg';

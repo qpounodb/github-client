@@ -1,5 +1,5 @@
-@use '~styles/color';
 @use '~styles/mixin';
+@use '~styles/themes' as t;
 
 @mixin size($size, $stroke) {
   @include mixin.square($size);
@@ -16,18 +16,18 @@
   animation: rotate 3s linear infinite;
 
   opacity: 0;
-  @include mixin.loader-trans(opacity);
+  @include mixin.slow-trans(opacity);
 
   &_loading {
     opacity: 1;
   }
 
   &_primary {
-    color: color.$accent;
+    @include t.color('accent');
   }
 
   &_secondary {
-    color: color.$background;
+    @include t.color('background');
   }
 
   &_size-l {

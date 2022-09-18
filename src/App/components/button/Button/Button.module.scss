@@ -1,5 +1,3 @@
-@use '~styles/color';
-
 @mixin size($size) {
   column-gap: $size;
   padding: 0 calc($size * 2);

@@ -1,7 +1,8 @@
-@use '~styles/color';
+@use '~styles/mixin';
+@use '~styles/themes' as t;
 
 .root.root {
-  background-color: color.$background-selected;
+  @include t.background('backgroundSelected');
 }
 
 .info {
@@ -37,7 +38,7 @@
       width: 30px;
       margin-right: 5px;
       vertical-align: middle;
-      fill: color.$hint;
+      @include t.fill('hint');
     }
   }
 
@@ -45,8 +46,8 @@
     margin: 0;
     padding: 10px;
     border-radius: 6px;
-    background-color: color.$background;
-    color: color.$hint;
+    @include t.background;
+    @include t.color('hint');
     font-size: 16px;
   }
 }
@@ -57,9 +58,8 @@
   align-items: center;
   row-gap: 10px;
   padding: 5px;
-  border: 1px solid color.$border;
-  border-radius: 6px;
-  background-color: color.$background;
+  @include mixin.border;
+  @include t.background;
 
   img {
     display: block;
@@ -68,11 +68,11 @@
 }
 
 .link {
-  color: color.$hint;
+  @include t.color('hint');
   text-decoration: none;
 
   &:hover {
-    color: color.$link-hover;
+    @include t.color('linkHover');
   }
 }
 
@@ -84,24 +84,24 @@
   gap: 10px 5px;
 
   div:nth-child(2n + 1) {
-    color: color.$accent;
+    @include t.color('accent');
     font-weight: bold;
   }
 
   div:first-child {
-    color: color.$accent-hover;
+    @include t.color('accentHover');
   }
 
   div:nth-child(2n) {
     padding: 2px 4px;
-    background-color: color.$accent-hover;
-    border-radius: 6px;
-    color: color.$background;
+    @include mixin.rounded;
+    @include t.background('accentHover');
+    @include t.color('background');
     font-family: monospace;
   }
 
   div:last-child {
-    background-color: color.$accent;
+    @include t.background('accent');
   }
 }
 
@@ -114,8 +114,8 @@
     display: flex;
     align-items: center;
     column-gap: 10px;
-    background-color: color.$background;
-    border-radius: 6px;
+    @include mixin.rounded;
+    @include t.background;
     font-family: monospace;
   }
 
@@ -130,17 +130,17 @@
   gap: 5px 10px;
   font-family: monospace;
   font-size: 16px;
-  color: color.$background;
+  @include t.color('background');
 
   div {
     padding: 5px 10px;
-    background-color: color.$star-accent;
     border-radius: 12px;
+    @include t.background('starAccent');
   }
 
   svg {
     width: 16px;
-    fill: color.$background;
+    @include t.fill('background');
   }
 }
 
@@ -160,9 +160,9 @@
 
   li {
     padding: 5px 10px;
-    background-color: color.$accent-hover;
-    color: color.$background-selected;
     border-radius: 12px;
+    @include t.background('accentHover');
+    @include t.color('backgroundSelected');
     font-family: monospace;
   }
 }

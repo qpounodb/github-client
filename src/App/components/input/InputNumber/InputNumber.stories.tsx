@@ -16,7 +16,7 @@ const meta: Meta = {
 export default meta;
 
 export const InputNumber: Story = (props) => {
-  const [value, setValue] = React.useState(123);
+  const [value, setValue] = React.useState<number | undefined>(undefined);
   return (
     <InputNumberComponent
       {...props}

@@ -11,21 +11,23 @@ export const useLocalStorage = <T>(
     try {
       const state = window.localStorage.getItem(key);
       return state ? (JSON.parse(state) as T) : initialState;
-    } catch (error) {
-      console.log(error);
+    } catch {
       return initialState;
     }
   });
 
-  const setState = (update: T | ((state: T) => T)) => {
-    try {
-      const state = update instanceof Function ? update(storedState) : update;
-      setStoredState(state);
-      window.localStorage.setItem(key, JSON.stringify(state));
-    } catch (error) {
-      console.log(error);
-    }
-  };
+  const setState = React.useCallback(
+    (update: T | ((state: T) => T)) => {
+      try {
+        const state = update instanceof Function ? update(storedState) : update;
+        setStoredState(state);
+        window.localStorage.setItem(key, JSON.stringify(state));
+      } catch (error) {
+        console.log(error);
+      }
+    },
+    [storedState]
+  );
 
   return [storedState, setState];
 };

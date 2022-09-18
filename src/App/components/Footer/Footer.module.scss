@@ -1,0 +1,63 @@
+@use '~styles/mixin' as m;
+@use '~styles/themes' as t;
+
+.root {
+  @include t.background('backgroundSelected');
+  @include t.color('hint');
+  font-family: monospace;
+
+  &__content {
+    max-width: 800px;
+    width: 100%;
+    margin: 0 auto;
+    padding: 10px 50px;
+
+    display: flex;
+    gap: 20px;
+
+    @media (max-width: 400px) {
+      padding: 10px 20px;
+    }
+  }
+
+  &__item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+
+    &:last-child {
+      margin-left: auto;
+    }
+
+    time {
+      user-select: none;
+      font-size: 16px;
+    }
+
+    a {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      text-decoration: none;
+      @include t.color('link');
+      @include t.fill('link');
+      @include m.fast-trans(color, fill);
+
+      &:hover {
+        @include t.color('linkHover');
+        @include t.fill('linkHover');
+      }
+    }
+
+    svg {
+      display: block;
+      @include m.square(25px);
+    }
+
+    &_kts {
+      svg {
+        @include m.square(40px);
+      }
+    }
+  }
+}

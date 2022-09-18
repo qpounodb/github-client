@@ -1,4 +1,4 @@
-@use '~styles/color';
+@use '~styles/themes' as t;
 
 .root {
   display: inline-flex;
@@ -7,9 +7,9 @@
 }
 
 .plus {
-  color: color.$star-accent;
+  @include t.color('starAccent');
 }
 
 .minus {
-  color: color.$accent;
+  @include t.color('accent');
 }
