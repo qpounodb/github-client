@@ -8,6 +8,7 @@ export type ReposApiRoute<T, R> = {
 export type RepoApiRoute<T, R> = {
   url: string;
   params?: { per_page?: number };
+  headers?: Record<string, string>;
   normalize: (from: T) => R;
 };
 
@@ -22,10 +23,12 @@ const getReposApiRoute = <T, R>(
 const getRepoApiRoute = <T, R>(
   url: string,
   normalize: (from: T) => R,
-  per_page?: number
+  per_page?: number,
+  headers?: Record<string, string>
 ): RepoApiRoute<T, R> => ({
   url,
   params: { per_page },
+  headers,
   normalize,
 });
 
@@ -72,5 +75,7 @@ export const repoApiEndpoints = {
     TOP_TEN
   ),
   languages: getRepoApiRoute('/languages', Github.normalizeRepoLangs),
-  readme: getRepoApiRoute('/readme', Github.normalizeRepoReadme),
+  readme: getRepoApiRoute('/readme', (x: string) => x, undefined, {
+    Accept: 'application/vnd.github.html+json',
+  }),
 };

@@ -1,0 +1,144 @@
+<div id="readme" class="md" data-path="README.md">
+  <article class="markdown-body entry-content container-lg" itemprop="text">
+    <h1 dir="auto">
+      <a id="user-content-rpmtools" class="anchor" aria-hidden="true" href="#rpmtools">
+        <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true">
+          <path fill-rule="evenodd"
+            d="M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z">
+          </path>
+        </svg>
+      </a>rpmtools
+    </h1>
+    <p dir="auto">Этот репозиторий содержит скрипты/шаблоны, упрощающие создание rpm</p>
+    <p dir="auto">Поддерживаемые технологии:</p>
+    <ul dir="auto">
+      <li>Python</li>
+      <li>Node</li>
+      <li>Yii</li>
+    </ul>
+    <p dir="auto">Также существует simple-сборка, которая упаковывает в пакет
+      содержимое папки public, которая находится в корне проекта.
+      Перед созданием пакета выполняется:</p>
+    <ul dir="auto">
+      <li>Запуск npm install, если имеется файл package.json,</li>
+      <li>Запуск bower install, если имеется файл bower.json,</li>
+      <li>grunt, если имеется файл Gruntfile.js</li>
+    </ul>
+    <h3 dir="auto">
+      <a id="user-content-simple" class="anchor" aria-hidden="true" href="#simple">
+        <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true">
+          <path fill-rule="evenodd"
+            d="M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z">
+          </path>
+        </svg>
+      </a>Simple
+    </h3>
+    <p dir="auto">В пакет попадут все файлы после сборки из папки public, которая находится в корне проекта.
+      После установки файлы находятся в /opt/&lt;имя пакета&gt;</p>
+    <h5 dir="auto">
+      <a id="user-content-параметры" class="anchor" aria-hidden="true" href="#параметры">
+        <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true">
+          <path fill-rule="evenodd"
+            d="M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z">
+          </path>
+        </svg>
+      </a>Параметры
+    </h5>
+    <ul dir="auto">
+      <li>-b --build - номер релиза. По-умолчанию текущий timestamp</li>
+      <li>-g --grunttask - название grunt-таска, который будет запускаться в процессе сборки. По-умолчанию default</li>
+    </ul>
+    <h5 dir="auto">
+      <a id="user-content-сборка" class="anchor" aria-hidden="true" href="#сборка">
+        <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true">
+          <path fill-rule="evenodd"
+            d="M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z">
+          </path>
+        </svg>
+      </a>Сборка
+    </h5>
+    <ol dir="auto">
+      <li>Создать в корне проекта файл package.json. Указать name, version</li>
+      <li>Запустить из корня проекта ./rpmbuild/simple/build.sh</li>
+    </ol>
+    <h3 dir="auto">
+      <a id="user-content-python" class="anchor" aria-hidden="true" href="#python">
+        <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true">
+          <path fill-rule="evenodd"
+            d="M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z">
+          </path>
+        </svg>
+      </a>Python
+    </h3>
+    <p dir="auto">После установки файлы находятся в /opt/&lt;имя пакета&gt;</p>
+    <h5 dir="auto">
+      <a id="user-content-параметры-1" class="anchor" aria-hidden="true" href="#параметры-1">
+        <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true">
+          <path fill-rule="evenodd"
+            d="M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z">
+          </path>
+        </svg>
+      </a>Параметры
+    </h5>
+    <ul dir="auto">
+      <li>-b --build - номер релиза. По-умолчанию текущий timestamp</li>
+      <li>-v --virtualenv - путь до virtualenv, с которым будет произведена сборка. По-умолчанию вывод команды
+
+
+        <code>which virtualenv</code>
+      </li>
+    </ul>
+    <h5 dir="auto">
+      <a id="user-content-параметры-packagejson" class="anchor" aria-hidden="true" href="#параметры-packagejson">
+        <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true">
+          <path fill-rule="evenodd"
+            d="M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z">
+          </path>
+        </svg>
+      </a>Параметры package.json
+    </h5>
+    <ul dir="auto">
+      <li>name - имя проекта</li>
+      <li>version - версия проекта</li>
+      <li>description - описание проекта</li>
+      <li>yumDependencies — зависимости (опционально)</li>
+      <li>yumBuildDependencies - зависимости сборки (опционально)</li>
+      <li>requirementsPath — путь до requirements.txt (опционально)</li>
+      <li>requirementsContentCommand — команда, которая возвращает содержимое requirements.txt. Используется для
+        инвалидации кеша сборки (опционально)</li>
+      <li>gruntCwd - переход в директорию с grunt-скриптом (опционально)</li>
+      <li>excludeFiles — файлы, которые не нужно помещать в пакет (опционально)</li>
+      <li>virtualenv — путь до virtualenv и ключи запуска (опционально)</li>
+      <li>buildCmds — команды сборки (опционально)</li>
+      <li>afterInstallCmd — команда после установки пакета</li>
+      <li>template — шаблон сборки, упаковывает стандартные конфиги и скрипты. Значения: django, supervisor
+        (опционально)</li>
+    </ul>
+    <h5 dir="auto">
+      <a id="user-content-сборка-1" class="anchor" aria-hidden="true" href="#сборка-1">
+        <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true">
+          <path fill-rule="evenodd"
+            d="M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z">
+          </path>
+        </svg>
+      </a>Сборка
+    </h5>
+    <ol dir="auto">
+      <li>Создать в корне проекта папку build, в ней создать package.json. Указать name, version, yumDependencies
+        (массив), yumBuildDependencies (массив)</li>
+      <li>Запустить из корня проекта ./rpmbuild/tornado/build.sh</li>
+      <li>После установки пакета в конфиге по-умолчанию /etc/&lt;имя пакета&gt;/supervisord.conf необходимо
+        скорректировать номер процесса</li>
+    </ol>
+    <h3 dir="auto">
+      <a id="user-content-yii-node" class="anchor" aria-hidden="true" href="#yii-node">
+        <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true">
+          <path fill-rule="evenodd"
+            d="M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z">
+          </path>
+        </svg>
+      </a>Yii, Node
+    </h3>
+    <p dir="auto">Under construction</p>
+  </article>
+</div>

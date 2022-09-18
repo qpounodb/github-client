@@ -15,7 +15,7 @@ export type RepoBlockWrapperProps<T> = PropsWithChildrenAndClassName<{
 }>;
 export type RepoBlockWrapper<T> = React.FC<RepoBlockWrapperProps<T>>;
 
-export const withRepoBlock = <T extends object>(
+export const withRepoBlock = <T extends object | string>(
   className: string,
   RepoBlock: RepoBlock<T>
 ): RepoBlockWrapper<T> => {

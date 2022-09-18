@@ -75,7 +75,7 @@ export class GithubRepoApi {
     return this._apiGet(repoApiEndpoints.languages, signal);
   }
 
-  getReadme(signal: AbortSignal): Promise<null | Github.RepoReadmeModel> {
+  getReadme(signal: AbortSignal): Promise<null | string> {
     return this._apiGet(repoApiEndpoints.readme, signal);
   }
 

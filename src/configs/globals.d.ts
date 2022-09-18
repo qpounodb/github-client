@@ -33,6 +33,11 @@ declare module '*.svg' {
   export default SvgComponent;
 }
 
+declare module '*.html' {
+  const src: string;
+  export default src;
+}
+
 declare module '*.avif' {
   const src: string;
   export default src;

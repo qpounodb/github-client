@@ -1,7 +1,6 @@
 import { ComponentMeta, ComponentStory } from '@storybook/react';
 
-import data from '~assets/data-examples/repo-readme.json';
-import { normalizeRepoReadme } from '~models/github';
+import data from '~assets/data-examples/repo-readme-1.html';
 
 import RepoReadmeComponent from './RepoReadme';
 
@@ -15,5 +14,6 @@ const meta: Meta = {
 
 export default meta;
 
-export const RepoReadme: Story = (args) => <RepoReadmeComponent {...args} />;
-RepoReadme.args = { data: normalizeRepoReadme(data) };
+export const RepoReadme: Story = (args) => (
+  <RepoReadmeComponent {...args} data={data} />
+);

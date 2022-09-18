@@ -32,6 +32,10 @@ const config: StorybookConfig = {
       return !/(css|svg|mp4)/.test(String(rule.test));
     });
     cfg.module.rules.push(...(projCfg.module?.rules ?? []));
+    cfg.module.rules.push({
+      test: /\.html$/i,
+      loader: 'html-loader',
+    });
 
     cfg.resolve = projCfg.resolve;
     isDev && cfg.plugins?.push(new ReactRefreshWebpackPlugin());
