@@ -8,9 +8,19 @@ import { RepoBlock, RepoBlockProps, withRepoBlock } from '../withRepoBlock';
 import styles from './RepoReadme.module.scss';
 
 const converter = new Converter();
+converter.setFlavor('github');
 
-const base64MarkdownToHTML = (str: string) => {
-  return converter.makeHtml(atob(str));
+const base64DecodeUnicode = (encoded: string): string => {
+  const raw = atob(encoded)
+    .split('')
+    .map((c) => `%${`00${c.charCodeAt(0).toString(16)}`.slice(-2)}`)
+    .join('');
+  return decodeURIComponent(raw);
+};
+
+const base64MarkdownToHTML = (encoded: string) => {
+  const markdown = base64DecodeUnicode(encoded);
+  return converter.makeHtml(markdown);
 };
 
 export const RepoReadme: RepoBlock<RepoReadmeModel> = ({
