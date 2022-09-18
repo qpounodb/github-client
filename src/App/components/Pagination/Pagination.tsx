@@ -10,14 +10,14 @@ export type PaginationProps = {
   onSubmit: (page: number) => void;
   page?: number;
   count: number;
-  loading?: boolean;
+  disabled?: boolean;
 };
 
 const Pagination: React.FC<PaginationProps> = ({
   onSubmit,
   page = 1,
   count,
-  loading = false,
+  disabled = false,
 }) => {
   const [input, setInput] = React.useState(page);
 
@@ -33,27 +33,26 @@ const Pagination: React.FC<PaginationProps> = ({
   const decor = {
     color: Color.secondary,
     size: Size.m,
-    loading,
   };
 
   const onInput = (value: number) => {
-    if (loading) return;
+    if (disabled) return;
     setInput(value);
   };
 
   const onPrev = () => {
-    if (loading || page < 2) return;
+    if (disabled || page < 2) return;
     onSubmit(page - 1);
   };
 
   const onNext = () => {
-    if (loading || page >= count) return;
+    if (disabled || page >= count) return;
     onSubmit(page + 1);
   };
 
   return (
     <div className={styles.root}>
-      <SquareButton {...decor} onClick={onPrev} disabled={isFirst}>
+      <SquareButton {...decor} onClick={onPrev} disabled={disabled || isFirst}>
         {isFirst ? '#' : '<'}
       </SquareButton>
       <div className={styles.root__counter}>
@@ -64,11 +63,12 @@ const Pagination: React.FC<PaginationProps> = ({
           onChange={onInput}
           onSubmit={onSubmit}
           className={styles.root__input}
+          disabled={disabled}
         />
         {' / '}
         {count}
       </div>
-      <SquareButton {...decor} onClick={onNext} disabled={isLast}>
+      <SquareButton {...decor} onClick={onNext} disabled={disabled || isLast}>
         {isLast ? '#' : '>'}
       </SquareButton>
     </div>

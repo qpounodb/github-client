@@ -9,7 +9,7 @@ import styles from './Search.module.scss';
 export type SearchProps = {
   value?: string;
   placeholder: string;
-  loading?: boolean;
+  disabled?: boolean;
   onChange: (value: string) => void;
   onSubmit: (value: string) => void;
 };
@@ -17,12 +17,12 @@ export type SearchProps = {
 const Search: React.FC<SearchProps> = ({
   value = '',
   placeholder,
-  loading = false,
+  disabled = false,
   onChange,
   onSubmit,
 }) => {
   const handleSubmit = React.useCallback(
-    () => onSubmit(value),
+    () => !disabled && onSubmit(value),
     [onSubmit, value]
   );
 
@@ -31,11 +31,10 @@ const Search: React.FC<SearchProps> = ({
       <Input
         placeholder={placeholder}
         value={value}
-        disabled={loading}
         onChange={onChange}
         onSubmit={handleSubmit}
       />
-      <SquareButton onClick={handleSubmit} loading={loading}>
+      <SquareButton onClick={handleSubmit} disabled={disabled}>
         <IconSearch className={styles.root__icon} />
       </SquareButton>
     </div>

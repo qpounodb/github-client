@@ -29,6 +29,7 @@
     @include t.background('backgroundDisabled');
     @include t.color('hint');
     cursor: default;
+    pointer-events: none;
   }
 
   &::placeholder {

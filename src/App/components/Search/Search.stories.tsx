@@ -1,4 +1,5 @@
 import { ComponentMeta, ComponentStory } from '@storybook/react';
+import React from 'react';
 
 import SearchComponent from './Search';
 
@@ -12,9 +13,12 @@ const meta: Meta = {
 
 export default meta;
 
-export const Search: Story = (args) => <SearchComponent {...args} />;
+export const Search: Story = (props) => {
+  const [value, setValue] = React.useState<string | undefined>(undefined);
+  return <SearchComponent {...props} value={value} onChange={setValue} />;
+};
 
 Search.args = {
   placeholder: 'Введите название организации',
-  loading: false,
+  disabled: false,
 };

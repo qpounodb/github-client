@@ -76,7 +76,7 @@ const Main: React.FC = () => {
           placeholder={SEARCH_PLACEHOLDER}
           onChange={setInput}
           onSubmit={submitName}
-          loading={store?.isLoading}
+          disabled={store?.isLoading}
         />
       </div>
       <div className={joinClassName(styles.section, styles.filters)}>
@@ -105,7 +105,7 @@ const Main: React.FC = () => {
           onSubmit={submitPage}
           page={queryParamsStore.page}
           count={store?.pagesCount ?? 0}
-          loading={store?.isLoading}
+          disabled={store?.isLoading}
         />
       </div>
     </div>
