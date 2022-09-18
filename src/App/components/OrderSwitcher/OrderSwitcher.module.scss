@@ -1,0 +1,45 @@
+@use '~styles/mixin' as m;
+@use '~styles/themes' as t;
+
+.root {
+  @include m.square(50px);
+
+  display: inline-flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+
+  cursor: pointer;
+
+  &_disabled {
+    user-select: none;
+    cursor: default;
+    opacity: 0.5;
+  }
+
+  &__arrow {
+    width: 80%;
+    @include m.fast-trans(width, fill);
+    @include t.fill('accent');
+
+    svg {
+      display: block;
+    }
+
+    &_asc {
+      transform: rotate(0deg);
+    }
+
+    &_desc {
+      transform: rotate(180deg);
+    }
+
+    &_small {
+      width: 40%;
+    }
+  }
+
+  &:hover &__arrow_small {
+    @include t.fill('accentHover');
+  }
+}

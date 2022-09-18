@@ -3,8 +3,8 @@ import { observer } from 'mobx-react-lite';
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 
-import { CheckBox } from '~components/CheckBox';
-import { Option, Select } from '~components/dropdown';
+import { SortSelect } from '~/App/components/SortSelect';
+import { Option } from '~components/dropdown';
 import { Pagination } from '~components/Pagination';
 import { Search } from '~components/Search';
 import { WithLoader } from '~components/WithLoader';
@@ -12,7 +12,6 @@ import { useLocalStore } from '~hooks';
 import { RepoModel } from '~models/github';
 import { OrderDir, SortKind } from '~models/queryParams';
 import { rootStore } from '~stores/RootStore';
-import { joinClassName } from '~utils';
 
 import { GitRepoList } from './components/GitRepoList';
 import styles from './Main.module.scss';
@@ -79,17 +78,14 @@ const Main: React.FC = () => {
           disabled={store?.isLoading}
         />
       </div>
-      <div className={joinClassName(styles.section, styles.filters)}>
-        <Select
+      <div className={styles.section}>
+        <SortSelect
           options={SORT_OPTIONS}
           selected={selectedSort}
-          onChange={submitSort}
-          placeholder="Set sort by..."
-        />
-        <CheckBox
-          label="Asc order"
-          checked={queryParamsStore.order === 'asc'}
-          onChange={submitOrder}
+          asc={queryParamsStore.order === 'asc'}
+          onSortChange={submitSort}
+          onOrderChange={submitOrder}
+          disabled={store?.isLoading}
         />
       </div>
       <div className={styles.section}>
