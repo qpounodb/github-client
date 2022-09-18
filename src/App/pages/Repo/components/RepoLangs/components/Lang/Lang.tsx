@@ -1,26 +1,18 @@
 import React from 'react';
 
-import { getLangLogo } from '~utils';
+import { PropsWithClassName } from '~/shared/types';
+import { getLangLogo, joinClassName } from '~utils';
 
 import styles from './Lang.module.scss';
 
-export type LangPrpos = {
+export type LangProps = PropsWithClassName<{
   lang: string;
-  count: number;
-  total: number;
-};
+  fraction: number;
+}>;
 
-const getFraction = (count: number, total: number): number =>
-  Math.round((count / total) * 10000) / 100;
-
-const Lang: React.FC<LangPrpos> = ({ lang, count, total }) => {
-  const fraction = React.useMemo(
-    () => getFraction(count, total),
-    [count, total]
-  );
-
+const Lang: React.FC<LangProps> = ({ lang, fraction, className }) => {
   return (
-    <div className={styles.root}>
+    <div className={joinClassName(styles.root, className)}>
       <img src={getLangLogo(lang)} alt={lang} />
       <span className={styles.lang}>{lang}</span> {fraction}%
     </div>

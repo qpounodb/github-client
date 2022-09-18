@@ -133,12 +133,16 @@
   @include t.color('background');
 
   div {
+    display: inline-flex;
+    align-items: center;
     padding: 5px 10px;
-    border-radius: 12px;
+    gap: 5px;
+    border-radius: 16px;
     @include t.background('starAccent');
   }
 
   svg {
+    display: block;
     width: 16px;
     @include t.fill('background');
   }

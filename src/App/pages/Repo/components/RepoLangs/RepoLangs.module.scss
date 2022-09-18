@@ -2,4 +2,24 @@
   display: flex;
   flex-wrap: wrap;
   gap: 10px;
+
+  &__item {
+    opacity: 0.5;
+
+    &:nth-child(1) {
+      opacity: 1;
+    }
+    &:nth-child(2) {
+      opacity: 0.9;
+    }
+    &:nth-child(3) {
+      opacity: 0.8;
+    }
+    &:nth-child(4) {
+      opacity: 0.7;
+    }
+    &:nth-child(5) {
+      opacity: 0.6;
+    }
+  }
 }

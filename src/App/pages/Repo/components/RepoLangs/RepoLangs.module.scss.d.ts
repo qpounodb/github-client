@@ -1,5 +1,6 @@
 export type Styles = {
   list: string;
+  list__item: string;
 };
 
 export type ClassNames = keyof Styles;
