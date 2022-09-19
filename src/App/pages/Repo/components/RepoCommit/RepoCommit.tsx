@@ -10,12 +10,13 @@ import styles from './RepoCommit.module.scss';
 
 const RepoCommit: RepoBlock<CommitModel> = ({
   data,
+  className,
 }: RepoBlockProps<CommitModel>) => {
   const user = data.commit.author ?? data.commit.committer;
   const owner = data.author ?? data.committer;
 
   return (
-    <>
+    <div className={className}>
       <h2 className={styles.title}>
         Last Commit
         <sup>
@@ -55,7 +56,7 @@ const RepoCommit: RepoBlock<CommitModel> = ({
           ))}
         </div>
       </div>
-    </>
+    </div>
   );
 };
 

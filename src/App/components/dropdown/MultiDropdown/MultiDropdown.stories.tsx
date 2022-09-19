@@ -22,19 +22,21 @@ export const MultiDropdown: Story = (props) => {
     opts.map(({ value }) => value).join(', ');
 
   return (
-    <MultiDropdownComponent
-      {...props}
-      selected={selected}
-      getTitle={getTitle}
-      onChange={setSelected}
-    />
+    <div style={{ maxWidth: '600px' }}>
+      <MultiDropdownComponent
+        {...props}
+        selected={selected}
+        getTitle={getTitle}
+        onChange={setSelected}
+      />
+    </div>
   );
 };
 
 const options: Option[] = [
   { key: 1, value: 'some-organization-name' },
   { key: 2, value: 'kts-school-name' },
-  { key: 3, value: 'another-origanization-name' },
+  { key: 3, value: 'another-organization-name' },
   { key: 4, value: 'one-more-organization' },
 ];
 

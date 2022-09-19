@@ -10,8 +10,9 @@ const noVersionNum = ({ name }: RepoBranchModel): boolean => !/\d/.test(name);
 
 const RepoBranches: RepoBlock<RepoBranchModelCollection> = ({
   data,
+  className,
 }: RepoBlockProps<RepoBranchModelCollection>) => (
-  <>
+  <div className={className}>
     <h2>Branches</h2>
     <div className={styles.list}>
       {linerizeCollection(data)
@@ -22,7 +23,7 @@ const RepoBranches: RepoBlock<RepoBranchModelCollection> = ({
           </div>
         ))}
     </div>
-  </>
+  </div>
 );
 
 export default withRepoBlock('', RepoBranches);

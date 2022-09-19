@@ -11,6 +11,7 @@
       "~styles/*": ["App/styles/*"],
       "~constants": ["App/constants"],
       "~components/*": ["App/components/*"],
+      "~layout": ["App/layout"],
       "~pages": ["App/pages"],
       "~models": ["App/models"],
       "~models/*": ["App/models/*"],

@@ -16,12 +16,14 @@ export default meta;
 export const Input: Story = (props) => {
   const [value, setValue] = React.useState<string | undefined>(undefined);
   return (
-    <InputComponent
-      {...props}
-      value={value}
-      onChange={setValue}
-      onSubmit={setValue}
-    />
+    <div style={{ maxWidth: '400px' }}>
+      <InputComponent
+        {...props}
+        value={value}
+        onChange={setValue}
+        onSubmit={setValue}
+      />
+    </div>
   );
 };
 

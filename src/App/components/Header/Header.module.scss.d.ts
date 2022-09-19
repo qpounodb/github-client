@@ -1,6 +1,6 @@
 export type Styles = {
+  block: string;
   root: string;
-  root__content: string;
   root__logo: string;
   root__switch: string;
 };

@@ -23,18 +23,19 @@ const withFractions = (langs: RepoLangsModel): LangProps[] => {
 
 const RepoLangs: RepoBlock<RepoLangsModel> = ({
   data,
+  className,
 }: RepoBlockProps<RepoLangsModel>) => {
   const items = React.useMemo(() => withFractions(data), [data]);
 
   return (
-    <>
+    <div className={className}>
       <h2>Project Programming Languages</h2>
       <div className={styles.list}>
         {items.map((props) => (
           <Lang key={props.lang} className={styles.list__item} {...props} />
         ))}
       </div>
-    </>
+    </div>
   );
 };
 

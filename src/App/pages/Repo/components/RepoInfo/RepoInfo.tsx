@@ -6,7 +6,7 @@ import {
   IconStar,
 } from '~assets/icons';
 import { RepoModel } from '~models/github';
-import { formatCount, getLangLogo } from '~utils';
+import { formatCount, getLangLogo, joinClassName } from '~utils';
 
 import { RepoBlock, RepoBlockProps, withRepoBlock } from '../withRepoBlock';
 
@@ -14,11 +14,12 @@ import styles from './RepoInfo.module.scss';
 
 const RepoInfo: RepoBlock<RepoModel> = ({
   data,
+  className,
 }: RepoBlockProps<RepoModel>) => {
   const langLogo = data.language && getLangLogo(data.language);
 
   return (
-    <div className={styles.info}>
+    <div className={joinClassName(className, styles.info)}>
       <div className={styles.about}>
         <div className={styles.repo}>
           <h1 className={styles.name}>

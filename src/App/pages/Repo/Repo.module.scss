@@ -1,8 +1,5 @@
 .root {
-  max-width: 1200px;
-  width: 100%;
-  margin: 0 auto;
-  padding: 20px;
+  padding: 20px 0;
 
   &__nav {
     display: flex;
@@ -14,8 +11,6 @@
   &__content {
     display: flex;
     flex-direction: column;
-    justify-content: center;
-    align-items: center;
     row-gap: 20px;
   }
 }

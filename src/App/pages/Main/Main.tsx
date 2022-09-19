@@ -69,7 +69,7 @@ const Main: React.FC = () => {
 
   return (
     <div className={styles.root}>
-      <div className={styles.section}>
+      <div>
         <Search
           value={input}
           placeholder={SEARCH_PLACEHOLDER}
@@ -78,7 +78,7 @@ const Main: React.FC = () => {
           disabled={!input || store?.isLoading}
         />
       </div>
-      <div className={styles.section}>
+      <div>
         <SortSelect
           options={SORT_OPTIONS}
           selected={selectedSort}
@@ -88,7 +88,7 @@ const Main: React.FC = () => {
           disabled={store?.isLoading}
         />
       </div>
-      <div className={styles.section}>
+      <div>
         <WithLoader loading={store?.isLoading}>
           <GitRepoList
             data={store?.data}

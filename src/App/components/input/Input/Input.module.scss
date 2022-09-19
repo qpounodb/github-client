@@ -4,7 +4,6 @@
 
 @mixin size($h, $w, $p, $f) {
   height: calc(size.$height - $h);
-  max-width: calc(size.$input-width - $w);
   padding: $p;
   font-size: $f;
 }

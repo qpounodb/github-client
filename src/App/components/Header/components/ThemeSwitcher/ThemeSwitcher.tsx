@@ -1,9 +1,8 @@
 import React from 'react';
 
 import { IconMoon, IconSun } from '~assets/icons';
+import { Switcher } from '~components/Switcher';
 import { Theme, useTheme } from '~hooks';
-
-import { Switcher } from '../Switcher';
 
 const ThemeSwitcher: React.FC = () => {
   const { theme, toggleTheme } = useTheme();

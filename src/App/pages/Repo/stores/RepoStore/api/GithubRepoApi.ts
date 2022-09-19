@@ -45,8 +45,14 @@ export class GithubRepoApi {
     route: RepoApiRoute<T, R>,
     signal: AbortSignal
   ): Promise<null | R> {
-    const { normalize, url, params } = route;
-    const cfg: AxiosRequestConfig = { method: 'GET', url, params, signal };
+    const { normalize, url, params, headers } = route;
+    const cfg: AxiosRequestConfig = {
+      method: 'GET',
+      url,
+      params,
+      headers,
+      signal,
+    };
     const { data } = await this._api.request<T | null>(cfg);
     return data && normalize(data);
   }

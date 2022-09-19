@@ -3,7 +3,8 @@
 @use '~styles/themes' as t;
 
 .root {
-  width: size.$input-width;
+  width: 100%;
+
   display: flex;
   flex-direction: column;
   row-gap: 1px;

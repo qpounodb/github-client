@@ -1,4 +1,8 @@
 .root {
   display: flex;
   column-gap: 10px;
+
+  &__order {
+    flex-shrink: 0;
+  }
 }

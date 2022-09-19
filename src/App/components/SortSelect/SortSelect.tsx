@@ -31,7 +31,9 @@ const SortSelect: React.FC<Props> = ({
         onChange={onSortChange}
         disabled={disabled}
       />
-      <OrderSwitcher asc={asc} onChange={onOrderChange} disabled={disabled} />
+      <div className={styles.root__order}>
+        <OrderSwitcher asc={asc} onChange={onOrderChange} disabled={disabled} />
+      </div>
     </div>
   );
 };

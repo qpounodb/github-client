@@ -54,11 +54,7 @@ const InputNumber: React.FC<InputNumberProps> = ({
     <Input
       {...rest}
       size={size}
-      className={joinClassName(
-        styles.root,
-        styles[`root_size-${size}`],
-        rest.className
-      )}
+      className={joinClassName(styles.root, rest.className)}
       type="number"
       value={value}
       onChange={handlerChange}
