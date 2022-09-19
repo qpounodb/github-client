@@ -6,7 +6,7 @@ import { CARD_SUBTITLE, CARD_TITLE, Locators } from '~tests/constants';
 
 describe('Тестирование компонента Card', () => {
   test('Пропсы title, subtitle передаются и отображаются', () => {
-    render(<Card title={CARD_TITLE} subtitle={CARD_SUBTITLE} image="--" />);
+    render(<Card title={CARD_TITLE} subtitle={CARD_SUBTITLE} imageUrl="--" />);
 
     const title = screen.getByText(CARD_TITLE);
     const subtitle = screen.getByText(CARD_SUBTITLE);
@@ -20,7 +20,7 @@ describe('Тестирование компонента Card', () => {
       <Card
         title={<div data-testid={Locators.CARD_TITLE} />}
         subtitle={CARD_SUBTITLE}
-        image="--"
+        imageUrl="--"
       />
     );
 
@@ -34,7 +34,7 @@ describe('Тестирование компонента Card', () => {
       <Card
         title={CARD_TITLE}
         subtitle={<div data-testid={Locators.CARD_SUBTITLE} />}
-        image="--"
+        imageUrl="--"
       />
     );
 
@@ -46,7 +46,11 @@ describe('Тестирование компонента Card', () => {
   test('Пропс image передаются корректно в картинку', () => {
     const testImageSrc = 'https://www.google.com/favicon.ico';
     render(
-      <Card image={testImageSrc} title={CARD_TITLE} subtitle={CARD_SUBTITLE} />
+      <Card
+        imageUrl={testImageSrc}
+        title={CARD_TITLE}
+        subtitle={CARD_SUBTITLE}
+      />
     );
 
     const imageElement = screen.getByRole('img');
@@ -58,7 +62,11 @@ describe('Тестирование компонента Card', () => {
   test('Для изображения используется html-тег img', () => {
     const testImageSrc = 'https://www.google.com/favicon.ico';
     render(
-      <Card image={testImageSrc} title={CARD_TITLE} subtitle={CARD_SUBTITLE} />
+      <Card
+        imageUrl={testImageSrc}
+        title={CARD_TITLE}
+        subtitle={CARD_SUBTITLE}
+      />
     );
 
     const imageElement = screen.getByAltText('avatar');
@@ -69,7 +77,7 @@ describe('Тестирование компонента Card', () => {
     const { rerender } = render(
       <Card
         content={<div data-testid={Locators.CARD_CONTENT}>content</div>}
-        image="-"
+        imageUrl="-"
         title={CARD_TITLE}
         subtitle={CARD_SUBTITLE}
       />
@@ -78,7 +86,7 @@ describe('Тестирование компонента Card', () => {
     const content = screen.getByTestId(Locators.CARD_CONTENT);
     expect(content).toBeInTheDocument();
 
-    rerender(<Card image="-" title={CARD_TITLE} subtitle={CARD_SUBTITLE} />);
+    rerender(<Card imageUrl="-" title={CARD_TITLE} subtitle={CARD_SUBTITLE} />);
     expect(content).not.toBeInTheDocument();
   });
 
@@ -92,7 +100,7 @@ describe('Тестирование компонента Card', () => {
           onClick={mockOnClick}
           title={CARD_TITLE}
           subtitle={CARD_SUBTITLE}
-          image="-"
+          imageUrl="-"
         />
       </div>
     );

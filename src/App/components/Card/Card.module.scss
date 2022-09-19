@@ -45,6 +45,7 @@
     font-weight: bold;
     @include t.color('background');
     @include t.background('accent');
+    @include mixin.slow-trans(opacity);
   }
 
   &__avatar {

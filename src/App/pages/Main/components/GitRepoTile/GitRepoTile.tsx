@@ -58,7 +58,7 @@ const GitRepoTile: React.FC<GitRepoTileProps> = ({
     <Card
       className={styles.card}
       onClick={onClick}
-      image={data.owner.avatarUrl}
+      imageUrl={data.owner.avatarUrl}
       placeholder={placeholder || data.owner.login}
       title={data.name}
       subtitle={link}

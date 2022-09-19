@@ -15,7 +15,7 @@ export default meta;
 export const Card: Story = (args) => <CardComponent {...args} />;
 
 Card.args = {
-  image: 'https://source.unsplash.com/random/?cat&w=150&h=150&q=80',
+  imageUrl: 'https://source.unsplash.com/random/?cat&w=150&h=150&q=80',
   placeholder: 'S',
   title: 'Title',
   subtitle: 'Subtitle',
