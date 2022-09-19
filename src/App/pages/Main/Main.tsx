@@ -102,7 +102,7 @@ const Main: React.FC = () => {
           />
         </WithLoader>
       </div>
-      <div>
+      <div className={styles.root__section}>
         <Pagination
           onSubmit={submitPage}
           page={queryParamsStore.page}
