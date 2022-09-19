@@ -23,7 +23,7 @@ const Search: React.FC<SearchProps> = ({
 }) => {
   const handleSubmit = React.useCallback(
     () => !disabled && onSubmit(value),
-    [onSubmit, value]
+    [disabled, onSubmit, value]
   );
 
   return (

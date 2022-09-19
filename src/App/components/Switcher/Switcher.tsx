@@ -21,7 +21,7 @@ const Switcher: React.FC<Props> = ({
   IconB,
   onChange,
 }) => {
-  const toggle = React.useCallback(() => onChange(!stateA), [stateA]);
+  const toggle = React.useCallback(() => onChange(!stateA), [onChange, stateA]);
 
   const [clsRoot, clsGrid, clsHandle, clsLabelA, clsLabelB] = React.useMemo(
     () => [

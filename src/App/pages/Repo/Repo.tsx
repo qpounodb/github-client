@@ -22,7 +22,13 @@ type PathParams = { orgName: string; repoName: string };
 export const Repo: React.FC = () => {
   const navigate = useNavigate();
   const { orgName, repoName } = useParams<PathParams>();
-  const store = useLocalStore(() => new RepoStore(orgName, repoName));
+
+  const store = useLocalStore(
+    React.useCallback(
+      () => new RepoStore(orgName, repoName),
+      [orgName, repoName]
+    )
+  );
 
   const handleBack = () => {
     navigate(-1);

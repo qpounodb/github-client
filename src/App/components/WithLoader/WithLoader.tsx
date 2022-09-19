@@ -26,7 +26,7 @@ const WithLoader: React.FC<WithLoaderProps> = ({
       joinClassName(s.root__cover, loading && s.root__cover_loading),
       joinClassName(s.root__message, loading && s.root__message_loading),
     ],
-    [loading]
+    [className, loading]
   );
 
   return (

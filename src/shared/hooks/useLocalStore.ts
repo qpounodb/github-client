@@ -20,7 +20,7 @@ export const useLocalStore = <T extends ILocalStore>(
       store.destroy();
       ref.current = null;
     };
-  }, []);
+  }, [create]);
 
   return ref.current;
 };

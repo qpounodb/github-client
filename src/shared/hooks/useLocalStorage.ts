@@ -26,7 +26,7 @@ export const useLocalStorage = <T>(
         console.log(error);
       }
     },
-    [storedState]
+    [key, storedState]
   );
 
   return [storedState, setState];

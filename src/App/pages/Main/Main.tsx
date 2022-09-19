@@ -26,9 +26,10 @@ const SORT_OPTIONS: Option[] = Object.values(SortKind).map((value) => ({
 
 const Main: React.FC = () => {
   const { queryParamsStore } = rootStore;
-  const store = useLocalStore(() => new ReposStore());
   const navigate = useNavigate();
   const [input, setInput] = React.useState(queryParamsStore.orgName);
+
+  const store = useLocalStore(React.useCallback(() => new ReposStore(), []));
 
   React.useEffect(() => {
     runInAction(() => setInput(queryParamsStore.orgName));
