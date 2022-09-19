@@ -10,7 +10,7 @@ import { Search } from '~components/Search';
 import { WithLoader } from '~components/WithLoader';
 import { useLocalStore } from '~hooks';
 import { RepoModel } from '~models/github';
-import { OrderDir, SortKind } from '~models/queryParams';
+import { defaultQueryParamsApp, OrderDir, SortKind } from '~models/queryParams';
 import { rootStore } from '~stores/RootStore';
 
 import { GitRepoList } from './components/GitRepoList';
@@ -34,11 +34,6 @@ const Main: React.FC = () => {
   React.useEffect(() => {
     runInAction(() => setInput(queryParamsStore.orgName));
   }, [queryParamsStore.orgName]);
-
-  const selectedSort = React.useMemo(
-    () => SORT_OPTIONS.find((o) => o.key === queryParamsStore.sort),
-    [queryParamsStore.sort]
-  );
 
   const submitName = React.useCallback(
     (name: string) => queryParamsStore.setOrgName(name),
@@ -68,6 +63,16 @@ const Main: React.FC = () => {
     [navigate]
   );
 
+  const selectedSort = React.useMemo(() => {
+    const sort = queryParamsStore.sort ?? defaultQueryParamsApp.sort;
+    return SORT_OPTIONS.find((o) => o.key === sort);
+  }, [queryParamsStore.sort]);
+
+  const isAscOrder: boolean = React.useMemo(() => {
+    const order = queryParamsStore.order ?? defaultQueryParamsApp.order;
+    return order === OrderDir.asc;
+  }, [queryParamsStore.order]);
+
   return (
     <div className={styles.root}>
       <div>
@@ -83,7 +88,7 @@ const Main: React.FC = () => {
         <SortSelect
           options={SORT_OPTIONS}
           selected={selectedSort}
-          asc={queryParamsStore.order === 'asc'}
+          asc={isAscOrder}
           onSortChange={submitSort}
           onOrderChange={submitOrder}
           disabled={store?.isLoading}

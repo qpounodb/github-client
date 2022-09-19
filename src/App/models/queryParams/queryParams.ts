@@ -1,7 +1,7 @@
 import { URLSearchParamsInit } from 'react-router-dom';
 
 import type { Nullable } from '~types';
-import { isNone } from '~utils';
+import { isNumber, removeUndefined } from '~utils';
 
 export enum RepoType {
   all = 'all',
@@ -46,7 +46,7 @@ export type QueryParamsAPI = {
   sort?: Sort;
   direction?: Order;
   per_page: number;
-  page: number;
+  page?: number;
 };
 
 export type QueryParamsApp = {
@@ -56,28 +56,38 @@ export type QueryParamsApp = {
   order?: Order;
 };
 
-export const defaultQueryParamsAPI: Required<QueryParamsAPI> = {
+export const defaultQueryParamsAPI: QueryParamsAPI = {
   type: 'all',
-  sort: 'updated',
-  direction: 'desc',
   per_page: 5,
-  page: 1,
+};
+
+export const defaultQueryParamsApp: QueryParamsApp = {
+  sort: 'updated',
+  order: 'desc',
 };
 
 export const appParamsToApiParams = ({
   page,
   sort,
   order,
-}: QueryParamsApp): QueryParamsAPI => ({
-  ...defaultQueryParamsAPI,
-  page: page ?? 1,
-  sort: toSortKind(sort),
-  direction: toOrderDir(order),
-});
+}: QueryParamsApp): QueryParamsAPI =>
+  removeUndefined({
+    ...defaultQueryParamsAPI,
+    page,
+    sort: toSortKind(sort || defaultQueryParamsApp.sort),
+    direction: toOrderDir(order || defaultQueryParamsApp.order),
+  });
 
 export const toUrlSearchParams = ({
   page,
-  ...params
+  orgName,
+  order,
+  sort,
 }: QueryParamsApp): URLSearchParamsInit => {
-  return isNone(page) ? { ...params } : { ...params, page: String(page) };
+  return removeUndefined({
+    orgName,
+    page: isNumber(page) && page > 1 ? String(page) : undefined,
+    order: order !== defaultQueryParamsApp.order ? order : undefined,
+    sort: sort !== defaultQueryParamsApp.sort ? sort : undefined,
+  });
 };

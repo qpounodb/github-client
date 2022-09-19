@@ -55,6 +55,7 @@ const config = {
   },
 
   rules: {
+    'no-console': 'warn',
     '@typescript-eslint/no-unused-vars': 'error',
     'import/no-named-as-default-member': 'off',
     'import/newline-after-import': ['error', { count: 1 }],
