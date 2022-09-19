@@ -12,7 +12,11 @@ const meta: Meta = {
 };
 export default meta;
 
-export const Card: Story = (args) => <CardComponent {...args} />;
+export const Card: Story = (args) => (
+  <div style={{ maxWidth: '300px' }}>
+    <CardComponent {...args} />
+  </div>
+);
 
 Card.args = {
   imageUrl: 'https://source.unsplash.com/random/?cat&w=150&h=150&q=80',

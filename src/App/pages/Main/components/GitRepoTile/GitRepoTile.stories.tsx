@@ -15,7 +15,12 @@ const meta: Meta = {
 
 export default meta;
 
-export const GitRepoTile: Story = (args) => <GitRepoTileComponent {...args} />;
+export const GitRepoTile: Story = (args) => (
+  <div style={{ maxWidth: '400px' }}>
+    <GitRepoTileComponent {...args} />
+  </div>
+);
+
 GitRepoTile.args = {
   data: normalizeRepo(data),
 };
