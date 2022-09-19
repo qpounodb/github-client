@@ -1,0 +1,14 @@
+@use '~styles/mixin' as m;
+@use '~styles/themes' as t;
+
+.root {
+  text-decoration: none;
+  @include t.color('link');
+  @include t.fill('link');
+  @include m.fast-trans(color, fill);
+
+  &:hover {
+    @include t.color('linkHover');
+    @include t.fill('linkHover');
+  }
+}

@@ -1,6 +1,5 @@
 export type Styles = {
   root: string;
-  root__main: string;
 };
 
 export type ClassNames = keyof Styles;

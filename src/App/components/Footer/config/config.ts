@@ -1,10 +1,11 @@
 import { Logo, LogoKts } from '~assets/icons';
+import { ExternalLinkProps } from '~components/ExternalLink';
 
-import { LinkProps } from '../components';
+type Props = ExternalLinkProps & { text?: string; Logo: SvgComponent };
 
 type Config = {
-  school: LinkProps;
-  student: LinkProps;
+  school: Props;
+  student: Props;
 };
 
 export const config: Config = {

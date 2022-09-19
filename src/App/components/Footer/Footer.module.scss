@@ -26,31 +26,20 @@
       user-select: none;
       font-size: 16px;
     }
+  }
 
-    a {
-      display: flex;
-      align-items: center;
-      gap: 5px;
-      text-decoration: none;
-      @include t.color('link');
-      @include t.fill('link');
-      @include m.fast-trans(color, fill);
+  &__link {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+  }
 
-      &:hover {
-        @include t.color('linkHover');
-        @include t.fill('linkHover');
-      }
-    }
-
-    svg {
-      display: block;
-      @include m.square(25px);
-    }
+  &__logo {
+    display: block;
+    @include m.square(25px);
 
     &_school {
-      svg {
-        @include m.square(40px);
-      }
+      @include m.square(40px);
     }
   }
 }

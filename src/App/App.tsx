@@ -26,7 +26,7 @@ const App: React.FC = () => {
       <div className={styles.root}>
         <Header />
         <Block>
-          <main>{routes}</main>
+          <main className={styles.root__main}>{routes}</main>
         </Block>
         <Footer />
       </div>
