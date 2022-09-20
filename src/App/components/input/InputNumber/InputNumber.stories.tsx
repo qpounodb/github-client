@@ -16,7 +16,7 @@ const meta: Meta = {
 export default meta;
 
 export const InputNumber: Story = (props) => {
-  const [value, setValue] = React.useState<number | undefined>(undefined);
+  const [value, setValue] = React.useState<string | undefined>(undefined);
   return (
     <div style={{ maxWidth: '200px' }}>
       <InputNumberComponent
