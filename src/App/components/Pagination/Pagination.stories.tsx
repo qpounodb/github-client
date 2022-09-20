@@ -15,7 +15,12 @@ export default meta;
 
 export const Pagination: Story = (props) => {
   const [page, setPage] = React.useState(1);
-  return <PaginationComponent {...props} page={page} onSubmit={setPage} />;
+
+  const setPageLog = (x: number) => {
+    setPage(x);
+  };
+
+  return <PaginationComponent {...props} page={page} onSubmit={setPageLog} />;
 };
 
 Pagination.args = {

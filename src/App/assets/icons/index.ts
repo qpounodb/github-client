@@ -14,3 +14,5 @@ export { default as IconMoon } from './moon.svg';
 export { default as Logo } from './logo.svg';
 export { default as LogoKts } from './logo-kts.svg';
 export { default as IconTriangle } from './triangle.svg';
+export { default as IconPlay } from './play.svg';
+export { default as IconSkip } from './skip.svg';
