@@ -12,7 +12,13 @@ const toggleTheme = (theme: Theme): Theme =>
 
 const getClassName = (theme: Theme): string => `theme-${theme}`;
 
-const { useCtx, Provider } = createLocalStorageCtx('global-theme', Theme.light);
+const darkThemeMq = window.matchMedia('(prefers-color-scheme: dark)');
+const defaultTheme = darkThemeMq.matches ? Theme.dark : Theme.light;
+
+const { useCtx, Provider } = createLocalStorageCtx(
+  'global-theme',
+  defaultTheme
+);
 
 export const ThemeProvider = Provider;
 
