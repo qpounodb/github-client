@@ -1,6 +1,8 @@
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
+import '~tests/__mocks__/matchMedia';
+
 import { Card } from '~components/Card';
 import { CARD_SUBTITLE, CARD_TITLE, Locators } from '~tests/constants';
 
