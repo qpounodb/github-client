@@ -5,14 +5,13 @@
 .root {
   min-width: 250px;
   width: 100%;
-  height: calc(size.$height * 2);
   @include mixin.border;
   @include t.background;
 
   display: flex;
   align-items: center;
   column-gap: 12px;
-  padding: 0 12px;
+  padding: 12px;
 
   @include mixin.fast-trans(box-shadow);
 
@@ -22,18 +21,17 @@
     }
   }
 
-  &__side,
-  &__placeholder,
-  &__avatar {
-    @include mixin.square(size.$card-avatar);
-  }
-
   &__side {
     position: relative;
     flex-shrink: 0;
     @include mixin.circle;
     overflow: hidden;
     @include t.color('background');
+  }
+
+  &__placeholder,
+  &__avatar {
+    @include mixin.square(size.$card-avatar);
   }
 
   &__placeholder {
@@ -62,7 +60,7 @@
     width: 100%;
     display: flex;
     flex-direction: column;
-    row-gap: 4px;
+    row-gap: 6px;
     overflow: hidden;
     @include t.color('hint');
   }

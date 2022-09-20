@@ -1,0 +1,32 @@
+@use '~styles/themes' as t;
+
+.root {
+  display: flex;
+  flex-direction: column;
+  row-gap: 5px;
+
+  &__stats {
+    display: flex;
+    flex-wrap: wrap;
+    column-gap: 20px;
+    row-gap: 6px;
+  }
+
+  &__dates {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 5px;
+  }
+
+  &__stat {
+    display: flex;
+    align-items: center;
+    column-gap: 5px;
+
+    svg {
+      width: 16px;
+      @include t.fill('starAccent');
+    }
+  }
+}
