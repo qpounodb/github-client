@@ -9,7 +9,7 @@ export const usePagination = ({
   disabled,
   setInput,
 }: Required<PaginationProps> & {
-  setInput: React.Dispatch<React.SetStateAction<number>>;
+  setInput: React.Dispatch<React.SetStateAction<string>>;
 }) => {
   const onPrev = React.useCallback(() => {
     if (disabled || page < 2) return;
@@ -32,7 +32,7 @@ export const usePagination = ({
   }, [count, disabled, onSubmit, page]);
 
   const onInputChange = React.useCallback(
-    (value: number) => {
+    (value: string) => {
       if (disabled) return;
       setInput(value);
     },
@@ -40,24 +40,34 @@ export const usePagination = ({
   );
 
   const onInputSubmit = React.useCallback(
-    (x: number) => {
-      if (disabled || x === page) return;
+    (value: string) => {
+      const x = Number(value);
+
+      if (disabled) return;
+
+      if (x === page) {
+        setInput(String(x));
+        return;
+      }
+
       if (x < 1) {
         if (page !== 1) {
           onSubmit(1);
         } else {
-          setInput(1);
+          setInput(String(1));
         }
         return;
       }
+
       if (x > count) {
         if (page !== count) {
           onSubmit(count);
         } else {
-          setInput(count);
+          setInput(String(count));
         }
         return;
       }
+
       onSubmit(x);
     },
     [count, disabled, onSubmit, page, setInput]

@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { IconPlay, IconSkip } from '~/App/assets/icons';
+import { IconPlay, IconSkip } from '~assets/icons';
 import { SquareButton } from '~components/button';
 import { InputNumber } from '~components/input';
 import { Color, Size } from '~constants';
@@ -18,11 +18,11 @@ const Pagination: React.FC<PaginationProps> = ({
   count,
   disabled = false,
 }) => {
-  const [input, setInput] = React.useState(page);
+  const [input, setInput] = React.useState(String(page));
 
-  const [isFirst, isLast] = React.useMemo(
-    () => [page <= 1, page >= count],
-    [count, page]
+  const [isFirstDisabled, isLastDisabled] = React.useMemo(
+    () => [disabled || page <= 1, disabled || page >= count],
+    [count, disabled, page]
   );
 
   const { onPrev, onNext, onFirst, onLast, onInputChange, onInputSubmit } =
@@ -35,25 +35,17 @@ const Pagination: React.FC<PaginationProps> = ({
     });
 
   React.useEffect(() => {
-    setInput(page);
+    setInput(String(page));
   }, [page]);
 
   if (count < 1) return null;
 
   return (
     <div className={s.root}>
-      <SquareButton
-        {...primary}
-        onClick={onFirst}
-        disabled={disabled || isFirst}
-      >
+      <SquareButton {...primary} onClick={onFirst} disabled={isFirstDisabled}>
         <IconSkip className={join(s.root__icon, s.root__icon_first)} />
       </SquareButton>
-      <SquareButton
-        {...primary}
-        onClick={onPrev}
-        disabled={disabled || isFirst}
-      >
+      <SquareButton {...primary} onClick={onPrev} disabled={isFirstDisabled}>
         <IconPlay className={join(s.root__icon, s.root__icon_prev)} />
       </SquareButton>
       <div className={s.root__counter}>
@@ -67,13 +59,12 @@ const Pagination: React.FC<PaginationProps> = ({
           disabled={disabled}
           size={Size.s}
         />
-        {' / '}
-        {count}
+        <span>{count}</span>
       </div>
-      <SquareButton {...primary} onClick={onNext} disabled={disabled || isLast}>
+      <SquareButton {...primary} onClick={onNext} disabled={isLastDisabled}>
         <IconPlay className={join(s.root__icon, s.root__icon_next)} />
       </SquareButton>
-      <SquareButton {...primary} onClick={onLast} disabled={disabled || isLast}>
+      <SquareButton {...primary} onClick={onLast} disabled={isLastDisabled}>
         <IconSkip className={join(s.root__icon, s.root__icon_last)} />
       </SquareButton>
     </div>

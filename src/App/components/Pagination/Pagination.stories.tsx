@@ -24,6 +24,6 @@ export const Pagination: Story = (props) => {
 };
 
 Pagination.args = {
-  count: 12,
+  count: 1234,
   disabled: false,
 };
