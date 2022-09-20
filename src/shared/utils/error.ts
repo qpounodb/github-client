@@ -10,7 +10,7 @@ export const toError = (err: unknown): Error =>
   err instanceof Error ? err : new Error('Unknown error');
 
 export const formatAxiosError = (error: AxiosError): string => {
-  console.warn(error.toJSON());
+  // console.warn(error.toJSON());
   const { response } = error;
   if (response) {
     return response.status >= 500 ? 'Server error' : 'Access error';
@@ -22,7 +22,6 @@ export const formatError = (err: unknown): string => {
   if (err instanceof AppError) {
     return err.message;
   }
-
-  console.error(err);
+  // console.error(err);
   return 'Internal error';
 };

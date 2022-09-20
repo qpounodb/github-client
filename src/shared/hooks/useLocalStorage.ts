@@ -23,7 +23,7 @@ export const useLocalStorage = <T>(
         setStoredState(state);
         window.localStorage.setItem(key, JSON.stringify(state));
       } catch (error) {
-        console.log(error);
+        // console.log(error);
       }
     },
     [key, storedState]
