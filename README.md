@@ -66,13 +66,19 @@
 
    </details>
 
-## <img src="https://cdn.svgporn.com/logos/netlify.svg" height="32" align="top"> Деплой [![Netlify Status][deploy-status]][deploys]
+## <img src="https://cdn.svgporn.com/logos/netlify.svg" height="32" align="top"> Деплой
 
-> [**qpundb-github-client.netlify.app**][deploy]
+| Unit      | Link                                           | Status                                             |
+| --------- | ---------------------------------------------- | -------------------------------------------------- |
+| Demo      | [**qpundb-github-client.netlify.app**][deploy] | [![Netlify Status][deploys-status]][deploys]       |
+| Storybook | [**qpundb-storybook.netlify.app**][deploy-sb]  | [![Netlify Status][deploys-sb-status]][deploys-sb] |
 
 [deploy]: https://qpundb-github-client.netlify.app
 [deploys]: https://app.netlify.com/sites/qpundb-github-client/deploys
-[deploy-status]: https://api.netlify.com/api/v1/badges/11bc2bb0-1566-4f67-9f4b-39ad1240e236/deploy-status
+[deploys-status]: https://api.netlify.com/api/v1/badges/11bc2bb0-1566-4f67-9f4b-39ad1240e236/deploy-status
+[deploy-sb]: https://qpundb-storybook.netlify.app
+[deploys-sb]: https://app.netlify.com/sites/qpundb-storybook/deploys
+[deploys-sb-status]: https://api.netlify.com/api/v1/badges/abd53848-3682-4eea-917e-a6bea61371a5/deploy-status
 
 ## <img src="https://cdn.svgporn.com/logos/git-icon.svg" height="32" align="top"> Подготовка к работе с проектом:
 
