@@ -1,11 +1,12 @@
 import React from 'react';
 
-import { joinClassName } from '~utils';
+import { useImagePlaceholder } from '~hooks';
+import { joinClassName as join } from '~utils';
 
 import styles from './Card.module.scss';
 
 export type CardProps = {
-  image: string;
+  imageUrl: string;
   placeholder?: string;
   title: React.ReactNode;
   subtitle: React.ReactNode;
@@ -18,7 +19,7 @@ const DEFAULT_AVATAR_ALT = 'avatar';
 const DEFAULT_PLACEHOLDER = '🍥';
 
 const Card: React.FC<CardProps> = ({
-  image,
+  imageUrl,
   placeholder = DEFAULT_PLACEHOLDER,
   title,
   subtitle,
@@ -26,35 +27,29 @@ const Card: React.FC<CardProps> = ({
   onClick,
   className,
 }) => {
-  const placeholderRef = React.useRef<HTMLDivElement | null>(null);
-  const imgRef = React.useRef<HTMLImageElement | null>(null);
+  const { placeholderRef, imgRef } = useImagePlaceholder(
+    imageUrl,
+    styles.hidden
+  );
 
-  React.useEffect(() => {
-    const img = imgRef.current;
-    const placeholder = placeholderRef.current;
-    const onLoad = () => {
-      placeholder?.classList.add(styles.hidden);
-      img?.classList.remove(styles.hidden);
-    };
-    img?.addEventListener('load', onLoad);
-    return () => img?.removeEventListener('load', onLoad);
-  }, []);
+  const placeholderText = React.useMemo(() => {
+    return placeholder.at(0)?.toUpperCase() || DEFAULT_PLACEHOLDER;
+  }, [placeholder]);
 
   return (
-    <div className={joinClassName(styles.root, className)} onClick={onClick}>
+    <div className={join(styles.root, className)} onClick={onClick}>
       <div className={styles.root__side}>
         <div ref={placeholderRef} className={styles.root__placeholder}>
-          {placeholder.at(0)?.toUpperCase() || DEFAULT_PLACEHOLDER}
+          {placeholderText}
         </div>
         <img
           ref={imgRef}
-          className={joinClassName(styles.root__avatar, styles.hidden)}
-          src={image}
           alt={DEFAULT_AVATAR_ALT}
+          className={styles.root__avatar}
         />
       </div>
       <div className={styles.root__main}>
-        <div className={joinClassName(styles.root__item, styles.root__title)}>
+        <div className={join(styles.root__item, styles.root__title)}>
           {title}
         </div>
         <div className={styles.root__item}>{subtitle}</div>

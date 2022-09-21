@@ -1,5 +1,6 @@
 import React from 'react';
 
+import { joinClassName } from '~/shared/utils';
 import { Input } from '~components/input';
 import { useHide } from '~hooks';
 
@@ -30,10 +31,7 @@ const Dropdown: React.FC<DropdownProps> = ({
   const ref = React.useRef<HTMLDivElement | null>(null);
   const [isHidden, setHide] = React.useState<boolean>(true);
 
-  useHide(
-    ref,
-    React.useCallback(() => setHide(true), [setHide])
-  );
+  useHide(ref, () => setHide(true));
 
   const handleDropdown = React.useCallback(
     () => disabled || setHide((state) => !state),
@@ -49,7 +47,14 @@ const Dropdown: React.FC<DropdownProps> = ({
   );
 
   return (
-    <div className={styles.root} ref={ref}>
+    <div
+      className={joinClassName(
+        styles.root,
+        !isHidden && styles.root_open,
+        disabled && styles.root_disabled
+      )}
+      ref={ref}
+    >
       <Input
         className={styles.root__input}
         value={title}

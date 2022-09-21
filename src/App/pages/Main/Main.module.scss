@@ -1,27 +1,15 @@
 .root {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  row-gap: 16px;
-  padding: 20px 0;
-}
-
-.section {
-  min-width: 320px;
   max-width: 380px;
   width: 100%;
-  padding: 0 10px;
-}
+  margin: auto;
 
-.filters {
   display: flex;
   flex-direction: column;
-  row-gap: 10px;
+  row-gap: 16px;
+  padding: 20px 0;
 
-  label {
+  &__section {
     display: flex;
-    gap: 10px;
-    align-items: center;
+    justify-content: center;
   }
 }

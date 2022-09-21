@@ -1,0 +1,87 @@
+$themes: (
+  light: (
+    accent: hsl(0, 100%, 67%),
+    accentHover: hsl(0, 100%, 77%),
+    border: #d9d9d9,
+    text: #000,
+    hint: #7e7e7e,
+    background: #fff,
+    backgroundDisabled: #f9f9f9,
+    backgroundSelected: #eee,
+    backgroundHover: rgba(0, 0, 0, 0.1),
+    cardHover: #bbb4,
+    link: hsl(198, 21%, 34%),
+    linkHover: hsl(198, 71%, 44%),
+    starAccent: hsl(29, 100%, 60%),
+    error: hsl(0, 100%, 60%),
+    warn: hsl(29, 100%, 60%),
+    info: hsl(198, 100%, 60%),
+  ),
+  dark: (
+    accent: hsl(240, 100%, 75%),
+    accentHover: hsl(240, 100%, 65%),
+    border: #444,
+    text: #ccc,
+    hint: #777,
+    background: #222,
+    backgroundDisabled: #272727,
+    backgroundSelected: #333,
+    backgroundHover: rgba(255, 255, 255, 0.1),
+    cardHover: #0004,
+    link: hsl(145, 21%, 40%),
+    linkHover: hsl(145, 71%, 50%),
+    starAccent: hsl(45, 100%, 50%),
+    error: hsl(0, 100%, 45%),
+    warn: hsl(45, 100%, 40%),
+    info: hsl(145, 100%, 40%),
+  ),
+);
+
+@mixin themify($arg: theme) {
+  @each $theme, $map in $themes {
+    :global(.theme-#{$theme}) & {
+      $theme-map: () !global;
+
+      @each $key, $submap in $map {
+        $value: map-get(map-get($themes, $theme), '#{$key}');
+        $theme-map: map-merge(
+          $theme-map,
+          (
+            $key: $value,
+          )
+        ) !global;
+      }
+
+      @content;
+      $theme-map: null !global;
+    }
+  }
+}
+
+@function getValue($key) {
+  @return map-get($theme-map, $key);
+}
+
+@mixin color($value: 'text') {
+  @include themify {
+    color: getValue($value);
+  }
+}
+
+@mixin border($value: 'border') {
+  @include themify {
+    border-color: getValue($value);
+  }
+}
+
+@mixin background($value: 'background') {
+  @include themify {
+    background-color: getValue($value);
+  }
+}
+
+@mixin fill($value) {
+  @include themify {
+    fill: getValue($value);
+  }
+}

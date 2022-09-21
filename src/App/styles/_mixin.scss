@@ -1,5 +1,5 @@
 @use 'sass:list';
-@use './color';
+@use './themes' as t;
 
 @mixin square($size) {
   width: $size;
@@ -15,7 +15,9 @@
 }
 
 @mixin border($rounded: true) {
-  border: 1px solid color.$border;
+  @include t.themify {
+    border: 1px solid t.getValue('border');
+  }
 
   @if $rounded {
     @include rounded;
@@ -38,8 +40,16 @@
   bottom: list.nth($p2, 2);
 }
 
-@mixin loader-trans($props...) {
+@mixin trans($time, $props...) {
+  transition-duration: $time;
   transition-property: $props;
-  transition-duration: 500ms;
-  transition-timing-function: linear;
+  transition-timing-function: ease-in-out;
+}
+
+@mixin fast-trans($props...) {
+  @include trans(200ms, $props);
+}
+
+@mixin slow-trans($props...) {
+  @include trans(500ms, $props);
 }

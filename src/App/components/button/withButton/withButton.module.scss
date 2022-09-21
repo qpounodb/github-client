@@ -1,10 +1,23 @@
-@use '~styles/color';
 @use '~styles/size';
 @use '~styles/mixin';
+@use '~styles/themes' as t;
 
-@mixin color($color) {
-  fill: $color;
-  color: $color;
+@mixin color($value) {
+  @include t.themify {
+    fill: t.getValue($value);
+    color: t.getValue($value);
+  }
+}
+
+@mixin frame($value) {
+  @include t.themify {
+    box-shadow: inset 0 0 0 4px t.getValue($value);
+  }
+}
+
+@mixin secondary($value) {
+  @include color($value);
+  @include frame($value);
 }
 
 @mixin size($size) {
@@ -13,10 +26,6 @@
   max-width: calc($size * 5);
   padding: 0 calc($size / 2);
   font-size: calc($size / 2);
-}
-
-@mixin frame($color) {
-  box-shadow: inset 0 0 0 4px $color;
 }
 
 .root {
@@ -30,11 +39,16 @@
   @include mixin.no-border;
 
   cursor: pointer;
-  transition-property: color, fill, border-color, background-color, box-shadow;
-  transition-duration: 200ms;
+  @include mixin.fast-trans(
+    color,
+    fill,
+    border-color,
+    background-color,
+    box-shadow
+  );
 
   &:disabled {
-    cursor: not-allowed;
+    cursor: default;
   }
 
   &_size {
@@ -52,38 +66,34 @@
   }
 
   &_primary {
-    @include color(color.$background);
-    background-color: color.$accent;
+    @include color('background');
+    @include t.background('accent');
 
     &:hover {
-      background-color: color.$accent-hover;
+      @include t.background('accentHover');
     }
     &:disabled {
-      background-color: color.$border;
+      @include t.background('border');
     }
     &.root_loading {
-      background-color: color.$accent-hover;
+      @include t.background('accentHover');
     }
   }
 
   &_secondary {
-    @include color(color.$accent);
-    @include frame(color.$accent);
-    background-color: color.$background;
+    @include secondary('accent');
+    @include t.background;
 
     &:hover {
-      @include color(color.$accent-hover);
-      @include frame(color.$accent-hover);
+      @include secondary('accentHover');
     }
     &:disabled {
-      @include color(color.$border);
-      @include frame(color.$border);
+      @include secondary('border');
     }
     &.root_loading {
-      @include color(color.$accent-hover);
-      @include frame(color.$accent-hover);
+      @include secondary('accentHover');
       .root__loader {
-        color: color.$accent-hover;
+        @include t.color('accentHover');
       }
     }
   }

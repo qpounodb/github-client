@@ -1,4 +1,5 @@
 import { ComponentMeta, ComponentStory } from '@storybook/react';
+import React from 'react';
 
 import InputComponent from './Input';
 
@@ -12,7 +13,19 @@ const meta: Meta = {
 
 export default meta;
 
-export const Input: Story = (args) => <InputComponent {...args} />;
+export const Input: Story = (props) => {
+  const [value, setValue] = React.useState<string | undefined>(undefined);
+  return (
+    <div style={{ maxWidth: '400px' }}>
+      <InputComponent
+        {...props}
+        value={value}
+        onChange={setValue}
+        onSubmit={setValue}
+      />
+    </div>
+  );
+};
 
 Input.args = {
   disabled: false,

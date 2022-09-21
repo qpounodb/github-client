@@ -13,17 +13,20 @@ import { formatError } from '~utils';
 import { Level } from './Level';
 import type { Message } from './Message';
 
+export type NotifyStoreConfig = {
+  maxItems?: number;
+  autoRemoveTimeout?: number;
+};
+
+const AUTO_REMOVE_TIMEOUT = 10;
+const MAX_PRESERVED_MESSAGES = 0;
+
 type PrivateFields =
   | '_messages'
   | '_removing'
   | '_enqueue'
   | '_dequeue'
   | '_needDequeue';
-
-export type NotifyStoreConfig = {
-  maxItems?: number;
-  autoRemoveTimeout?: number;
-};
 
 export class NotifyStore {
   private _id = 0;
@@ -32,8 +35,8 @@ export class NotifyStore {
   private _config: Required<NotifyStoreConfig>;
 
   constructor({
-    maxItems = 0,
-    autoRemoveTimeout = 15,
+    maxItems = MAX_PRESERVED_MESSAGES,
+    autoRemoveTimeout = AUTO_REMOVE_TIMEOUT,
   }: NotifyStoreConfig = {}) {
     this._config = { maxItems, autoRemoveTimeout };
 

@@ -1,18 +1,43 @@
+@use '~styles/themes' as t;
+@use '~styles/mixin' as m;
+
 .root {
   display: flex;
+  gap: 5px;
+  justify-content: center;
   align-items: center;
   font-size: 20px;
+  font-family: monospace;
+  @include t.color;
 
   &__counter {
-    width: 150px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
     text-align: center;
-    vertical-align: middle;
   }
 
   &__input {
-    width: 60px;
-    height: 30px;
+    width: 70px;
     font-size: 20px;
-    text-align: right;
+    font-family: monospace;
+  }
+
+  &__icon {
+    display: block;
+    object-fit: cover;
+    @include m.square(25px);
+
+    &_first,
+    &_prev {
+      transform: rotate(-90deg);
+    }
+
+    &_last,
+    &_next {
+      transform: rotate(90deg);
+    }
   }
 }

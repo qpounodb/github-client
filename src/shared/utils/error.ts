@@ -1,6 +1,6 @@
-import axios, { AxiosError } from 'axios';
+import { AxiosError } from 'axios';
 
-import { formatCode } from './format';
+import { AppError } from '~errors';
 
 export const fail = (reason?: string): never => {
   throw new Error(reason);
@@ -9,31 +9,19 @@ export const fail = (reason?: string): never => {
 export const toError = (err: unknown): Error =>
   err instanceof Error ? err : new Error('Unknown error');
 
-export const formatAxiosError = ({
-  message,
-  status = '',
-  code = '0',
-  response,
-}: AxiosError): string => {
-  const title = `${status} [${code}]: ${message}`;
-
-  if (!response) {
-    return title;
+export const formatAxiosError = (error: AxiosError): string => {
+  // console.warn(error.toJSON());
+  const { response } = error;
+  if (response) {
+    return response.status >= 500 ? 'Server error' : 'Access error';
   }
-
-  const { data, headers } = response;
-
-  return `${title}\n\n${formatCode(data)}\n\n${formatCode(headers)}`;
+  return 'Network error';
 };
 
 export const formatError = (err: unknown): string => {
-  if (typeof err === 'string') return err;
-
-  const error = toError(err);
-
-  if (axios.isAxiosError(error)) {
-    return formatAxiosError(error);
+  if (err instanceof AppError) {
+    return err.message;
   }
-
-  return error.message;
+  // console.error(err);
+  return 'Internal error';
 };

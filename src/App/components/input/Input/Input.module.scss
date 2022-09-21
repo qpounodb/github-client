@@ -1,33 +1,38 @@
-@use '~styles/color';
 @use '~styles/size';
 @use '~styles/mixin';
+@use '~styles/themes' as t;
 
 @mixin size($h, $w, $p, $f) {
   height: calc(size.$height - $h);
-  max-width: calc(size.$input-width - $w);
   padding: $p;
   font-size: $f;
 }
 
 .root {
   width: 100%;
-  @include mixin.border;
   outline: none;
-  background-color: color.$background;
-  color: color.$text;
+  @include t.background;
+  @include t.color;
+  @include mixin.border;
+  @include mixin.fast-trans(border-color);
+
+  &:hover {
+    @include t.border('accentHover');
+  }
 
   &:focus {
-    border-color: color.$accent;
+    @include t.border('accent');
   }
 
   &:disabled {
-    background-color: color.$background-disabled;
-    color: color.$hint;
-    cursor: not-allowed;
+    @include t.background('backgroundDisabled');
+    @include t.color('hint');
+    cursor: default;
+    pointer-events: none;
   }
 
   &::placeholder {
-    color: color.$hint;
+    @include t.color('hint');
   }
 
   &_size {

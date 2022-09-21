@@ -1,5 +1,7 @@
 export type Styles = {
   root: string;
+  root__content: string;
+  root__content_loading: string;
   root__cover: string;
   root__cover_loading: string;
   root__message: string;

@@ -1,11 +1,15 @@
 import { observer } from 'mobx-react-lite';
 import React from 'react';
 
+import { ThemeProvider } from '~/shared/hooks/themeCtx';
+import { Footer } from '~components/Footer';
+import { Header } from '~components/Header';
 import { NotifyView } from '~components/NotifyView';
+import { useRoutes } from '~configs/routes';
+import { Block } from '~layout';
 import { rootStore, useQueryParamsStore } from '~stores/RootStore';
 
 import styles from './App.module.scss';
-import { useRoutes } from './configs/routes';
 
 const App: React.FC = () => {
   useQueryParamsStore();
@@ -18,13 +22,19 @@ const App: React.FC = () => {
   );
 
   return (
-    <div className={styles.app}>
-      {routes}
+    <ThemeProvider>
+      <div className={styles.root}>
+        <Header />
+        <Block>
+          <main className={styles.root__main}>{routes}</main>
+        </Block>
+        <Footer />
+      </div>
       <NotifyView
         messages={rootStore.notifyStore.messages}
         onClose={handleMessageClose}
       />
-    </div>
+    </ThemeProvider>
   );
 };
 

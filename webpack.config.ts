@@ -136,7 +136,7 @@ const getConfig = (env: Record<string, string>): Webpack.Configuration => {
           sideEffects: true,
         },
         {
-          test: /\.svg$/,
+          test: /\.svg$/i,
           issuer: extMap.script,
           use: '@svgr/webpack',
         },

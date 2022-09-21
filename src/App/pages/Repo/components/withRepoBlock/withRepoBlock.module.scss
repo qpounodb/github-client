@@ -1,10 +1,11 @@
-@use '~styles/color';
 @use '~styles/mixin';
+@use '~styles/themes' as t;
 
 .root {
   padding: 0 20px 20px;
-  background-color: color.$background;
   @include mixin.border;
+  @include t.background;
+  @include t.color;
 }
 
 .code {

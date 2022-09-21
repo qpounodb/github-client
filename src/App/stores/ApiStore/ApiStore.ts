@@ -1,7 +1,8 @@
+import axios from 'axios';
 import { action, computed, makeObservable, observable } from 'mobx';
 
 import type { ILocalStore, Nullable } from '~types';
-import { isCanceledError } from '~utils';
+import { formatAxiosError, isCanceledError } from '~utils';
 
 import { rootStore } from '../RootStore';
 
@@ -73,13 +74,13 @@ export class ApiStore implements ILocalStore {
 
   private _end(err?: unknown): void {
     if (this.isIdle) return;
-    if (!err) {
+
+    if (err) {
+      this._state = ApiStoreState.ERROR;
+      this._handleError(err);
+    } else {
       this._state = ApiStoreState.SUCCESS;
-      return;
     }
-    this._state = ApiStoreState.ERROR;
-    if (isCanceledError(err)) return;
-    rootStore.notifyStore.error(err);
   }
 
   async run<T>(
@@ -103,5 +104,16 @@ export class ApiStore implements ILocalStore {
     }
 
     return data;
+  }
+
+  private _handleError(err?: unknown): void {
+    if (isCanceledError(err)) return;
+
+    if (axios.isAxiosError(err)) {
+      rootStore.notifyStore.warn(formatAxiosError(err));
+      return;
+    }
+
+    rootStore.notifyStore.error(err);
   }
 }

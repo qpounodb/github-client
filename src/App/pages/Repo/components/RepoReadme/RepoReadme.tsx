@@ -1,28 +1,21 @@
-import React from 'react';
-import { Converter } from 'showdown';
-
-import { RepoReadmeModel } from '~models/github';
-
 import { RepoBlock, RepoBlockProps, withRepoBlock } from '../withRepoBlock';
 
 import styles from './RepoReadme.module.scss';
 
-const converter = new Converter();
-
-const base64MarkdownToHTML = (str: string) => {
-  return converter.makeHtml(atob(str));
-};
-
-export const RepoReadme: RepoBlock<RepoReadmeModel> = ({
-  data: { content },
-}: RepoBlockProps<RepoReadmeModel>) => {
-  const __html = React.useMemo(() => base64MarkdownToHTML(content), [content]);
+export const RepoReadme: RepoBlock<string> = ({
+  data,
+  className,
+}: RepoBlockProps<string>) => {
+  if (!data || typeof data !== 'string') return null;
 
   return (
-    <>
+    <div className={className}>
       <h2>README.md</h2>
-      <div className={styles.content} dangerouslySetInnerHTML={{ __html }} />
-    </>
+      <div
+        className={styles.content}
+        dangerouslySetInnerHTML={{ __html: data }}
+      />
+    </div>
   );
 };
 

@@ -11,11 +11,13 @@
       "~styles/*": ["App/styles/*"],
       "~constants": ["App/constants"],
       "~components/*": ["App/components/*"],
+      "~layout": ["App/layout"],
       "~pages": ["App/pages"],
       "~models": ["App/models"],
       "~models/*": ["App/models/*"],
       "~stores": ["App/stores"],
       "~stores/*": ["App/stores/*"],
+      "~errors": ["App/errors"],
       "~hooks": ["shared/hooks"],
       "~utils": ["shared/utils"],
       "~types": ["shared/types"]

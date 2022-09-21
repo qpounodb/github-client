@@ -41,14 +41,16 @@ export const Dropdown: Story = (props) => {
   }, [selected]);
 
   return (
-    <DropdownComponent
-      {...props}
-      options={options}
-      isSelected={isSelected}
-      title={title}
-      placeholder={'Выберите числа'}
-      onChange={handleChange}
-    />
+    <div style={{ maxWidth: '300px' }}>
+      <DropdownComponent
+        {...props}
+        options={options}
+        isSelected={isSelected}
+        title={title}
+        placeholder={'Выберите числа'}
+        onChange={handleChange}
+      />
+    </div>
   );
 };
 

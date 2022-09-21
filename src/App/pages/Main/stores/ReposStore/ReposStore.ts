@@ -92,7 +92,7 @@ export class ReposStore implements ILocalStore {
   ): void {
     this._apiData = data;
 
-    if (this._apiStore.isError) {
+    if (this._apiStore.isError || this._apiStore.isIdle) {
       return;
     }
 

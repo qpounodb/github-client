@@ -1,0 +1,43 @@
+@use '~styles/mixin' as m;
+@use '~styles/themes' as t;
+
+.block {
+  @include t.background('accent');
+}
+
+.root {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
+  padding: 10px 0;
+
+  &__logo {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 20px;
+    font-weight: bold;
+    text-transform: capitalize;
+    @include t.color('background');
+    user-select: none;
+    cursor: default;
+
+    svg {
+      flex-shrink: 0;
+      display: block;
+      @include m.square(40px);
+      @include t.fill('background');
+      transform: rotate(15deg);
+      @include m.fast-trans(transform);
+    }
+
+    &:hover svg {
+      transform: rotate(0deg);
+    }
+  }
+
+  &__switch {
+    justify-self: right;
+  }
+}

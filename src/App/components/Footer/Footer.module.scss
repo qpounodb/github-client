@@ -1,0 +1,45 @@
+@use '~styles/mixin' as m;
+@use '~styles/themes' as t;
+
+.block {
+  @include t.background('backgroundSelected');
+}
+
+.root {
+  @include t.color('hint');
+  font-family: monospace;
+
+  display: flex;
+  gap: 20px;
+  padding: 10px 0;
+
+  &__item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+
+    &:last-child {
+      margin-left: auto;
+    }
+
+    time {
+      user-select: none;
+      font-size: 16px;
+    }
+  }
+
+  &__link {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+  }
+
+  &__logo {
+    display: block;
+    @include m.square(25px);
+
+    &_school {
+      @include m.square(40px);
+    }
+  }
+}

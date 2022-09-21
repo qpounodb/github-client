@@ -8,22 +8,42 @@ type InputHTMLProps = React.InputHTMLAttributes<HTMLInputElement>;
 type InputChangeHandler = React.ChangeEventHandler<HTMLInputElement>;
 
 export type CheckBoxProps = Omit<InputHTMLProps, 'onChange'> & {
+  label?: string;
   onChange: (value: boolean) => void;
 };
 
-const CheckBox: React.FC<CheckBoxProps> = ({ onChange, ...rest }) => {
-  const handler: InputChangeHandler = React.useCallback(
+const CheckBox: React.FC<CheckBoxProps> = ({
+  label,
+  onChange,
+  disabled,
+  ...rest
+}) => {
+  const refInput = React.useRef<HTMLInputElement | null>(null);
+
+  const changeHandler: InputChangeHandler = React.useCallback(
     (e) => onChange(e.currentTarget.checked),
     [onChange]
   );
 
   return (
-    <input
-      {...rest}
-      type="checkbox"
-      className={joinClassName(style.root, rest.className)}
-      onChange={handler}
-    />
+    <label
+      className={joinClassName(
+        style.root,
+        disabled && style.root_disabled,
+        rest.className
+      )}
+      onMouseDown={(e) => e.preventDefault()}
+    >
+      <input
+        {...rest}
+        ref={refInput}
+        type="checkbox"
+        className={joinClassName(style.root__checkbox)}
+        disabled={disabled}
+        onChange={changeHandler}
+      />
+      {label}
+    </label>
   );
 };
 

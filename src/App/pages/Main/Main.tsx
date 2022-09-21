@@ -3,16 +3,15 @@ import { observer } from 'mobx-react-lite';
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 
-import { CheckBox } from '~components/CheckBox';
-import { Option, Select } from '~components/dropdown';
+import { SortSelect } from '~/App/components/SortSelect';
+import { Option } from '~components/dropdown';
 import { Pagination } from '~components/Pagination';
 import { Search } from '~components/Search';
 import { WithLoader } from '~components/WithLoader';
 import { useLocalStore } from '~hooks';
 import { RepoModel } from '~models/github';
-import { OrderDir, SortKind } from '~models/queryParams';
+import { defaultQueryParamsApp, OrderDir, SortKind } from '~models/queryParams';
 import { rootStore } from '~stores/RootStore';
-import { joinClassName } from '~utils';
 
 import { GitRepoList } from './components/GitRepoList';
 import styles from './Main.module.scss';
@@ -27,18 +26,14 @@ const SORT_OPTIONS: Option[] = Object.values(SortKind).map((value) => ({
 
 const Main: React.FC = () => {
   const { queryParamsStore } = rootStore;
-  const store = useLocalStore(() => new ReposStore());
   const navigate = useNavigate();
   const [input, setInput] = React.useState(queryParamsStore.orgName);
+
+  const store = useLocalStore(React.useCallback(() => new ReposStore(), []));
 
   React.useEffect(() => {
     runInAction(() => setInput(queryParamsStore.orgName));
   }, [queryParamsStore.orgName]);
-
-  const selectedSort = React.useMemo(
-    () => SORT_OPTIONS.find((o) => o.key === queryParamsStore.sort),
-    [queryParamsStore.sort]
-  );
 
   const submitName = React.useCallback(
     (name: string) => queryParamsStore.setOrgName(name),
@@ -68,33 +63,38 @@ const Main: React.FC = () => {
     [navigate]
   );
 
+  const selectedSort = React.useMemo(() => {
+    const sort = queryParamsStore.sort ?? defaultQueryParamsApp.sort;
+    return SORT_OPTIONS.find((o) => o.key === sort);
+  }, [queryParamsStore.sort]);
+
+  const isAscOrder: boolean = React.useMemo(() => {
+    const order = queryParamsStore.order ?? defaultQueryParamsApp.order;
+    return order === OrderDir.asc;
+  }, [queryParamsStore.order]);
+
   return (
     <div className={styles.root}>
-      <div className={styles.section}>
+      <div>
         <Search
           value={input}
           placeholder={SEARCH_PLACEHOLDER}
           onChange={setInput}
           onSubmit={submitName}
-          loading={store?.isLoading}
+          disabled={!input || store?.isLoading}
         />
       </div>
-      <div className={joinClassName(styles.section, styles.filters)}>
-        <Select
+      <div>
+        <SortSelect
           options={SORT_OPTIONS}
           selected={selectedSort}
-          onChange={submitSort}
-          placeholder="Set sort by..."
+          asc={isAscOrder}
+          onSortChange={submitSort}
+          onOrderChange={submitOrder}
+          disabled={store?.isLoading}
         />
-        <label>
-          <CheckBox
-            checked={queryParamsStore.order === 'asc'}
-            onChange={submitOrder}
-          />
-          Asc order
-        </label>
       </div>
-      <div className={styles.section}>
+      <div>
         <WithLoader loading={store?.isLoading}>
           <GitRepoList
             data={store?.data}
@@ -102,12 +102,12 @@ const Main: React.FC = () => {
           />
         </WithLoader>
       </div>
-      <div>
+      <div className={styles.root__section}>
         <Pagination
           onSubmit={submitPage}
           page={queryParamsStore.page}
           count={store?.pagesCount ?? 0}
-          loading={store?.isLoading}
+          disabled={store?.isLoading}
         />
       </div>
     </div>

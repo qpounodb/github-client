@@ -1,4 +1,4 @@
-@use '~styles/color';
+@use '~styles/themes' as t;
 
 .root {
   width: 300px;
@@ -6,10 +6,10 @@
   grid-template-columns: auto 1fr;
   padding: 5px;
   overflow: hidden;
-  background-color: color.$background-disabled;
   border-radius: 25px;
   gap: 20px;
   align-items: center;
+  @include t.background('backgroundDisabled');
 }
 
 .avatar {
@@ -30,7 +30,7 @@
 
 .name {
   font-size: 12px;
-  color: color.$hint;
+  @include t.color('hint');
 }
 
 .commits {

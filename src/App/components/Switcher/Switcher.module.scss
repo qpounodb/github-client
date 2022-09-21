@@ -1,0 +1,94 @@
+@use '~styles/mixin' as m;
+@use '~styles/themes' as t;
+
+.root {
+  $w: 100px;
+  $h: 40px;
+  width: $w;
+  height: $h;
+  @include t.background;
+  @include t.themify {
+    box-shadow: 0 0 0 1px t.getValue('accent');
+  }
+  border-radius: $h * 2;
+  overflow: hidden;
+  cursor: pointer;
+
+  &:hover &__handle {
+    animation: 1s infinite linear pulse;
+  }
+
+  &:hover &__label {
+    @include t.color('accentHover');
+  }
+
+  &__grid {
+    height: 100%;
+    display: grid;
+    align-items: center;
+
+    $col: $w - $h;
+    grid-template-columns: $col $h $col;
+
+    @include m.fast-trans(transform);
+
+    &_B {
+      transform: translateX(0px - $col);
+    }
+  }
+
+  &__handle {
+    $size: $h - 8px;
+
+    justify-self: center;
+    @include m.square($size);
+    // @include t.background('accent');
+    @include t.themify {
+      box-shadow: inset 0 0 0 1px t.getValue('accent'),
+        inset 0 0 5px 5px t.getValue('accent');
+    }
+    border-radius: 50%;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    svg {
+      display: block;
+      @include m.square($size - 6px);
+      @include t.fill('background');
+      pointer-events: none;
+    }
+  }
+
+  &__label {
+    text-transform: uppercase;
+    font-weight: bold;
+    @include t.color('accent');
+    @include m.fast-trans(color);
+
+    &_A {
+      justify-self: left;
+      padding-left: 10px;
+    }
+    &_B {
+      justify-self: right;
+      padding-right: 10px;
+    }
+  }
+}
+
+@keyframes pulse {
+  0% {
+    transform: rotate(0deg);
+  }
+  25% {
+    transform: rotate(-10deg);
+  }
+  75% {
+    transform: rotate(10deg);
+  }
+  100% {
+    transform: rotate(0deg);
+  }
+}

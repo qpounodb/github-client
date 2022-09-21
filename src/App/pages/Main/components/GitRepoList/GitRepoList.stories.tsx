@@ -16,7 +16,9 @@ const meta: Meta = {
 export default meta;
 
 export const GitRepoList: Story = (args) => (
-  <GitRepoListComponent {...args} getCardClickHandler={() => () => null} />
+  <div style={{ maxWidth: '400px' }}>
+    <GitRepoListComponent {...args} getCardClickHandler={() => () => null} />
+  </div>
 );
 
 const list = Array.from({ length: 5 }, (_, id) => ({ ...data, id }));

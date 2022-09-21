@@ -14,6 +14,7 @@ const config = {
     'plugin:import/recommended',
     'plugin:import/typescript',
     'plugin:react/recommended',
+    'plugin:react-hooks/recommended',
     'plugin:react/jsx-runtime',
     'plugin:@typescript-eslint/recommended',
     'plugin:@typescript-eslint/recommended-requiring-type-checking',
@@ -54,6 +55,7 @@ const config = {
   },
 
   rules: {
+    'no-console': 'warn',
     '@typescript-eslint/no-unused-vars': 'error',
     'import/no-named-as-default-member': 'off',
     'import/newline-after-import': ['error', { count: 1 }],

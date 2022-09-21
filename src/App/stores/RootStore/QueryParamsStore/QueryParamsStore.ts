@@ -86,13 +86,13 @@ export class QueryParamsStore implements QueryParamsApp {
     });
   }
 
+  setPageNum(page?: number): void {
+    this._page = page || undefined;
+  }
+
   setOrgName(name?: string): void {
     this._orgName = name || undefined;
     this._page = 1;
-  }
-
-  setPageNum(page?: number): void {
-    this._page = page || undefined;
   }
 
   setSort(sort?: string): void {
@@ -102,6 +102,7 @@ export class QueryParamsStore implements QueryParamsApp {
 
   setOrder(order?: Order): void {
     this._order = order;
+    this._page = 1;
   }
 
   setParams(params: URLSearchParams): void {

@@ -1,68 +1,19 @@
 import React from 'react';
 
-import { Size } from '~constants';
 import { joinClassName } from '~utils';
 
 import { Input, InputProps } from '../Input';
 
 import styles from './InputNumber.module.scss';
 
-export type InputNumberProps = Omit<
-  InputProps,
-  'value' | 'onChange' | 'onSubmit'
-> & {
-  value: number;
-  onChange: (value: number) => void;
-  onSubmit?: (value: number) => void;
-};
+export type InputNumberProps = InputProps;
 
-const InputNumber: React.FC<InputNumberProps> = ({
-  value,
-  onChange,
-  onSubmit,
-  size = Size.l,
-  ...rest
-}) => {
-  const handlerChange = React.useCallback(
-    (value: string) => {
-      onChange(Number(value));
-    },
-    [onChange]
-  );
-
-  const handlerSubmit = React.useCallback(
-    (value: string) => {
-      if (!onSubmit) return;
-      const x = Number(value);
-      const min = Number(rest.min);
-      const max = Number(rest.max);
-
-      if (!isNaN(min) && min > x) {
-        onSubmit(min);
-        return;
-      }
-      if (!isNaN(max) && max < x) {
-        onSubmit(max);
-        return;
-      }
-      onSubmit(x);
-    },
-    [onSubmit, rest.max, rest.min]
-  );
-
+const InputNumber: React.FC<InputNumberProps> = (props) => {
   return (
     <Input
-      {...rest}
-      size={size}
-      className={joinClassName(
-        styles.root,
-        styles[`root_size-${size}`],
-        rest.className
-      )}
+      {...props}
+      className={joinClassName(styles.root, props.className)}
       type="number"
-      value={String(value)}
-      onChange={handlerChange}
-      onSubmit={handlerSubmit}
     />
   );
 };

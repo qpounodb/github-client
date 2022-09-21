@@ -2,6 +2,10 @@
 /// <reference types="react" />
 /// <reference types="react-dom" />
 
+type SvgComponent = React.FC<
+  React.SVGProps<SVGSVGElement> & { title?: string }
+>;
+
 declare namespace NodeJS {
   interface ProcessEnv {
     readonly NODE_ENV: 'development' | 'production' | 'test';
@@ -25,13 +29,13 @@ declare module '*.module.sass' {
 }
 
 declare module '*.svg' {
-  import * as React from 'react';
-
-  const SvgComponent: React.FunctionComponent<
-    React.SVGProps<SVGSVGElement> & { title?: string }
-  >;
-
+  const SvgComponent: SvgComponent;
   export default SvgComponent;
+}
+
+declare module '*.html' {
+  const src: string;
+  export default src;
 }
 
 declare module '*.avif' {

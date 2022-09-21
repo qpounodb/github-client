@@ -1,7 +1,6 @@
 export type Styles = {
-  filters: string;
   root: string;
-  section: string;
+  root__section: string;
 };
 
 export type ClassNames = keyof Styles;

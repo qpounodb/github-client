@@ -1,4 +1,4 @@
-@use '~styles/color';
+@use '~styles/themes' as t;
 
 .icon {
   width: 16px;
@@ -6,21 +6,21 @@
 }
 
 .added {
-  fill: color.$star-accent;
+  @include t.fill('starAccent');
 }
 
 .modified {
-  fill: color.$link-hover;
+  @include t.fill('linkHover');
 }
 
 .removed {
-  fill: color.$accent;
+  @include t.fill('accent');
 }
 
 .renamed {
-  fill: color.$accent-hover;
+  @include t.fill('accentHover');
 }
 
 .unknown {
-  fill: color.$background-selected;
+  @include t.fill('backgroundSelected');
 }

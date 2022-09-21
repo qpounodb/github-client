@@ -45,8 +45,14 @@ export class GithubRepoApi {
     route: RepoApiRoute<T, R>,
     signal: AbortSignal
   ): Promise<null | R> {
-    const { normalize, url, params } = route;
-    const cfg: AxiosRequestConfig = { method: 'GET', url, params, signal };
+    const { normalize, url, params, headers } = route;
+    const cfg: AxiosRequestConfig = {
+      method: 'GET',
+      url,
+      params,
+      headers,
+      signal,
+    };
     const { data } = await this._api.request<T | null>(cfg);
     return data && normalize(data);
   }
@@ -75,7 +81,7 @@ export class GithubRepoApi {
     return this._apiGet(repoApiEndpoints.languages, signal);
   }
 
-  getReadme(signal: AbortSignal): Promise<null | Github.RepoReadmeModel> {
+  getReadme(signal: AbortSignal): Promise<null | string> {
     return this._apiGet(repoApiEndpoints.readme, signal);
   }
 

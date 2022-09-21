@@ -1,17 +1,34 @@
 @use '~styles/size';
-@use '~styles/color';
+@use '~styles/mixin';
+@use '~styles/themes' as t;
 
 .root {
+  position: relative;
   height: size.$height;
 
   display: flex;
   align-items: center;
   padding: 0 12px;
 
-  background-color: color.$background;
   user-select: none;
+  cursor: pointer;
 
-  &_selected {
-    background-color: color.$background-selected;
+  background-color: transparent;
+  @include mixin.fast-trans(background-color);
+
+  &:hover {
+    @include t.background('backgroundHover');
+  }
+
+  &::after {
+    content: '';
+    @include mixin.inset;
+    z-index: -1;
+    @include t.background;
+    @include mixin.fast-trans(background-color);
+  }
+
+  &_selected::after {
+    @include t.background('backgroundSelected');
   }
 }

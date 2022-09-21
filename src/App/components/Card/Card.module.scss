@@ -1,35 +1,37 @@
-@use '~styles/color';
 @use '~styles/size';
 @use '~styles/mixin';
+@use '~styles/themes' as t;
 
 .root {
-  max-width: 360px;
+  min-width: 250px;
   width: 100%;
-  height: calc(size.$height * 2);
   @include mixin.border;
-  background: color.$background;
+  @include t.background;
 
   display: flex;
   align-items: center;
   column-gap: 12px;
-  padding: 0 12px;
+  padding: 12px;
+
+  @include mixin.fast-trans(box-shadow);
 
   &:hover {
-    box-shadow: 0px 2px 6px color.$card-hover;
-  }
-
-  &__side,
-  &__placeholder,
-  &__avatar {
-    @include mixin.square(size.$card-avatar);
+    @include t.themify {
+      box-shadow: 0px 2px 6px t.getValue('cardHover');
+    }
   }
 
   &__side {
     position: relative;
     flex-shrink: 0;
     @include mixin.circle;
-    color: color.$background;
     overflow: hidden;
+    @include t.color('background');
+  }
+
+  &__placeholder,
+  &__avatar {
+    @include mixin.square(size.$card-avatar);
   }
 
   &__placeholder {
@@ -39,8 +41,9 @@
     place-content: center;
     font-size: calc(size.$card-avatar / 2);
     font-weight: bold;
-    color: color.$background;
-    background-color: color.$accent;
+    @include t.color('background');
+    @include t.background('accent');
+    @include mixin.slow-trans(opacity);
   }
 
   &__avatar {
@@ -50,15 +53,16 @@
     object-fit: cover;
     object-position: 50% 50%;
     font-size: 0;
-    transition: opacity 500ms ease;
+    @include mixin.slow-trans(opacity);
   }
 
   &__main {
+    width: 100%;
     display: flex;
     flex-direction: column;
-    row-gap: 4px;
+    row-gap: 6px;
     overflow: hidden;
-    color: color.$hint;
+    @include t.color('hint');
   }
 
   &__item {
@@ -70,7 +74,7 @@
   &__title {
     font-size: 16px;
     font-weight: bold;
-    color: color.$text;
+    @include t.color;
   }
 }
 

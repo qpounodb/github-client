@@ -1,4 +1,18 @@
-.app {
-  height: 100vh;
-  margin: 0 auto;
+@use '~styles/themes' as t;
+
+body {
+  @include t.background;
+  @include t.color;
+}
+
+.root {
+  min-height: 100vh;
+  height: 100%;
+
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+
+  &__main {
+    height: 100%;
+  }
 }
