@@ -39,14 +39,14 @@ export const Repo: React.FC = () => {
       <nav className={styles.root__nav}>
         <Button onClick={handleBack}>Back</Button>
       </nav>
-      <WithLoader loading={store?.isLoading}>
+      <WithLoader loading={store.isLoading}>
         <div className={styles.root__content}>
-          <RepoInfo data={store?.dataMap?.info} />
-          <RepoBranches data={store?.dataMap?.branches} />
-          <RepoLangs data={store?.dataMap?.languages} />
-          <RepoContributors data={store?.dataMap?.contributors} />
-          <RepoCommit data={store?.dataMap?.commit} />
-          <RepoReadme data={store?.dataMap?.readme} />
+          <RepoInfo data={store.dataMap?.info} />
+          <RepoBranches data={store.dataMap?.branches} />
+          <RepoLangs data={store.dataMap?.languages} />
+          <RepoContributors data={store.dataMap?.contributors} />
+          <RepoCommit data={store.dataMap?.commit} />
+          <RepoReadme data={store.dataMap?.readme} />
         </div>
       </WithLoader>
     </div>

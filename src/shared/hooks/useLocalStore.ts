@@ -4,20 +4,17 @@ import type { ILocalStore } from '~types';
 
 // Support Reusable State in Effects
 // https://github.com/reactwg/react-18/discussions/18
-export const useLocalStore = <T extends ILocalStore>(
-  create: () => T
-): T | null => {
+
+export const useLocalStore = <T extends ILocalStore>(create: () => T): T => {
   const ref = React.useRef<null | T>(null);
+  ref.current ??= create();
 
   React.useEffect(() => {
-    // Initialize an imperative API inside of the same effect that destroys it.
-    // This way it will be recreated if the component gets remounted.
-    const store = create();
-    store.init();
-    ref.current = store;
+    ref.current ??= create();
+    ref.current.init();
 
     return () => {
-      store.destroy();
+      ref.current?.destroy();
       ref.current = null;
     };
   }, [create]);

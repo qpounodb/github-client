@@ -81,7 +81,7 @@ const Main: React.FC = () => {
           placeholder={SEARCH_PLACEHOLDER}
           onChange={setInput}
           onSubmit={submitName}
-          disabled={!input || store?.isLoading}
+          disabled={!input || store.isLoading}
         />
       </div>
       <div>
@@ -91,13 +91,13 @@ const Main: React.FC = () => {
           asc={isAscOrder}
           onSortChange={submitSort}
           onOrderChange={submitOrder}
-          disabled={store?.isLoading}
+          disabled={store.isLoading}
         />
       </div>
       <div>
-        <WithLoader loading={store?.isLoading}>
+        <WithLoader loading={store.isLoading}>
           <GitRepoList
-            data={store?.data}
+            data={store.data}
             getCardClickHandler={getCardClickHandler}
           />
         </WithLoader>
@@ -106,8 +106,8 @@ const Main: React.FC = () => {
         <Pagination
           onSubmit={submitPage}
           page={queryParamsStore.page}
-          count={store?.pagesCount ?? 0}
-          disabled={store?.isLoading}
+          count={store.pagesCount ?? 0}
+          disabled={store.isLoading}
         />
       </div>
     </div>
