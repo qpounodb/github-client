@@ -80,6 +80,16 @@
 [deploys-sb]: https://app.netlify.com/sites/qpundb-storybook/deploys
 [deploys-sb-status]: https://api.netlify.com/api/v1/badges/abd53848-3682-4eea-917e-a6bea61371a5/deploy-status
 
+## <img src="https://slides.com/favicon.ico" height="32" align="top"> Презентация
+
+|                                        |
+| -------------------------------------- |
+| [![image][slides-screen]][slides-link] |
+|                                        |
+
+[slides-screen]: https://user-images.githubusercontent.com/110281170/191819426-d8ec1ce0-7751-47c6-9909-8f8ea00bb2b6.png
+[slides-link]: https://slides.com/qpundb/github-client/fullscreen
+
 ## <img src="https://cdn.svgporn.com/logos/git-icon.svg" height="32" align="top"> Подготовка к работе с проектом:
 
 - ```shell
